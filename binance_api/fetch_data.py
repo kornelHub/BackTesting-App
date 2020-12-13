@@ -1,6 +1,6 @@
 from binance.client import Client
 from binance.helpers import date_to_milliseconds
-import keys
+from binance_api import keys
 import helpers
 import pandas as pd
 import os

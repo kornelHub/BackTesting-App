@@ -1,6 +1,0 @@
-1602021600000
-1602194400000
-BTCUSDT
-
-
-pyuic5 -x mainWindow.ui -o mainWindow.py

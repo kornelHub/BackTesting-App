@@ -1,11 +1,12 @@
 from main import *
+from binance_api import fetch_data
+import plot_data
 
-class UIFunctions(MainWindow):
+class UIFunctions(MainWidget):
     def toggleMenu(self, maxWidth, enable):
         if enable:
-
             # GET WIDTH
-            width = self.ui.frame_left_menu_container.width()
+            width = self.frame_left_menu_container.width()
             maxExtend = maxWidth
             standard = 70
 
@@ -16,7 +17,7 @@ class UIFunctions(MainWindow):
                 widthExtended = standard
 
             # ANIMATION
-            self.animation = QPropertyAnimation(self.ui.frame_left_menu_container, b"minimumWidth")
+            self.animation = QtCore.QPropertyAnimation(self.frame_left_menu_container, b"minimumWidth")
             self.animation.setDuration(400)
             self.animation.setStartValue(width)
             self.animation.setEndValue(widthExtended)

@@ -1,5 +1,4 @@
-from binance_api import fetch_data
-import plot_data
+import calculate_indicators
+import pandas as pd
 
-# fetch_data.create_csv_with_ohlcv_data(start_time=1601568000000, end_time=1602432180000, interval='3m', currency_pair_symbol='LTCUSDT')
-# simulation.calculate_simulation()
+print(calculate_indicators.weighted_moving_average(pd.read_csv("data/data.csv", sep=';'), 2, 'Open'))
