@@ -125,7 +125,7 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;
 border: 0px sold;</string>
             </property>
             <property name="text">
-             <string>TOGGLE</string>
+             <string/>
             </property>
            </widget>
           </item>
