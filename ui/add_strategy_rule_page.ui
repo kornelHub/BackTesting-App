@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>867</width>
-    <height>556</height>
+    <width>880</width>
+    <height>896</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -20,10 +20,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(45, 45, 45);
- border: 2px solid rgb(255, 255, 255);
-
-</string>
+   <string notr="true">background-color: rgb(45, 45, 45);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -68,8 +65,12 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(255, 255, 255);
-font: 30pt &quot;MS Shell Dlg 2&quot;;</string>
+      <string notr="true">QLabel {
+	background-color: rgb(70,70,70);
+	font: 30pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
+	border-radius:10px;
+}</string>
      </property>
      <property name="text">
       <string>TextLabel</string>
@@ -87,7 +88,26 @@ font: 30pt &quot;MS Shell Dlg 2&quot;;</string>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(55,55,55);
+border-radius: 10px;</string>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QWidget" name="widget_2" native="true">
         <property name="sizePolicy">
@@ -119,7 +139,7 @@ font: 30pt &quot;MS Shell Dlg 2&quot;;</string>
           <number>0</number>
          </property>
          <item>
-          <widget class="QComboBox" name="comboBox">
+          <widget class="QComboBox" name="p3_firstIndicator_comboBox">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -128,20 +148,25 @@ font: 30pt &quot;MS Shell Dlg 2&quot;;</string>
            </property>
            <property name="styleSheet">
             <string notr="true">QComboBox {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
-	border: 2px solid rgb(45, 45, 45);
-	border-radius: 20px;
-	color: rgb(255, 255, 255);
-	padding-left: 20px;
-	padding-right: 20px;
-	background-color: rgb(60, 60, 60);
+        font: 8pt &quot;MS Shell Dlg 2&quot;;
+        border: 2px solid rgb(55,55,55);
+        border-radius: 10px;
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
 }
+
+QComboBox:hover {
+        border: 2px solid rgb(90,90,90);
+}
+
 QComboBox QAbstractItemView {
-	border: 2pxsolid rgb(45, 45, 45);
+     border: 2pxsolid rgb(45, 45, 45);
     selection-background-color:rgb(45, 45, 45);
     color: #FFF
                   }
-S</string>
+</string>
            </property>
            <item>
             <property name="text">
@@ -236,29 +261,29 @@ S</string>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit">
+          <widget class="QLineEdit" name="p3_firstIndicatorOptions_lineEdit">
            <property name="styleSheet">
             <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
-	border: 2px solid rgb(45, 45, 45);
-	border-radius: 20px;
-	color: rgb(255, 255, 255);
-	padding-left: 20px;
-	padding-right: 20px;
-	background-color: rgb(60, 60, 60);
+        font: 8pt &quot;MS Shell Dlg 2&quot;;
+        border-radius: 10px;
+        border: 2px solid rgb(55,55,55);
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
 }
 QLineEdit:hover {
-	border: 2px solid rgb(75, 75, 75);
+        border: 2px solid rgb(85,85,85);
 }
 QLineEdit:focus{
-	border: 2px solid rgb(85, 170, 255);
+        border: 2px solid rgb(85, 170, 255);
 }
 </string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_2">
+          <widget class="QComboBox" name="p3_mark_comboBox">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -267,20 +292,25 @@ QLineEdit:focus{
            </property>
            <property name="styleSheet">
             <string notr="true">QComboBox {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
-	border: 2px solid rgb(45, 45, 45);
-	border-radius: 20px;
-	color: rgb(255, 255, 255);
-	padding-left: 20px;
-	padding-right: 20px;
-	background-color: rgb(60, 60, 60);
+        font: 8pt &quot;MS Shell Dlg 2&quot;;
+        border: 2px solid rgb(55,55,55);
+        border-radius: 10px;
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
 }
+
+QComboBox:hover {
+        border: 2px solid rgb(90,90,90);
+}
+
 QComboBox QAbstractItemView {
-	border: 2pxsolid rgb(45, 45, 45);
+     border: 2pxsolid rgb(45, 45, 45);
     selection-background-color:rgb(45, 45, 45);
     color: #FFF
                   }
-S</string>
+</string>
            </property>
            <item>
             <property name="text">
@@ -310,23 +340,28 @@ S</string>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox_3">
+          <widget class="QComboBox" name="p3_sedondIndicator_comboBox">
            <property name="styleSheet">
             <string notr="true">QComboBox {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
-	border: 2px solid rgb(45, 45, 45);
-	border-radius: 20px;
-	color: rgb(255, 255, 255);
-	padding-left: 20px;
-	padding-right: 20px;
-	background-color: rgb(60, 60, 60);
+        font: 8pt &quot;MS Shell Dlg 2&quot;;
+        border: 2px solid rgb(55,55,55);
+        border-radius: 10px;
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
 }
+
+QComboBox:hover {
+        border: 2px solid rgb(90,90,90);
+}
+
 QComboBox QAbstractItemView {
-	border: 2pxsolid rgb(45, 45, 45);
+     border: 2pxsolid rgb(45, 45, 45);
     selection-background-color:rgb(45, 45, 45);
     color: #FFF
                   }
-S</string>
+</string>
            </property>
            <item>
             <property name="text">
@@ -421,22 +456,22 @@ S</string>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_2">
+          <widget class="QLineEdit" name="p3_secondIndicatorOptions_lineEdit">
            <property name="styleSheet">
             <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
-	border: 2px solid rgb(45, 45, 45);
-	border-radius: 20px;
-	color: rgb(255, 255, 255);
-	padding-left: 20px;
-	padding-right: 20px;
-	background-color: rgb(60, 60, 60);
+        font: 8pt &quot;MS Shell Dlg 2&quot;;
+        border-radius: 10px;
+        border: 2px solid rgb(55,55,55);
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
 }
 QLineEdit:hover {
-	border: 2px solid rgb(75, 75, 75);
+        border: 2px solid rgb(85,85,85);
 }
 QLineEdit:focus{
-	border: 2px solid rgb(85, 170, 255);
+        border: 2px solid rgb(85, 170, 255);
 }
 </string>
            </property>
@@ -453,6 +488,25 @@ QLineEdit:focus{
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QTreeWidget" name="treeWidget">
+           <property name="styleSheet">
+            <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(55,55,55);
+color: rgb(255, 255, 255);</string>
+           </property>
+           <column>
+            <property name="text">
+             <string notr="true">1</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>
@@ -463,6 +517,46 @@ QLineEdit:focus{
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <widget class="QPushButton" name="p3_cancel_button">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>130</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(85, 170, 255);
+border: 0px sold;
+border-radius: 10px;</string>
+         </property>
+         <property name="text">
+          <string>Cancel</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="p3_addRule_button">
+         <property name="geometry">
+          <rect>
+           <x>460</x>
+           <y>130</y>
+           <width>75</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: rgb(255, 255, 255);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(85, 170, 255);
+border: 0px sold;
+border-radius: 10px;</string>
+         </property>
+         <property name="text">
+          <string>Add rule</string>
+         </property>
+        </widget>
        </widget>
       </item>
      </layout>

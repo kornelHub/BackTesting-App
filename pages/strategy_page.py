@@ -14,30 +14,38 @@ class Strategy_Widget(Base, Form):
 
         #Buy
         self.p2_add_buy_rule.setIcon(QtGui.QIcon('icons/add.png'))
-        self.p2_add_buy_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_add_buy_rule.setIconSize(QtCore.QSize(24, 24))
         self.p2_add_buy_rule.clicked.connect(self.add_buy_rule)
 
         self.p2_edit_buy_rule.setIcon(QtGui.QIcon('icons/edit.png'))
-        self.p2_edit_buy_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_edit_buy_rule.setIconSize(QtCore.QSize(24, 24))
         self.p2_edit_buy_rule.clicked.connect(self.edit_buy_rule)
 
         self.p2_delete_buy_rule.setIcon(QtGui.QIcon('icons/trash.png'))
-        self.p2_delete_buy_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_delete_buy_rule.setIconSize(QtCore.QSize(24, 24))
         self.p2_delete_buy_rule.clicked.connect(self.delete_buy_rule)
+
+        self.p2_undo_buy_rule.setIcon(QtGui.QIcon('icons/undo.png'))
+        self.p2_undo_buy_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_undo_buy_rule.clicked.connect(self.undo_buy_rule)
 
 
         #Sell
         self.p2_add_sell_rule.setIcon(QtGui.QIcon('icons/add.png'))
-        self.p2_add_sell_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_add_sell_rule.setIconSize(QtCore.QSize(24, 24))
         self.p2_add_sell_rule.clicked.connect(self.add_sell_condition)
 
         self.p2_edit_sell_rule.setIcon(QtGui.QIcon('icons/edit.png'))
-        self.p2_edit_sell_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_edit_sell_rule.setIconSize(QtCore.QSize(24, 24))
         self.p2_edit_sell_rule.clicked.connect(self.edit_sell_rule)
 
         self.p2_delete_sell_rule.setIcon(QtGui.QIcon('icons/trash.png'))
-        self.p2_delete_sell_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_delete_sell_rule.setIconSize(QtCore.QSize(24, 24))
         self.p2_delete_sell_rule.clicked.connect(self.delete_sell_rule)
+
+        self.p2_undo_sell_rule.setIcon(QtGui.QIcon('icons/undo.png'))
+        self.p2_undo_sell_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_undo_sell_rule.clicked.connect(self.undo_sell_rule)
 
 
         #init treeView
@@ -62,7 +70,6 @@ class Strategy_Widget(Base, Form):
         self.p2_rightBottom_widget.hide()
         self.p2_rightTop_widget.hide()
         self.p2_right_widget = QUiLoader().load('ui/add_strategy_rule_page.ui', self.p2_right_widget)
-        self.p2_right_widget.setContentsMargins(0, 0, 0, 0)
         self.p2_right_widget.show()
 
     def edit_buy_rule(self):
@@ -70,21 +77,33 @@ class Strategy_Widget(Base, Form):
 
     def delete_buy_rule(self):
         print('delete_buy_rule')
+        root = self.p2_buyCondition_treeWidget.invisibleRootItem()
+        for item in self.p2_buyCondition_treeWidget.selectedItems():
+            (item.parent() or root).removeChild(item)
+
+    def undo_buy_rule(self):
+        print('undo buy rule')
 
 
     def add_sell_condition(self):
         self.p2_leftTop_widget.hide()
         self.p2_leftBottom_widget.hide()
+        self.widget_7.hide()
         self.p2_left_widget = QUiLoader().load('ui/add_strategy_rule_page.ui', self.p2_left_widget)
         self.p2_left_widget.show()
-        self.p3_sellCondition_treeWidget = self.p2_sellCondition_treeWidget
-        self.p3_sellCondition_treeWidget.show()
+
 
     def edit_sell_rule(self):
         print('edit sell rule')
 
     def delete_sell_rule(self):
         print('delete_sell_rule')
+        root = self.p2_sellCondition_treeWidget.invisibleRootItem()
+        for item in self.p2_sellCondition_treeWidget.selectedItems():
+            (item.parent() or root).removeChild(item)
+
+    def undo_sell_rule(self):
+        print('undo sell rule')
 
 
 if __name__ == '__main__':
