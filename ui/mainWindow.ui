@@ -313,7 +313,7 @@ QPushButton:hover {
           <item>
            <widget class="QStackedWidget" name="widget_pages">
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <widget class="Fetch_Data_Widget" name="fetch_data_page">
              <layout class="QVBoxLayout" name="verticalLayout_5">
