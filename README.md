@@ -1,2 +1,1 @@
-"# BackTesting-App" 
-"# 65428201" 
+"# BackTesting-App"
