@@ -163,10 +163,11 @@ border-radius: 10px;</string>
                   </size>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">background-color: rgb(85, 85, 255);</string>
+                  <string notr="true">background-color: rgb(35,35,35);
+border: 0px sold;</string>
                  </property>
                  <property name="text">
-                  <string>ADD</string>
+                  <string/>
                  </property>
                 </widget>
                </item>

@@ -224,6 +224,30 @@ border: 0px sold;</string>
               <number>0</number>
              </property>
              <item>
+              <widget class="QPushButton" name="btn_menu_page_1">
+               <property name="minimumSize">
+                <size>
+                 <width>70</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+	font: 8pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255, 255, 255);
+	background-color: rgb(35, 35, 35);
+	border: 0px sold;
+}
+QPushButton:hover {
+	background-color: rgb(85, 170, 255);
+}</string>
+               </property>
+               <property name="text">
+                <string>Page 1</string>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="btn_menu_page_2">
                <property name="minimumSize">
                 <size>
@@ -243,7 +267,7 @@ QPushButton:hover {
 }</string>
                </property>
                <property name="text">
-                <string>strategy_page</string>
+                <string>Page 2</string>
                </property>
               </widget>
              </item>
@@ -291,6 +315,25 @@ QPushButton:hover {
             <property name="currentIndex">
              <number>0</number>
             </property>
+            <widget class="Fetch_Data_Widget" name="fetch_data_page">
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+             </layout>
+            </widget>
             <widget class="Strategy_Widget" name="strategy_page">
              <layout class="QHBoxLayout" name="horizontalLayout_6">
               <property name="spacing">
@@ -324,15 +367,21 @@ QPushButton:hover {
  </widget>
  <customwidgets>
   <customwidget>
-   <class>Add_Strategy_Rule_Widget</class>
+   <class>Fetch_Data_Widget</class>
    <extends>QWidget</extends>
-   <header location="global">pages/add_strategy_rule_page</header>
+   <header>pages/fetch_data_page</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>Strategy_Widget</class>
    <extends>QWidget</extends>
    <header>pages/strategy_page</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Add_Strategy_Rule_Widget</class>
+   <extends>QWidget</extends>
+   <header>pages/add_strategy_rule_page</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
