@@ -8,22 +8,102 @@ Form, Base = loadUiType(os.path.join(current_dir, "../ui/strategy_page.ui"))
 
 
 class Strategy_Widget(Base, Form):
-    buy_stackedWidget_object = None
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
         self.setupUi(self)
-        buy_stackedWidget_object = QtWidgets.QStackedWidget()
-        buy_stackedWidget_object = self.strategy_page_buy_stackedWidget
-        print('current widget', buy_stackedWidget_object.currentWidget())
-        print('class!', type(self))
 
-    def display_rule_form_for_buy_strategy(self):
-        objectSP = Strategy_Widget()
-        print('KDDDDD')
-        print('funcion! ',type(objectSP))
-        objectSP.buy_stackedWidget_object.setCurrentIndex(1)
+        #Buy
+        self.p2_add_buy_rule.setIcon(QtGui.QIcon('icons/add.png'))
+        self.p2_add_buy_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_add_buy_rule.clicked.connect(self.add_buy_rule)
+
+        self.p2_edit_buy_rule.setIcon(QtGui.QIcon('icons/edit.png'))
+        self.p2_edit_buy_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_edit_buy_rule.clicked.connect(self.edit_buy_rule)
+
+        self.p2_delete_buy_rule.setIcon(QtGui.QIcon('icons/trash.png'))
+        self.p2_delete_buy_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_delete_buy_rule.clicked.connect(self.delete_buy_rule)
+
+        self.p2_undo_buy_rule.setIcon(QtGui.QIcon('icons/undo.png'))
+        self.p2_undo_buy_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_undo_buy_rule.clicked.connect(self.undo_buy_rule)
 
 
+        #Sell
+        self.p2_add_sell_rule.setIcon(QtGui.QIcon('icons/add.png'))
+        self.p2_add_sell_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_add_sell_rule.clicked.connect(self.add_sell_condition)
+
+        self.p2_edit_sell_rule.setIcon(QtGui.QIcon('icons/edit.png'))
+        self.p2_edit_sell_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_edit_sell_rule.clicked.connect(self.edit_sell_rule)
+
+        self.p2_delete_sell_rule.setIcon(QtGui.QIcon('icons/trash.png'))
+        self.p2_delete_sell_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_delete_sell_rule.clicked.connect(self.delete_sell_rule)
+
+        self.p2_undo_sell_rule.setIcon(QtGui.QIcon('icons/undo.png'))
+        self.p2_undo_sell_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_undo_sell_rule.clicked.connect(self.undo_sell_rule)
+
+
+        #init treeView
+        sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["lorem ipsu"])
+        sell_level_2 = QtWidgets.QTreeWidgetItem(sell_level_1, [
+            "lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2"])
+        sell_level_3 = QtWidgets.QTreeWidgetItem(sell_level_2, ["lorem ipsu3"])
+        sell_level_4 = QtWidgets.QTreeWidgetItem(sell_level_3, ["lorem ipsu4"])
+
+        sell_level_4_2 = QtWidgets.QTreeWidgetItem(["lorem ipsu41"])
+        sell_level_2.addChild(sell_level_4_2)
+        self.p2_sellCondition_treeWidget.expandAll()
+
+
+        # sell_level_1.setBackground(0, QtGui.QColor(170, 14, 9))
+        # sell_level_2.setBackground(0, QtGui.QColor(220, 9, 9))
+        # sell_level_3.setBackground(0, QtGui.QColor(246, 35, 35))
+        # sell_level_4.setBackground(0, QtGui.QColor(248, 84, 84))
+
+
+    def add_buy_rule(self):
+        self.p2_rightBottom_widget.hide()
+        self.p2_rightTop_widget.hide()
+        self.p2_right_widget = QUiLoader().load('ui/add_strategy_rule_page.ui', self.p2_right_widget)
+        self.p2_right_widget.show()
+
+    def edit_buy_rule(self):
+        print('edit buy rule')
+
+    def delete_buy_rule(self):
+        print('delete_buy_rule')
+        root = self.p2_buyCondition_treeWidget.invisibleRootItem()
+        for item in self.p2_buyCondition_treeWidget.selectedItems():
+            (item.parent() or root).removeChild(item)
+
+    def undo_buy_rule(self):
+        print('undo buy rule')
+
+
+    def add_sell_condition(self):
+        self.p2_leftTop_widget.hide()
+        self.p2_leftBottom_widget.hide()
+        self.widget_7.hide()
+        self.p2_left_widget = QUiLoader().load('ui/add_strategy_rule_page.ui', self.p2_left_widget)
+        self.p2_left_widget.show()
+
+
+    def edit_sell_rule(self):
+        print('edit sell rule')
+
+    def delete_sell_rule(self):
+        print('delete_sell_rule')
+        root = self.p2_sellCondition_treeWidget.invisibleRootItem()
+        for item in self.p2_sellCondition_treeWidget.selectedItems():
+            (item.parent() or root).removeChild(item)
+
+    def undo_sell_rule(self):
+        print('undo sell rule')
 
 
 if __name__ == '__main__':
