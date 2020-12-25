@@ -1,7 +1,7 @@
 import os
 from PySide2 import QtGui, QtWidgets, QtCore
-from PySide2.QtUiTools import loadUiType, QUiLoader
-import pandas as pd
+from PySide2.QtUiTools import loadUiType
+import pages.add_strategy_rule_page
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/strategy_page.ui"))
@@ -67,10 +67,9 @@ class Strategy_Widget(Base, Form):
 
 
     def add_buy_rule(self):
-        self.p2_rightBottom_widget.hide()
-        self.p2_rightTop_widget.hide()
-        self.p2_right_widget = QUiLoader().load('ui/add_strategy_rule_page.ui', self.p2_right_widget)
-        self.p2_right_widget.show()
+        self.window = pages.add_strategy_rule_page.Add_Strategy_Rule_Widget()
+        self.window.show()
+
 
     def edit_buy_rule(self):
         print('edit buy rule')
@@ -86,11 +85,8 @@ class Strategy_Widget(Base, Form):
 
 
     def add_sell_condition(self):
-        self.p2_leftTop_widget.hide()
-        self.p2_leftBottom_widget.hide()
-        self.widget_7.hide()
-        self.p2_left_widget = QUiLoader().load('ui/add_strategy_rule_page.ui', self.p2_left_widget)
-        self.p2_left_widget.show()
+        self.window = pages.add_strategy_rule_page.Add_Strategy_Rule_Widget()
+        self.window.show()
 
 
     def edit_sell_rule(self):

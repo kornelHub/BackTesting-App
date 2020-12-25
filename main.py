@@ -15,6 +15,7 @@ class MainWidget(Base, Form):
         self.setWindowTitle('BackTesting Application')
         self.btn_toggle.setIcon(QtGui.QPixmap('icons/menu.png'))
         self.btn_toggle.setIconSize(QtCore.QSize(32, 32))
+        self.showMaximized()
 
         buttons = (self.btn_menu_page_1, self.btn_menu_page_2, self.btn_menu_page_3)
         for i, button in enumerate(buttons):

@@ -10,12 +10,12 @@ class Add_Strategy_Rule_Widget(Base, Form):
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
         self.setupUi(self)
-        self.p3_cancel_button.clicked.connect(self.cancel)
+        self.p3_cancel_button.clicked.connect(lambda: self.close())
         self.p3_addRule_button.clicked.connect(self.add_rule)
 
 
     def cancel(self):
-        print('CANCEL')
+        app.quit()
 
     def add_rule(self):
         print('RULE ADDED')
