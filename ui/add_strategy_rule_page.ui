@@ -512,51 +512,59 @@ color: rgb(255, 255, 255);</string>
       <item>
        <widget class="QWidget" name="widget_4" native="true">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
-        <widget class="QPushButton" name="p3_cancel_button">
-         <property name="geometry">
-          <rect>
-           <x>290</x>
-           <y>130</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>70</height>
+         </size>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QPushButton" name="p3_cancel_button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(255, 255, 255);
 font: 8pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(85, 170, 255);
 border: 0px sold;
 border-radius: 10px;</string>
-         </property>
-         <property name="text">
-          <string>Cancel</string>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="p3_addRule_button">
-         <property name="geometry">
-          <rect>
-           <x>460</x>
-           <y>130</y>
-           <width>75</width>
-           <height>23</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">color: rgb(255, 255, 255);
+           </property>
+           <property name="text">
+            <string>Cancel</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="p3_addRule_button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color: rgb(255, 255, 255);
 font: 8pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(85, 170, 255);
 border: 0px sold;
 border-radius: 10px;</string>
-         </property>
-         <property name="text">
-          <string>Add rule</string>
-         </property>
-        </widget>
+           </property>
+           <property name="text">
+            <string>Add rule</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>

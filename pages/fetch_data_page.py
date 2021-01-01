@@ -6,8 +6,6 @@ from binance.helpers import date_to_milliseconds
 from binance_api import fetch_data
 import plot_data
 
-from pages.ui_functions import *
-
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/fetch_data_page.ui"))
 
@@ -15,12 +13,17 @@ class Fetch_Data_Widget(Base, Form):
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
         self.setupUi(self)
+        print('-----', self)
         self.p1_ohlcvPlot_qWebEngineView.hide()
         self.p1_saveDataToFile_button.clicked.connect(self.fetch_data_btn_clicked)
 
     def fetch_data_btn_clicked(self):
-        start_date = self.p1_startDate_textField_day.text() + ' ' + self.p1_startDate_comboBox_month.currentText() + ' ' + self.p1_startDate_textField_year.text() + ' ' + self.p1_startDate_textField_hour.text() + ':' + self.p1_startDate_textField_minute.text() + ':' + self.p1_startDate_textField_second.text()
-        end_date = self.p1_endDate_textField_day.text() + ' ' + self.p1_endDate_comboBox_month.currentText() + ' ' + self.p1_endDate_textField_year.text() + ' ' + self.p1_endDate_textField_hour.text() + ':' + self.p1_endDate_textField_minute.text() + ':' + self.p1_endDate_textField_second.text()
+        start_date = self.p1_startDate_textField_day.text() + ' ' + self.p1_startDate_comboBox_month.currentText() \
+                     + ' ' + self.p1_startDate_textField_year.text() + ' ' + self.p1_startDate_textField_hour.text() \
+                     + ':' + self.p1_startDate_textField_minute.text() + ':' + self.p1_startDate_textField_second.text()
+        end_date = self.p1_endDate_textField_day.text() + ' ' + self.p1_endDate_comboBox_month.currentText() \
+                   + ' ' + self.p1_endDate_textField_year.text() + ' ' + self.p1_endDate_textField_hour.text() \
+                   + ':' + self.p1_endDate_textField_minute.text() + ':' + self.p1_endDate_textField_second.text()
 
         currency_symbol = self.p1_cryptoSymbol_textField.text()
         interval = self.p1_interval_dropdown.currentText()
@@ -36,10 +39,10 @@ class Fetch_Data_Widget(Base, Form):
         self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_data.plot_ohlcv_data(path_to_file[0]))
 
 
-
-if __name__ == '__main__':
+if __name__ == '__fetch_data_page__':
     import sys
-    app = QtGui.QApplication(sys.argv)
+    print('+++fetch_data_page')
+    app = QtGui.QGuiApplication(sys.argv)
     w = Fetch_Data_Widget()
     w.show()
     sys.exit(app.exec_())

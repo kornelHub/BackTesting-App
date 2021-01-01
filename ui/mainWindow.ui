@@ -313,7 +313,7 @@ QPushButton:hover {
           <item>
            <widget class="QStackedWidget" name="widget_pages">
             <property name="currentIndex">
-             <number>2</number>
+             <number>0</number>
             </property>
             <widget class="Fetch_Data_Widget" name="fetch_data_page">
              <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -369,19 +369,19 @@ QPushButton:hover {
   <customwidget>
    <class>Fetch_Data_Widget</class>
    <extends>QWidget</extends>
-   <header>pages/fetch_data_page</header>
+   <header location="global">pages/fetch_data_page</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>Strategy_Widget</class>
    <extends>QWidget</extends>
-   <header>pages/strategy_page</header>
+   <header location="global">pages/strategy_page</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>Add_Strategy_Rule_Widget</class>
    <extends>QWidget</extends>
-   <header>pages/add_strategy_rule_page</header>
+   <header location="global">pages/add_strategy_rule_page</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
