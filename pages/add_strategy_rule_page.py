@@ -15,11 +15,7 @@ class Add_Strategy_Rule_Widget(Form, Base):
         print('-----', self)
         self.setupUi(self)
         self.p3_cancel_button.clicked.connect(lambda: self.close())
-        self.p3_addRule_button.clicked.connect(self.add_rule)
-
-
-    def cancel(self):
-        app.quit()
+        self.p3_addRule_button.clicked.connect(lambda: self.add_rule())
 
     def add_rule(self):
         new_rule_to_add = self.p3_firstIndicator_comboBox.currentText() + ' ' + self.p3_firstIndicatorOptions_lineEdit.text() \
@@ -27,8 +23,7 @@ class Add_Strategy_Rule_Widget(Form, Base):
                    + ' ' + self.p3_secondIndicatorOptions_lineEdit.text()
         sender = Send_Strategy_Rule()
         sender.on_send(new_rule_to_add)
-        app.quit()
-        return new_rule_to_add
+        self.close()
 
 class Send_Strategy_Rule(QtCore.QObject):
     signal = Signal()
