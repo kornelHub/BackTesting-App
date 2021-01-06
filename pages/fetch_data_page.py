@@ -13,7 +13,6 @@ class Fetch_Data_Widget(Base, Form):
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
         self.setupUi(self)
-        print('-----', self)
         self.p1_ohlcvPlot_qWebEngineView.hide()
         self.p1_saveDataToFile_button.clicked.connect(self.fetch_data_btn_clicked)
 
@@ -41,7 +40,6 @@ class Fetch_Data_Widget(Base, Form):
 
 if __name__ == '__fetch_data_page__':
     import sys
-    print('+++fetch_data_page')
     app = QtGui.QGuiApplication(sys.argv)
     w = Fetch_Data_Widget()
     w.show()

@@ -1,7 +1,6 @@
 import os
 from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
-from PySide2.QtCore import Slot
 import pages.add_strategy_rule_page
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -12,11 +11,12 @@ class Strategy_Widget(Base, Form):
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
         self.setupUi(self)
-        print('-----', self)
+        self.p2_buyCondition_treeWidget.setHeaderLabel("")
+        self.p2_sellCondition_treeWidget.setHeaderLabel("")
+
         #Buy
         self.p2_add_buy_rule.setIcon(QtGui.QIcon('icons/add.png'))
         self.p2_add_buy_rule.setIconSize(QtCore.QSize(24, 24))
-        self.p2_add_buy_rule.clicked.connect(self.display_add_buy_rule_page)
 
         self.p2_edit_buy_rule.setIcon(QtGui.QIcon('icons/edit.png'))
         self.p2_edit_buy_rule.setIconSize(QtCore.QSize(24, 24))
@@ -34,7 +34,7 @@ class Strategy_Widget(Base, Form):
         #Sell
         self.p2_add_sell_rule.setIcon(QtGui.QIcon('icons/add.png'))
         self.p2_add_sell_rule.setIconSize(QtCore.QSize(24, 24))
-        self.p2_add_sell_rule.clicked.connect(self.display_add_sell_rule_page)
+        # self.p2_add_sell_rule.clicked.connect(self.display_add_sell_rule_page)
 
         self.p2_edit_sell_rule.setIcon(QtGui.QIcon('icons/edit.png'))
         self.p2_edit_sell_rule.setIconSize(QtCore.QSize(24, 24))
@@ -50,16 +50,17 @@ class Strategy_Widget(Base, Form):
 
 
         #init treeView
-        self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["lorem ipsu"])
-        self.sell_level_1_2 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["lorem ipsu222222"])
-        self.sell_level_1_3 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["lorem ipsu333333"])
-        self.sell_level_2 = QtWidgets.QTreeWidgetItem(self.sell_level_1, [
-            "lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2lorem ipsu2"])
-        self.sell_level_3 = QtWidgets.QTreeWidgetItem(self.sell_level_2, ["lorem ipsu3"])
-        self.sell_level_4 = QtWidgets.QTreeWidgetItem(self.sell_level_3, ["lorem ipsu4"])
-
-        self.sell_level_4_2 = QtWidgets.QTreeWidgetItem(["lorem ipsu41"])
-        self.sell_level_2.addChild(self.sell_level_4_2)
+        self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["EMA (Exponential Moving Average) (7, Close) > EMA (Exponential Moving Average) (14, Close)"])
+        # self.sell_level_1_2 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["lorem ipsu222222"])
+        # self.sell_level_1_3 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["lorem ipsu333333"])
+        self.sell_level_2 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["WR (Williams %) (21, 2) > 80"])
+        self.sell_level_3 = QtWidgets.QTreeWidgetItem(self.sell_level_2, ["Volumen  >  1000"])
+        self.sell_level_2_1 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["TRIX (Triple Exponential Average) (9) > TRIX (Triple Exponential Average) (15)"])
+        # self.sell_level_4 = QtWidgets.QTreeWidgetItem(self.sell_level_3, ["lorem ipsu4"])
+        # self.sell_level_1_xd = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["XDDDDDDDDD DDDDDDDDDDDDDDDDDDD"])
+        #
+        # self.sell_level_4_2 = QtWidgets.QTreeWidgetItem(["lorem ipsu41"])
+        # self.sell_level_2.addChild(self.sell_level_4_2)
         self.p2_sellCondition_treeWidget.expandAll()
 
 
@@ -70,15 +71,14 @@ class Strategy_Widget(Base, Form):
 
 ########################################################################################################################
 
-    def display_add_buy_rule_page(self):
-        self.window = pages.add_strategy_rule_page.Add_Strategy_Rule_Widget()
-        self.window.show()
-
-
-    def add_buy_rule_to_QTreeWidget(self, rule_to_add):
-        print('**********************************************************')
-        print(rule_to_add)
-        print(self.p2_buyCondition_treeWidget.selectedItems())
+    # def display_add_buy_rule_page(self):
+    #     self.window = pages.add_strategy_rule_page.Add_Strategy_Rule_Widget()
+    #     self.window.show()
+    #
+    # def add_buy_rule_to_QTreeWidget(self, rule_to_add):
+    #     print('**********************************************************')
+    #     print(rule_to_add)
+    #     print(self.p2_buyCondition_treeWidget.selectedItems())
 
     def edit_buy_rule(self):
         print('edit buy rule')
@@ -93,14 +93,14 @@ class Strategy_Widget(Base, Form):
         print('undo buy rule')
 
 ########################################################################################################################
-    def display_add_sell_rule_page(self):
-        self.window = pages.add_strategy_rule_page.Add_Strategy_Rule_Widget()
-        self.window.show()
-
-    def add_sell_rule_to_QTreeWidget(self, rule_to_add):
-        print('**********************************************************')
-        print(rule_to_add)
-        print(self.p2_sellCondition_treeWidget.selectedIndexes())
+    # def display_add_sell_rule_page(self):
+    #     self.window = pages.add_strategy_rule_page.Add_Strategy_Rule_Widget()
+    #     self.window.show()
+    #
+    # def add_sell_rule_to_QTreeWidget(self, rule_to_add):
+    #     print('**********************************************************')
+    #     print(rule_to_add)
+    #     print(self.p2_sellCondition_treeWidget.selectedIndexes())
 
     def edit_sell_rule(self):
         print('edit sell rule')
@@ -115,11 +115,6 @@ class Strategy_Widget(Base, Form):
         print('undo sell rule')
 
 ########################################################################################################################
-
-class Receive_Strategy_Rule(QtCore.QObject):
-    @Slot(str)
-    def on_recive(self, received_rule):
-        print('Odebrano:', received_rule)
 
 if __name__ == '__strategy_page__':
     import sys

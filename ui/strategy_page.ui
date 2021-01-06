@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>strategy_page_widget</class>
+ <widget class="QWidget" name="strategy_page_widget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -123,7 +123,7 @@ border-radius: 10px;</string>
               <property name="font">
                <font>
                 <family>MS Shell Dlg 2</family>
-                <pointsize>30</pointsize>
+                <pointsize>20</pointsize>
                 <weight>50</weight>
                 <italic>false</italic>
                 <bold>false</bold>
@@ -132,13 +132,13 @@ border-radius: 10px;</string>
               <property name="styleSheet">
                <string notr="true">QLabel {
 	background-color: rgb(70,70,70);
-	font: 30pt &quot;MS Shell Dlg 2&quot;;
+	font: 20pt &quot;MS Shell Dlg 2&quot;;
 	color: rgb(255,255,255);
 	border-radius:10px 10px 10px 0px;
 }</string>
               </property>
               <property name="text">
-               <string>Buy</string>
+               <string>Buy rules</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -289,8 +289,20 @@ border: 0px sold;</string>
                  <property name="styleSheet">
                   <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(55,55,55);
-font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
                  </property>
+                 <property name="dragDropMode">
+                  <enum>QAbstractItemView::DragDrop</enum>
+                 </property>
+                 <property name="defaultDropAction">
+                  <enum>Qt::MoveAction</enum>
+                 </property>
+                 <property name="columnCount">
+                  <number>1</number>
+                 </property>
+                 <attribute name="headerDefaultSectionSize">
+                  <number>100</number>
+                 </attribute>
                  <column>
                   <property name="text">
                    <string notr="true">1</string>
@@ -344,7 +356,7 @@ border-radius: 10px;</string>
               <property name="font">
                <font>
                 <family>MS Shell Dlg 2</family>
-                <pointsize>30</pointsize>
+                <pointsize>20</pointsize>
                 <weight>50</weight>
                 <italic>false</italic>
                 <bold>false</bold>
@@ -353,7 +365,7 @@ border-radius: 10px;</string>
               <property name="styleSheet">
                <string notr="true">QLabel {
 	background-color: rgb(70,70,70);
-	font: 30pt &quot;MS Shell Dlg 2&quot;;
+	font: 20pt &quot;MS Shell Dlg 2&quot;;
 	color: rgb(255,255,255);
 	border-radius: 10px;
 }</string>
@@ -452,7 +464,7 @@ border-radius: 10px;</string>
            <property name="font">
             <font>
              <family>MS Shell Dlg 2</family>
-             <pointsize>30</pointsize>
+             <pointsize>20</pointsize>
              <weight>50</weight>
              <italic>false</italic>
              <bold>false</bold>
@@ -461,13 +473,13 @@ border-radius: 10px;</string>
            <property name="styleSheet">
             <string notr="true">QLabel {
 	background-color: rgb(70,70,70);
-	font: 30pt &quot;MS Shell Dlg 2&quot;;
+	font: 20pt &quot;MS Shell Dlg 2&quot;;
 	color: rgb(255,255,255);
 	border-radius: 10px;
 }</string>
            </property>
            <property name="text">
-            <string>Sell</string>
+            <string>Sell rules</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -610,7 +622,7 @@ border: 0px sold;</string>
                </sizepolicy>
               </property>
               <property name="styleSheet">
-               <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+               <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(55,55,55);
 color: rgb(255, 255, 255);</string>
               </property>
@@ -679,7 +691,7 @@ border-radius: 10px;</string>
            <property name="font">
             <font>
              <family>MS Shell Dlg 2</family>
-             <pointsize>30</pointsize>
+             <pointsize>20</pointsize>
              <weight>50</weight>
              <italic>false</italic>
              <bold>false</bold>
@@ -688,7 +700,7 @@ border-radius: 10px;</string>
            <property name="styleSheet">
             <string notr="true">QLabel {
 	background-color: rgb(70,70,70);
-	font: 30pt &quot;MS Shell Dlg 2&quot;;
+	font: 20pt &quot;MS Shell Dlg 2&quot;;
 	color: rgb(255,255,255);
 	border-radius: 10px;
 }</string>

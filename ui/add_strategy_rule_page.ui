@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>add_strategy_rule_widget</class>
+ <widget class="QWidget" name="add_strategy_rule_widget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
+    <width>879</width>
     <height>896</height>
    </rect>
   </property>
@@ -58,7 +58,7 @@
      <property name="font">
       <font>
        <family>MS Shell Dlg 2</family>
-       <pointsize>30</pointsize>
+       <pointsize>20</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -67,13 +67,13 @@
      <property name="styleSheet">
       <string notr="true">QLabel {
 	background-color: rgb(70,70,70);
-	font: 30pt &quot;MS Shell Dlg 2&quot;;
+	font: 20pt &quot;MS Shell Dlg 2&quot;;
 	color: rgb(255,255,255);
 	border-radius:10px;
 }</string>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string>Define new rule</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -94,7 +94,7 @@ border-radius: 10px;</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <property name="spacing">
-       <number>0</number>
+       <number>15</number>
       </property>
       <property name="leftMargin">
        <number>0</number>
@@ -481,6 +481,45 @@ QLineEdit:focus{
        </widget>
       </item>
       <item>
+       <widget class="QLabel" name="label_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>999999</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Shell Dlg 2</family>
+          <pointsize>20</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	background-color: rgb(70,70,70);
+	font: 20pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
+	border-radius:10px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Select parent item of new rule</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QWidget" name="widget_3" native="true">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -493,11 +532,17 @@ QLineEdit:focus{
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QTreeWidget" name="treeWidget">
+          <widget class="QTreeWidget" name="add_strategy_rule_treeWidget">
            <property name="styleSheet">
-            <string notr="true">font: 8pt &quot;MS Shell Dlg 2&quot;;
+            <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(55,55,55);
 color: rgb(255, 255, 255);</string>
+           </property>
+           <property name="dragDropMode">
+            <enum>QAbstractItemView::DragDrop</enum>
+           </property>
+           <property name="defaultDropAction">
+            <enum>Qt::MoveAction</enum>
            </property>
            <column>
             <property name="text">
@@ -534,7 +579,7 @@ color: rgb(255, 255, 255);</string>
            </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+font: 20pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(85, 170, 255);
 border: 0px sold;
 border-radius: 10px;</string>
@@ -554,13 +599,13 @@ border-radius: 10px;</string>
            </property>
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+font: 20pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(85, 170, 255);
 border: 0px sold;
 border-radius: 10px;</string>
            </property>
            <property name="text">
-            <string>Add rule</string>
+            <string>Save rule</string>
            </property>
           </widget>
          </item>
