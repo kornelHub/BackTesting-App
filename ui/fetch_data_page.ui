@@ -74,9 +74,21 @@ border-radius: 10px;</string>
             </property>
             <item>
              <widget class="QLineEdit" name="p1_startDate_textField_day">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
+    font: 10pt &quot;MS Shell Dlg 2&quot;;
 	border-radius: 10px;
 	border: 2px solid rgb(55,55,55);
 	color: rgb(255, 255, 255);
@@ -103,14 +115,20 @@ QLineEdit:focus{
             <item>
              <widget class="QComboBox" name="p1_startDate_comboBox_month">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QComboBox {
-        font: 8pt &quot;MS Shell Dlg 2&quot;;
+       font: 10pt &quot;MS Shell Dlg 2&quot;;
         border: 2px solid rgb(55,55,55);
         border-radius: 10px;
         color: rgb(255, 255, 255);
@@ -194,9 +212,21 @@ QComboBox QAbstractItemView {
             </item>
             <item>
              <widget class="QLineEdit" name="p1_startDate_textField_year">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
 	border-radius: 10px;
 	border: 2px solid rgb(55,55,55);
 	color: rgb(255, 255, 255);
@@ -244,14 +274,29 @@ QLineEdit:focus{
             <item>
              <widget class="QComboBox" name="p1_interval_dropdown">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>MS Shell Dlg 2</family>
+                <pointsize>10</pointsize>
+                <weight>50</weight>
+                <italic>false</italic>
+                <bold>false</bold>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true">QComboBox {
-        font: 8pt &quot;MS Shell Dlg 2&quot;;
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
         border: 2px solid rgb(55,55,55);
         border-radius: 10px;
         color: rgb(255, 255, 255);
@@ -366,9 +411,21 @@ QComboBox QAbstractItemView {
             </property>
             <item>
              <widget class="QLineEdit" name="p1_startDate_textField_hour">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
 	border-radius: 10px;
 	border: 2px solid rgb(55,55,55);
 	color: rgb(255, 255, 255);
@@ -394,9 +451,21 @@ QLineEdit:focus{
             </item>
             <item>
              <widget class="QLineEdit" name="p1_startDate_textField_minute">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
 	border-radius: 10px;
 	border: 2px solid rgb(55,55,55);
 	color: rgb(255, 255, 255);
@@ -422,9 +491,21 @@ QLineEdit:focus{
             </item>
             <item>
              <widget class="QLineEdit" name="p1_startDate_textField_second">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
 	border-radius: 10px;
 	border: 2px solid rgb(55,55,55);
 	color: rgb(255, 255, 255);
@@ -455,7 +536,7 @@ QLineEdit:focus{
           <widget class="QLabel" name="label">
            <property name="styleSheet">
             <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
            </property>
            <property name="text">
             <string>From</string>
@@ -469,7 +550,7 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
        <widget class="QLabel" name="label_2">
         <property name="styleSheet">
          <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
         </property>
         <property name="text">
          <string>To</string>
@@ -506,14 +587,20 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
             <item>
              <widget class="QLineEdit" name="p1_cryptoSymbol_textField">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
 	border-radius: 10px;
 	border: 2px solid rgb(55,55,55);
 	color: rgb(255, 255, 255);
@@ -560,9 +647,21 @@ QLineEdit:focus{
             </property>
             <item>
              <widget class="QLineEdit" name="p1_endDate_textField_day">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
 	border-radius: 10px;
 	border: 2px solid rgb(55,55,55);
 	color: rgb(255, 255, 255);
@@ -589,14 +688,20 @@ QLineEdit:focus{
             <item>
              <widget class="QComboBox" name="p1_endDate_comboBox_month">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QComboBox {
-        font: 8pt &quot;MS Shell Dlg 2&quot;;
+       font: 10pt &quot;MS Shell Dlg 2&quot;;
         border: 2px solid rgb(55,55,55);
         border-radius: 10px;
         color: rgb(255, 255, 255);
@@ -680,9 +785,21 @@ QComboBox QAbstractItemView {
             </item>
             <item>
              <widget class="QLineEdit" name="p1_endDate_textField_year">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
 	border-radius: 10px;
 	border: 2px solid rgb(55,55,55);
 	color: rgb(255, 255, 255);
@@ -729,9 +846,21 @@ QLineEdit:focus{
             </property>
             <item>
              <widget class="QLineEdit" name="p1_endDate_textField_hour">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
 	border-radius: 10px;
 	border: 2px solid rgb(55,55,55);
 	color: rgb(255, 255, 255);
@@ -757,9 +886,21 @@ QLineEdit:focus{
             </item>
             <item>
              <widget class="QLineEdit" name="p1_endDate_textField_minute">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
 	border-radius: 10px;
 	border: 2px solid rgb(55,55,55);
 	color: rgb(255, 255, 255);
@@ -785,9 +926,21 @@ QLineEdit:focus{
             </item>
             <item>
              <widget class="QLineEdit" name="p1_endDate_textField_second">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>35</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">QLineEdit {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
 	border-radius: 10px;
 	border: 2px solid rgb(55,55,55);
 	color: rgb(255, 255, 255);
@@ -854,7 +1007,7 @@ QLineEdit:focus{
          </property>
          <property name="styleSheet">
           <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+font: 10pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(85, 170, 255);
 border: 0px sold;
 border-radius: 10px;</string>
