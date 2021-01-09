@@ -2,7 +2,7 @@ import os
 from PySide2 import QtGui, QtCore, QtWidgets
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtCore import Signal
-import pages.strategy_page
+from helpers import add_strategy_button_style_sheet_normal, add_strategy_button_style_sheet_clicked
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/add_strategy_rule_page.ui"))
@@ -12,9 +12,27 @@ class Add_Strategy_Rule_Widget(Form, Base):
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
         self.setupUi(self)
+        self.setWindowIcon(QtGui.QIcon('icons/logo2.png'))
+        self.setWindowTitle('BackTesting Application')
         self.p3_cancel_button.clicked.connect(lambda: self.close())
         self.add_strategy_rule_treeWidget.setHeaderLabel("")
         self.list_of_parent_text = []
+        self.current_selected_math_char = ''
+
+        self.selectMathChar_Button_1.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_1))
+        self.selectMathChar_Button_2.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_2))
+        self.selectMathChar_Button_3.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_3))
+        self.selectMathChar_Button_4.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_4))
+        self.selectMathChar_Button_5.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_5))
+
+    def math_char_buttons_behavior(self, clicked_button):
+        buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2, self.selectMathChar_Button_3
+            , self.selectMathChar_Button_4, self.selectMathChar_Button_5]
+        clicked_button.setStyleSheet(add_strategy_button_style_sheet_clicked)
+        self.current_selected_math_char = clicked_button.text()
+        buttons.remove(clicked_button)
+        for item in buttons:
+            item.setStyleSheet(add_strategy_button_style_sheet_normal)
 
     def load_QTreeWidget(self, list_of_objects):
         for element in list_of_objects:
@@ -32,12 +50,13 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.add_strategy_rule_treeWidget.expandAll()
 
     def add_rule(self, receive_strategy_rule_object):
-        new_rule_to_add = self.p3_firstIndicator_comboBox.currentText() + ' ' + self.p3_firstIndicatorOptions_lineEdit.text() \
-                          + ' ' + self.p3_mark_comboBox.currentText() + ' ' + self.p3_sedondIndicator_comboBox.currentText() \
-                          + ' ' + self.p3_secondIndicatorOptions_lineEdit.text()
+        new_rule_to_add = self.p3_firstIndicator_comboBox.currentText() + ' ' + self.p3_firstIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_firstIndicatorOptions_lineEdit_2.text() \
+                          + ' ' + self.current_selected_math_char \
+                          + ' ' + self.p3_sedondIndicator_comboBox.currentText() + ' ' + self.p3_secondIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_secondIndicatorOptions_lineEdit_2.text()
 
-        #loops through  all items, if item is checked > get text of all parents
-        for item in self.add_strategy_rule_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0):
+        # loops through  all items, if item is checked > get text of all parents
+        for item in self.add_strategy_rule_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive,
+                                                                0):
             if (item.checkState(0) > 0):
                 self.create_list_of_parents_text(item, [])
 
