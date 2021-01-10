@@ -44,7 +44,6 @@ class Add_Strategy_Rule_Widget(Form, Base):
                                                    self.p3_secondIndicatorOptions_lineEdit_1))
 
     def autofill_indicator_option(self, combo_box, linked_line_edit):
-        print(indicator_default_options.get(combo_box.currentText()))
         linked_line_edit.setText(indicator_default_options.get(combo_box.currentText()))
 
     def math_char_buttons_behavior(self, clicked_button):
