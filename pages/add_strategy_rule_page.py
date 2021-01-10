@@ -2,7 +2,8 @@ import os
 from PySide2 import QtGui, QtCore, QtWidgets
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtCore import Signal
-from helpers import add_strategy_button_style_sheet_normal, add_strategy_button_style_sheet_clicked
+from helpers import add_strategy_button_style_sheet_normal, add_strategy_button_style_sheet_clicked, \
+    indicator_default_options
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/add_strategy_rule_page.ui"))
@@ -16,14 +17,35 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.setWindowTitle('BackTesting Application')
         self.p3_cancel_button.clicked.connect(lambda: self.close())
         self.add_strategy_rule_treeWidget.setHeaderLabel("")
+        self.p3_firstIndicatorOptions_lineEdit_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
+        self.p3_firstIndicatorOptions_lineEdit_2.setText('[0]')
+        self.p3_secondIndicatorOptions_lineEdit_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
+        self.p3_secondIndicatorOptions_lineEdit_2.setText('[0]')
         self.list_of_parent_text = []
         self.current_selected_math_char = ''
 
-        self.selectMathChar_Button_1.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_1))
-        self.selectMathChar_Button_2.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_2))
-        self.selectMathChar_Button_3.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_3))
-        self.selectMathChar_Button_4.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_4))
-        self.selectMathChar_Button_5.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_5))
+        self.selectMathChar_Button_1.clicked.connect(
+            lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_1))
+        self.selectMathChar_Button_2.clicked.connect(
+            lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_2))
+        self.selectMathChar_Button_3.clicked.connect(
+            lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_3))
+        self.selectMathChar_Button_4.clicked.connect(
+            lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_4))
+        self.selectMathChar_Button_5.clicked.connect(
+            lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_5))
+
+        self.p3_firstIndicator_comboBox.currentIndexChanged.connect(
+            lambda: self.autofill_indicator_option(self.p3_firstIndicator_comboBox,
+                                                   self.p3_firstIndicatorOptions_lineEdit_1))
+
+        self.p3_sedondIndicator_comboBox.currentIndexChanged.connect(
+            lambda: self.autofill_indicator_option(self.p3_sedondIndicator_comboBox,
+                                                   self.p3_secondIndicatorOptions_lineEdit_1))
+
+    def autofill_indicator_option(self, combo_box, linked_line_edit):
+        print(indicator_default_options.get(combo_box.currentText()))
+        linked_line_edit.setText(indicator_default_options.get(combo_box.currentText()))
 
     def math_char_buttons_behavior(self, clicked_button):
         buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2, self.selectMathChar_Button_3

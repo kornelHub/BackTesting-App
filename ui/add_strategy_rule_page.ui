@@ -107,17 +107,23 @@ border-radius: 10px;</string>
           <height>70</height>
          </size>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <property name="spacing">
-          <number>18</number>
+        <layout class="QGridLayout" name="gridLayout">
+         <property name="verticalSpacing">
+          <number>0</number>
          </property>
-         <item>
+         <item row="1" column="0">
           <widget class="QComboBox" name="p3_firstIndicator_comboBox">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>35</height>
+            </size>
            </property>
            <property name="maximumSize">
             <size>
@@ -234,46 +240,12 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>MVM (Ease of Movement)</string>
+             <string>EVM (Ease of Movement)</string>
             </property>
            </item>
           </widget>
          </item>
-         <item>
-          <widget class="QLineEdit" name="p3_firstIndicatorOptions_lineEdit_1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QLineEdit {
-        font: 10pt &quot;MS Shell Dlg 2&quot;;
-        border-radius: 10px;
-        border: 2px solid rgb(55,55,55);
-        color: rgb(255, 255, 255);
-        padding-left: 20px;
-        padding-right: 20px;
-        background-color: rgb(70,70,70);
-}
-QLineEdit:hover {
-        border: 2px solid rgb(85,85,85);
-}
-QLineEdit:focus{
-        border: 2px solid rgb(85, 170, 255);
-}
-</string>
-           </property>
-          </widget>
-         </item>
-         <item>
+         <item row="1" column="2">
           <widget class="QLineEdit" name="p3_firstIndicatorOptions_lineEdit_2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -281,6 +253,12 @@ QLineEdit:focus{
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>35</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
@@ -304,6 +282,94 @@ QLineEdit:focus{
         border: 2px solid rgb(85, 170, 255);
 }
 </string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="p3_firstIndicatorOptions_lineEdit_1">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QLineEdit {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border-radius: 10px;
+        border: 2px solid rgb(55,55,55);
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+QLineEdit:hover {
+        border: 2px solid rgb(85,85,85);
+}
+QLineEdit:focus{
+        border: 2px solid rgb(85, 170, 255);
+}
+</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
+}</string>
+           </property>
+           <property name="text">
+            <string>First indicator:</string>
+           </property>
+           <property name="margin">
+            <number>6</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_4">
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
+}</string>
+           </property>
+           <property name="text">
+            <string>Options: </string>
+           </property>
+           <property name="margin">
+            <number>6</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_5">
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
+}</string>
+           </property>
+           <property name="text">
+            <string>Period:</string>
+           </property>
+           <property name="margin">
+            <number>6</number>
            </property>
           </widget>
          </item>
@@ -343,6 +409,9 @@ QPushButton:hover {
          </property>
          <property name="leftMargin">
           <number>9</number>
+         </property>
+         <property name="topMargin">
+          <number>24</number>
          </property>
          <property name="rightMargin">
           <number>9</number>
@@ -492,17 +561,23 @@ QPushButton:hover {
           <height>70</height>
          </size>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <property name="spacing">
-          <number>18</number>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <property name="verticalSpacing">
+          <number>0</number>
          </property>
-         <item>
+         <item row="1" column="0">
           <widget class="QComboBox" name="p3_sedondIndicator_comboBox">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>35</height>
+            </size>
            </property>
            <property name="maximumSize">
             <size>
@@ -534,7 +609,7 @@ QComboBox QAbstractItemView {
            </property>
            <item>
             <property name="text">
-             <string>MA (Moving Average)</string>
+             <string>SMA (Simple Moving Average)</string>
             </property>
            </item>
            <item>
@@ -619,18 +694,24 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>MVM (Ease of Movement)</string>
+             <string>EVM (Ease of Movement)</string>
             </property>
            </item>
           </widget>
          </item>
-         <item>
+         <item row="1" column="1">
           <widget class="QLineEdit" name="p3_secondIndicatorOptions_lineEdit_1">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>35</height>
+            </size>
            </property>
            <property name="maximumSize">
             <size>
@@ -658,13 +739,19 @@ QLineEdit:focus{
            </property>
           </widget>
          </item>
-         <item>
+         <item row="1" column="2">
           <widget class="QLineEdit" name="p3_secondIndicatorOptions_lineEdit_2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>35</height>
+            </size>
            </property>
            <property name="maximumSize">
             <size>
@@ -689,6 +776,54 @@ QLineEdit:focus{
         border: 2px solid rgb(85, 170, 255);
 }
 </string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
+}</string>
+           </property>
+           <property name="text">
+            <string>Second indicator: </string>
+           </property>
+           <property name="margin">
+            <number>6</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_7">
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
+}</string>
+           </property>
+           <property name="text">
+            <string>Options:</string>
+           </property>
+           <property name="margin">
+            <number>6</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_8">
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
+}</string>
+           </property>
+           <property name="text">
+            <string>Period:</string>
+           </property>
+           <property name="margin">
+            <number>6</number>
            </property>
           </widget>
          </item>
