@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-default_simple_moving_average_parameters = ['7', 'Open']
 def simple_moving_average(data_df, period, source):
     if source == 'typical_price':
         answer_df = pd.DataFrame(data_df[['High', 'Low', 'Close']], columns=['High', 'Low', 'Close'])
@@ -16,7 +15,6 @@ def simple_moving_average(data_df, period, source):
     return answer_np
 
 
-default_exponential_moving_average_parameters = ['7', 'Open']
 def exponential_moving_average(data_df, period, source):
     ema_multiplier = 2 / (period + 1)
     answer_df = data_df[source].copy()
@@ -37,7 +35,6 @@ def exponential_moving_average(data_df, period, source):
     return answer_np
 
 
-default_weighted_moving_average_parameters = ['7', 'Open']
 def weighted_moving_average(data_df, period, source):
     answer_df = pd.DataFrame(data_df[source], columns=[source])
     answer_df['wma'] = 0
@@ -52,7 +49,6 @@ def weighted_moving_average(data_df, period, source):
     return answer_np
 
 
-default_bollinger_band_parameters = ['21', '2']
 def bollinger_band(data_df, period, multipler):
     # High_Low_Close_SMA, High_Low_Close_SMA_period_SMA
     answer_df = pd.DataFrame(simple_moving_average(data_df, 2, 'typical_price'), columns=['High_Low_Close_SMA', 'High_Low_Close_SMA_period_SMA'])
@@ -74,11 +70,9 @@ def bollinger_band(data_df, period, multipler):
 
 
 # TODO: do zastanowienia czy potrzeba
-default_volume_weighted_average_price_parameters = ['14']
 def volume_weighted_average_price():
     return True
 
-default_trix_parameters = ['9']
 def trix(data_df, period):
     answer_df = pd.DataFrame(exponential_moving_average(data_df, period, 'Close'), columns=['Open', '1st_ema'])
     answer_df[['2nd_ema', '3rd_ema']] = 0
@@ -95,7 +89,6 @@ def trix(data_df, period):
 def sar(data_df, period, source):
     return True
 
-default_macd_parameters = ['12', '26', '9', 'Open']
 def macd(data_df, period_1, period_2, period_3, source):
     answer_df = pd.DataFrame(data_df[source], columns=[source])
     answer_df['first_period_ema'] = exponential_moving_average(answer_df, period_1, source)[:, 1]
@@ -106,7 +99,6 @@ def macd(data_df, period_1, period_2, period_3, source):
     return answer_df[['MACD', 'third_period_ema_of_MACD']]
 
 
-default_rsi_parameters = ['6']
 def rsi(data_df, period):
     answer_df = pd.DataFrame(data_df['Close'], columns=['Close'])
     answer_df[['close_price_change', 'average_gain', 'average_loss', 'rsi']] = 0
@@ -138,8 +130,6 @@ def rsi(data_df, period):
     print(answer_df.to_string())
     return True
 
-default_kdj_parameters = ['9', '3', '3']
-default_kdj_parameters_v2 = ['9']
 def kdj(data_df, period, k_smooth, d_smooth):
     answer_df = pd.DataFrame(data_df[['High', 'Low', 'Close']], columns=['High', 'Low', 'Close'])
     answer_df[['Low_period', 'High_period', 'RSV_period', 'K_period', 'D_period', 'J_period']] = 0
@@ -179,7 +169,6 @@ def obv(data_df):
     return answer_df
 
 
-default_cci_parameters = ['20']
 def cci(data_df, period):
     answer_df = pd.DataFrame(simple_moving_average(data_df, period, 'typical_price'), columns=['typical_price', 'sma_of_typical_price'])
     answer_df[['mean_deviation', 'cci']] = 0
@@ -197,7 +186,6 @@ def stoch_rsi():
     return True
 
 
-default_wr_parameters = ['14']
 def wr(data_df, period):
     answer_df = pd.DataFrame(data_df[['High', 'Low', 'Close']], columns=['High', 'Low', 'Close'])
     answer_df[['highest_high', 'lowes_low', 'wr']] = 0
@@ -211,13 +199,11 @@ def wr(data_df, period):
     print(answer_df.to_string())
     return True
 
-#default(14)
 def dmi(data_df, period):
     return True
 
 def mtm():
     return True
 
-#default(14, 10000)
 def emv(data_df, period, divisor):
     return True
