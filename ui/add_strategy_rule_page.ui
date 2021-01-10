@@ -185,12 +185,12 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>SAR</string>
+             <string>SAR (Stop and Reverse)</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Volumen</string>
+             <string>Volumen (Amount traded in amount of time)</string>
             </property>
            </item>
            <item>
@@ -205,7 +205,7 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>KDJ</string>
+             <string>KDJ (Random Index)</string>
             </property>
            </item>
            <item>
@@ -639,12 +639,12 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>SAR</string>
+             <string>SAR (Stop and Reverse)</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Volumen</string>
+             <string>Volumen (Amount traded in amount of time)</string>
             </property>
            </item>
            <item>
@@ -659,7 +659,7 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>KDJ</string>
+             <string>KDJ (Random Index)</string>
             </property>
            </item>
            <item>

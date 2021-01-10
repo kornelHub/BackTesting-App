@@ -47,10 +47,10 @@ class Strategy_Widget(Base, Form):
 
 
         #init treeView
-        self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["SMA (Simple Moving Average) (7, Open) [0]  SMA (Simple Moving Average) (7, Open) [0]"])
-        self.sell_level_2 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["EMA (Exponential Moving Average) (7, Open) [0] > EMA (Exponential Moving Average) (7, Open) [-1]"])
-        self.sell_level_3 = QtWidgets.QTreeWidgetItem(self.sell_level_2, ["BOLL (Bollinger Band) (21, 2) [0] >= BOLL (Bollinger Band) (21, 2) [-1]"])
-        self.sell_level_2_1 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["MACD (Moving Average Eonvergence Divergence) (12, 26, 9, Open) [0] >= MACD (Moving Average Eonvergence Divergence) (12, 26, 9, Open) [-1]"])
+        self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["SMA (7, Open) [0] >= SMA (7, Open) [0]"])
+        self.sell_level_2 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["EMA (7, Open) [0] >= EMA (7, Open) [-1]"])
+        self.sell_level_3 = QtWidgets.QTreeWidgetItem(self.sell_level_2, ["WR (14) [0] > SMA (7, Open) [0]"])
+        self.sell_level_2_1 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["EVM (14, 10000) [0] >= EVM (14, 10000) [-1]"])
         self.p2_sellCondition_treeWidget.expandAll()
 
 

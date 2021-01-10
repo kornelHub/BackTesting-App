@@ -57,16 +57,16 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.add_strategy_rule_treeWidget.expandAll()
 
     def add_rule(self, receive_strategy_rule_object):
-        new_rule_to_add = self.p3_firstIndicator_comboBox.currentText() + ' ' + self.p3_firstIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_firstIndicatorOptions_lineEdit_2.text() \
+        new_rule_to_add = self.p3_firstIndicator_comboBox.currentText()[:self.p3_firstIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_firstIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_firstIndicatorOptions_lineEdit_2.text() \
                           + ' ' + self.current_selected_math_char \
-                          + ' ' + self.p3_sedondIndicator_comboBox.currentText() + ' ' + self.p3_secondIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_secondIndicatorOptions_lineEdit_2.text()
+                          + ' ' + self.p3_sedondIndicator_comboBox.currentText()[:self.p3_sedondIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_secondIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_secondIndicatorOptions_lineEdit_2.text()
 
         # loops through  all items, if item is checked > get text of all parents
         for item in self.add_strategy_rule_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0):
             if (item.checkState(0) > 0):
                 self.create_list_of_parents_text(item, [])
 
-        print(self.list_of_parent_text)
+        print(new_rule_to_add)
         sender = Send_Strategy_Rule()
         sender.on_send(new_rule_to_add, self.list_of_parent_text, receive_strategy_rule_object)
         self.close()
