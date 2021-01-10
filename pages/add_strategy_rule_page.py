@@ -24,50 +24,36 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.list_of_parent_text = []
         self.current_selected_math_char = ''
 
-        self.selectMathChar_Button_1.clicked.connect(
-            lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_1))
-        self.selectMathChar_Button_2.clicked.connect(
-            lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_2))
-        self.selectMathChar_Button_3.clicked.connect(
-            lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_3))
-        self.selectMathChar_Button_4.clicked.connect(
-            lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_4))
-        self.selectMathChar_Button_5.clicked.connect(
-            lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_5))
+        self.selectMathChar_Button_1.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_1))
+        self.selectMathChar_Button_2.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_2))
+        self.selectMathChar_Button_3.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_3))
+        self.selectMathChar_Button_4.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_4))
+        self.selectMathChar_Button_5.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_5))
 
-        self.p3_firstIndicator_comboBox.currentIndexChanged.connect(
-            lambda: self.autofill_indicator_option(self.p3_firstIndicator_comboBox,
-                                                   self.p3_firstIndicatorOptions_lineEdit_1))
+        self.p3_firstIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_firstIndicator_comboBox,self.p3_firstIndicatorOptions_lineEdit_1))
 
-        self.p3_sedondIndicator_comboBox.currentIndexChanged.connect(
-            lambda: self.autofill_indicator_option(self.p3_sedondIndicator_comboBox,
-                                                   self.p3_secondIndicatorOptions_lineEdit_1))
+        self.p3_sedondIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_sedondIndicator_comboBox,self.p3_secondIndicatorOptions_lineEdit_1))
 
     def autofill_indicator_option(self, combo_box, linked_line_edit):
         linked_line_edit.setText(indicator_default_options.get(combo_box.currentText()))
 
     def math_char_buttons_behavior(self, clicked_button):
-        buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2, self.selectMathChar_Button_3
-            , self.selectMathChar_Button_4, self.selectMathChar_Button_5]
+        buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2, self.selectMathChar_Button_3, self.selectMathChar_Button_4, self.selectMathChar_Button_5]
         clicked_button.setStyleSheet(add_strategy_button_style_sheet_clicked)
         self.current_selected_math_char = clicked_button.text()
         buttons.remove(clicked_button)
         for item in buttons:
             item.setStyleSheet(add_strategy_button_style_sheet_normal)
 
-    def load_QTreeWidget(self, list_of_objects):
+    def load_qtreewidget(self, list_of_objects):
         for element in list_of_objects:
             if element.parent() is None:
                 # Add item to qTreeWidget and make is checkable
-                QtWidgets.QTreeWidgetItem(self.add_strategy_rule_treeWidget, [element.text(0)]).setCheckState(0,
-                                                                                                              QtCore.Qt.Unchecked)
+                QtWidgets.QTreeWidgetItem(self.add_strategy_rule_treeWidget, [element.text(0)]).setCheckState(0, QtCore.Qt.Unchecked)
             else:
-                parent_of_current_element = self.add_strategy_rule_treeWidget.findItems(element.parent().text(0),
-                                                                                        QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive,
-                                                                                        0)
+                parent_of_current_element = self.add_strategy_rule_treeWidget.findItems(element.parent().text(0), QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
                 # Add item to qTreeWidget and make is checkable
-                QtWidgets.QTreeWidgetItem(parent_of_current_element[0], [element.text(0)]).setCheckState(0,
-                                                                                                         QtCore.Qt.Unchecked)
+                QtWidgets.QTreeWidgetItem(parent_of_current_element[0], [element.text(0)]).setCheckState(0, QtCore.Qt.Unchecked)
         self.add_strategy_rule_treeWidget.expandAll()
 
     def add_rule(self, receive_strategy_rule_object):
@@ -76,8 +62,7 @@ class Add_Strategy_Rule_Widget(Form, Base):
                           + ' ' + self.p3_sedondIndicator_comboBox.currentText() + ' ' + self.p3_secondIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_secondIndicatorOptions_lineEdit_2.text()
 
         # loops through  all items, if item is checked > get text of all parents
-        for item in self.add_strategy_rule_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive,
-                                                                0):
+        for item in self.add_strategy_rule_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0):
             if (item.checkState(0) > 0):
                 self.create_list_of_parents_text(item, [])
 
@@ -95,6 +80,14 @@ class Add_Strategy_Rule_Widget(Form, Base):
             helper_list.append(qTreeWidgetItem.text(0))
             self.create_list_of_parents_text(qTreeWidgetItem.parent(), helper_list)
 
+    def load_rule_details_to_modify(self, rule_to_modify):
+        print(rule_to_modify)
+        for key in indicator_default_options:
+            if key in rule_to_modify:
+                first_indicator = key
+                rule_to_modify = rule_to_modify.replace(key, '', 1)
+
+        print(rule_to_modify)
 
 class Send_Strategy_Rule(QtCore.QObject):
     signal = Signal()

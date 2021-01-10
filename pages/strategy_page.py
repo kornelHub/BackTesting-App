@@ -20,7 +20,6 @@ class Strategy_Widget(Base, Form):
 
         self.p2_edit_buy_rule.setIcon(QtGui.QIcon('icons/edit.png'))
         self.p2_edit_buy_rule.setIconSize(QtCore.QSize(24, 24))
-        self.p2_edit_buy_rule.clicked.connect(self.edit_buy_rule)
 
         self.p2_delete_buy_rule.setIcon(QtGui.QIcon('icons/trash.png'))
         self.p2_delete_buy_rule.setIconSize(QtCore.QSize(24, 24))
@@ -34,11 +33,9 @@ class Strategy_Widget(Base, Form):
         #Sell
         self.p2_add_sell_rule.setIcon(QtGui.QIcon('icons/add.png'))
         self.p2_add_sell_rule.setIconSize(QtCore.QSize(24, 24))
-        # self.p2_add_sell_rule.clicked.connect(self.display_add_sell_rule_page)
 
         self.p2_edit_sell_rule.setIcon(QtGui.QIcon('icons/edit.png'))
         self.p2_edit_sell_rule.setIconSize(QtCore.QSize(24, 24))
-        self.p2_edit_sell_rule.clicked.connect(self.edit_sell_rule)
 
         self.p2_delete_sell_rule.setIcon(QtGui.QIcon('icons/trash.png'))
         self.p2_delete_sell_rule.setIconSize(QtCore.QSize(24, 24))
@@ -50,17 +47,10 @@ class Strategy_Widget(Base, Form):
 
 
         #init treeView
-        self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["EMA (Exponential Moving Average) (7, Close) > EMA (Exponential Moving Average) (14, Close)"])
-        # self.sell_level_1_2 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["lorem ipsu222222"])
-        # self.sell_level_1_3 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["lorem ipsu333333"])
-        self.sell_level_2 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["WR (Williams %) (21, 2) > 80"])
-        self.sell_level_3 = QtWidgets.QTreeWidgetItem(self.sell_level_2, ["Volumen  >  1000"])
-        self.sell_level_2_1 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["TRIX (Triple Exponential Average) (9) > TRIX (Triple Exponential Average) (15)"])
-        # self.sell_level_4 = QtWidgets.QTreeWidgetItem(self.sell_level_3, ["lorem ipsu4"])
-        # self.sell_level_1_xd = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["XDDDDDDDDD DDDDDDDDDDDDDDDDDDD"])
-        #
-        # self.sell_level_4_2 = QtWidgets.QTreeWidgetItem(["lorem ipsu41"])
-        # self.sell_level_2.addChild(self.sell_level_4_2)
+        self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["SMA (Simple Moving Average) (7, Open) [0]  SMA (Simple Moving Average) (7, Open) [0]"])
+        self.sell_level_2 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["EMA (Exponential Moving Average) (7, Open) [0] > EMA (Exponential Moving Average) (7, Open) [-1]"])
+        self.sell_level_3 = QtWidgets.QTreeWidgetItem(self.sell_level_2, ["BOLL (Bollinger Band) (21, 2) [0] >= BOLL (Bollinger Band) (21, 2) [-1]"])
+        self.sell_level_2_1 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["MACD (Moving Average Eonvergence Divergence) (12, 26, 9, Open) [0] >= MACD (Moving Average Eonvergence Divergence) (12, 26, 9, Open) [-1]"])
         self.p2_sellCondition_treeWidget.expandAll()
 
 
@@ -79,9 +69,6 @@ class Strategy_Widget(Base, Form):
     #     print('**********************************************************')
     #     print(rule_to_add)
     #     print(self.p2_buyCondition_treeWidget.selectedItems())
-
-    def edit_buy_rule(self):
-        print('edit buy rule')
 
     def delete_buy_rule(self):
         print('delete_buy_rule')
@@ -102,8 +89,6 @@ class Strategy_Widget(Base, Form):
     #     print(rule_to_add)
     #     print(self.p2_sellCondition_treeWidget.selectedIndexes())
 
-    def edit_sell_rule(self):
-        print('edit sell rule')
 
     def delete_sell_rule(self):
         print('delete_sell_rule')
