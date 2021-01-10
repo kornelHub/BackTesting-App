@@ -29,22 +29,22 @@ add_strategy_button_style_sheet_normal = "QPushButton {\ncolor: rgb(255, 255, 25
 add_strategy_button_style_sheet_clicked = "QPushButton {\ncolor: rgb(255, 255, 255);\nbackground-color: rgb(85, 170, 255);\nborder: 0px sold;\nborder-radius: 10px;\n\n}"
 
 indicator_default_options = {
-    'SMA (Simple Moving Average)': '[7, Open]',
-    'EMA (Exponential Moving Average)': '[7, Open]',
-    'WMA (Weighted Moving Average)': '[7, Open]',
-    'BOLL (Bollinger Band)': '[21, 2]',
-    'VWAP (Volumen Weighted Average Price)': '[14]',
-    'TRIX (Triple Exponential Average)': '[9]',
-    'SAR': '[7, Open]',
+    'SMA (Simple Moving Average)': '(7, Open)',
+    'EMA (Exponential Moving Average)': '(7, Open)',
+    'WMA (Weighted Moving Average)': '(7, Open)',
+    'BOLL (Bollinger Band)': '(21, 2)',
+    'VWAP (Volumen Weighted Average Price)': '(14)',
+    'TRIX (Triple Exponential Average)': '(9)',
+    'SAR': '(7, Open)',
     'Volumen': '-',
-    'MACD (Moving Average Eonvergence Divergence)': '[12, 26, 9, Open]',
-    'RSI (Relative Strength Index)': '[6]',
-    'KDJ': '[9, 3, 3]',
+    'MACD (Moving Average Eonvergence Divergence)': '(12, 26, 9, Open)',
+    'RSI (Relative Strength Index)': '(6)',
+    'KDJ': '(9, 3, 3)',
     'OBV (On-balance volume)': '-',
-    'CCI (Commodity Channel Index)': '[20]',
-    'StochRSI (Stoch Relative Strength Index)': '[7, Open]',
-    'WR (Williams %)': '[14]',
-    'DMI (Directional Movement Index)': '[14]',
-    'MTM (Momentum)': '[7, Open]',
-    'EVM (Ease of Movement)': '[14, 10000]'
+    'CCI (Commodity Channel Index)': '(20)',
+    'StochRSI (Stoch Relative Strength Index)': '(7, Open)',
+    'WR (Williams %)': '(14)',
+    'DMI (Directional Movement Index)': '(14)',
+    'MTM (Momentum)': '(7, Open)',
+    'EVM (Ease of Movement)': '(14, 10000)'
 }
