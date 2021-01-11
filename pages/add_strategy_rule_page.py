@@ -81,13 +81,31 @@ class Add_Strategy_Rule_Widget(Form, Base):
             self.create_list_of_parents_text(qTreeWidgetItem.parent(), helper_list)
 
     def load_rule_details_to_modify(self, rule_to_modify):
-        print(rule_to_modify)
-        for key in indicator_default_options:
-            if key in rule_to_modify:
-                first_indicator = key
-                rule_to_modify = rule_to_modify.replace(key, '', 1)
+        first_indicator_short_name = rule_to_modify[:rule_to_modify.find('(')-1]
+        rule_to_modify = rule_to_modify[rule_to_modify.find('('):]
+        first_indicator_options = rule_to_modify[:rule_to_modify.find('[')-1]
+        rule_to_modify = rule_to_modify[rule_to_modify.find('['):]
+        first_indicator_period = rule_to_modify[:rule_to_modify.find(']')+1]
+        rule_to_modify = rule_to_modify[rule_to_modify.find(']')+2:]
+        math_char = rule_to_modify[:2].strip()
+        rule_to_modify = rule_to_modify[2:].strip()
+        second_indicator_short_name = rule_to_modify[:rule_to_modify.find('(') - 1]
+        rule_to_modify = rule_to_modify[rule_to_modify.find('('):]
+        second_indicator_options = rule_to_modify[:rule_to_modify.find('[') - 1]
+        rule_to_modify = rule_to_modify[rule_to_modify.find('['):]
+        second_indicator_period = rule_to_modify
 
-        print(rule_to_modify)
+        self.p3_firstIndicator_comboBox.setCurrentIndex(self.p3_firstIndicator_comboBox.findText(first_indicator_short_name, QtCore.Qt.MatchContains))
+        self.p3_firstIndicatorOptions_lineEdit_1.setText(first_indicator_options)
+        self.p3_firstIndicatorOptions_lineEdit_2.setText(first_indicator_period)
+        buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2, self.selectMathChar_Button_3, self.selectMathChar_Button_4, self.selectMathChar_Button_5]
+        for button in buttons:
+            if button.text() == math_char:
+                self.current_selected_math_char = math_char
+                button.setStyleSheet(add_strategy_button_style_sheet_clicked)
+        self.p3_sedondIndicator_comboBox.setCurrentIndex(self.p3_sedondIndicator_comboBox.findText(second_indicator_short_name, QtCore.Qt.MatchContains))
+        self.p3_secondIndicatorOptions_lineEdit_1.setText(second_indicator_options)
+        self.p3_secondIndicatorOptions_lineEdit_2.setText(second_indicator_period)
 
 class Send_Strategy_Rule(QtCore.QObject):
     signal = Signal()
