@@ -23,6 +23,7 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.p3_secondIndicatorOptions_lineEdit_2.setText('[0]')
         self.list_of_parent_text = []
         self.current_selected_math_char = ''
+        self.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)
 
         self.selectMathChar_Button_1.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_1))
         self.selectMathChar_Button_2.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_2))
@@ -86,6 +87,11 @@ class Add_Strategy_Rule_Widget(Form, Base):
 
     ### function responsible for modyfing rule
     def load_rule_details_to_modify(self, rule_to_modify):
+        self.tree_widget.hide()
+        self.label.setText('Modify rule')
+        w = self.size().width()
+        h = self.size().height()
+        self.resize(w, h/2)
         first_indicator_short_name = rule_to_modify[:rule_to_modify.find('(')-1]
         rule_to_modify = rule_to_modify[rule_to_modify.find('('):]
         first_indicator_options = rule_to_modify[:rule_to_modify.find('[')-1]
