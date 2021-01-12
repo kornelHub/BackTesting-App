@@ -45,6 +45,13 @@ class Add_Strategy_Rule_Widget(Form, Base):
         for item in buttons:
             item.setStyleSheet(add_strategy_button_style_sheet_normal)
 
+    def get_and_combine_text_from_fields(self):
+        new_rule_to_add = self.p3_firstIndicator_comboBox.currentText()[:self.p3_firstIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_firstIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_firstIndicatorOptions_lineEdit_2.text() \
+                          + ' ' + self.current_selected_math_char \
+                          + ' ' + self.p3_sedondIndicator_comboBox.currentText()[:self.p3_sedondIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_secondIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_secondIndicatorOptions_lineEdit_2.text()
+        return new_rule_to_add
+
+    ### function responsible for adding new strategy rule
     def load_qtreewidget(self, list_of_objects):
         for element in list_of_objects:
             if element.parent() is None:
@@ -56,21 +63,6 @@ class Add_Strategy_Rule_Widget(Form, Base):
                 QtWidgets.QTreeWidgetItem(parent_of_current_element[0], [element.text(0)]).setCheckState(0, QtCore.Qt.Unchecked)
         self.add_strategy_rule_treeWidget.expandAll()
 
-    def add_rule(self, receive_strategy_rule_object):
-        new_rule_to_add = self.p3_firstIndicator_comboBox.currentText()[:self.p3_firstIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_firstIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_firstIndicatorOptions_lineEdit_2.text() \
-                          + ' ' + self.current_selected_math_char \
-                          + ' ' + self.p3_sedondIndicator_comboBox.currentText()[:self.p3_sedondIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_secondIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_secondIndicatorOptions_lineEdit_2.text()
-
-        # loops through  all items, if item is checked > get text of all parents
-        for item in self.add_strategy_rule_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0):
-            if (item.checkState(0) > 0):
-                self.create_list_of_parents_text(item, [])
-
-        print(new_rule_to_add)
-        sender = Send_Strategy_Rule()
-        sender.on_send(new_rule_to_add, self.list_of_parent_text, receive_strategy_rule_object)
-        self.close()
-
     def create_list_of_parents_text(self, qTreeWidgetItem, helper_list):
         if qTreeWidgetItem.parent() is None:
             helper_list.append(qTreeWidgetItem.text(0))
@@ -80,6 +72,19 @@ class Add_Strategy_Rule_Widget(Form, Base):
             helper_list.append(qTreeWidgetItem.text(0))
             self.create_list_of_parents_text(qTreeWidgetItem.parent(), helper_list)
 
+    def add_new_rule(self, receiver_object):
+        new_rule_to_add = self.get_and_combine_text_from_fields()
+        # loops through  all items, if item is checked > get text of all parents
+        for item in self.add_strategy_rule_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0):
+            if (item.checkState(0) > 0):
+                self.create_list_of_parents_text(item, [])
+
+        print('New rule to add: ', new_rule_to_add)
+        sender = Send_Strategy_Rule_To_Add()
+        sender.send_rule_to_add(new_rule_to_add, self.list_of_parent_text, receiver_object)
+        self.close()
+
+    ### function responsible for modyfing rule
     def load_rule_details_to_modify(self, rule_to_modify):
         first_indicator_short_name = rule_to_modify[:rule_to_modify.find('(')-1]
         rule_to_modify = rule_to_modify[rule_to_modify.find('('):]
@@ -107,13 +112,24 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.p3_secondIndicatorOptions_lineEdit_1.setText(second_indicator_options)
         self.p3_secondIndicatorOptions_lineEdit_2.setText(second_indicator_period)
 
-class Send_Strategy_Rule(QtCore.QObject):
-    signal = Signal()
+    def save_modified_rule(self, current_selected_item, receiver_object):
+        rule_to_modify = self.get_and_combine_text_from_fields()
+        print('Rule to modify: ', rule_to_modify)
+        sender = Send_Strategy_Rule_To_Modify()
+        sender.send_rule_to_modify(rule_to_modify, current_selected_item, receiver_object)
+        self.close()
 
-    def on_send(self, new_rule_to_add, text_of_parent_element, reciver):
-        self.signal.connect(lambda: reciver.on_recive(new_rule_to_add, text_of_parent_element))
+class Send_Strategy_Rule_To_Add(QtCore.QObject):
+    signal = Signal()
+    def send_rule_to_add(self, new_rule_to_add, text_of_parent_element, receiver_object):
+        self.signal.connect(lambda: receiver_object.receive_and_add_rule(new_rule_to_add, text_of_parent_element))
         self.signal.emit()
 
+class Send_Strategy_Rule_To_Modify(QtCore.QObject):
+    signal = Signal()
+    def send_rule_to_modify(self, rule_to_modify, current_selected_item, receiver_object):
+        self.signal.connect(lambda: receiver_object.receive_and_modify_rule(rule_to_modify, current_selected_item))
+        self.signal.emit()
 
 if __name__ == '__add_strategy_rule_page__':
     import sys

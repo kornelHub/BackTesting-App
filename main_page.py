@@ -28,11 +28,9 @@ class MainWidget(Base, Form):
 ########################################################################################################################
 ### Strategy Page ###
 ########################################################################################################################
-        self.receive_buy_strategy_rule_object = Receive_Buy_Strategy_Rule()
         self.strategy_page.p2_add_buy_rule.clicked.connect(self.strategypage_display_add_buy_rule_page)
         self.strategy_page.p2_edit_buy_rule.clicked.connect(self.strategypage_display_modify_buy_rule_page)
 
-        self.receive_sell_strategy_rule_object = Receive_Sell_Strategy_Rule()
         self.strategy_page.p2_add_sell_rule.clicked.connect(self.strategypage_display_sell_buy_rule_page)
         self.strategy_page.p2_edit_sell_rule.clicked.connect(self.strategypage_display_modify_sell_rule_page)
 
@@ -40,28 +38,38 @@ class MainWidget(Base, Form):
 ########################################################################################################################
 
     def strategypage_display_add_buy_rule_page(self):
+        self.receive_buy_strategy_rule_to_add_object = Receive_Buy_Strategy_Rule_To_Add()
         add_strategy_page_widget = Add_Strategy_Rule_Widget()
         list_of_items_in_buy_qtreewidget = self.strategy_page.p2_buyCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
         add_strategy_page_widget.load_qtreewidget(list_of_items_in_buy_qtreewidget)
         add_strategy_page_widget.show()
-        add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.add_rule(self.receive_buy_strategy_rule_object))
+        add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.add_new_rule(self.receive_buy_strategy_rule_to_add_object))
 
     def strategypage_display_modify_buy_rule_page(self):
+        receive_strategy_rule_to_modify_object = Receive_Strategy_Rule_To_Modify()
         add_strategy_page_widget = Add_Strategy_Rule_Widget()
+        add_strategy_page_widget.load_rule_details_to_modify(main_widget_object.strategy_page.p2_buyCondition_treeWidget.currentItem().text(0))
         add_strategy_page_widget.show()
-        # add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.add_rule(self.receive_buy_strategy_rule_object))
+        add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.save_modified_rule(
+            main_widget_object.strategy_page.p2_buyCondition_treeWidget.currentItem(),
+            receive_strategy_rule_to_modify_object))
 
     def strategypage_display_sell_buy_rule_page(self):
+        self.receive_sell_strategy_rule_to_add_object = Receive_Sell_Strategy_Rule_To_Add()
         add_strategy_page_widget = Add_Strategy_Rule_Widget()
         list_of_items_in_sell_qtreewidget = self.strategy_page.p2_sellCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
         add_strategy_page_widget.load_qtreewidget(list_of_items_in_sell_qtreewidget)
         add_strategy_page_widget.show()
-        add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.add_rule(self.receive_sell_strategy_rule_object))
+        add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.add_new_rule(self.receive_sell_strategy_rule_to_add_object))
 
     def strategypage_display_modify_sell_rule_page(self):
+        receive_strategy_rule_to_modify_object = Receive_Strategy_Rule_To_Modify()
         add_strategy_page_widget = Add_Strategy_Rule_Widget()
         add_strategy_page_widget.load_rule_details_to_modify(main_widget_object.strategy_page.p2_sellCondition_treeWidget.currentItem().text(0))
         add_strategy_page_widget.show()
+        add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.save_modified_rule(
+            main_widget_object.strategy_page.p2_sellCondition_treeWidget.currentItem(),
+            receive_strategy_rule_to_modify_object))
 
 ########################################################################################################################
     def toggleMenu(self):
@@ -84,11 +92,11 @@ class MainWidget(Base, Form):
         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         self.animation.start()
 
-    def get_asd(self, qTreeWidgetItem, list):
+    def add_parent_text_to_list(self, qTreeWidgetItem, list):
         if len(list) > 0:
             if qTreeWidgetItem.parent() is not None:
                 if qTreeWidgetItem.parent().text(0) == list[0]:
-                    self.get_asd(qTreeWidgetItem.parent(), list[1:])
+                    self.add_parent_text_to_list(qTreeWidgetItem.parent(), list[1:])
                 else:
                     main_widget_object.helper_on_adding_new_rules = False
                     return False
@@ -99,36 +107,42 @@ class MainWidget(Base, Form):
             main_widget_object.helper_on_adding_new_rules = True
             return True
 
-
-class Receive_Buy_Strategy_Rule(QtCore.QObject):
+### Add new rule receivers
+class Receive_Buy_Strategy_Rule_To_Add(QtCore.QObject):
     @Slot(str)
-    def on_recive(self, received_rule, text_of_parent_element):
+    def receive_and_add_rule(self, received_rule, text_of_parent_element):
         if len(text_of_parent_element) > 0:
             for list_in_list in text_of_parent_element:
                 if len(list_in_list) > 0:
                     for found_element in main_widget_object.strategy_page.p2_buyCondition_treeWidget.findItems(
                             list_in_list[0], QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0):
-                        main_widget_object.get_asd(found_element, list_in_list[1:])
+                        main_widget_object.add_parent_text_to_list(found_element, list_in_list[1:])
                         if main_widget_object.helper_on_adding_new_rules:
                             QtWidgets.QTreeWidgetItem(found_element, [received_rule])
         else:
             QtWidgets.QTreeWidgetItem(main_widget_object.strategy_page.p2_buyCondition_treeWidget, [received_rule])
         main_widget_object.strategy_page.p2_buyCondition_treeWidget.expandAll()
 
-class Receive_Sell_Strategy_Rule(QtCore.QObject):
+class Receive_Sell_Strategy_Rule_To_Add(QtCore.QObject):
     @Slot(str)
-    def on_recive(self, received_rule, text_of_parent_element):
+    def receive_and_add_rule(self, received_rule, text_of_parent_element):
         if len(text_of_parent_element) > 0:
             for list_in_list in text_of_parent_element:
                 if len(list_in_list) > 0:
                     for found_element in main_widget_object.strategy_page.p2_sellCondition_treeWidget.findItems(
                             list_in_list[0], QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0):
-                        main_widget_object.get_asd(found_element, list_in_list[1:])
+                        main_widget_object.add_parent_text_to_list(found_element, list_in_list[1:])
                         if main_widget_object.helper_on_adding_new_rules:
                             QtWidgets.QTreeWidgetItem(found_element, [received_rule])
         else:
             QtWidgets.QTreeWidgetItem(main_widget_object.strategy_page.p2_sellCondition_treeWidget, [received_rule])
         main_widget_object.strategy_page.p2_sellCondition_treeWidget.expandAll()
+
+### Modify rule receiver
+class Receive_Strategy_Rule_To_Modify(QtCore.QObject):
+    @Slot(str)
+    def receive_and_modify_rule(self, received_rule, current_selected_item):
+        current_selected_item.setText(0, received_rule)
 
 if __name__ == '__main__':
     import sys
