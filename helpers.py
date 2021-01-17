@@ -1,4 +1,5 @@
 import datetime as dt
+from engine import calculate_indicators
 
 colums_name_from_binance=['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume', 'NumberOfTrades', 'TakerBuyBaseAssetVolume', 'TakerBuyQuoteAssetVolume', 'Ingore']
 colums_name_string = 'Opentime;Open;High;Low;Close;Volume;CloseTime'
@@ -47,4 +48,25 @@ indicator_default_options = {
     'DMI (Directional Movement Index)': '(14)',
     'MTM (Momentum)': '(7, Open)',
     'EVM (Ease of Movement)': '(14, 10000)'
+}
+
+indicator_function_name = {
+    'SMA': calculate_indicators.simple_moving_average,
+    'EMA': calculate_indicators.exponential_moving_average,
+    'WMA': calculate_indicators.weighted_moving_average,
+    'BOLL': calculate_indicators.bollinger_band,
+    'VWAP': calculate_indicators.volume_weighted_average_price,
+    'TRIX': calculate_indicators.trix,
+    'SAR': calculate_indicators.sar,
+    'Volumen': '(-)',
+    'MACD': calculate_indicators.macd,
+    'RSI': calculate_indicators.rsi,
+    'KDJ': calculate_indicators.kdj,
+    'OBV': calculate_indicators.obv,
+    'CCI': calculate_indicators.cci,
+    'StochRSI': calculate_indicators.stoch_rsi,
+    'WR': calculate_indicators.wr,
+    'DMI': calculate_indicators.dmi,
+    'MTM': calculate_indicators.mtm,
+    'EVM': calculate_indicators.evm
 }

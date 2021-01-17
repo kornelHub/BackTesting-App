@@ -46,12 +46,20 @@ class Strategy_Widget(Base, Form):
         self.p2_undo_sell_rule.clicked.connect(self.undo_sell_rule)
 
 
-        #init treeView
+        #init sell treeView
         self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["SMA (7, Open) [0] >= SMA (7, Open) [0]"])
         self.sell_level_2 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["EMA (7, Open) [0] >= EMA (7, Open) [-1]"])
         self.sell_level_3 = QtWidgets.QTreeWidgetItem(self.sell_level_2, ["WR (14) [0] > SMA (7, Open) [0]"])
         self.sell_level_2_1 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["EVM (14, 10000) [0] >= EVM (14, 10000) [-1]"])
         self.p2_sellCondition_treeWidget.expandAll()
+
+        self.buy_level_1 = QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget, ["SMA (7, Open) [0] <= SMA (7, Open) [0]"])
+        self.buy_level_2 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["EMA (7, Open) [0] <= EMA (7, Open) [-1]"])
+        self.buy_level_3 = QtWidgets.QTreeWidgetItem(self.buy_level_2, ["WR (14) [0] < SMA (7, Open) [0]"])
+        self.buy_level_2_1 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["EVM (14, 10000) [0] <= EVM (14, 10000) [-1]"])
+        self.p2_buyCondition_treeWidget.expandAll()
+
+
 
 
         # sell_level_1.setBackground(0, QtGui.QColor(170, 14, 9))

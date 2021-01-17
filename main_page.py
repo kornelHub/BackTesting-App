@@ -4,6 +4,7 @@ from PySide2.QtUiTools import loadUiType
 from PySide2.QtCore import Slot
 from functools import partial
 from pages.add_strategy_rule_page import Add_Strategy_Rule_Widget
+from engine import simulation
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "ui/mainWindow.ui"))
@@ -24,6 +25,7 @@ class MainWidget(Base, Form):
             button.clicked.connect(partial(self.widget_pages.setCurrentIndex, i))
 
         self.btn_toggle.clicked.connect(self.toggleMenu)
+        self.next_btn.clicked.connect(lambda: self.display_next_page())
 
 ########################################################################################################################
 ### Strategy Page ###
@@ -73,18 +75,14 @@ class MainWidget(Base, Form):
 
 ########################################################################################################################
     def toggleMenu(self):
-        # GET WIDTH
         width = self.frame_left_menu_container.width()
         maxExtend = 250
         standard = 70
-
-        # SET MAX WIDTH
         if width == 70:
             widthExtended = maxExtend
         else:
             widthExtended = standard
 
-        # ANIMATION
         self.animation = QtCore.QPropertyAnimation(self.frame_left_menu_container, b"minimumWidth")
         self.animation.setDuration(400)
         self.animation.setStartValue(width)
@@ -92,6 +90,13 @@ class MainWidget(Base, Form):
         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         self.animation.start()
 
+    def display_next_page(self):
+        ### start simulation
+        if self.widget_pages.currentIndex() is 1:
+            simulation.init_simulation(main_widget_object)
+        self.widget_pages.setCurrentIndex(self.widget_pages.currentIndex()+1)
+
+########################################################################################################################
     def add_parent_text_to_list(self, qTreeWidgetItem, list):
         if len(list) > 0:
             if qTreeWidgetItem.parent() is not None:
