@@ -2,6 +2,7 @@ from PySide2 import QtCore
 import helpers
 import pandas as pd
 
+
 def get_buy_rules(main_window_object):
     list_of_items_in_buy_and_text = [[]]
     list_of_items_in_buy_qtreewidget = main_window_object.strategy_page.p2_buyCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
@@ -9,12 +10,14 @@ def get_buy_rules(main_window_object):
         list_of_items_in_buy_and_text.append([buy_item, buy_item.text(0), buy_item.parent()])
     return list_of_items_in_buy_and_text[1:]
 
+
 def get_sell_rules(main_window_object):
     list_of_items_in_sell_and_text = [[]]
     list_of_items_in_sell_qtreewidget = main_window_object.strategy_page.p2_sellCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
     for sell_item in list_of_items_in_sell_qtreewidget:
         list_of_items_in_sell_and_text.append([sell_item, sell_item.text(0), sell_item.parent()])
     return list_of_items_in_sell_and_text[1:]
+
 
 def slice_rule(rule):
     first_indicator_short_name = rule[:rule.find('(') - 1]
@@ -58,11 +61,26 @@ def slice_rule(rule):
     return first_indicator_short_name, first_indicator_options_list, first_indicator_period, math_char,\
            second_indicator_short_name, second_indicator_options_list, second_indicator_period
 
-def transform_if_needed(indicator_option):
-    if indicator_option == 'Open' or indicator_option == 'High' or indicator_option == 'Low' or indicator_option == 'Close':
-        return indicator_option
+
+def build_column_name(indicator_short_name, indicator_options_list):
+    combined_column_name = ''
+    if indicator_short_name == 'BOLL - Upper Band':
+        combined_column_name = 'BOLL_Upper'
+    elif indicator_short_name == 'BOLL - Lower Band':
+        combined_column_name = 'BOLL_Lower'
+    elif indicator_short_name == 'MACD - MACD Line':
+        combined_column_name = 'MACD_Line'
+    elif indicator_short_name =='MACD - Singal Line':
+        combined_column_name = 'MACD_Signal_Line'
     else:
-        return int(indicator_option)
+        combined_column_name = indicator_short_name
+
+    for element in indicator_options_list:
+        combined_column_name += '_' + element
+
+    print(combined_column_name)
+    return combined_column_name
+
 
 
 def init_simulation(main_window_object):
@@ -70,10 +88,10 @@ def init_simulation(main_window_object):
     sell_rules = get_sell_rules(main_window_object)
     data_df = pd.read_csv("data/data.csv", sep=';')
 
-    # slice rules to separate chunks
+    # slice rules to separate usable chunks
     for x in range(len(buy_rules)):
         globals()[f"buy_first_indicator_short_name{x}"], globals()[f"buy_first_indicator_options_list{x}"],\
-        globals()[f"buy_first_indicator_period{x}"],globals()[f"buy_math_char{x}"],\
+        globals()[f"buy_first_indicator_period{x}"], globals()[f"buy_math_char{x}"],\
         globals()[f"buy_second_indicator_short_name{x}"], globals()[f"buy_second_indicator_options_list{x}"],\
         globals()[f"buy_second_indicator_period{x}"] = slice_rule(buy_rules[x][1])
 
@@ -83,5 +101,14 @@ def init_simulation(main_window_object):
         globals()[f"sell_second_indicator_short_name{x}"], globals()[f"sell_second_indicator_options_list{x}"], \
         globals()[f"sell_second_indicator_period{x}"] = slice_rule(sell_rules[x][1])
 
-    data_df = data_df.join(helpers.indicator_function_name[buy_first_indicator_short_name0](pd.read_csv("data/data.csv", sep=';'), transform_if_needed(buy_first_indicator_options_list0[0]), transform_if_needed(buy_first_indicator_options_list0[1])), how='inner')
+
+    for y in range(len(buy_rules)):
+        if build_column_name(globals()[f"buy_first_indicator_short_name{y}"], globals()[f"buy_first_indicator_options_list{y}"]) not in data_df.columns:
+            data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_first_indicator_short_name{y}"]](*globals()[f"buy_first_indicator_options_list{y}"]), how='inner')
+
+        if build_column_name(globals()[f"buy_second_indicator_short_name{y}"], globals()[f"buy_second_indicator_options_list{y}"]) not in data_df.columns:
+            data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_second_indicator_short_name{y}"]](*globals()[f"buy_second_indicator_options_list{y}"]), how='inner')
+
+    # data_df = data_df.join(helpers.indicator_function_name[buy_first_indicator_short_name0](*buy_first_indicator_options_list0), how='inner')
     print(data_df.to_string())
+    # print(data_df.columns)

@@ -170,7 +170,12 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>BOLL (Bollinger Band)</string>
+             <string>BOLL - Upper Band (Bollinger Band)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>BOLL - Lower Band (Bollinger Band)</string>
             </property>
            </item>
            <item>
@@ -195,7 +200,12 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>MACD (Moving Average Eonvergence Divergence)</string>
+             <string>MACD - MACD Line (Moving Average Eonvergence Divergence)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>MACD - Singal Line (Moving Average Eonvergence Divergence)</string>
             </property>
            </item>
            <item>
@@ -624,7 +634,12 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>BOLL (Bollinger Band)</string>
+             <string>BOLL - Upper Band (Bollinger Band)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>BOLL - Lower Band (Bollinger Band)</string>
             </property>
            </item>
            <item>
@@ -649,7 +664,12 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>MACD (Moving Average Eonvergence Divergence)</string>
+             <string>MACD - MACD Line (Moving Average Eonvergence Divergence)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>MACD - Singal Line (Moving Average Eonvergence Divergence)</string>
             </property>
            </item>
            <item>
