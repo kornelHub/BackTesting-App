@@ -300,4 +300,18 @@ def mtm():
 def evm(period, divisor):
     period = int(period)
     divisor = int(divisor)
-    return True
+    answer_df = pd.DataFrame(data_df[['High', 'Low', 'Volume']])
+    answer_df['distance_moved'] = 0
+    answer_df['emv_1period'] = 0
+    answer_df['sma_of_emv'] = 0
+    answer_np = answer_df.to_numpy()
+    for x in range(1, len(answer_np)):
+        answer_np[x, 3] = ((answer_np[x, 0] + answer_np[x, 1]) / 2) - ((answer_np[x-1, 0] + answer_np[x-1, 1]) / 2)
+        answer_np[x, 4] = answer_np[x, 3] / ((answer_np[x, 2] / divisor) / (answer_np[x, 0] - answer_np[x, 1]))
+
+    for y in range(period, len(answer_np)):
+        answer_np[y][5] = np.mean(answer_np[y - period + 1:y + 1, 4])
+
+    answer_df = pd.DataFrame(answer_np[:,5], columns=['EMV_'+str(period)+'_'+str(divisor)])
+    print(answer_df.to_string())
+    return answer_df
