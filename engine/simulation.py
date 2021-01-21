@@ -78,9 +78,7 @@ def build_column_name(indicator_short_name, indicator_options_list):
     for element in indicator_options_list:
         combined_column_name += '_' + element
 
-    print(combined_column_name)
     return combined_column_name
-
 
 
 def init_simulation(main_window_object):
@@ -101,7 +99,7 @@ def init_simulation(main_window_object):
         globals()[f"sell_second_indicator_short_name{x}"], globals()[f"sell_second_indicator_options_list{x}"], \
         globals()[f"sell_second_indicator_period{x}"] = slice_rule(sell_rules[x][1])
 
-
+    # calculate needed indicators and assign them to data_df
     for y in range(len(buy_rules)):
         if build_column_name(globals()[f"buy_first_indicator_short_name{y}"], globals()[f"buy_first_indicator_options_list{y}"]) not in data_df.columns:
             data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_first_indicator_short_name{y}"]](*globals()[f"buy_first_indicator_options_list{y}"]), how='inner')
@@ -109,6 +107,10 @@ def init_simulation(main_window_object):
         if build_column_name(globals()[f"buy_second_indicator_short_name{y}"], globals()[f"buy_second_indicator_options_list{y}"]) not in data_df.columns:
             data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_second_indicator_short_name{y}"]](*globals()[f"buy_second_indicator_options_list{y}"]), how='inner')
 
-    # data_df = data_df.join(helpers.indicator_function_name[buy_first_indicator_short_name0](*buy_first_indicator_options_list0), how='inner')
+        if build_column_name(globals()[f"sell_first_indicator_short_name{y}"], globals()[f"sell_first_indicator_options_list{y}"]) not in data_df.columns:
+            data_df = data_df.join(helpers.indicator_function_name[globals()[f"sell_first_indicator_short_name{y}"]](*globals()[f"sell_first_indicator_options_list{y}"]), how='inner')
+
+        if build_column_name(globals()[f"sell_second_indicator_short_name{y}"], globals()[f"sell_second_indicator_options_list{y}"]) not in data_df.columns:
+            data_df = data_df.join(helpers.indicator_function_name[globals()[f"sell_second_indicator_short_name{y}"]](*globals()[f"sell_second_indicator_options_list{y}"]), how='inner')
+
     print(data_df.to_string())
-    # print(data_df.columns)

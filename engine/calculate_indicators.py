@@ -312,6 +312,6 @@ def evm(period, divisor):
     for y in range(period, len(answer_np)):
         answer_np[y][5] = np.mean(answer_np[y - period + 1:y + 1, 4])
 
-    answer_df = pd.DataFrame(answer_np[:,5], columns=['EMV_'+str(period)+'_'+str(divisor)])
+    answer_df = pd.DataFrame(answer_np[:,5], columns=['EVM_'+str(period)+'_'+str(divisor)])
     print(answer_df.to_string())
     return answer_df
