@@ -18,9 +18,9 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.p3_cancel_button.clicked.connect(lambda: self.close())
         self.add_strategy_rule_treeWidget.setHeaderLabel("")
         self.p3_firstIndicatorOptions_lineEdit_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
-        self.p3_firstIndicatorOptions_lineEdit_2.setText('[0]')
+        self.p3_firstIndicatorOptions_lineEdit_2.setText('[+0]')
         self.p3_secondIndicatorOptions_lineEdit_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
-        self.p3_secondIndicatorOptions_lineEdit_2.setText('[0]')
+        self.p3_secondIndicatorOptions_lineEdit_2.setText('[+0]')
         self.list_of_parent_text = []
         self.current_selected_math_char = ''
         self.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)

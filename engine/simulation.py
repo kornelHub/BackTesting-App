@@ -81,23 +81,53 @@ def build_column_name(indicator_short_name, indicator_options_list):
     return combined_column_name
 
 
+def build_if_statement(first_indicator_short_name, first_indicator_options_list, first_indicator_period,
+                       math_char,
+                       second_indicator_short_name, second_indicator_options_list, second_indicator_period):
+    first_indicator_collumn_name = build_column_name(first_indicator_short_name, first_indicator_options_list)
+    second_indicator_collumn_name = build_column_name(second_indicator_short_name, second_indicator_options_list)
+    first_indicator_period = first_indicator_period[1:-1]   # remove square bracket
+    second_indicator_period = second_indicator_period[1:-1] # remove square bracket
+    if_statement = "if data_df.iloc[x"+first_indicator_period+"]["+first_indicator_collumn_name+"] "+math_char+" data_df.iloc[x"+second_indicator_period+"]["+second_indicator_collumn_name+"]:"
+    return if_statement
+
+
 def init_simulation(main_window_object):
     buy_rules = get_buy_rules(main_window_object)
     sell_rules = get_sell_rules(main_window_object)
+    global data_df
     data_df = pd.read_csv("data/data.csv", sep=';')
 
-    # slice rules to separate usable chunks
+    # slice rules to separate usable chunks and build if statement
     for x in range(len(buy_rules)):
         globals()[f"buy_first_indicator_short_name{x}"], globals()[f"buy_first_indicator_options_list{x}"],\
         globals()[f"buy_first_indicator_period{x}"], globals()[f"buy_math_char{x}"],\
         globals()[f"buy_second_indicator_short_name{x}"], globals()[f"buy_second_indicator_options_list{x}"],\
         globals()[f"buy_second_indicator_period{x}"] = slice_rule(buy_rules[x][1])
 
+        globals()[f"buy_if_statement{x}"] = build_if_statement(globals()[f"buy_first_indicator_short_name{x}"],
+                                                              globals()[f"buy_first_indicator_options_list{x}"],
+                                                              globals()[f"buy_first_indicator_period{x}"],
+                                                              globals()[f"buy_math_char{x}"],
+                                                              globals()[f"buy_second_indicator_short_name{x}"],
+                                                              globals()[f"buy_second_indicator_options_list{x}"],
+                                                              globals()[f"buy_second_indicator_period{x}"])
+        print(globals()[f"buy_if_statement{x}"])
+
     for x in range(len(sell_rules)):
         globals()[f"sell_first_indicator_short_name{x}"], globals()[f"sell_first_indicator_options_list{x}"], \
         globals()[f"sell_first_indicator_period{x}"], globals()[f"sell_math_char{x}"], \
         globals()[f"sell_second_indicator_short_name{x}"], globals()[f"sell_second_indicator_options_list{x}"], \
         globals()[f"sell_second_indicator_period{x}"] = slice_rule(sell_rules[x][1])
+
+        globals()[f"sell_if_statement{x}"] = build_if_statement(globals()[f"sell_first_indicator_short_name{x}"],
+                                                               globals()[f"sell_first_indicator_options_list{x}"],
+                                                               globals()[f"sell_first_indicator_period{x}"],
+                                                               globals()[f"sell_math_char{x}"],
+                                                               globals()[f"sell_second_indicator_short_name{x}"],
+                                                               globals()[f"sell_second_indicator_options_list{x}"],
+                                                               globals()[f"sell_second_indicator_period{x}"])
+        print(globals()[f"sell_if_statement{x}"])
 
     # calculate needed indicators and assign them to data_df
     for y in range(len(buy_rules)):
@@ -113,4 +143,5 @@ def init_simulation(main_window_object):
         if build_column_name(globals()[f"sell_second_indicator_short_name{y}"], globals()[f"sell_second_indicator_options_list{y}"]) not in data_df.columns:
             data_df = data_df.join(helpers.indicator_function_name[globals()[f"sell_second_indicator_short_name{y}"]](*globals()[f"sell_second_indicator_options_list{y}"]), how='inner')
 
-    print(data_df.to_string())
+    test_if = "for x in data_df: "+ buy_if_statement0 +" print('DOWN') else: print('UP')"
+    print(test_if)

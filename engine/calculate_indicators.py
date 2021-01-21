@@ -155,7 +155,7 @@ def macd_line(period_1, period_2, period_3, source):
         'second_period_ema']
     answer_df = answer_df.rename(
         columns={'MACD': 'MACD_Line_' + str(period_1) + '_' + str(period_2) + '_' + str(period_3) + '_' + source})
-    print(answer_df.to_string())
+    # print(answer_df.to_string())
     return answer_df.iloc[:, 3]
 
 
@@ -172,7 +172,7 @@ def macd_signal_line(period_1, period_2, period_3, source):
     answer_df['third_period_ema_of_MACD'] = exponential_moving_average_helper(answer_df, period_3, 'MACD')[:, 1]
     answer_df = answer_df.rename(
         columns={'third_period_ema_of_MACD': 'MACD_Signal_Line_' + str(period_1) + '_' + str(period_2) + '_' + str(period_3) + '_' + source})
-    print(answer_df.to_string())
+    # print(answer_df.to_string())
     return answer_df.iloc[:, 4]
 
 
