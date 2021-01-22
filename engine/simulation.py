@@ -34,29 +34,35 @@ def slice_rule(rule):
     rule = rule[rule.find('['):]
     second_indicator_period = rule
 
-    first_indicator_options = first_indicator_options[1:-1]
-    first_indicator_options_list = []
-    buy_coma_count = first_indicator_options.count(',')
-    if buy_coma_count == 0:
-        first_indicator_options_list.append(first_indicator_options)
+    if first_indicator_options != '(-)':
+        first_indicator_options = first_indicator_options[1:-1]
+        first_indicator_options_list = []
+        buy_coma_count = first_indicator_options.count(',')
+        if buy_coma_count == 0:
+            first_indicator_options_list.append(first_indicator_options)
+        else:
+            for coma in range(buy_coma_count):
+                first_indicator_options_list.append(first_indicator_options[:first_indicator_options.find(',')])
+                first_indicator_options = first_indicator_options[first_indicator_options.find(',')+2:]
+                if coma == buy_coma_count-1:
+                    first_indicator_options_list.append(first_indicator_options)
     else:
-        for coma in range(buy_coma_count):
-            first_indicator_options_list.append(first_indicator_options[:first_indicator_options.find(',')])
-            first_indicator_options = first_indicator_options[first_indicator_options.find(',')+2:]
-            if coma == buy_coma_count-1:
-                first_indicator_options_list.append(first_indicator_options)
+        first_indicator_options_list = []
 
-    second_indicator_options = second_indicator_options[1:-1]
-    second_indicator_options_list = []
-    sell_coma_count = second_indicator_options.count(',')
-    if sell_coma_count == 0:
-        second_indicator_options_list.append(second_indicator_options)
+    if second_indicator_options != '(-)':
+        second_indicator_options = second_indicator_options[1:-1]
+        second_indicator_options_list = []
+        sell_coma_count = second_indicator_options.count(',')
+        if sell_coma_count == 0:
+            second_indicator_options_list.append(second_indicator_options)
+        else:
+            for coma in range(sell_coma_count):
+                second_indicator_options_list.append(second_indicator_options[:second_indicator_options.find(',')])
+                second_indicator_options = second_indicator_options[second_indicator_options.find(',') + 2:]
+                if coma == sell_coma_count - 1:
+                    second_indicator_options_list.append(second_indicator_options)
     else:
-        for coma in range(sell_coma_count):
-            second_indicator_options_list.append(second_indicator_options[:second_indicator_options.find(',')])
-            second_indicator_options = second_indicator_options[second_indicator_options.find(',') + 2:]
-            if coma == sell_coma_count - 1:
-                second_indicator_options_list.append(second_indicator_options)
+        second_indicator_options_list = []
 
     return first_indicator_short_name, first_indicator_options_list, first_indicator_period, math_char,\
            second_indicator_short_name, second_indicator_options_list, second_indicator_period
