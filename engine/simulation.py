@@ -88,8 +88,29 @@ def build_if_statement(first_indicator_short_name, first_indicator_options_list,
     second_indicator_collumn_name = build_column_name(second_indicator_short_name, second_indicator_options_list)
     first_indicator_period = first_indicator_period[1:-1]   # remove square bracket
     second_indicator_period = second_indicator_period[1:-1] # remove square bracket
-    if_statement = "if data_df.iloc[x"+first_indicator_period+"]["+first_indicator_collumn_name+"] "+math_char+" data_df.iloc[x"+second_indicator_period+"]["+second_indicator_collumn_name+"]:"
+    if_statement = "if data_df.iloc[x"+first_indicator_period+"]['"+first_indicator_collumn_name+"'] "+math_char+" data_df.iloc[x"+second_indicator_period+"]['"+second_indicator_collumn_name+"']:"
     return if_statement
+
+
+def glue_if_statements(list_of_rules, context):
+    if_statement = "for x in range(len(data_df)):\n"
+    for x in range(len(list_of_rules)):
+        if_statement += "\t" * (check_if_parent_exist(list_of_rules[x][0], 0) + 1) + list_of_rules[x][3] + "\n"
+        if len(list_of_rules) > x+1:
+            if check_if_parent_exist(list_of_rules[x][0], 0) >= check_if_parent_exist(list_of_rules[x+1][0], 0):
+                if_statement += "\t" * (check_if_parent_exist(list_of_rules[x][0], 0) + 2) + context + "()\n"
+        else:
+            if_statement += "\t" * (check_if_parent_exist(list_of_rules[x][0], 0) + 2) + context + "()\n"
+
+    return if_statement
+
+# helper function to glue_if_statements()
+def check_if_parent_exist(item, parent_number):
+    if item.parent() is None:
+        return parent_number
+    else:
+        parent_number = parent_number + 1
+        return check_if_parent_exist(item.parent(), parent_number)
 
 
 def init_simulation(main_window_object):
@@ -98,13 +119,22 @@ def init_simulation(main_window_object):
     global data_df
     data_df = pd.read_csv("data/data.csv", sep=';')
 
-    # slice rules to separate usable chunks and build if statement
+    # BUYS
     for x in range(len(buy_rules)):
+        # slice rules to separate usable chunks
         globals()[f"buy_first_indicator_short_name{x}"], globals()[f"buy_first_indicator_options_list{x}"],\
         globals()[f"buy_first_indicator_period{x}"], globals()[f"buy_math_char{x}"],\
         globals()[f"buy_second_indicator_short_name{x}"], globals()[f"buy_second_indicator_options_list{x}"],\
         globals()[f"buy_second_indicator_period{x}"] = slice_rule(buy_rules[x][1])
 
+        # calculate needed indicators and assign them to data_df
+        if build_column_name(globals()[f"buy_first_indicator_short_name{x}"], globals()[f"buy_first_indicator_options_list{x}"]) not in data_df.columns:
+            data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_first_indicator_short_name{x}"]](*globals()[f"buy_first_indicator_options_list{x}"]), how='inner')
+
+        if build_column_name(globals()[f"buy_second_indicator_short_name{x}"], globals()[f"buy_second_indicator_options_list{x}"]) not in data_df.columns:
+            data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_second_indicator_short_name{x}"]](*globals()[f"buy_second_indicator_options_list{x}"]), how='inner')
+
+        # build if statement
         globals()[f"buy_if_statement{x}"] = build_if_statement(globals()[f"buy_first_indicator_short_name{x}"],
                                                               globals()[f"buy_first_indicator_options_list{x}"],
                                                               globals()[f"buy_first_indicator_period{x}"],
@@ -112,14 +142,24 @@ def init_simulation(main_window_object):
                                                               globals()[f"buy_second_indicator_short_name{x}"],
                                                               globals()[f"buy_second_indicator_options_list{x}"],
                                                               globals()[f"buy_second_indicator_period{x}"])
-        print(globals()[f"buy_if_statement{x}"])
+        buy_rules[x].append(globals()[f"buy_if_statement{x}"])
 
+    # SELLS
     for x in range(len(sell_rules)):
+        # slice rules to separate usable chunks
         globals()[f"sell_first_indicator_short_name{x}"], globals()[f"sell_first_indicator_options_list{x}"], \
         globals()[f"sell_first_indicator_period{x}"], globals()[f"sell_math_char{x}"], \
         globals()[f"sell_second_indicator_short_name{x}"], globals()[f"sell_second_indicator_options_list{x}"], \
         globals()[f"sell_second_indicator_period{x}"] = slice_rule(sell_rules[x][1])
 
+        # calculate needed indicators and assign them to data_df
+        if build_column_name(globals()[f"sell_first_indicator_short_name{x}"], globals()[f"sell_first_indicator_options_list{x}"]) not in data_df.columns:
+            data_df = data_df.join(helpers.indicator_function_name[globals()[f"sell_first_indicator_short_name{x}"]](*globals()[f"sell_first_indicator_options_list{x}"]), how='inner')
+
+        if build_column_name(globals()[f"sell_second_indicator_short_name{x}"], globals()[f"sell_second_indicator_options_list{x}"]) not in data_df.columns:
+            data_df = data_df.join(helpers.indicator_function_name[globals()[f"sell_second_indicator_short_name{x}"]](*globals()[f"sell_second_indicator_options_list{x}"]), how='inner')
+
+        # build if statement
         globals()[f"sell_if_statement{x}"] = build_if_statement(globals()[f"sell_first_indicator_short_name{x}"],
                                                                globals()[f"sell_first_indicator_options_list{x}"],
                                                                globals()[f"sell_first_indicator_period{x}"],
@@ -127,21 +167,7 @@ def init_simulation(main_window_object):
                                                                globals()[f"sell_second_indicator_short_name{x}"],
                                                                globals()[f"sell_second_indicator_options_list{x}"],
                                                                globals()[f"sell_second_indicator_period{x}"])
-        print(globals()[f"sell_if_statement{x}"])
+        sell_rules[x].append(globals()[f"sell_if_statement{x}"])
 
-    # calculate needed indicators and assign them to data_df
-    for y in range(len(buy_rules)):
-        if build_column_name(globals()[f"buy_first_indicator_short_name{y}"], globals()[f"buy_first_indicator_options_list{y}"]) not in data_df.columns:
-            data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_first_indicator_short_name{y}"]](*globals()[f"buy_first_indicator_options_list{y}"]), how='inner')
-
-        if build_column_name(globals()[f"buy_second_indicator_short_name{y}"], globals()[f"buy_second_indicator_options_list{y}"]) not in data_df.columns:
-            data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_second_indicator_short_name{y}"]](*globals()[f"buy_second_indicator_options_list{y}"]), how='inner')
-
-        if build_column_name(globals()[f"sell_first_indicator_short_name{y}"], globals()[f"sell_first_indicator_options_list{y}"]) not in data_df.columns:
-            data_df = data_df.join(helpers.indicator_function_name[globals()[f"sell_first_indicator_short_name{y}"]](*globals()[f"sell_first_indicator_options_list{y}"]), how='inner')
-
-        if build_column_name(globals()[f"sell_second_indicator_short_name{y}"], globals()[f"sell_second_indicator_options_list{y}"]) not in data_df.columns:
-            data_df = data_df.join(helpers.indicator_function_name[globals()[f"sell_second_indicator_short_name{y}"]](*globals()[f"sell_second_indicator_options_list{y}"]), how='inner')
-
-    test_if = "for x in data_df: "+ buy_if_statement0 +" print('DOWN') else: print('UP')"
-    print(test_if)
+    print(glue_if_statements(buy_rules, 'buy'))
+    print(glue_if_statements(sell_rules, 'sell'))
