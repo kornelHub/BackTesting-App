@@ -98,7 +98,7 @@ def build_if_statement(first_indicator_short_name, first_indicator_options_list,
                        second_indicator_short_name, second_indicator_options_list, second_indicator_period):
 
     if first_indicator_short_name == 'Value':
-        if_statement_first_part = ' ' + first_indicator_options_list[0]
+        if_statement_first_part = first_indicator_options_list[0] + ' '
     else:
         first_indicator_collumn_name = build_column_name(first_indicator_short_name, first_indicator_options_list)
         first_indicator_period = first_indicator_period[1:-1]   # remove square bracket
