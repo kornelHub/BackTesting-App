@@ -34,7 +34,7 @@ def slice_rule(rule):
     rule = rule[rule.find('['):]
     second_indicator_period = rule
 
-    if first_indicator_options != '(-)':
+    if first_indicator_options != '(-)':   # menage indicators with no parameters
         first_indicator_options = first_indicator_options[1:-1]
         first_indicator_options_list = []
         buy_coma_count = first_indicator_options.count(',')
@@ -49,7 +49,7 @@ def slice_rule(rule):
     else:
         first_indicator_options_list = []
 
-    if second_indicator_options != '(-)':
+    if second_indicator_options != '(-)':   # menage indicators with no parameters
         second_indicator_options = second_indicator_options[1:-1]
         second_indicator_options_list = []
         sell_coma_count = second_indicator_options.count(',')

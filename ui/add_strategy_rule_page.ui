@@ -195,7 +195,7 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>Volumen (Amount traded in amount of time)</string>
+             <string>Volume (Amount traded in amount of time)</string>
             </property>
            </item>
            <item>
@@ -659,7 +659,7 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>Volumen (Amount traded in amount of time)</string>
+             <string>Volume (Amount traded in amount of time)</string>
             </property>
            </item>
            <item>
