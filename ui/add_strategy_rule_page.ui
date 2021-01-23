@@ -195,11 +195,6 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>Volume (Amount traded in amount of time)</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>MACD - MACD Line (Moving Average Eonvergence Divergence)</string>
             </property>
            </item>
@@ -251,6 +246,36 @@ QComboBox QAbstractItemView {
            <item>
             <property name="text">
              <string>EVM (Ease of Movement)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Value (Plain integer or double)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Open (Open price of candle)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>High (High price of candle)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Low (Low price of candle)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Close (Close price of candle)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Volume (Amount traded in amount of time)</string>
             </property>
            </item>
           </widget>
@@ -715,6 +740,31 @@ QComboBox QAbstractItemView {
            <item>
             <property name="text">
              <string>EVM (Ease of Movement)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Value (Plain integer or double)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Open (Open price of candle)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>High (High price of candle)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Low (Low price of candle)</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Close (Close price of candle)</string>
             </property>
            </item>
           </widget>

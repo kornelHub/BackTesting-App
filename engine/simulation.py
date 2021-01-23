@@ -70,7 +70,13 @@ def slice_rule(rule):
 
 def build_column_name(indicator_short_name, indicator_options_list):
     combined_column_name = ''
-    if indicator_short_name == 'BOLL - Upper Band':
+    if indicator_short_name == 'Value':
+    # this is used on purpose, Open is always in data_df
+        return 'Open'
+    elif indicator_short_name == 'Open' or indicator_short_name == 'High' or indicator_short_name == 'Low' \
+            or indicator_short_name == 'Close' or indicator_short_name == 'Volume':
+        combined_column_name = indicator_short_name
+    elif indicator_short_name == 'BOLL - Upper Band':
         combined_column_name = 'BOLL_Upper'
     elif indicator_short_name == 'BOLL - Lower Band':
         combined_column_name = 'BOLL_Lower'
@@ -90,11 +96,22 @@ def build_column_name(indicator_short_name, indicator_options_list):
 def build_if_statement(first_indicator_short_name, first_indicator_options_list, first_indicator_period,
                        math_char,
                        second_indicator_short_name, second_indicator_options_list, second_indicator_period):
-    first_indicator_collumn_name = build_column_name(first_indicator_short_name, first_indicator_options_list)
-    second_indicator_collumn_name = build_column_name(second_indicator_short_name, second_indicator_options_list)
-    first_indicator_period = first_indicator_period[1:-1]   # remove square bracket
-    second_indicator_period = second_indicator_period[1:-1] # remove square bracket
-    if_statement = "if data_df.iloc[x"+first_indicator_period+"]['"+first_indicator_collumn_name+"'] "+math_char+" data_df.iloc[x"+second_indicator_period+"]['"+second_indicator_collumn_name+"']:"
+
+    if first_indicator_short_name == 'Value':
+        if_statement_first_part = ' ' + first_indicator_options_list[0]
+    else:
+        first_indicator_collumn_name = build_column_name(first_indicator_short_name, first_indicator_options_list)
+        first_indicator_period = first_indicator_period[1:-1]   # remove square bracket
+        if_statement_first_part = "if data_df.iloc[x"+first_indicator_period+"]['"+first_indicator_collumn_name+"'] "
+
+    if second_indicator_short_name == 'Value':
+        if_statement_second_part = ' ' + second_indicator_options_list[0]
+    else:
+        second_indicator_collumn_name = build_column_name(second_indicator_short_name, second_indicator_options_list)
+        second_indicator_period = second_indicator_period[1:-1]  # remove square bracket
+        if_statement_second_part = " data_df.iloc[x"+second_indicator_period+"]['"+second_indicator_collumn_name+"']:"
+
+    if_statement = if_statement_first_part + math_char + if_statement_second_part
     return if_statement
 
 
@@ -135,9 +152,11 @@ def init_simulation(main_window_object):
 
         # calculate needed indicators and assign them to data_df
         if build_column_name(globals()[f"buy_first_indicator_short_name{x}"], globals()[f"buy_first_indicator_options_list{x}"]) not in data_df.columns:
+            print(build_column_name(globals()[f"buy_second_indicator_short_name{x}"], globals()[f"buy_second_indicator_options_list{x}"]))
             data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_first_indicator_short_name{x}"]](*globals()[f"buy_first_indicator_options_list{x}"]), how='inner')
 
         if build_column_name(globals()[f"buy_second_indicator_short_name{x}"], globals()[f"buy_second_indicator_options_list{x}"]) not in data_df.columns:
+            print(build_column_name(globals()[f"buy_second_indicator_short_name{x}"], globals()[f"buy_second_indicator_options_list{x}"]))
             data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_second_indicator_short_name{x}"]](*globals()[f"buy_second_indicator_options_list{x}"]), how='inner')
 
         # build if statement

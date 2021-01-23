@@ -20,7 +20,7 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.p3_firstIndicatorOptions_lineEdit_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
         self.p3_firstIndicatorOptions_lineEdit_2.setText('[+0]')
         self.p3_secondIndicatorOptions_lineEdit_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
-        self.p3_secondIndicatorOptions_lineEdit_2.setText('[+0]')
+        self.p3_secondIndicatorOptions_lineEdit_2.setText('[-1]')
         self.list_of_parent_text = []
         self.current_selected_math_char = ''
         self.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)
@@ -31,12 +31,29 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.selectMathChar_Button_4.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_4))
         self.selectMathChar_Button_5.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_5))
 
-        self.p3_firstIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_firstIndicator_comboBox,self.p3_firstIndicatorOptions_lineEdit_1))
+        self.p3_firstIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_firstIndicator_comboBox, self.p3_firstIndicatorOptions_lineEdit_1, self. p3_firstIndicatorOptions_lineEdit_2, self.label_4))
 
-        self.p3_sedondIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_sedondIndicator_comboBox,self.p3_secondIndicatorOptions_lineEdit_1))
+        self.p3_sedondIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_sedondIndicator_comboBox, self.p3_secondIndicatorOptions_lineEdit_1, self.p3_secondIndicatorOptions_lineEdit_2, self.label_7))
 
-    def autofill_indicator_option(self, combo_box, linked_line_edit):
-        linked_line_edit.setText(indicator_default_options.get(combo_box.currentText()))
+    def autofill_indicator_option(self, combo_box, linked_option_edit, linked_period_edit, linked_label):
+        if combo_box.currentText() == "Value (Plain integer or double)":
+            linked_period_edit.setReadOnly(True)
+            linked_period_edit.setText('[+0]')
+            linked_label.setText('Value:')
+            linked_option_edit.setText(indicator_default_options.get(combo_box.currentText()))
+        elif combo_box.currentText() == 'Open (Open price of candle)' or combo_box.currentText() == 'High (High price of candle)' \
+                or combo_box.currentText() == 'Low (Low price of candle)' or combo_box.currentText() == 'Close (Close price of candle)':
+            linked_option_edit.setText(indicator_default_options.get(combo_box.currentText()))
+            linked_period_edit.setText('[+0]')
+        else:
+            linked_label.setText('Options:')
+            linked_option_edit.setText(indicator_default_options.get(combo_box.currentText()))
+            linked_period_edit.setReadOnly(False)
+
+        if indicator_default_options.get(combo_box.currentText()) == '(-)':
+            linked_option_edit.setReadOnly(True)
+        else:
+            linked_option_edit.setReadOnly(False)
 
     def math_char_buttons_behavior(self, clicked_button):
         buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2, self.selectMathChar_Button_3, self.selectMathChar_Button_4, self.selectMathChar_Button_5]

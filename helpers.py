@@ -38,7 +38,6 @@ indicator_default_options = {
     'VWAP (Volumen Weighted Average Price)': '(14)',
     'TRIX (Triple Exponential Average)': '(9)',
     'SAR (Stop and Reverse)': '(7, Open)',
-    'Volume (Amount traded in amount of time)': '(-)',
     'MACD - MACD Line (Moving Average Eonvergence Divergence)': '(12, 26, 9, Open)',
     'MACD - Singal Line (Moving Average Eonvergence Divergence)': '(12, 26, 9, Open)',
     'RSI (Relative Strength Index)': '(6)',
@@ -49,7 +48,13 @@ indicator_default_options = {
     'WR (Williams %)': '(14)',
     'DMI (Directional Movement Index)': '(14)',
     'MTM (Momentum)': '(7, Open)',
-    'EVM (Ease of Movement)': '(14, 10000)'
+    'EVM (Ease of Movement)': '(14, 10000)',
+    'Value (Plain integer or double)': '(0)',
+    'Open (Open price of candle)': '(-)',
+    'High (High price of candle)': '(-)',
+    'Low (Low price of candle)': '(-)',
+    'Close (Close price of candle)': '(-)',
+    'Volume (Amount traded in amount of time)': '(-)'
 }
 
 indicator_function_name = {
@@ -61,7 +66,6 @@ indicator_function_name = {
     'VWAP': calculate_indicators.volume_weighted_average_price,
     'TRIX': calculate_indicators.trix,
     'SAR': calculate_indicators.sar,
-    'Volume': None,
     'MACD - MACD Line': calculate_indicators.macd_line,
     'MACD - Singal Line': calculate_indicators.macd_signal_line,
     'RSI': calculate_indicators.rsi,
@@ -72,5 +76,11 @@ indicator_function_name = {
     'WR': calculate_indicators.wr,
     'DMI': calculate_indicators.dmi,
     'MTM': calculate_indicators.mtm,
-    'EVM': calculate_indicators.evm
+    'EVM': calculate_indicators.evm,
+    'Value': None,
+    'Open': None,
+    'High': None,
+    'Low': None,
+    'Close': None,
+    'Volume': None
 }

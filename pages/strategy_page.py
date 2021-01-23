@@ -57,6 +57,7 @@ class Strategy_Widget(Base, Form):
         self.buy_level_2 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["EMA (7, Open) [+0] <= EMA (7, Open) [-1]"])
         self.buy_level_3 = QtWidgets.QTreeWidgetItem(self.buy_level_2, ["WR (14) [+0] < SMA (7, Open) [+0]"])
         self.buy_level_2_1 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["MACD - Singal Line (12, 26, 9, Open) [+0] >= MACD - MACD Line (12, 26, 9, Open) [-1]"])
+        self.buy_level_2_3 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["Open (-) [+0] >= Value (15555) [+0]"])
         self.p2_buyCondition_treeWidget.expandAll()
 
 
