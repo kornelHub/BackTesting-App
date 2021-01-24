@@ -90,7 +90,8 @@ class Add_Strategy_Rule_Widget(Form, Base):
             helper_list.append(qTreeWidgetItem.text(0))
             self.create_list_of_parents_text(qTreeWidgetItem.parent(), helper_list)
 
-    def add_new_rule(self, receiver_object):
+    def add_new_rule(self, receiver_object, strategy_page_object):
+        print(self)
         new_rule_to_add = self.get_and_combine_text_from_fields()
         # loops through  all items, if item is checked > get text of all parents
         for item in self.add_strategy_rule_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0):
@@ -99,7 +100,7 @@ class Add_Strategy_Rule_Widget(Form, Base):
 
         print('New rule to add: ', new_rule_to_add)
         sender = Send_Strategy_Rule_To_Add()
-        sender.send_rule_to_add(new_rule_to_add, self.list_of_parent_text, receiver_object)
+        sender.send_rule_to_add(new_rule_to_add, self.list_of_parent_text, receiver_object, strategy_page_object)
         self.close()
 
     ### function responsible for modyfing rule
@@ -144,8 +145,8 @@ class Add_Strategy_Rule_Widget(Form, Base):
 
 class Send_Strategy_Rule_To_Add(QtCore.QObject):
     signal = Signal()
-    def send_rule_to_add(self, new_rule_to_add, text_of_parent_element, receiver_object):
-        self.signal.connect(lambda: receiver_object.receive_and_add_rule(new_rule_to_add, text_of_parent_element))
+    def send_rule_to_add(self, new_rule_to_add, text_of_parent_element, receiver_object, strategy_page_object):
+        self.signal.connect(lambda: receiver_object.receive_and_add_rule(new_rule_to_add, text_of_parent_element, strategy_page_object))
         self.signal.emit()
 
 class Send_Strategy_Rule_To_Modify(QtCore.QObject):
@@ -156,7 +157,6 @@ class Send_Strategy_Rule_To_Modify(QtCore.QObject):
 
 if __name__ == '__add_strategy_rule_page__':
     import sys
-
     app = QtGui.QGuiApplication(sys.argv)
     w = Add_Strategy_Rule_Widget()
     w.show()
