@@ -16,7 +16,7 @@ class Strategy_Widget(Base, Form):
         self.p2_sellCondition_treeWidget.setHeaderLabel("")
         self.helper_on_adding_new_rules = False
 
-        #Buy
+        # Buy
         self.p2_add_buy_rule.setIcon(QtGui.QIcon('icons/add.png'))
         self.p2_add_buy_rule.setIconSize(QtCore.QSize(24, 24))
 
@@ -31,8 +31,7 @@ class Strategy_Widget(Base, Form):
         self.p2_undo_buy_rule.setIconSize(QtCore.QSize(24, 24))
         self.p2_undo_buy_rule.clicked.connect(self.undo_buy_rule)
 
-
-        #Sell
+        # Sell
         self.p2_add_sell_rule.setIcon(QtGui.QIcon('icons/add.png'))
         self.p2_add_sell_rule.setIconSize(QtCore.QSize(24, 24))
 
@@ -121,6 +120,8 @@ class Strategy_Widget(Base, Form):
     def undo_sell_rule(self):
         print('undo sell rule')
 
+########################################################################################################################
+
     def add_parent_text_to_list(self, qTreeWidgetItem, list):
         if len(list) > 0:
             if qTreeWidgetItem.parent() is not None:
@@ -137,7 +138,9 @@ class Strategy_Widget(Base, Form):
             return True
 
 ########################################################################################################################
-### Add new rule receivers
+
+
+# Add new rule receivers
 class Receive_Buy_Strategy_Rule_To_Add(QtCore.QObject):
     @Slot(str)
     def receive_and_add_rule(self, received_rule, text_of_parent_element, strategy_page_object):
@@ -152,6 +155,7 @@ class Receive_Buy_Strategy_Rule_To_Add(QtCore.QObject):
         else:
             QtWidgets.QTreeWidgetItem(strategy_page_object.p2_buyCondition_treeWidget, [received_rule])
         strategy_page_object.p2_buyCondition_treeWidget.expandAll()
+
 
 class Receive_Sell_Strategy_Rule_To_Add(QtCore.QObject):
     @Slot(str)
@@ -168,11 +172,13 @@ class Receive_Sell_Strategy_Rule_To_Add(QtCore.QObject):
             QtWidgets.QTreeWidgetItem(strategy_page_object.p2_sellCondition_treeWidget, [received_rule])
         strategy_page_object.p2_sellCondition_treeWidget.expandAll()
 
-### Modify rule receiver
+
+# Modify rule receiver
 class Receive_Strategy_Rule_To_Modify(QtCore.QObject):
     @Slot(str)
     def receive_and_modify_rule(self, received_rule, current_selected_item):
         current_selected_item.setText(0, received_rule)
+
 
 if __name__ == '__strategy_page__':
     import sys
