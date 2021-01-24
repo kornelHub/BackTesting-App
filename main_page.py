@@ -17,6 +17,8 @@ class MainWidget(Base, Form):
         self.setWindowTitle('BackTesting Application')
         self.btn_toggle.setIcon(QtGui.QPixmap('icons/menu.png'))
         self.btn_toggle.setIconSize(QtCore.QSize(32, 32))
+        self.data_path.setReadOnly(True)
+        self.strategy_path.setReadOnly(True)
         # self.showMaximized()
         self.helper_on_adding_new_rules = False
 
@@ -35,8 +37,6 @@ class MainWidget(Base, Form):
 
         self.strategy_page.p2_add_sell_rule.clicked.connect(self.strategypage_display_sell_buy_rule_page)
         self.strategy_page.p2_edit_sell_rule.clicked.connect(self.strategypage_display_modify_sell_rule_page)
-
-
 ########################################################################################################################
 
     def strategypage_display_add_buy_rule_page(self):
@@ -153,6 +153,7 @@ if __name__ == '__main__':
     import sys
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle("fusion")
+    global main_widget_object
     main_widget_object = MainWidget()
     main_widget_object.show()
     sys.exit(app.exec_())

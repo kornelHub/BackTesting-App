@@ -1,7 +1,6 @@
 import os
 from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
-import pages.add_strategy_rule_page
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/strategy_page.ui"))
@@ -60,24 +59,12 @@ class Strategy_Widget(Base, Form):
         self.buy_level_2_3 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["Open (-) [+0] >= Value (15555) [+0]"])
         self.p2_buyCondition_treeWidget.expandAll()
 
-
-
-
         # sell_level_1.setBackground(0, QtGui.QColor(170, 14, 9))
         # sell_level_2.setBackground(0, QtGui.QColor(220, 9, 9))
         # sell_level_3.setBackground(0, QtGui.QColor(246, 35, 35))
         # sell_level_4.setBackground(0, QtGui.QColor(248, 84, 84))
 
 ########################################################################################################################
-
-    # def display_add_buy_rule_page(self):
-    #     self.window = pages.add_strategy_rule_page.Add_Strategy_Rule_Widget()
-    #     self.window.show()
-    #
-    # def add_buy_rule_to_QTreeWidget(self, rule_to_add):
-    #     print('**********************************************************')
-    #     print(rule_to_add)
-    #     print(self.p2_buyCondition_treeWidget.selectedItems())
 
     def delete_buy_rule(self):
         print('delete_buy_rule')
@@ -89,15 +76,6 @@ class Strategy_Widget(Base, Form):
         print('undo buy rule')
 
 ########################################################################################################################
-    # def display_add_sell_rule_page(self):
-    #     self.window = pages.add_strategy_rule_page.Add_Strategy_Rule_Widget()
-    #     self.window.show()
-    #
-    # def add_sell_rule_to_QTreeWidget(self, rule_to_add):
-    #     print('**********************************************************')
-    #     print(rule_to_add)
-    #     print(self.p2_sellCondition_treeWidget.selectedIndexes())
-
 
     def delete_sell_rule(self):
         print('delete_sell_rule')

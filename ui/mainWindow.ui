@@ -47,10 +47,13 @@
     </property>
     <item>
      <widget class="QFrame" name="frame_top_contener">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>40</height>
+        <height>50</height>
        </size>
       </property>
       <property name="styleSheet">
@@ -83,7 +86,7 @@
          <property name="maximumSize">
           <size>
            <width>70</width>
-           <height>40</height>
+           <height>50</height>
           </size>
          </property>
          <property name="styleSheet">
@@ -119,6 +122,18 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>50</height>
+             </size>
+            </property>
             <property name="styleSheet">
              <string notr="true">color: rgb(255, 255, 255);
 font: 8pt &quot;MS Shell Dlg 2&quot;;
@@ -135,7 +150,7 @@ border: 0px sold;</string>
        <item>
         <widget class="QFrame" name="frame_top_menu">
          <property name="layoutDirection">
-          <enum>Qt::RightToLeft</enum>
+          <enum>Qt::LeftToRight</enum>
          </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
@@ -143,26 +158,141 @@ border: 0px sold;</string>
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <property name="leftMargin">
-           <number>30</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>30</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QLabel" name="data_lael">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 255, 255);
+font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+            </property>
+            <property name="text">
+             <string>Data file: </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="data_path">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLineEdit {
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	border-radius: 10px;
+	border: 2px solid rgb(35,35,35);
+	color: rgb(255, 255, 255);
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: rgb(70,70,70);
+}
+QLineEdit:hover {
+	border: 2px solid rgb(85,85,85);
+}
+QLineEdit:focus{
+	border: 2px solid rgb(85, 170, 255);
+}
+</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="data_button">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 255, 255);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(85, 170, 255);
+border: 0px sold;
+border-radius: 15px;</string>
+            </property>
+            <property name="text">
+             <string>  Load data  </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="strategy_label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 255, 255);
+font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+            </property>
+            <property name="text">
+             <string>Strategy file:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="strategy_path">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLineEdit {
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	border-radius: 10px;
+	border: 2px solid rgb(35,35,35);
+	color: rgb(255, 255, 255);
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: rgb(70,70,70);
+}
+QLineEdit:hover {
+	border: 2px solid rgb(85,85,85);
+}
+QLineEdit:focus{
+	border: 2px solid rgb(85, 170, 255);
+}
+</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="strategy_button">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 255, 255);
+font: 8pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(85, 170, 255);
+border: 0px sold;
+border-radius: 15px;</string>
+            </property>
+            <property name="text">
+             <string>  Load strategy  </string>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QPushButton" name="next_btn">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
