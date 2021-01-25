@@ -3,10 +3,10 @@ import helpers
 import pandas as pd
 
 
-def get_buy_rules(main_window_object):
+def get_buy_rules(strategy_page):
     list_of_items_in_buy_and_text = {}
     list_of_items_in_buy_and_text['buy_rules'] = []
-    list_of_items_in_buy_qtreewidget = main_window_object.strategy_page.p2_buyCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
+    list_of_items_in_buy_qtreewidget = strategy_page.p2_buyCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
     for buy_item in list_of_items_in_buy_qtreewidget:
         list_of_items_in_buy_and_text['buy_rules'].append({
             'qTreeWidgetItem': buy_item,
@@ -16,10 +16,10 @@ def get_buy_rules(main_window_object):
     return list_of_items_in_buy_and_text
 
 
-def get_sell_rules(main_window_object):
+def get_sell_rules(strategy_page):
     list_of_items_in_sell_and_text = {}
     list_of_items_in_sell_and_text['sell_rules'] = []
-    list_of_items_in_sell_qtreewidget = main_window_object.strategy_page.p2_sellCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
+    list_of_items_in_sell_qtreewidget = strategy_page.p2_sellCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
     for sell_item in list_of_items_in_sell_qtreewidget:
         list_of_items_in_sell_and_text['sell_rules'].append({
             'qTreeWidgetItem': sell_item,
@@ -147,8 +147,8 @@ def check_if_parent_exist(item, parent_number):
 
 
 def init_simulation(main_window_object):
-    buy_rules = get_buy_rules(main_window_object)
-    sell_rules = get_sell_rules(main_window_object)
+    buy_rules = get_buy_rules(main_window_object.strategy_page)
+    sell_rules = get_sell_rules(main_window_object.strategy_page)
     global data_df
     data_df = pd.read_csv("data/data.csv", sep=';')
 

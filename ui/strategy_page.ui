@@ -259,7 +259,7 @@ border: 0px sold;</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="pushButton_8">
+                   <widget class="QPushButton" name="p2_save_strategy_1">
                     <property name="maximumSize">
                      <size>
                       <width>32</width>
@@ -594,7 +594,7 @@ border: 0px sold;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="pushButton_14">
+                <widget class="QPushButton" name="p2_save_strategy_2">
                  <property name="maximumSize">
                   <size>
                    <width>32</width>

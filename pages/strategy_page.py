@@ -3,6 +3,8 @@ from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtCore import Slot
 from pages.add_strategy_rule_page import Add_Strategy_Rule_Widget
+from engine.simulation import get_buy_rules, get_sell_rules
+import json
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/strategy_page.ui"))
@@ -31,6 +33,10 @@ class Strategy_Widget(Base, Form):
         self.p2_undo_buy_rule.setIconSize(QtCore.QSize(24, 24))
         self.p2_undo_buy_rule.clicked.connect(self.undo_buy_rule)
 
+        self.p2_save_strategy_1.setIcon(QtGui.QIcon('icons/save.png'))
+        self.p2_save_strategy_1.setIconSize(QtCore.QSize(24, 24))
+        self.p2_save_strategy_1.clicked.connect(self.save_rules_to_json_file)
+
         # Sell
         self.p2_add_sell_rule.setIcon(QtGui.QIcon('icons/add.png'))
         self.p2_add_sell_rule.setIconSize(QtCore.QSize(24, 24))
@@ -45,6 +51,10 @@ class Strategy_Widget(Base, Form):
         self.p2_undo_sell_rule.setIcon(QtGui.QIcon('icons/undo.png'))
         self.p2_undo_sell_rule.setIconSize(QtCore.QSize(24, 24))
         self.p2_undo_sell_rule.clicked.connect(self.undo_sell_rule)
+
+        self.p2_save_strategy_2.setIcon(QtGui.QIcon('icons/save.png'))
+        self.p2_save_strategy_2.setIconSize(QtCore.QSize(24, 24))
+        self.p2_save_strategy_2.clicked.connect(self.save_rules_to_json_file)
 
         # init sell treeView
         self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["SMA (7, Open) [+0] >= SMA (7, Open) [-1]"])
@@ -92,6 +102,24 @@ class Strategy_Widget(Base, Form):
 
     def undo_buy_rule(self):
         print('undo buy rule')
+
+    def save_rules_to_json_file(self):
+        # get buy rules and convert qTreeWidgetItems to string
+        buy_rules = get_buy_rules(self)
+        for x in range(len(buy_rules['buy_rules'])):
+            buy_rules['buy_rules'][x]['qTreeWidgetItem'] = str(buy_rules['buy_rules'][x]['qTreeWidgetItem'])
+            buy_rules['buy_rules'][x]['qTreeWidgetItem_Parent'] = str(buy_rules['buy_rules'][x]['qTreeWidgetItem_Parent'])
+
+        # get sell rules and convert qTreeWidgetItems to string
+        sell_rules = get_sell_rules(self)
+        for x in range(len(sell_rules['sell_rules'])):
+            sell_rules['sell_rules'][x]['qTreeWidgetItem'] = str(sell_rules['sell_rules'][x]['qTreeWidgetItem'])
+            sell_rules['sell_rules'][x]['qTreeWidgetItem_Parent'] = str(sell_rules['sell_rules'][x]['qTreeWidgetItem_Parent'])
+
+        path_to_file = QtWidgets.QFileDialog.getSaveFileName(self, 'Save strategy to JSON file', current_dir[:-6] + '\data\strategy', 'JSON Files (*.json)')
+        with open(path_to_file[0], 'w') as file:
+            json.dump(buy_rules, file, indent=4)
+            json.dump(sell_rules, file, indent=4)
 
 ########################################################################################################################
 
