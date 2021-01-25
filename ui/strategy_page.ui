@@ -242,7 +242,7 @@ border: 0px sold;</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="p2_undo_buy_rule">
+                   <widget class="QPushButton" name="p2_save_strategy_1">
                     <property name="maximumSize">
                      <size>
                       <width>32</width>
@@ -259,7 +259,7 @@ border: 0px sold;</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QPushButton" name="p2_save_strategy_1">
+                   <widget class="QPushButton" name="p2_load_strategy_1">
                     <property name="maximumSize">
                      <size>
                       <width>32</width>
@@ -577,7 +577,7 @@ border: 0px sold;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="p2_undo_sell_rule">
+                <widget class="QPushButton" name="p2_save_strategy_2">
                  <property name="maximumSize">
                   <size>
                    <width>32</width>
@@ -594,7 +594,7 @@ border: 0px sold;</string>
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="p2_save_strategy_2">
+                <widget class="QPushButton" name="p2_load_strategy_2">
                  <property name="maximumSize">
                   <size>
                    <width>32</width>

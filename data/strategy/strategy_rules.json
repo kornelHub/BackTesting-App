@@ -1,61 +1,64 @@
 {
     "buy_rules": [
-        {
-            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F708>",
-            "rule_text": "SMA (7, Open) [+0] <= SMA (7, Open) [-1]",
-            "qTreeWidgetItem_Parent": "None",
-            "if_statement": ""
-        },
-        {
-            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F748>",
-            "rule_text": "EMA (7, Open) [+0] <= EMA (7, Open) [-1]",
-            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F708>",
-            "if_statement": ""
-        },
-        {
-            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F788>",
-            "rule_text": "WR (14) [+0] < SMA (7, Open) [+0]",
-            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F748>",
-            "if_statement": ""
-        },
-        {
-            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F7C8>",
-            "rule_text": "MACD - Singal Line (12, 26, 9, Open) [+0] >= MACD - MACD Line (12, 26, 9, Open) [-1]",
-            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F708>",
-            "if_statement": ""
-        },
-        {
-            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F808>",
-            "rule_text": "Open (-) [+0] >= Value (15555) [+0]",
-            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F708>",
-            "if_statement": ""
-        }
-    ]
-}{
+        [
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B708>",
+                "rule_text": "SMA (7, Open) [+0] <= SMA (7, Open) [-1]",
+                "qTreeWidgetItem_Parent": "None",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B748>",
+                "rule_text": "EMA (7, Open) [+0] <= EMA (7, Open) [-1]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B708>",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B788>",
+                "rule_text": "WR (14) [+0] < SMA (7, Open) [+0]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B748>",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B7C8>",
+                "rule_text": "MACD - Singal Line (12, 26, 9, Open) [+0] >= MACD - MACD Line (12, 26, 9, Open) [-1]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B708>",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B808>",
+                "rule_text": "Open (-) [+0] >= Value (15555) [+0]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B708>",
+                "if_statement": ""
+            }
+        ]
+    ],
     "sell_rules": [
-        {
-            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D463EFDBC8>",
-            "rule_text": "SMA (7, Open) [+0] >= SMA (7, Open) [-1]",
-            "qTreeWidgetItem_Parent": "None",
-            "if_statement": ""
-        },
-        {
-            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F648>",
-            "rule_text": "EMA (7, Open) [+0] >= EMA (7, Open) [-1]",
-            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D463EFDBC8>",
-            "if_statement": ""
-        },
-        {
-            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F688>",
-            "rule_text": "WR (14) [+0] > SMA (7, Open) [+0]",
-            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F648>",
-            "if_statement": ""
-        },
-        {
-            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D466A7F6C8>",
-            "rule_text": "BOLL - Upper Band (21, 2) [+0] >= BOLL - Lower Band (21, 2) [-1]",
-            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x000001D463EFDBC8>",
-            "if_statement": ""
-        }
+        [
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9EA88>",
+                "rule_text": "SMA (7, Open) [+0] >= SMA (7, Open) [-1]",
+                "qTreeWidgetItem_Parent": "None",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B608>",
+                "rule_text": "EMA (7, Open) [+0] >= EMA (7, Open) [-1]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9EA88>",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B688>",
+                "rule_text": "WR (14) [+0] > SMA (7, Open) [+0]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B608>",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B6C8>",
+                "rule_text": "BOLL - Upper Band (21, 2) [+0] >= BOLL - Lower Band (21, 2) [-1]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9EA88>",
+                "if_statement": ""
+            }
+        ]
     ]
 }

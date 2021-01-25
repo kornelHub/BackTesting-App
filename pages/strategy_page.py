@@ -29,13 +29,13 @@ class Strategy_Widget(Base, Form):
         self.p2_delete_buy_rule.setIconSize(QtCore.QSize(24, 24))
         self.p2_delete_buy_rule.clicked.connect(self.delete_buy_rule)
 
-        self.p2_undo_buy_rule.setIcon(QtGui.QIcon('icons/undo.png'))
-        self.p2_undo_buy_rule.setIconSize(QtCore.QSize(24, 24))
-        self.p2_undo_buy_rule.clicked.connect(self.undo_buy_rule)
-
         self.p2_save_strategy_1.setIcon(QtGui.QIcon('icons/save.png'))
         self.p2_save_strategy_1.setIconSize(QtCore.QSize(24, 24))
         self.p2_save_strategy_1.clicked.connect(self.save_rules_to_json_file)
+
+        self.p2_load_strategy_1.setIcon(QtGui.QIcon('icons/load.png'))
+        self.p2_load_strategy_1.setIconSize(QtCore.QSize(24, 24))
+        self.p2_load_strategy_1.clicked.connect(self.load_rules_from_json_file)
 
         # Sell
         self.p2_add_sell_rule.setIcon(QtGui.QIcon('icons/add.png'))
@@ -48,13 +48,13 @@ class Strategy_Widget(Base, Form):
         self.p2_delete_sell_rule.setIconSize(QtCore.QSize(24, 24))
         self.p2_delete_sell_rule.clicked.connect(self.delete_sell_rule)
 
-        self.p2_undo_sell_rule.setIcon(QtGui.QIcon('icons/undo.png'))
-        self.p2_undo_sell_rule.setIconSize(QtCore.QSize(24, 24))
-        self.p2_undo_sell_rule.clicked.connect(self.undo_sell_rule)
-
         self.p2_save_strategy_2.setIcon(QtGui.QIcon('icons/save.png'))
         self.p2_save_strategy_2.setIconSize(QtCore.QSize(24, 24))
         self.p2_save_strategy_2.clicked.connect(self.save_rules_to_json_file)
+
+        self.p2_load_strategy_2.setIcon(QtGui.QIcon('icons/load.png'))
+        self.p2_load_strategy_2.setIconSize(QtCore.QSize(24, 24))
+        self.p2_load_strategy_2.clicked.connect(self.load_rules_from_json_file)
 
         # init sell treeView
         self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["SMA (7, Open) [+0] >= SMA (7, Open) [-1]"])
@@ -100,9 +100,6 @@ class Strategy_Widget(Base, Form):
         for item in self.p2_buyCondition_treeWidget.selectedItems():
             (item.parent() or root).removeChild(item)
 
-    def undo_buy_rule(self):
-        print('undo buy rule')
-
     def save_rules_to_json_file(self):
         # get buy rules and convert qTreeWidgetItems to string
         buy_rules = get_buy_rules(self)
@@ -117,9 +114,13 @@ class Strategy_Widget(Base, Form):
             sell_rules['sell_rules'][x]['qTreeWidgetItem_Parent'] = str(sell_rules['sell_rules'][x]['qTreeWidgetItem_Parent'])
 
         path_to_file = QtWidgets.QFileDialog.getSaveFileName(self, 'Save strategy to JSON file', current_dir[:-6] + '\data\strategy', 'JSON Files (*.json)')
+        combined_rules = {}
+        combined_rules['buy_rules'] = []
+        combined_rules['sell_rules'] = []
+        combined_rules['buy_rules'].append(buy_rules['buy_rules'])
+        combined_rules['sell_rules'].append(sell_rules['sell_rules'])
         with open(path_to_file[0], 'w') as file:
-            json.dump(buy_rules, file, indent=4)
-            json.dump(sell_rules, file, indent=4)
+            json.dump(combined_rules, file, indent=4)
 
 ########################################################################################################################
 
@@ -145,8 +146,32 @@ class Strategy_Widget(Base, Form):
         for item in self.p2_sellCondition_treeWidget.selectedItems():
             (item.parent() or root).removeChild(item)
 
-    def undo_sell_rule(self):
-        print('undo sell rule')
+    def load_rules_from_json_file(self):
+        path_to_json_file = QtWidgets.QFileDialog.getOpenFileName(self, 'Load strategy from JSON file', current_dir[:-6] + '\data\strategy', 'JSON Files (*.json)')
+        with open(path_to_json_file[0]) as json_file:
+            loaded_rules = json.load(json_file)
+
+        # clear both QTreeWidgets
+        self.p2_buyCondition_treeWidget.clear()
+        self.p2_sellCondition_treeWidget.clear()
+        buy_rules = loaded_rules['buy_rules'][0]
+        sell_rules = loaded_rules['sell_rules'][0]
+        QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget, [buy_rules[0]['rule_text']])
+        for x in range(len(buy_rules)-1):
+            for y in range(len(buy_rules)):
+                if buy_rules[x+1]['qTreeWidgetItem_Parent'] == buy_rules[y]['qTreeWidgetItem']:
+                    found_parent = buy_rules[y]['rule_text']
+            QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget.findItems(found_parent, QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)[-1], [buy_rules[x+1]['rule_text']])
+
+        QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, [sell_rules[0]['rule_text']])
+        for x in range(len(sell_rules)-1):
+            for y in range(len(sell_rules)):
+                if sell_rules[x+1]['qTreeWidgetItem_Parent'] == sell_rules[y]['qTreeWidgetItem']:
+                    found_parent = sell_rules[y]['rule_text']
+            QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget.findItems(found_parent, QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)[-1], [sell_rules[x+1]['rule_text']])
+
+            self.p2_buyCondition_treeWidget.expandAll()
+            self.p2_sellCondition_treeWidget.expandAll()
 
 ########################################################################################################################
 

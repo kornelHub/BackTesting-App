@@ -205,7 +205,7 @@ QLineEdit:focus{
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="data_button">
+           <widget class="QPushButton" name="load_data_button">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -221,71 +221,6 @@ border-radius: 15px;</string>
             </property>
             <property name="text">
              <string>  Load data  </string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="strategy_label">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
-            </property>
-            <property name="text">
-             <string>Strategy file:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="strategy_path">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">QLineEdit {
-	font: 10pt &quot;MS Shell Dlg 2&quot;;
-	border-radius: 10px;
-	border: 2px solid rgb(35,35,35);
-	color: rgb(255, 255, 255);
-	padding-left: 20px;
-	padding-right: 20px;
-	background-color: rgb(70,70,70);
-}
-QLineEdit:hover {
-	border: 2px solid rgb(85,85,85);
-}
-QLineEdit:focus{
-	border: 2px solid rgb(85, 170, 255);
-}
-</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="strategy_button">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
-background-color: rgb(85, 170, 255);
-border: 0px sold;
-border-radius: 15px;</string>
-            </property>
-            <property name="text">
-             <string>  Load strategy  </string>
             </property>
            </widget>
           </item>

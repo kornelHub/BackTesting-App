@@ -17,7 +17,6 @@ class MainWidget(Base, Form):
         self.btn_toggle.setIcon(QtGui.QPixmap('icons/menu.png'))
         self.btn_toggle.setIconSize(QtCore.QSize(32, 32))
         self.data_path.setReadOnly(True)
-        self.strategy_path.setReadOnly(True)
         # self.showMaximized()
 
         buttons = (self.btn_menu_page_1, self.btn_menu_page_2, self.btn_menu_page_3)
@@ -26,7 +25,7 @@ class MainWidget(Base, Form):
 
         # Top toolbar menu
         self.btn_toggle.clicked.connect(lambda: self.toggleMenu())
-        self.data_button.clicked.connect(lambda: self.add_path_to_data())
+        self.load_data_button.clicked.connect(lambda: self.load_data_from_file())
         self.next_btn.clicked.connect(lambda: self.display_next_page())
 
         # Strategy page
@@ -55,7 +54,7 @@ class MainWidget(Base, Form):
         self.animation.setEasingCurve(QtCore.QEasingCurve.InOutQuart)
         self.animation.start()
 
-    def add_path_to_data(self):
+    def load_data_from_file(self):
         path_to_file = QFileDialog.getOpenFileName(self, 'Load CSV file with OHLCV data', current_dir + '\data', 'Text Files (*.csv)')
         self.data_path.setText(path_to_file[0])
 
