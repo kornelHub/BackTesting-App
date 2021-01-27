@@ -17,44 +17,55 @@ class Strategy_Widget(Base, Form):
         self.p2_buyCondition_treeWidget.setHeaderLabel("")
         self.p2_sellCondition_treeWidget.setHeaderLabel("")
         self.helper_on_adding_new_rules = False
+        QtWidgets.QToolTip.setFont(QtGui.QFont('MS Shell Dlg 2', 10))
 
         # Buy
         self.p2_add_buy_rule.setIcon(QtGui.QIcon('icons/add.png'))
-        self.p2_add_buy_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_add_buy_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_add_buy_rule.setToolTip('Add new buy rule')
 
         self.p2_edit_buy_rule.setIcon(QtGui.QIcon('icons/edit.png'))
-        self.p2_edit_buy_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_edit_buy_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_edit_buy_rule.setToolTip('Edit existing buy rule')
 
         self.p2_delete_buy_rule.setIcon(QtGui.QIcon('icons/trash.png'))
-        self.p2_delete_buy_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_delete_buy_rule.setIconSize(QtCore.QSize(32, 32))
         self.p2_delete_buy_rule.clicked.connect(self.delete_buy_rule)
+        self.p2_delete_buy_rule.setToolTip('Remove selected buy rule')
 
         self.p2_save_strategy_1.setIcon(QtGui.QIcon('icons/save.png'))
-        self.p2_save_strategy_1.setIconSize(QtCore.QSize(24, 24))
+        self.p2_save_strategy_1.setIconSize(QtCore.QSize(32, 32))
         self.p2_save_strategy_1.clicked.connect(self.save_rules_to_json_file)
+        self.p2_save_strategy_1.setToolTip('Save buy and sell rules to file')
 
         self.p2_load_strategy_1.setIcon(QtGui.QIcon('icons/load.png'))
-        self.p2_load_strategy_1.setIconSize(QtCore.QSize(24, 24))
+        self.p2_load_strategy_1.setIconSize(QtCore.QSize(32, 32))
         self.p2_load_strategy_1.clicked.connect(self.load_rules_from_json_file)
+        self.p2_load_strategy_1.setToolTip('Load buy and sell rules from file')
 
         # Sell
         self.p2_add_sell_rule.setIcon(QtGui.QIcon('icons/add.png'))
-        self.p2_add_sell_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_add_sell_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_add_sell_rule.setToolTip('Add new sell rule')
 
         self.p2_edit_sell_rule.setIcon(QtGui.QIcon('icons/edit.png'))
-        self.p2_edit_sell_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_edit_sell_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_edit_sell_rule.setToolTip('Edit existing sell rule')
 
         self.p2_delete_sell_rule.setIcon(QtGui.QIcon('icons/trash.png'))
-        self.p2_delete_sell_rule.setIconSize(QtCore.QSize(24, 24))
+        self.p2_delete_sell_rule.setIconSize(QtCore.QSize(32, 32))
         self.p2_delete_sell_rule.clicked.connect(self.delete_sell_rule)
+        self.p2_delete_sell_rule.setToolTip('Remove selected sell rule')
 
         self.p2_save_strategy_2.setIcon(QtGui.QIcon('icons/save.png'))
-        self.p2_save_strategy_2.setIconSize(QtCore.QSize(24, 24))
+        self.p2_save_strategy_2.setIconSize(QtCore.QSize(32, 32))
         self.p2_save_strategy_2.clicked.connect(self.save_rules_to_json_file)
+        self.p2_save_strategy_2.setToolTip('Save buy and sell rules to file')
 
         self.p2_load_strategy_2.setIcon(QtGui.QIcon('icons/load.png'))
-        self.p2_load_strategy_2.setIconSize(QtCore.QSize(24, 24))
+        self.p2_load_strategy_2.setIconSize(QtCore.QSize(32, 32))
         self.p2_load_strategy_2.clicked.connect(self.load_rules_from_json_file)
+        self.p2_load_strategy_2.setToolTip('Load buy and sell rules from file')
 
         # init sell treeView
         self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["SMA (7, Open) [+0] >= SMA (7, Open) [-1]"])
