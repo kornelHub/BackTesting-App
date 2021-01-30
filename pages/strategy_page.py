@@ -19,6 +19,14 @@ class Strategy_Widget(Base, Form):
         self.helper_on_adding_new_rules = False
         QtWidgets.QToolTip.setFont(QtGui.QFont('MS Shell Dlg 2', 10))
 
+        # dev helper
+        self.buy_commission_lineEdit_1.setText('0.001')
+        self.buy_balance_lineEdit2.setText('1')
+        self.sell_commission_lineEdit_1.setText('1')
+        self.sell_balance_lineEdit.setText('10000')
+        self.sell_stop_loss_lineEdit_1.setText('14')
+        self.sell_take_profit_lineEdit_1.setText('14')
+
         # Buy
         self.p2_add_buy_rule.setIcon(QtGui.QIcon('icons/add.png'))
         self.p2_add_buy_rule.setIconSize(QtCore.QSize(32, 32))
@@ -68,18 +76,18 @@ class Strategy_Widget(Base, Form):
         self.p2_load_strategy_2.setToolTip('Load buy and sell rules from file')
 
         # init sell treeView
-        self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["SMA (7, Open) [+0] >= SMA (7, Open) [-1]"])
-        self.sell_level_2 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["EMA (7, Open) [+0] >= EMA (7, Open) [-1]"])
-        self.sell_level_3 = QtWidgets.QTreeWidgetItem(self.sell_level_2, ["WR (14) [+0] > SMA (7, Open) [+0]"])
-        self.sell_level_2_1 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["BOLL - Upper Band (21, 2) [+0] >= BOLL - Lower Band (21, 2) [-1]"])
+        self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["SMA (7, Open) [0] >= SMA (7, Open) [-1]"])
+        self.sell_level_2 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["EMA (7, Open) [0] >= EMA (7, Open) [-1]"])
+        self.sell_level_3 = QtWidgets.QTreeWidgetItem(self.sell_level_2, ["WR (14) [0] > SMA (7, Open) [0]"])
+        self.sell_level_2_1 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["BOLL - Upper Band (21, 2) [0] >= BOLL - Lower Band (21, 2) [-1]"])
         self.p2_sellCondition_treeWidget.expandAll()
 
         # init buy treeView
-        self.buy_level_1 = QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget, ["SMA (7, Open) [+0] <= SMA (7, Open) [-1]"])
-        self.buy_level_2 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["EMA (7, Open) [+0] <= EMA (7, Open) [-1]"])
-        self.buy_level_3 = QtWidgets.QTreeWidgetItem(self.buy_level_2, ["WR (14) [+0] < SMA (7, Open) [+0]"])
-        self.buy_level_2_1 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["MACD - Singal Line (12, 26, 9, Open) [+0] >= MACD - MACD Line (12, 26, 9, Open) [-1]"])
-        self.buy_level_2_3 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["Open (-) [+0] >= Value (15555) [+0]"])
+        self.buy_level_1 = QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget, ["SMA (7, Open) [0] <= SMA (7, Open) [-1]"])
+        self.buy_level_2 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["EMA (7, Open) [0] <= EMA (7, Open) [-1]"])
+        self.buy_level_3 = QtWidgets.QTreeWidgetItem(self.buy_level_2, ["WR (14) [0] < SMA (7, Open) [0]"])
+        self.buy_level_2_1 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["MACD - Singal Line (12, 26, 9, Open) [0] >= MACD - MACD Line (12, 26, 9, Open) [-1]"])
+        self.buy_level_2_3 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["Open (-) [0] >= Value (15555) [0]"])
         self.p2_buyCondition_treeWidget.expandAll()
 
         # sell_level_1.setBackground(0, QtGui.QColor(170, 14, 9))
@@ -125,9 +133,7 @@ class Strategy_Widget(Base, Form):
             sell_rules['sell_rules'][x]['qTreeWidgetItem_Parent'] = str(sell_rules['sell_rules'][x]['qTreeWidgetItem_Parent'])
 
         path_to_file = QtWidgets.QFileDialog.getSaveFileName(self, 'Save strategy to JSON file', current_dir[:-6] + '\data\strategy', 'JSON Files (*.json)')
-        combined_rules = {}
-        combined_rules['buy_rules'] = []
-        combined_rules['sell_rules'] = []
+        combined_rules = {'buy_rules': [], 'sell_rules': []}
         combined_rules['buy_rules'].append(buy_rules['buy_rules'])
         combined_rules['sell_rules'].append(sell_rules['sell_rules'])
         with open(path_to_file[0], 'w') as file:

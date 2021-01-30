@@ -18,9 +18,9 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.p3_cancel_button.clicked.connect(lambda: self.close())
         self.add_strategy_rule_treeWidget.setHeaderLabel("")
         self.p3_firstIndicatorOptions_lineEdit_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
-        self.p3_firstIndicatorOptions_lineEdit_2.setText('[+0]')
+        self.p3_firstIndicatorOptions_comboBox_2.setCurrentIndex(0)
         self.p3_secondIndicatorOptions_lineEdit_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
-        self.p3_secondIndicatorOptions_lineEdit_2.setText('[-1]')
+        self.p3_secondIndicatorOptions_comboBox_2.setCurrentIndex(1)
         self.list_of_parent_text = []
         self.current_selected_math_char = ''
         self.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)
@@ -31,29 +31,29 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.selectMathChar_Button_4.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_4))
         self.selectMathChar_Button_5.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_5))
 
-        self.p3_firstIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_firstIndicator_comboBox, self.p3_firstIndicatorOptions_lineEdit_1, self. p3_firstIndicatorOptions_lineEdit_2, self.label_4))
+        self.p3_firstIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_firstIndicator_comboBox, self.p3_firstIndicatorOptions_lineEdit_1, self.p3_firstIndicatorOptions_comboBox_2, self.label_4))
 
-        self.p3_sedondIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_sedondIndicator_comboBox, self.p3_secondIndicatorOptions_lineEdit_1, self.p3_secondIndicatorOptions_lineEdit_2, self.label_7))
+        self.p3_sedondIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_sedondIndicator_comboBox, self.p3_secondIndicatorOptions_lineEdit_1, self.p3_secondIndicatorOptions_comboBox_2, self.label_7))
 
     def autofill_indicator_option(self, combo_box, linked_option_edit, linked_period_edit, linked_label):
         if combo_box.currentText() == "Value (Plain integer or double)":
-            linked_period_edit.setReadOnly(True)
-            linked_period_edit.setText('[+0]')
+            linked_period_edit.setEnabled(False)
+            linked_period_edit.setCurrentIndex(0)
             linked_label.setText('Value:')
             linked_option_edit.setText(indicator_default_options.get(combo_box.currentText()))
         elif combo_box.currentText() == 'Open (Open price of candle)' or combo_box.currentText() == 'High (High price of candle)' \
                 or combo_box.currentText() == 'Low (Low price of candle)' or combo_box.currentText() == 'Close (Close price of candle)':
             linked_option_edit.setText(indicator_default_options.get(combo_box.currentText()))
-            linked_period_edit.setText('[+0]')
+            linked_period_edit.setCurrentIndex(0)
         else:
             linked_label.setText('Options:')
             linked_option_edit.setText(indicator_default_options.get(combo_box.currentText()))
-            linked_period_edit.setReadOnly(False)
+            linked_period_edit.setEnabled(True)
 
         if indicator_default_options.get(combo_box.currentText()) == '(-)':
-            linked_option_edit.setReadOnly(True)
+            linked_option_edit.setEnabled(False)
         else:
-            linked_option_edit.setReadOnly(False)
+            linked_option_edit.setEnabled(True)
 
     def math_char_buttons_behavior(self, clicked_button):
         buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2, self.selectMathChar_Button_3, self.selectMathChar_Button_4, self.selectMathChar_Button_5]
@@ -64,9 +64,9 @@ class Add_Strategy_Rule_Widget(Form, Base):
             item.setStyleSheet(add_strategy_button_style_sheet_normal)
 
     def get_and_combine_text_from_fields(self):
-        new_rule_to_add = self.p3_firstIndicator_comboBox.currentText()[:self.p3_firstIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_firstIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_firstIndicatorOptions_lineEdit_2.text() \
+        new_rule_to_add = self.p3_firstIndicator_comboBox.currentText()[:self.p3_firstIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_firstIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_firstIndicatorOptions_comboBox_2.currentText() \
                           + ' ' + self.current_selected_math_char \
-                          + ' ' + self.p3_sedondIndicator_comboBox.currentText()[:self.p3_sedondIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_secondIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_secondIndicatorOptions_lineEdit_2.text()
+                          + ' ' + self.p3_sedondIndicator_comboBox.currentText()[:self.p3_sedondIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_secondIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_secondIndicatorOptions_comboBox_2.currentText()
         return new_rule_to_add
 
     ### function responsible for adding new strategy rule
@@ -126,7 +126,7 @@ class Add_Strategy_Rule_Widget(Form, Base):
 
         self.p3_firstIndicator_comboBox.setCurrentIndex(self.p3_firstIndicator_comboBox.findText(first_indicator_short_name, QtCore.Qt.MatchContains))
         self.p3_firstIndicatorOptions_lineEdit_1.setText(first_indicator_options)
-        self.p3_firstIndicatorOptions_lineEdit_2.setText(first_indicator_period)
+        self.p3_firstIndicatorOptions_comboBox_2.setCurrentIndex(self.p3_firstIndicatorOptions_comboBox_2.findText(first_indicator_period, QtCore.Qt.MatchContains))
         buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2, self.selectMathChar_Button_3, self.selectMathChar_Button_4, self.selectMathChar_Button_5]
         for button in buttons:
             if button.text() == math_char:
@@ -134,7 +134,7 @@ class Add_Strategy_Rule_Widget(Form, Base):
                 button.setStyleSheet(add_strategy_button_style_sheet_clicked)
         self.p3_sedondIndicator_comboBox.setCurrentIndex(self.p3_sedondIndicator_comboBox.findText(second_indicator_short_name, QtCore.Qt.MatchContains))
         self.p3_secondIndicatorOptions_lineEdit_1.setText(second_indicator_options)
-        self.p3_secondIndicatorOptions_lineEdit_2.setText(second_indicator_period)
+        self.p3_secondIndicatorOptions_comboBox_2.setCurrentIndex(self.p3_secondIndicatorOptions_comboBox_2.findText(second_indicator_period, QtCore.Qt.MatchContains))
 
     def save_modified_rule(self, current_selected_item, receiver_object):
         rule_to_modify = self.get_and_combine_text_from_fields()

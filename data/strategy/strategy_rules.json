@@ -2,33 +2,33 @@
     "buy_rules": [
         [
             {
-                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B708>",
-                "rule_text": "SMA (7, Open) [+0] <= SMA (7, Open) [-1]",
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2D48>",
+                "rule_text": "SMA (7, Open) [0] <= SMA (7, Open) [-1]",
                 "qTreeWidgetItem_Parent": "None",
                 "if_statement": ""
             },
             {
-                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B748>",
-                "rule_text": "EMA (7, Open) [+0] <= EMA (7, Open) [-1]",
-                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B708>",
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2D88>",
+                "rule_text": "EMA (7, Open) [0] <= EMA (7, Open) [-1]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2D48>",
                 "if_statement": ""
             },
             {
-                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B788>",
-                "rule_text": "WR (14) [+0] < SMA (7, Open) [+0]",
-                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B748>",
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2DC8>",
+                "rule_text": "WR (14) [0] < SMA (7, Open) [0]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2D88>",
                 "if_statement": ""
             },
             {
-                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B7C8>",
-                "rule_text": "MACD - Singal Line (12, 26, 9, Open) [+0] >= MACD - MACD Line (12, 26, 9, Open) [-1]",
-                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B708>",
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2E08>",
+                "rule_text": "MACD - Singal Line (12, 26, 9, Open) [0] >= MACD - MACD Line (12, 26, 9, Open) [-1]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2D48>",
                 "if_statement": ""
             },
             {
-                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B808>",
-                "rule_text": "Open (-) [+0] >= Value (15555) [+0]",
-                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B708>",
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2E88>",
+                "rule_text": "Open (-) [0] >= Value (15555) [0]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2D48>",
                 "if_statement": ""
             }
         ]
@@ -36,27 +36,27 @@
     "sell_rules": [
         [
             {
-                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9EA88>",
-                "rule_text": "SMA (7, Open) [+0] >= SMA (7, Open) [-1]",
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC6ECFD88>",
+                "rule_text": "SMA (7, Open) [0] >= SMA (7, Open) [-1]",
                 "qTreeWidgetItem_Parent": "None",
                 "if_statement": ""
             },
             {
-                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B608>",
-                "rule_text": "EMA (7, Open) [+0] >= EMA (7, Open) [-1]",
-                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9EA88>",
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2C48>",
+                "rule_text": "EMA (7, Open) [0] >= EMA (7, Open) [-1]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC6ECFD88>",
                 "if_statement": ""
             },
             {
-                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B688>",
-                "rule_text": "WR (14) [+0] > SMA (7, Open) [+0]",
-                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B608>",
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2C88>",
+                "rule_text": "WR (14) [0] > SMA (7, Open) [0]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2C48>",
                 "if_statement": ""
             },
             {
-                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9B6C8>",
-                "rule_text": "BOLL - Upper Band (21, 2) [+0] >= BOLL - Lower Band (21, 2) [-1]",
-                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000022865B9EA88>",
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC99D2CC8>",
+                "rule_text": "BOLL - Upper Band (21, 2) [0] >= BOLL - Lower Band (21, 2) [-1]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x0000026BC6ECFD88>",
                 "if_statement": ""
             }
         ]

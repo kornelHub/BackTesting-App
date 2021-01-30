@@ -1,0 +1,58 @@
+{
+    "buy_rules": [
+        [
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D9528608>",
+                "rule_text": "SMA (7, Open) [0] >= SMA (7, Open) [-1]",
+                "qTreeWidgetItem_Parent": "None",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D952C388>",
+                "rule_text": "SMA (7, Open) [-1] >= SMA (7, Open) [-2]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D9528608>",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D952CFC8>",
+                "rule_text": "SMA (7, Open) [-2] <= SMA (7, Open) [-3]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D952C388>",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D9530C88>",
+                "rule_text": "SMA (7, Open) [-3] <= SMA (7, Open) [-4]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D952CFC8>",
+                "if_statement": ""
+            }
+        ]
+    ],
+    "sell_rules": [
+        [
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D9540A48>",
+                "rule_text": "SMA (7, Open) [0] <= SMA (7, Open) [-1]",
+                "qTreeWidgetItem_Parent": "None",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D9515308>",
+                "rule_text": "SMA (7, Open) [-1] <= SMA (7, Open) [-2]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D9540A48>",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D9515F48>",
+                "rule_text": "SMA (7, Open) [-2] >= SMA (7, Open) [-3]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D9515308>",
+                "if_statement": ""
+            },
+            {
+                "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D9517C08>",
+                "rule_text": "SMA (7, Open) [-3] >= SMA (7, Open) [-4]",
+                "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000249D9515F48>",
+                "if_statement": ""
+            }
+        ]
+    ]
+}

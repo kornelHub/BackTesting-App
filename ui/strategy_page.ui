@@ -371,7 +371,7 @@ border-radius: 10px;</string>
 }</string>
               </property>
               <property name="text">
-               <string>LOREM</string>
+               <string>Simulation settings - Buy</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -389,6 +389,328 @@ border-radius: 10px;</string>
               <property name="styleSheet">
                <string notr="true">background-color: rgb(55,55,55);</string>
               </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <widget class="QWidget" name="widget_9" native="true">
+                 <layout class="QVBoxLayout" name="verticalLayout_7">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QLabel" name="label">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Price source:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_2">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Buy commission:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_3">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Starting balance:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_5">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_4">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_8" native="true">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_8">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QWidget" name="widget_10" native="true">
+                    <layout class="QHBoxLayout" name="horizontalLayout_6">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QComboBox" name="buy_price_source_comboBox">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QComboBox {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border: 2px solid rgb(55,55,55);
+        border-radius: 10px;
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+
+QComboBox:hover {
+        border: 2px solid rgb(90,90,90);
+}
+
+QComboBox QAbstractItemView {
+     border: 2pxsolid rgb(45, 45, 45);
+    selection-background-color:rgb(45, 45, 45);
+    color: #FFF
+                  }</string>
+                       </property>
+                       <item>
+                        <property name="text">
+                         <string>Open</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>High</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Low</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Close</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_11" native="true">
+                    <layout class="QHBoxLayout" name="horizontalLayout_7">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QLineEdit" name="buy_commission_lineEdit_1">
+                       <property name="styleSheet">
+                        <string notr="true">QLineEdit {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border-radius: 10px;
+        border: 2px solid rgb(55,55,55);
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+QLineEdit:hover {
+        border: 2px solid rgb(85,85,85);
+}
+QLineEdit:focus{
+        border: 2px solid rgb(85, 170, 255);
+}
+</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="QComboBox" name="buy_commission_comboBox_2">
+                       <property name="styleSheet">
+                        <string notr="true">QComboBox {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border: 2px solid rgb(55,55,55);
+        border-radius: 10px;
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+
+QComboBox:hover {
+        border: 2px solid rgb(90,90,90);
+}
+
+QComboBox QAbstractItemView {
+     border: 2pxsolid rgb(45, 45, 45);
+    selection-background-color:rgb(45, 45, 45);
+    color: #FFF
+                  }</string>
+                       </property>
+                       <item>
+                        <property name="text">
+                         <string>%</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Pips</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Flat</string>
+                        </property>
+                       </item>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_12" native="true">
+                    <layout class="QHBoxLayout" name="horizontalLayout_8">
+                     <property name="spacing">
+                      <number>0</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="bottomMargin">
+                      <number>0</number>
+                     </property>
+                     <item>
+                      <widget class="QLineEdit" name="buy_balance_lineEdit2">
+                       <property name="styleSheet">
+                        <string notr="true">QLineEdit {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border-radius: 10px;
+        border: 2px solid rgb(55,55,55);
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+QLineEdit:hover {
+        border: 2px solid rgb(85,85,85);
+}
+QLineEdit:focus{
+        border: 2px solid rgb(85, 170, 255);
+}
+</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_13" native="true"/>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_17" native="true"/>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
            </layout>
@@ -706,7 +1028,7 @@ border-radius: 10px;</string>
 }</string>
            </property>
            <property name="text">
-            <string>IPSUM</string>
+            <string>Simulation settings - Sell</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -724,6 +1046,465 @@ border-radius: 10px;</string>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(55,55,55);</string>
            </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="QWidget" name="widget_18" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_10">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="label_6">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Price source:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_7">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Sell commission:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_8">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Starting balance:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_9">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Stop loss:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_10">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Take profit:</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="widget_19" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_12">
+               <item>
+                <widget class="QWidget" name="widget_20" native="true">
+                 <layout class="QHBoxLayout" name="horizontalLayout_10">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QComboBox" name="sell_price_source_comboBox">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QComboBox {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border: 2px solid rgb(55,55,55);
+        border-radius: 10px;
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+
+QComboBox:hover {
+        border: 2px solid rgb(90,90,90);
+}
+
+QComboBox QAbstractItemView {
+     border: 2pxsolid rgb(45, 45, 45);
+    selection-background-color:rgb(45, 45, 45);
+    color: #FFF
+                  }</string>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>Open</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>High</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Low</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Close</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_21" native="true">
+                 <layout class="QHBoxLayout" name="horizontalLayout_11">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QLineEdit" name="sell_commission_lineEdit_1">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border-radius: 10px;
+        border: 2px solid rgb(55,55,55);
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+QLineEdit:hover {
+        border: 2px solid rgb(85,85,85);
+}
+QLineEdit:focus{
+        border: 2px solid rgb(85, 170, 255);
+}
+</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="sell_commission_comboBox_2">
+                    <property name="styleSheet">
+                     <string notr="true">QComboBox {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border: 2px solid rgb(55,55,55);
+        border-radius: 10px;
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+
+QComboBox:hover {
+        border: 2px solid rgb(90,90,90);
+}
+
+QComboBox QAbstractItemView {
+     border: 2pxsolid rgb(45, 45, 45);
+    selection-background-color:rgb(45, 45, 45);
+    color: #FFF
+                  }</string>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>%</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Pips</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Flat</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_22" native="true">
+                 <layout class="QHBoxLayout" name="horizontalLayout_12">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QLineEdit" name="sell_balance_lineEdit">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border-radius: 10px;
+        border: 2px solid rgb(55,55,55);
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+QLineEdit:hover {
+        border: 2px solid rgb(85,85,85);
+}
+QLineEdit:focus{
+        border: 2px solid rgb(85, 170, 255);
+}
+</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_23" native="true">
+                 <layout class="QHBoxLayout" name="horizontalLayout_13">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QLineEdit" name="sell_stop_loss_lineEdit_1">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border-radius: 10px;
+        border: 2px solid rgb(55,55,55);
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+QLineEdit:hover {
+        border: 2px solid rgb(85,85,85);
+}
+QLineEdit:focus{
+        border: 2px solid rgb(85, 170, 255);
+}
+</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="sell_stop_loss_comboBox_2">
+                    <property name="styleSheet">
+                     <string notr="true">QComboBox {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border: 2px solid rgb(55,55,55);
+        border-radius: 10px;
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+
+QComboBox:hover {
+        border: 2px solid rgb(90,90,90);
+}
+
+QComboBox QAbstractItemView {
+     border: 2pxsolid rgb(45, 45, 45);
+    selection-background-color:rgb(45, 45, 45);
+    color: #FFF
+                  }</string>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>%</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Pips</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Flat</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item>
+                <widget class="QWidget" name="widget_24" native="true">
+                 <layout class="QHBoxLayout" name="horizontalLayout_14">
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QLineEdit" name="sell_take_profit_lineEdit_1">
+                    <property name="styleSheet">
+                     <string notr="true">QLineEdit {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border-radius: 10px;
+        border: 2px solid rgb(55,55,55);
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+QLineEdit:hover {
+        border: 2px solid rgb(85,85,85);
+}
+QLineEdit:focus{
+        border: 2px solid rgb(85, 170, 255);
+}
+</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="sell_take_profit_comboBox_2">
+                    <property name="styleSheet">
+                     <string notr="true">QComboBox {
+        font: 10pt &quot;MS Shell Dlg 2&quot;;
+        border: 2px solid rgb(55,55,55);
+        border-radius: 10px;
+        color: rgb(255, 255, 255);
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: rgb(70,70,70);
+}
+
+QComboBox:hover {
+        border: 2px solid rgb(90,90,90);
+}
+
+QComboBox QAbstractItemView {
+     border: 2pxsolid rgb(45, 45, 45);
+    selection-background-color:rgb(45, 45, 45);
+    color: #FFF
+                  }</string>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>%</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Pips</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Flat</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
         </layout>
