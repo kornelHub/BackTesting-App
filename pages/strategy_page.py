@@ -20,9 +20,9 @@ class Strategy_Widget(Base, Form):
         QtWidgets.QToolTip.setFont(QtGui.QFont('MS Shell Dlg 2', 10))
 
         # dev helper
-        self.buy_commission_lineEdit_1.setText('0.001')
+        self.buy_commission_lineEdit_1.setText('0.1')
         self.buy_balance_lineEdit2.setText('1')
-        self.sell_commission_lineEdit_1.setText('1')
+        self.sell_commission_lineEdit_1.setText('0.1')
         self.sell_balance_lineEdit.setText('10000')
         self.sell_stop_loss_lineEdit_1.setText('14')
         self.sell_take_profit_lineEdit_1.setText('14')

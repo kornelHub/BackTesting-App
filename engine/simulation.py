@@ -1,6 +1,7 @@
 from PySide2 import QtCore
 import helpers
 import pandas as pd
+import json
 
 
 def get_buy_rules(strategy_page):
@@ -132,6 +133,7 @@ def glue_if_statements(list_of_rules, context):
                 if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + f"{context}(x)\n"
         else:
             if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + f"{context}(x, {context}_simulation_settings, trades_dict)\n"
+            if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + "continue\n"
 
     return if_statement
 
@@ -176,26 +178,49 @@ def glue_all_code(buy_if_string, sell_if_string):
 
 def buy(x, buy_simulation_settings, trades_dict):
     if trades_dict['buy_trades'][-1]['index'] <= trades_dict['sell_trades'][-1]['index'] < x:
-        print('BUY ', trades_dict['sell_trades'][-1]['currency_2'])
         current_price = float(data_df.iloc[x][buy_simulation_settings['buy_settings'][0]['price_source']])
         trades_dict['buy_trades'].append({
             'index': x,
             'price': current_price,
-            'currency_1': (trades_dict['sell_trades'][-1]['currency_2'] / current_price) + trades_dict['sell_trades'][-1]['currency_1'],
+            'amount_traded': trades_dict['sell_trades'][-1]['currency_2'],
+            'currency_1': calculate_amount_with_commission('buy', current_price, trades_dict['sell_trades'][-1]['currency_2'],
+                            buy_simulation_settings['buy_settings'][0]['commission'], buy_simulation_settings['buy_settings'][0]['commission_unit'])
+                            + trades_dict['sell_trades'][-1]['currency_1'],
             'currency_2': 0
         })
 
 
 def sell(x, sell_simulation_settings, trades_dict):
     if trades_dict['sell_trades'][-1]['index'] <= trades_dict['buy_trades'][-1]['index'] < x:
-        print("SELL ", trades_dict['buy_trades'][-1]['currency_1'])
         current_price = float(data_df.iloc[x][sell_simulation_settings['sell_settings'][0]['price_source']])
         trades_dict['sell_trades'].append({
             'index': x,
             'price': current_price,
+            'amount_traded': trades_dict['buy_trades'][-1]['currency_1'],
             'currency_1': 0,
-            'currency_2': (trades_dict['buy_trades'][-1]['currency_1'] * current_price) + trades_dict['buy_trades'][-1]['currency_2']
+            'currency_2': calculate_amount_with_commission('sell', current_price, trades_dict['buy_trades'][-1]['currency_1'],
+                            sell_simulation_settings['sell_settings'][0]['commission'], sell_simulation_settings['sell_settings'][0]['commission_unit'])
+                            + trades_dict['buy_trades'][-1]['currency_2']
         })
+
+
+def calculate_amount_with_commission(context, exchange_rate, currency_amount, commission_value, commission_type):
+    commission_value = float(commission_value)
+    if commission_type == '%':
+        if context == 'buy':
+            return (currency_amount / exchange_rate) * (100 - commission_value)/100
+        else:
+            return (currency_amount * exchange_rate) * (100 - commission_value)/100
+    elif commission_type == 'Pips':
+        if context == 'buy':
+            return currency_amount / (exchange_rate + commission_value/10000)
+        else:
+            return currency_amount * (exchange_rate - commission_value/10000)
+    elif commission_type == 'Flat':
+        if context == 'buy':
+            return (currency_amount - commission_value) / exchange_rate
+        else:
+            return (currency_amount * exchange_rate) - commission_value
 
 
 def init_simulation(main_window_object):
@@ -254,24 +279,22 @@ def init_simulation(main_window_object):
                                                                globals()[f"sell_second_indicator_options_list{x}"],
                                                                globals()[f"sell_second_indicator_period{x}"])
 
-    # print(glue_if_statements(buy_rules['buy_rules'], 'buy'))
-    # print(glue_if_statements(sell_rules['sell_rules'], 'sell'))
-    # print(buy_simulation_settings)
-    # print(sell_simulation_settings)
     trades_dict = {'buy_trades': [], 'sell_trades': []}
     trades_dict['buy_trades'].append({
         'index': 0,
         'price': 1.0,
+        'amount_traded': 0,
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
         'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance'])
     })
     trades_dict['sell_trades'].append({
         'index': 0,
         'price': 1.0,
+        'amount_traded': 0,
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
         'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance'])
     })
-    print(trades_dict)
     code = glue_all_code((glue_if_statements(buy_rules['buy_rules'], 'buy')), (glue_if_statements(sell_rules['sell_rules'], 'sell')))
+    print(code)
     exec(code)
-    print(trades_dict)
+    print(json.dumps(trades_dict, indent=4))
