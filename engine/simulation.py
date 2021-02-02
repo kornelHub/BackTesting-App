@@ -52,8 +52,8 @@ def slice_rule(rule):
         else:
             for coma in range(buy_coma_count):
                 first_indicator_options_list.append(first_indicator_options[:first_indicator_options.find(',')])
-                first_indicator_options = first_indicator_options[first_indicator_options.find(',')+2:]
-                if coma == buy_coma_count-1:
+                first_indicator_options = first_indicator_options[first_indicator_options.find(',') + 2:]
+                if coma == buy_coma_count - 1:
                     first_indicator_options_list.append(first_indicator_options)
     else:
         first_indicator_options_list = []
@@ -73,14 +73,14 @@ def slice_rule(rule):
     else:
         second_indicator_options_list = []
 
-    return first_indicator_short_name, first_indicator_options_list, first_indicator_period, math_char,\
+    return first_indicator_short_name, first_indicator_options_list, first_indicator_period, math_char, \
            second_indicator_short_name, second_indicator_options_list, second_indicator_period
 
 
 def build_column_name(indicator_short_name, indicator_options_list):
     combined_column_name = ''
     if indicator_short_name == 'Value':
-    # this is used on purpose, Open is always in data_df
+        # this is used on purpose, Open is always in data_df
         return 'Open'
     elif indicator_short_name == 'Open' or indicator_short_name == 'High' or indicator_short_name == 'Low' \
             or indicator_short_name == 'Close' or indicator_short_name == 'Volume':
@@ -91,7 +91,7 @@ def build_column_name(indicator_short_name, indicator_options_list):
         combined_column_name = 'BOLL_Lower'
     elif indicator_short_name == 'MACD - MACD Line':
         combined_column_name = 'MACD_Line'
-    elif indicator_short_name =='MACD - Singal Line':
+    elif indicator_short_name == 'MACD - Singal Line':
         combined_column_name = 'MACD_Signal_Line'
     else:
         combined_column_name = indicator_short_name
@@ -105,12 +105,11 @@ def build_column_name(indicator_short_name, indicator_options_list):
 def build_if_statement(first_indicator_short_name, first_indicator_options_list, first_indicator_period,
                        math_char,
                        second_indicator_short_name, second_indicator_options_list, second_indicator_period):
-
     if first_indicator_short_name == 'Value':
         if_statement_first_part = first_indicator_options_list[0] + ' '
     else:
         first_indicator_collumn_name = build_column_name(first_indicator_short_name, first_indicator_options_list)
-        first_indicator_period = first_indicator_period[1:-1]   # remove square bracket
+        first_indicator_period = first_indicator_period[1:-1]  # remove square bracket
         if_statement_first_part = f"if data_df.iloc[x+{first_indicator_period}]['{first_indicator_collumn_name}'] "
 
     if second_indicator_short_name == 'Value':
@@ -128,9 +127,10 @@ def glue_if_statements(list_of_rules, context):
     if_statement = ""
     for x in range(len(list_of_rules)):
         if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 1) + list_of_rules[x]['if_statement'] + "\n"
-        if len(list_of_rules) > x+1:
-            if check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) >= check_if_parent_exist(list_of_rules[x+1]['qTreeWidgetItem'], 0):
-                if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + f"{context}(x)\n"
+        if len(list_of_rules) > x + 1:
+            if check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) >= check_if_parent_exist(list_of_rules[x + 1]['qTreeWidgetItem'], 0):
+                if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + f"{context}(x, {context}_simulation_settings, trades_dict)\n"
+                if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + "continue\n"
         else:
             if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + f"{context}(x, {context}_simulation_settings, trades_dict)\n"
             if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + "continue\n"
@@ -208,19 +208,27 @@ def calculate_amount_with_commission(context, exchange_rate, currency_amount, co
     commission_value = float(commission_value)
     if commission_type == '%':
         if context == 'buy':
-            return (currency_amount / exchange_rate) * (100 - commission_value)/100
+            return (currency_amount / exchange_rate) * (100 - commission_value) / 100
         else:
-            return (currency_amount * exchange_rate) * (100 - commission_value)/100
+            return (currency_amount * exchange_rate) * (100 - commission_value) / 100
     elif commission_type == 'Pips':
         if context == 'buy':
-            return currency_amount / (exchange_rate + commission_value/10000)
+            return currency_amount / (exchange_rate + commission_value / 10000)
         else:
-            return currency_amount * (exchange_rate - commission_value/10000)
+            return currency_amount * (exchange_rate - commission_value / 10000)
     elif commission_type == 'Flat':
         if context == 'buy':
             return (currency_amount - commission_value) / exchange_rate
         else:
             return (currency_amount * exchange_rate) - commission_value
+
+
+def get_pip_position_for_simulation():
+    largest_decimal_place = 0
+    for index, row in data_df[:int(len(data_df)/4)].iterrows():
+        if len(str(row['Open'])) - int(str(row['Open']).find('.')) - 1 > largest_decimal_place:
+            largest_decimal_place = len(str(row['Open'])) - int(str(row['Open']).find('.')) - 1
+    return largest_decimal_place
 
 
 def init_simulation(main_window_object):
@@ -230,6 +238,9 @@ def init_simulation(main_window_object):
     sell_simulation_settings = get_sell_simulation_settings(main_window_object.strategy_page)
     global data_df
     data_df = pd.read_csv("data/data.csv", sep=';')
+    global pip_position
+    pip_position = get_pip_position_for_simulation()
+    print(pip_position)
 
     # BUYS
     for x in range(len(buy_rules['buy_rules'])):
@@ -294,6 +305,7 @@ def init_simulation(main_window_object):
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
         'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance'])
     })
+
     code = glue_all_code((glue_if_statements(buy_rules['buy_rules'], 'buy')), (glue_if_statements(sell_rules['sell_rules'], 'sell')))
     print(code)
     exec(code)
