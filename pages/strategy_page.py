@@ -32,23 +32,28 @@ class Strategy_Widget(Base, Form):
         self.p2_add_buy_rule.setIconSize(QtCore.QSize(32, 32))
         self.p2_add_buy_rule.setToolTip('Add new buy rule')
 
+        self.p2_copy_buy_rule.setIcon(QtGui.QIcon('icons/copy.png'))
+        self.p2_copy_buy_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_copy_buy_rule.clicked.connect(lambda: self.copy_buy_rule())
+        self.p2_copy_buy_rule.setToolTip('Copy selected rule')
+
         self.p2_edit_buy_rule.setIcon(QtGui.QIcon('icons/edit.png'))
         self.p2_edit_buy_rule.setIconSize(QtCore.QSize(32, 32))
-        self.p2_edit_buy_rule.setToolTip('Edit existing buy rule')
+        self.p2_edit_buy_rule.setToolTip('Edit selected buy rule')
 
         self.p2_delete_buy_rule.setIcon(QtGui.QIcon('icons/trash.png'))
         self.p2_delete_buy_rule.setIconSize(QtCore.QSize(32, 32))
-        self.p2_delete_buy_rule.clicked.connect(self.delete_buy_rule)
+        self.p2_delete_buy_rule.clicked.connect(lambda: self.delete_buy_rule())
         self.p2_delete_buy_rule.setToolTip('Remove selected buy rule')
 
         self.p2_save_strategy_1.setIcon(QtGui.QIcon('icons/save.png'))
         self.p2_save_strategy_1.setIconSize(QtCore.QSize(32, 32))
-        self.p2_save_strategy_1.clicked.connect(self.save_rules_to_json_file)
+        self.p2_save_strategy_1.clicked.connect(lambda: self.save_rules_to_json_file())
         self.p2_save_strategy_1.setToolTip('Save buy and sell rules to file')
 
         self.p2_load_strategy_1.setIcon(QtGui.QIcon('icons/load.png'))
         self.p2_load_strategy_1.setIconSize(QtCore.QSize(32, 32))
-        self.p2_load_strategy_1.clicked.connect(self.load_rules_from_json_file)
+        self.p2_load_strategy_1.clicked.connect(lambda: self.load_rules_from_json_file())
         self.p2_load_strategy_1.setToolTip('Load buy and sell rules from file')
 
         # Sell
@@ -56,23 +61,28 @@ class Strategy_Widget(Base, Form):
         self.p2_add_sell_rule.setIconSize(QtCore.QSize(32, 32))
         self.p2_add_sell_rule.setToolTip('Add new sell rule')
 
+        self.p2_copy_sell_rule.setIcon(QtGui.QIcon('icons/copy.png'))
+        self.p2_copy_sell_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_copy_sell_rule.clicked.connect(lambda: self.copy_sell_rule())
+        self.p2_copy_sell_rule.setToolTip('Copy selected rule')
+
         self.p2_edit_sell_rule.setIcon(QtGui.QIcon('icons/edit.png'))
         self.p2_edit_sell_rule.setIconSize(QtCore.QSize(32, 32))
-        self.p2_edit_sell_rule.setToolTip('Edit existing sell rule')
+        self.p2_edit_sell_rule.setToolTip('Edit selected sell rule')
 
         self.p2_delete_sell_rule.setIcon(QtGui.QIcon('icons/trash.png'))
         self.p2_delete_sell_rule.setIconSize(QtCore.QSize(32, 32))
-        self.p2_delete_sell_rule.clicked.connect(self.delete_sell_rule)
+        self.p2_delete_sell_rule.clicked.connect(lambda: self.delete_sell_rule())
         self.p2_delete_sell_rule.setToolTip('Remove selected sell rule')
 
         self.p2_save_strategy_2.setIcon(QtGui.QIcon('icons/save.png'))
         self.p2_save_strategy_2.setIconSize(QtCore.QSize(32, 32))
-        self.p2_save_strategy_2.clicked.connect(self.save_rules_to_json_file)
+        self.p2_save_strategy_2.clicked.connect(lambda: self.save_rules_to_json_file())
         self.p2_save_strategy_2.setToolTip('Save buy and sell rules to file')
 
         self.p2_load_strategy_2.setIcon(QtGui.QIcon('icons/load.png'))
         self.p2_load_strategy_2.setIconSize(QtCore.QSize(32, 32))
-        self.p2_load_strategy_2.clicked.connect(self.load_rules_from_json_file)
+        self.p2_load_strategy_2.clicked.connect(lambda: self.load_rules_from_json_file())
         self.p2_load_strategy_2.setToolTip('Load buy and sell rules from file')
 
         # init sell treeView
@@ -104,6 +114,12 @@ class Strategy_Widget(Base, Form):
         add_strategy_page_widget.load_qtreewidget(list_of_items_in_buy_qtreewidget)
         add_strategy_page_widget.show()
         add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.add_new_rule(self.receive_buy_strategy_rule_to_add_object, strategy_page_object))
+
+    def copy_buy_rule(self):
+        if self.p2_buyCondition_treeWidget.selectedItems()[0].parent() is None:
+            QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget, [self.p2_buyCondition_treeWidget.selectedItems()[0].text(0)])
+        else:
+            QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget.selectedItems()[0].parent(), [self.p2_buyCondition_treeWidget.selectedItems()[0].text(0)])
 
     def display_add_strategy_rule_page_modify_buy_context(self):
         receive_strategy_rule_to_modify_object = Receive_Strategy_Rule_To_Modify()
@@ -148,6 +164,12 @@ class Strategy_Widget(Base, Form):
         add_strategy_page_widget.load_qtreewidget(list_of_items_in_sell_qtreewidget)
         add_strategy_page_widget.show()
         add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.add_new_rule(self.receive_sell_strategy_rule_to_add_object, strategy_page_object))
+
+    def copy_sell_rule(self):
+        if self.p2_sellCondition_treeWidget.selectedItems()[0].parent() is None:
+            QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, [self.p2_sellCondition_treeWidget.selectedItems()[0].text(0)])
+        else:
+            QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget.selectedItems()[0].parent(), [self.p2_sellCondition_treeWidget.selectedItems()[0].text(0)])
 
     def display_add_strategy_rule_page_modify_sell_context(self):
         receive_strategy_rule_to_modify_object = Receive_Strategy_Rule_To_Modify()

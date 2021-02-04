@@ -208,6 +208,19 @@ border: 0px sold;</string>
                    </widget>
                   </item>
                   <item>
+                   <widget class="QPushButton" name="p2_copy_buy_rule">
+                    <property name="maximumSize">
+                     <size>
+                      <width>32</width>
+                      <height>32</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <widget class="QPushButton" name="p2_edit_buy_rule">
                     <property name="maximumSize">
                      <size>
@@ -858,6 +871,19 @@ border-radius: 10px;</string>
                  <property name="styleSheet">
                   <string notr="true">background-color: rgb(35,35,35);
 border: 0px sold;</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="p2_copy_sell_rule">
+                 <property name="maximumSize">
+                  <size>
+                   <width>32</width>
+                   <height>32</height>
+                  </size>
                  </property>
                  <property name="text">
                   <string/>
