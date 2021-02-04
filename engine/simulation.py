@@ -171,6 +171,35 @@ def get_sell_simulation_settings(strategy_page):
     return sell_simulation_settings
 
 
+def check_if_stop_loss_price_is_achieved(x, sell_simulation_settings, trades_dict):
+    stop_loss_value = float(sell_simulation_settings['sell_settings'][0]['stop_loss'])
+    stop_loss_unit = sell_simulation_settings['sell_settings'][0]['stop_loss_unit']
+    if trades_dict['buy_trades'][-1]['index'] > trades_dict['sell_trades'][-1]['index']:
+        if stop_loss_unit == '%':
+            if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value) / 100 <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value))
+        elif stop_loss_unit == 'Pips':
+            if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] - (stop_loss_value * pow(10, -pip_position)) <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] - (stop_loss_value * pow(10, -pip_position)))
+        elif stop_loss_unit == 'Flat':
+            if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] - stop_loss_value <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] - stop_loss_value)
+
+
+def check_if_take_profit_price_is_achieved(x, sell_simulation_settings, trades_dict):
+    take_profit_value = float(sell_simulation_settings['sell_settings'][0]['take_profit'])
+    take_profit_unit = sell_simulation_settings['sell_settings'][0]['take_profit_unit']
+    if trades_dict['buy_trades'][-1]['index'] > trades_dict['sell_trades'][-1]['index']:
+        if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] * (100 + take_profit_value) / 100 <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] * (100 + take_profit_value) / 100)
+        elif take_profit_unit == 'Pips':
+            if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] + (take_profit_value * pow(10, -pip_position)) <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] + (take_profit_value * pow(10, -pip_position)))
+        elif take_profit_unit == 'Flat':
+            if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] + take_profit_value <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] + take_profit_value)
+
+
 def glue_all_code(buy_if_string, sell_if_string):
     simulation_code = "for x in range(14, len(data_df)):\n" + buy_if_string + "\n" + sell_if_string
     return simulation_code
@@ -183,23 +212,30 @@ def buy(x, buy_simulation_settings, trades_dict):
             'index': x,
             'price': current_price,
             'amount_traded': trades_dict['sell_trades'][-1]['currency_2'],
-            'currency_1': calculate_amount_with_commission('buy', current_price, trades_dict['sell_trades'][-1]['currency_2'],
-                            buy_simulation_settings['buy_settings'][0]['commission'], buy_simulation_settings['buy_settings'][0]['commission_unit'])
+            'currency_1': calculate_amount_with_commission('buy',
+                                                           current_price, trades_dict['sell_trades'][-1]['currency_2'],
+                                                           buy_simulation_settings['buy_settings'][0]['commission'],
+                                                           buy_simulation_settings['buy_settings'][0]['commission_unit'])
                             + trades_dict['sell_trades'][-1]['currency_1'],
             'currency_2': 0
         })
 
 
-def sell(x, sell_simulation_settings, trades_dict):
+def sell(x, sell_simulation_settings, trades_dict, price='options'):
     if trades_dict['sell_trades'][-1]['index'] <= trades_dict['buy_trades'][-1]['index'] < x:
-        current_price = float(data_df.iloc[x][sell_simulation_settings['sell_settings'][0]['price_source']])
+        if price == 'options':
+            current_price = float(data_df.iloc[x][sell_simulation_settings['sell_settings'][0]['price_source']])
+        else:
+            current_price = float(price)
         trades_dict['sell_trades'].append({
             'index': x,
             'price': current_price,
             'amount_traded': trades_dict['buy_trades'][-1]['currency_1'],
             'currency_1': 0,
-            'currency_2': calculate_amount_with_commission('sell', current_price, trades_dict['buy_trades'][-1]['currency_1'],
-                            sell_simulation_settings['sell_settings'][0]['commission'], sell_simulation_settings['sell_settings'][0]['commission_unit'])
+            'currency_2': calculate_amount_with_commission('sell',
+                                                           current_price, trades_dict['buy_trades'][-1]['currency_1'],
+                                                           sell_simulation_settings['sell_settings'][0]['commission'],
+                                                           sell_simulation_settings['sell_settings'][0]['commission_unit'])
                             + trades_dict['buy_trades'][-1]['currency_2']
         })
 
@@ -240,7 +276,6 @@ def init_simulation(main_window_object):
     data_df = pd.read_csv("data/data.csv", sep=';')
     global pip_position
     pip_position = get_pip_position_for_simulation()
-    print(pip_position)
 
     # BUYS
     for x in range(len(buy_rules['buy_rules'])):
@@ -292,9 +327,9 @@ def init_simulation(main_window_object):
 
     trades_dict = {'buy_trades': [], 'sell_trades': []}
     trades_dict['buy_trades'].append({
-        'index': 0,
+        'index': 1,
         'price': 1.0,
-        'amount_traded': 0,
+        'amount_traded': 1.0,
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
         'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance'])
     })
@@ -305,7 +340,6 @@ def init_simulation(main_window_object):
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
         'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance'])
     })
-
     code = glue_all_code((glue_if_statements(buy_rules['buy_rules'], 'buy')), (glue_if_statements(sell_rules['sell_rules'], 'sell')))
     print(code)
     exec(code)
