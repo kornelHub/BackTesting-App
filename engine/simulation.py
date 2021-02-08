@@ -151,8 +151,8 @@ def get_buy_simulation_settings(strategy_page):
     buy_simulation_settings = {'buy_settings': []}
     buy_simulation_settings['buy_settings'].append({
         'price_source': strategy_page.buy_price_source_comboBox.currentText(),
-        'commission': strategy_page.buy_commission_lineEdit_1.text(),
-        'commission_unit': strategy_page.buy_commission_comboBox_2.currentText(),
+        'fee': strategy_page.buy_commission_lineEdit_1.text(),
+        'fee_unit': strategy_page.buy_commission_comboBox_2.currentText(),
         'starting_balance': strategy_page.buy_balance_lineEdit2.text()})
     return buy_simulation_settings
 
@@ -161,8 +161,8 @@ def get_sell_simulation_settings(strategy_page):
     sell_simulation_settings = {'sell_settings': []}
     sell_simulation_settings['sell_settings'].append({
         'price_source': strategy_page.sell_price_source_comboBox.currentText(),
-        'commission': strategy_page.sell_commission_lineEdit_1.text(),
-        'commission_unit': strategy_page.sell_commission_comboBox_2.currentText(),
+        'fee': strategy_page.sell_commission_lineEdit_1.text(),
+        'fee_unit': strategy_page.sell_commission_comboBox_2.currentText(),
         'starting_balance': strategy_page.sell_balance_lineEdit.text(),
         'is_stop_loss_selected': strategy_page.stop_loss_checkbox.isChecked(),
         'stop_loss': strategy_page.sell_stop_loss_lineEdit_1.text(),
@@ -219,11 +219,11 @@ def buy(x, buy_simulation_settings, trades_dict):
             'index': x,
             'price': current_price,
             'amount_traded': trades_dict['sell_trades'][-1]['currency_2'],
-            'currency_1': calculate_amount_with_commission('buy',
-                                                           current_price, trades_dict['sell_trades'][-1]['currency_2'],
-                                                           buy_simulation_settings['buy_settings'][0]['commission'],
-                                                           buy_simulation_settings['buy_settings'][0]['commission_unit'])
-                            + trades_dict['sell_trades'][-1]['currency_1'],
+            'currency_1': calculate_amount_without_fee('buy',
+                                                       current_price, trades_dict['sell_trades'][-1]['currency_2'],
+                                                       buy_simulation_settings['buy_settings'][0]['fee'],
+                                                       buy_simulation_settings['buy_settings'][0]['fee_unit'])
+                          + trades_dict['sell_trades'][-1]['currency_1'],
             'currency_2': 0
         })
         print('-----------------------------------------------------------------------------------------')
@@ -241,34 +241,34 @@ def sell(x, sell_simulation_settings, trades_dict, price='options'):
             'price': current_price,
             'amount_traded': trades_dict['buy_trades'][-1]['currency_1'],
             'currency_1': 0,
-            'currency_2': calculate_amount_with_commission('sell',
-                                                           current_price, trades_dict['buy_trades'][-1]['currency_1'],
-                                                           sell_simulation_settings['sell_settings'][0]['commission'],
-                                                           sell_simulation_settings['sell_settings'][0]['commission_unit'])
-                            + trades_dict['buy_trades'][-1]['currency_2']
+            'currency_2': calculate_amount_without_fee('sell',
+                                                       current_price, trades_dict['buy_trades'][-1]['currency_1'],
+                                                       sell_simulation_settings['sell_settings'][0]['fee'],
+                                                       sell_simulation_settings['sell_settings'][0]['fee_unit'])
+                          + trades_dict['buy_trades'][-1]['currency_2']
         })
         if len(trades_dict['buy_trades']) > 1:
             print(x, ') SOLD ', trades_dict['sell_trades'][-1]['amount_traded'], ' FOR ', trades_dict['sell_trades'][-1]['price'])
             print('***PROFIT: ', trades_dict['buy_trades'][-1]['amount_traded'] - trades_dict['buy_trades'][-2]['amount_traded'])
 
 
-def calculate_amount_with_commission(context, exchange_rate, currency_amount, commission_value, commission_type):
-    commission_value = float(commission_value)
-    if commission_type == '%':
+def calculate_amount_without_fee(context, exchange_rate, currency_amount, fee_value, fee_type):
+    fee_value = float(fee_value)
+    if fee_type == '%':
         if context == 'buy':
-            return (currency_amount / exchange_rate) * (100 - commission_value) / 100
+            return (currency_amount / exchange_rate) * (100 - fee_value) / 100
         else:
-            return (currency_amount * exchange_rate) * (100 - commission_value) / 100
-    elif commission_type == 'Pips':
+            return (currency_amount * exchange_rate) * (100 - fee_value) / 100
+    elif fee_type == 'Pips':
         if context == 'buy':
-            return currency_amount / (exchange_rate + commission_value / 10000)
+            return currency_amount / (exchange_rate + fee_value / 10000)
         else:
-            return currency_amount * (exchange_rate - commission_value / 10000)
-    elif commission_type == 'Flat':
+            return currency_amount * (exchange_rate - fee_value / 10000)
+    elif fee_type == 'Flat':
         if context == 'buy':
-            return (currency_amount - commission_value) / exchange_rate
+            return (currency_amount - fee_value) / exchange_rate
         else:
-            return (currency_amount * exchange_rate) - commission_value
+            return (currency_amount * exchange_rate) - fee_value
 
 
 def get_pip_position_for_simulation():
