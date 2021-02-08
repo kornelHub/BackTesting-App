@@ -164,8 +164,10 @@ def get_sell_simulation_settings(strategy_page):
         'commission': strategy_page.sell_commission_lineEdit_1.text(),
         'commission_unit': strategy_page.sell_commission_comboBox_2.currentText(),
         'starting_balance': strategy_page.sell_balance_lineEdit.text(),
+        'is_stop_loss_selected': strategy_page.stop_loss_checkbox.isChecked(),
         'stop_loss': strategy_page.sell_stop_loss_lineEdit_1.text(),
         'stop_loss_unit': strategy_page.sell_stop_loss_comboBox_2.currentText(),
+        'is_take_profit_selected': strategy_page.take_profit_checkbox.isChecked(),
         'take_profit': strategy_page.sell_take_profit_lineEdit_1.text(),
         'take_profit_unit': strategy_page.sell_take_profit_comboBox_2.currentText()})
     return sell_simulation_settings
@@ -200,8 +202,13 @@ def check_if_take_profit_price_is_achieved(x, sell_simulation_settings, trades_d
                 sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] + take_profit_value)
 
 
-def glue_all_code(buy_if_string, sell_if_string):
-    simulation_code = "for x in range(14, len(data_df)):\n" + buy_if_string + "\n" + sell_if_string
+def glue_all_code(buy_if_string, sell_if_string, sell_simulation_settings):
+    simulation_code = "for x in range(14, len(data_df)):\n"
+    if sell_simulation_settings['sell_settings'][0]['is_stop_loss_selected']:
+        simulation_code += '\tcheck_if_stop_loss_price_is_achieved(x, sell_simulation_settings, trades_dict)\n'
+    if sell_simulation_settings['sell_settings'][0]['is_take_profit_selected']:
+        simulation_code += '\tcheck_if_take_profit_price_is_achieved(x, sell_simulation_settings, trades_dict)\n'
+    simulation_code += buy_if_string + "\n" + sell_if_string
     return simulation_code
 
 
@@ -219,6 +226,8 @@ def buy(x, buy_simulation_settings, trades_dict):
                             + trades_dict['sell_trades'][-1]['currency_1'],
             'currency_2': 0
         })
+        print('-----------------------------------------------------------------------------------------')
+        print(x, ') BOUGHT ', trades_dict['buy_trades'][-1]['amount_traded'], ' FOR ',  trades_dict['buy_trades'][-1]['price'])
 
 
 def sell(x, sell_simulation_settings, trades_dict, price='options'):
@@ -238,6 +247,9 @@ def sell(x, sell_simulation_settings, trades_dict, price='options'):
                                                            sell_simulation_settings['sell_settings'][0]['commission_unit'])
                             + trades_dict['buy_trades'][-1]['currency_2']
         })
+        if len(trades_dict['buy_trades']) > 1:
+            print(x, ') SOLD ', trades_dict['sell_trades'][-1]['amount_traded'], ' FOR ', trades_dict['sell_trades'][-1]['price'])
+            print('***PROFIT: ', trades_dict['buy_trades'][-1]['amount_traded'] - trades_dict['buy_trades'][-2]['amount_traded'])
 
 
 def calculate_amount_with_commission(context, exchange_rate, currency_amount, commission_value, commission_type):
@@ -340,7 +352,7 @@ def init_simulation(main_window_object):
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
         'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance'])
     })
-    code = glue_all_code((glue_if_statements(buy_rules['buy_rules'], 'buy')), (glue_if_statements(sell_rules['sell_rules'], 'sell')))
+    code = glue_all_code(glue_if_statements(buy_rules['buy_rules'], 'buy'), glue_if_statements(sell_rules['sell_rules'], 'sell'), sell_simulation_settings)
     print(code)
     exec(code)
     print(json.dumps(trades_dict, indent=4))

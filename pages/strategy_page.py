@@ -18,6 +18,8 @@ class Strategy_Widget(Base, Form):
         self.p2_sellCondition_treeWidget.setHeaderLabel("")
         self.helper_on_adding_new_rules = False
         QtWidgets.QToolTip.setFont(QtGui.QFont('MS Shell Dlg 2', 10))
+        self.stop_loss_checkbox.stateChanged.connect(lambda: self.check_if_disabled_needed_for_settings_fields(self.stop_loss_checkbox.isChecked(), self.sell_stop_loss_lineEdit_1, self.sell_stop_loss_comboBox_2))
+        self.take_profit_checkbox.stateChanged.connect(lambda: self.check_if_disabled_needed_for_settings_fields(self.take_profit_checkbox.isChecked(), self.sell_take_profit_lineEdit_1, self.sell_take_profit_comboBox_2))
 
         # dev helper
         self.buy_commission_lineEdit_1.setText('0.1')
@@ -230,7 +232,13 @@ class Strategy_Widget(Base, Form):
             return True
 
 ########################################################################################################################
-
+    def check_if_disabled_needed_for_settings_fields(self, is_checked, value_line_edit, unit_dropdown):
+        if is_checked:
+            value_line_edit.setReadOnly(False)
+            unit_dropdown.setEnabled(True)
+        else:
+            value_line_edit.setReadOnly(True)
+            unit_dropdown.setEnabled(False)
 
 # Add new rule receivers
 class Receive_Buy_Strategy_Rule_To_Add(QtCore.QObject):

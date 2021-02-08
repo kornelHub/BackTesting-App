@@ -1380,6 +1380,13 @@ QLineEdit:focus{
                    <number>0</number>
                   </property>
                   <item>
+                   <widget class="QCheckBox" name="stop_loss_checkbox">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <widget class="QLineEdit" name="sell_stop_loss_lineEdit_1">
                     <property name="styleSheet">
                      <string notr="true">QLineEdit {
@@ -1462,6 +1469,13 @@ QComboBox QAbstractItemView {
                   <property name="bottomMargin">
                    <number>0</number>
                   </property>
+                  <item>
+                   <widget class="QCheckBox" name="take_profit_checkbox">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
                   <item>
                    <widget class="QLineEdit" name="sell_take_profit_lineEdit_1">
                     <property name="styleSheet">
