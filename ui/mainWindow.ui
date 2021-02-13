@@ -464,6 +464,7 @@ QPushButton:hover {
               </property>
              </layout>
             </widget>
+            <widget class="Summary_Page" name="summary_page"/>
            </widget>
           </item>
          </layout>
@@ -486,6 +487,12 @@ QPushButton:hover {
    <class>Strategy_Widget</class>
    <extends>QWidget</extends>
    <header location="global">pages/strategy_page</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Summary_Page</class>
+   <extends>QWidget</extends>
+   <header>pages/summary_page</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

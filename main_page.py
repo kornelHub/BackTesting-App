@@ -61,7 +61,7 @@ class MainWidget(Base, Form):
     def display_next_page(self):
         ### start simulation
         if self.widget_pages.currentIndex() is 1:
-            simulation.init_simulation(main_widget_object)
+            simulation.init_simulation(main_widget_object, self.data_path.text())
         self.widget_pages.setCurrentIndex(self.widget_pages.currentIndex()+1)
 
 

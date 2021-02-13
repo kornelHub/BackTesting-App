@@ -1,5 +1,5 @@
 from PySide2 import QtCore
-import helpers
+import helpers.helpers as helpers
 import pandas as pd
 import json
 
@@ -226,8 +226,8 @@ def buy(x, buy_simulation_settings, trades_dict):
                           + trades_dict['sell_trades'][-1]['currency_1'],
             'currency_2': 0
         })
-        print('-----------------------------------------------------------------------------------------')
-        print(x, ') BOUGHT ', trades_dict['buy_trades'][-1]['amount_traded'], ' FOR ',  trades_dict['buy_trades'][-1]['price'])
+        # print('-----------------------------------------------------------------------------------------')
+        # print(x, ') BOUGHT ', trades_dict['buy_trades'][-1]['amount_traded'], ' FOR ',  trades_dict['buy_trades'][-1]['price'])
 
 
 def sell(x, sell_simulation_settings, trades_dict, price='options'):
@@ -247,9 +247,9 @@ def sell(x, sell_simulation_settings, trades_dict, price='options'):
                                                        sell_simulation_settings['sell_settings'][0]['fee_unit'])
                           + trades_dict['buy_trades'][-1]['currency_2']
         })
-        if len(trades_dict['buy_trades']) > 1:
-            print(x, ') SOLD ', trades_dict['sell_trades'][-1]['amount_traded'], ' FOR ', trades_dict['sell_trades'][-1]['price'])
-            print('***PROFIT: ', trades_dict['buy_trades'][-1]['amount_traded'] - trades_dict['buy_trades'][-2]['amount_traded'])
+        # if len(trades_dict['buy_trades']) > 1:
+        #     print(x, ') SOLD ', trades_dict['sell_trades'][-1]['amount_traded'], ' FOR ', trades_dict['sell_trades'][-1]['price'])
+        #     print('***PROFIT: ', trades_dict['buy_trades'][-1]['amount_traded'] - trades_dict['buy_trades'][-2]['amount_traded'])
 
 
 def calculate_amount_without_fee(context, exchange_rate, currency_amount, fee_value, fee_type):
@@ -279,7 +279,7 @@ def get_pip_position_for_simulation():
     return largest_decimal_place
 
 
-def init_simulation(main_window_object):
+def init_simulation(main_window_object, path_to_data):
     buy_rules = get_buy_rules(main_window_object.strategy_page)
     sell_rules = get_sell_rules(main_window_object.strategy_page)
     buy_simulation_settings = get_buy_simulation_settings(main_window_object.strategy_page)
@@ -339,20 +339,24 @@ def init_simulation(main_window_object):
 
     trades_dict = {'buy_trades': [], 'sell_trades': []}
     trades_dict['buy_trades'].append({
-        'index': 1,
-        'price': 1.0,
-        'amount_traded': 1.0,
+        'index': 0,
+        'price': data_df.iloc[0][buy_simulation_settings['buy_settings'][0]['price_source']],
+        'amount_traded': 0,
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
         'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance'])
     })
     trades_dict['sell_trades'].append({
         'index': 0,
-        'price': 1.0,
+        'price': data_df.iloc[0][sell_simulation_settings['sell_settings'][0]['price_source']],
         'amount_traded': 0,
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
         'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance'])
     })
     code = glue_all_code(glue_if_statements(buy_rules['buy_rules'], 'buy'), glue_if_statements(sell_rules['sell_rules'], 'sell'), sell_simulation_settings)
-    print(code)
+    # print(code)
     exec(code)
     print(json.dumps(trades_dict, indent=4))
+
+    # pass and display data in summary_page
+    # main_window_object.summary_page.plot_candle_chart()
+    main_window_object.summary_page.format_and_dislay_text(trades_dict)

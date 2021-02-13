@@ -4,7 +4,7 @@ from PySide2.QtUiTools import loadUiType
 from PySide2.QtWidgets import QFileDialog
 from binance.helpers import date_to_milliseconds
 from binance_api import fetch_data
-import plot_data
+import helpers.plot_data
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/fetch_data_page.ui"))
