@@ -24,8 +24,6 @@ class Summary_Page(Base, Form):
 
 
     def format_and_dislay_text(self, trades_dict):
-        print((trades_dict['buy_trades'][1]['index']))
-        print((trades_dict['sell_trades'][1]['index']))
         formatted_trades = ''
         if trades_dict['buy_trades'][1]['index'] < trades_dict['sell_trades'][1]['index']: #first trans is buy
             # formatted_trades += 'Traded'
