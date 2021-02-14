@@ -28,7 +28,7 @@ class Summary_Page(Base, Form):
         if trades_dict['buy_trades'][1]['index'] < trades_dict['sell_trades'][1]['index']: #first trans is buy
             # formatted_trades += 'Traded'
             for x in range(len(trades_dict['sell_trades'])-1):
-                formatted_trades += '-------------------------------------------------------------------------\n'
+                formatted_trades += '----------------------------------------------------------------------------\n'
                 formatted_trades += '{}) BOUGHT {} for price {}\n' \
                     .format(trades_dict['buy_trades'][x+1]['index'],
                             trades_dict['buy_trades'][x+1]['amount_traded'],
@@ -38,20 +38,19 @@ class Summary_Page(Base, Form):
                             trades_dict['sell_trades'][x+1]['amount_traded'],
                             trades_dict['sell_trades'][x+1]['price'])
                 formatted_trades += '#PROFIT: {}\n' \
-                    .format(
-                    trades_dict['sell_trades'][x+1]['currency_2'] - trades_dict['sell_trades'][x]['currency_2']
-                    - trades_dict['sell_trades'][x]['currency_1'] * trades_dict['sell_trades'][x]['price'])
+                    .format(trades_dict['sell_trades'][x+1]['currency_2'] - trades_dict['sell_trades'][x]['currency_2']
+                                - trades_dict['sell_trades'][x]['currency_1'] * trades_dict['sell_trades'][x]['price'])
         else: #first trans is sell
-            formatted_trades += '-------------------------------------------------------------------------\n'
+            formatted_trades += '----------------------------------------------------------------------------\n'
             formatted_trades += '{}) SOLD {} for price {}\n'\
                 .format(trades_dict['sell_trades'][1]['index'],
                         trades_dict['sell_trades'][1]['amount_traded'],
                         trades_dict['sell_trades'][1]['price'])
             formatted_trades += '#PROFIT: {}\n'\
                     .format(trades_dict['sell_trades'][1]['currency_2'] - trades_dict['sell_trades'][0]['currency_2']
-                            - trades_dict['sell_trades'][0]['currency_1'] * trades_dict['sell_trades'][0]['price'])
+                                - trades_dict['sell_trades'][0]['currency_1'] * trades_dict['sell_trades'][0]['price'])
             for x in range(len(trades_dict['sell_trades'])-2):
-                formatted_trades += '-------------------------------------------------------------------------\n'
+                formatted_trades += '----------------------------------------------------------------------------\n'
                 formatted_trades += '{}) BOUGHT {} for price {}\n'\
                     .format(trades_dict['buy_trades'][x+1]['index'],
                             trades_dict['buy_trades'][x+1]['amount_traded'],
@@ -62,7 +61,7 @@ class Summary_Page(Base, Form):
                             trades_dict['sell_trades'][x+2]['price'])
                 formatted_trades += '#PROFIT: {}\n'\
                     .format(trades_dict['sell_trades'][x+2]['currency_2'] - trades_dict['sell_trades'][x+1]['currency_2']
-                            - trades_dict['sell_trades'][x+1]['currency_1'] * trades_dict['sell_trades'][x+1]['price'])
+                                - trades_dict['sell_trades'][x+1]['currency_1'] * trades_dict['sell_trades'][x+1]['price'])
         self.textBrowser.setText(formatted_trades)
 
 
