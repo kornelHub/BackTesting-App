@@ -1,9 +1,10 @@
 from binance.client import Client
 from binance.helpers import date_to_milliseconds
 from binance_api import keys
-import helpers
+from utilities import helpers
 import pandas as pd
 import os
+from stat import S_IREAD
 
 client = Client(api_key=keys.api_key, api_secret=keys.secret_key)
 
@@ -15,7 +16,9 @@ def update_cryptocurrency_pair_dictionary():
         cryptocurrency_pair_dictionary.append(row['symbol'])
 
     cryptocurrency_pair_dictionary.remove('')
+    print(cryptocurrency_pair_dictionary)   # paste output to utilities.helpers.cryptocurrency_pair_dictionary
     helpers.cryptocurrency_pair_dictionary = cryptocurrency_pair_dictionary
+
 
 def download_data_to_file(start_time, end_time, interval, currency_pair_symbol, path_to_file):
     candles = client.get_klines(symbol=currency_pair_symbol, interval=interval, startTime=start_time, endTime=end_time, limit=1000)
@@ -34,11 +37,11 @@ def download_data_to_file(start_time, end_time, interval, currency_pair_symbol, 
 
     if not os.path.exists(path_to_file):
         file = open(path_to_file, "w")
+        file.write(currency_pair_symbol + '\n')
         file.close()
         candles_df.to_csv(path_to_file, sep=';', index=False, mode='a', header=True)
     else:
         candles_df.to_csv(path_to_file, sep=';', index=False, mode='a', header=False)
-
     return close_time
 
 def create_data_from_binance(start_time, end_time, interval, currency_pair_symbol, path_to_file):
@@ -49,6 +52,8 @@ def create_data_from_binance(start_time, end_time, interval, currency_pair_symbo
 
 def create_csv_with_ohlcv_data(start_time, end_time, interval, currency_pair_symbol, path_to_file):
     create_data_from_binance(start_time=start_time, end_time=end_time, interval=interval, currency_pair_symbol=currency_pair_symbol, path_to_file=path_to_file)
+    os.chmod(path_to_file, S_IREAD) # add read_only attribute to created file
+
 
 def delete_data(file_name):
     file = open(file_name, mode="r+")

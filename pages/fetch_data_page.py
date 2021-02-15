@@ -1,10 +1,10 @@
 import os
-from PySide2 import QtGui, QtCore
+from PySide2 import QtGui
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtWidgets import QFileDialog
 from binance.helpers import date_to_milliseconds
 from binance_api import fetch_data
-import helpers.plot_data
+from utilities.plot_data import plot_ohlcv_data
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/fetch_data_page.ui"))
@@ -28,7 +28,7 @@ class Fetch_Data_Widget(Base, Form):
         path_to_file = QFileDialog.getSaveFileName(self, 'Save OHLCV data to CSV file', path_to_project + '\data', 'Text Files (*.csv)')
         fetch_data.create_csv_with_ohlcv_data(start_time=int(date_to_milliseconds(start_date)), end_time=int(date_to_milliseconds(end_date)), currency_pair_symbol=currency_symbol, interval=interval, path_to_file=path_to_file[0])
         self.p1_ohlcvPlot_qWebEngineView.show()
-        self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_data.plot_ohlcv_data(path_to_file[0]))
+        self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_ohlcv_data(path_to_file[0]))
         main_widget_object.data_path.setText(path_to_file[0])
 
 

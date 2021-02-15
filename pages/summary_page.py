@@ -1,9 +1,8 @@
 import os
 from PySide2 import QtGui, QtWidgets
 from PySide2.QtUiTools import loadUiType
-import helpers.plot_data as plot_data
-import json
 from pages.display_plot_page import Display_Plot_Page
+
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/summary_page.ui"))
@@ -15,6 +14,8 @@ class Summary_Page(Base, Form):
         self.setupUi(self)
         self.setWindowIcon(QtGui.QIcon('icons/logo2.png'))
         self.setWindowTitle('BackTesting Application')
+        currency_pair = open('data/data.csv').readline()
+        print(currency_pair)
 
 
     def plot_candle_chart(self):
@@ -26,7 +27,6 @@ class Summary_Page(Base, Form):
     def format_and_dislay_text(self, trades_dict):
         formatted_trades = ''
         if trades_dict['buy_trades'][1]['index'] < trades_dict['sell_trades'][1]['index']: #first trans is buy
-            # formatted_trades += 'Traded'
             for x in range(len(trades_dict['sell_trades'])-1):
                 formatted_trades += '----------------------------------------------------------------------------\n'
                 formatted_trades += '{}) BOUGHT {} for price {}\n' \

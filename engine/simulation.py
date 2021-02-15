@@ -1,5 +1,5 @@
 from PySide2 import QtCore
-import helpers.helpers as helpers
+import utilities.helpers as helpers
 import pandas as pd
 import json
 
@@ -287,7 +287,7 @@ def init_simulation(main_window_object, path_to_data):
     buy_simulation_settings = get_buy_simulation_settings(main_window_object.strategy_page)
     sell_simulation_settings = get_sell_simulation_settings(main_window_object.strategy_page)
     global data_df
-    data_df = pd.read_csv("data/data.csv", sep=';')
+    data_df = pd.read_csv("data/data.csv", skiprows=[0], sep=';')
     global pip_position
     pip_position = get_pip_position_for_simulation()
 

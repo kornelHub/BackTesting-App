@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-data_df = pd.read_csv("data/data.csv", sep=';')
+data_df = pd.read_csv("data/data.csv", skiprows=[0], sep=';')
 
 
 def simple_moving_average(period, source):

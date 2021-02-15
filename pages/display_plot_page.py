@@ -1,7 +1,7 @@
 import os
 from PySide2 import QtGui, QtWidgets
 from PySide2.QtUiTools import loadUiType
-import helpers.plot_data as plot_data
+import utilities.plot_data as plot_data
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))

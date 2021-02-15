@@ -2,7 +2,7 @@ import os
 from PySide2 import QtGui, QtCore, QtWidgets
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtCore import Signal
-from helpers.helpers import add_strategy_button_style_sheet_normal, add_strategy_button_style_sheet_clicked, \
+from utilities.helpers import add_strategy_button_style_sheet_normal, add_strategy_button_style_sheet_clicked, \
     indicator_default_options
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
