@@ -103,7 +103,9 @@ class Summary_Page(Base, Form):
                                     # - trades_dict['sell_trades'][x]['currency_1'] * trades_dict['sell_trades'][x]['price']
                                     ])
         self.textBrowser.setText(formatted_trades)
-        self.summary_balance_graph.setHtml(plot_balance(balance_list))
+        self.summary_balance_graph.setHtml(plot_balance(balance_list, trades_dict['sell_trades'][0]['currency_2']
+                                + trades_dict['sell_trades'][0]['currency_1'] * trades_dict['sell_trades'][0]['price'],
+                                currency_2))
 
 
 if __name__ == '__main__':

@@ -14,7 +14,8 @@ def plot_ohlcv_data(path_to_file):
     html += '</body></html>'
     return html
 
-def plot_balance(list_of_profit):
+def plot_balance(list_of_profit, starting_balance, currency_2_symbol):
+    print(starting_balance)
     index_list = []
     balance_list = []
     for x in list_of_profit:
@@ -23,7 +24,7 @@ def plot_balance(list_of_profit):
 
     fig = go.Figure(
         data=[go.Scatter(y=balance_list, x=index_list)],
-        layout_title_text="Profit graph")
+        layout_title_text="Total profit: {} {}".format(balance_list[-1] - starting_balance, currency_2_symbol))
     html = '<html><body>'
     html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
     html += '</body></html>'

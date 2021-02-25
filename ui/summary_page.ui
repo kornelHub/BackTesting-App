@@ -293,7 +293,7 @@ border-radius: 10px;</string>
 }</string>
            </property>
            <property name="text">
-            <string>Transactions</string>
+            <string>Balance</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
