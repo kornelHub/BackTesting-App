@@ -13,3 +13,18 @@ def plot_ohlcv_data(path_to_file):
     html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
     html += '</body></html>'
     return html
+
+def plot_balance(list_of_profit):
+    index_list = []
+    balance_list = []
+    for x in list_of_profit:
+        index_list.append(x[0])
+        balance_list.append(x[1])
+
+    fig = go.Figure(
+        data=[go.Scatter(y=balance_list, x=index_list)],
+        layout_title_text="Profit graph")
+    html = '<html><body>'
+    html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
+    html += '</body></html>'
+    return html

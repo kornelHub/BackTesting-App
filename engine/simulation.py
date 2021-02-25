@@ -361,4 +361,4 @@ def init_simulation(main_window_object, path_to_data):
 
     # pass and display data in summary_page
     # main_window_object.summary_page.plot_candle_chart()
-    main_window_object.summary_page.format_and_dislay_text(trades_dict)
+    main_window_object.summary_page.format_and_display_text(trades_dict)

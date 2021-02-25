@@ -2,481 +2,754 @@
     "buy_trades": [
         {
             "index": 0,
-            "price": 1.0,
+            "price": 19500.0,
             "amount_traded": 0,
             "currency_1": 1.0,
             "currency_2": 10000.0
         },
         {
-            "index": 30,
-            "price": 19465.65,
-            "amount_traded": 29550.42001,
-            "currency_1": 1.5165622309036686,
+            "index": 18,
+            "price": 19563.16,
+            "amount_traded": 29615.25511,
+            "currency_1": 1.512313954130621,
             "currency_2": 0
         },
         {
-            "index": 125,
-            "price": 18718.26,
-            "amount_traded": 29544.148061953256,
-            "currency_1": 1.5767813842681588,
+            "index": 32,
+            "price": 19338.33,
+            "amount_traded": 29431.76056409779,
+            "currency_1": 1.520417161333667,
             "currency_2": 0
         },
         {
-            "index": 148,
-            "price": 19127.31,
-            "amount_traded": 29983.877847480602,
-            "currency_1": 1.5660275265906771,
+            "index": 43,
+            "price": 19490.86,
+            "amount_traded": 29568.362918802814,
+            "currency_1": 1.5155203288045789,
             "currency_2": 0
         },
         {
-            "index": 155,
-            "price": 19163.59,
-            "amount_traded": 29642.618608901794,
-            "currency_1": 1.5452728841669485,
+            "index": 50,
+            "price": 19329.53,
+            "amount_traded": 29621.488937780443,
+            "currency_1": 1.5309150014947424,
             "currency_2": 0
         },
         {
-            "index": 167,
-            "price": 18912.73,
-            "amount_traded": 29192.213312155767,
-            "currency_1": 1.541978397557815,
+            "index": 62,
+            "price": 18847.95,
+            "amount_traded": 28964.684043437457,
+            "currency_1": 1.535218384991154,
             "currency_2": 0
         },
         {
-            "index": 189,
-            "price": 19195.77,
-            "amount_traded": 29386.058328289688,
-            "currency_1": 1.5293302779706883,
+            "index": 95,
+            "price": 18945.0,
+            "amount_traded": 29387.40927078567,
+            "currency_1": 1.5496448594096006,
             "currency_2": 0
         },
         {
-            "index": 210,
-            "price": 19113.88,
-            "amount_traded": 29154.84214870641,
-            "currency_1": 1.523797748367035,
+            "index": 106,
+            "price": 18777.52,
+            "amount_traded": 29004.755877913038,
+            "currency_1": 1.5431085213614537,
             "currency_2": 0
         },
         {
-            "index": 254,
-            "price": 19371.45,
-            "amount_traded": 29400.52928171069,
-            "currency_1": 1.5162070341884053,
+            "index": 122,
+            "price": 18494.73,
+            "amount_traded": 28717.82207579808,
+            "currency_1": 1.5512042756894686,
             "currency_2": 0
         },
         {
-            "index": 272,
-            "price": 19371.46,
-            "amount_traded": 29200.861082934673,
-            "currency_1": 1.505909220154379,
+            "index": 140,
+            "price": 19036.29,
+            "amount_traded": 29006.809100521685,
+            "currency_1": 1.5222400106019167,
             "currency_2": 0
         },
         {
-            "index": 362,
-            "price": 18985.09,
-            "amount_traded": 29168.424474710402,
-            "currency_1": 1.5348495082317595,
+            "index": 171,
+            "price": 18880.92,
+            "amount_traded": 28704.642836705898,
+            "currency_1": 1.5187786502918923,
             "currency_2": 0
         },
         {
-            "index": 395,
-            "price": 18770.29,
-            "amount_traded": 29045.8095773986,
-            "currency_1": 1.5458878774819782,
+            "index": 186,
+            "price": 19053.48,
+            "amount_traded": 28857.205504114376,
+            "currency_1": 1.5130227285834539,
             "currency_2": 0
         },
         {
-            "index": 422,
-            "price": 19086.79,
-            "amount_traded": 29260.77122439556,
-            "currency_1": 1.5315047974631233,
+            "index": 201,
+            "price": 19059.58,
+            "amount_traded": 29001.094884684462,
+            "currency_1": 1.5200803894839117,
             "currency_2": 0
         },
         {
-            "index": 441,
-            "price": 19013.52,
-            "amount_traded": 29175.70330662439,
-            "currency_1": 1.5329369629252114,
+            "index": 214,
+            "price": 19056.15,
+            "amount_traded": 28984.77580528843,
+            "currency_1": 1.5194984836644938,
             "currency_2": 0
         },
         {
-            "index": 449,
-            "price": 19130.22,
-            "amount_traded": 29069.984121110916,
-            "currency_1": 1.5180648281614015,
+            "index": 237,
+            "price": 19276.23,
+            "amount_traded": 28951.94261086855,
+            "currency_1": 1.5004485144791115,
             "currency_2": 0
         },
         {
-            "index": 461,
-            "price": 19105.7,
-            "amount_traded": 28964.511467433927,
-            "currency_1": 1.5144981317599717,
+            "index": 245,
+            "price": 19294.34,
+            "amount_traded": 29074.01639290848,
+            "currency_1": 1.5053607626130552,
             "currency_2": 0
         },
         {
-            "index": 482,
-            "price": 19071.37,
-            "amount_traded": 28883.432499743343,
-            "currency_1": 1.5129772568642736,
+            "index": 261,
+            "price": 19289.72,
+            "amount_traded": 29151.094034765418,
+            "currency_1": 1.5097130979988642,
             "currency_2": 0
         },
         {
-            "index": 533,
-            "price": 19040.2,
-            "amount_traded": 29070.657533972335,
-            "currency_1": 1.5252774065628703,
+            "index": 265,
+            "price": 19215.06,
+            "amount_traded": 29213.91464756361,
+            "currency_1": 1.518845152339678,
             "currency_2": 0
         },
         {
-            "index": 543,
-            "price": 19082.18,
-            "amount_traded": 28925.188579997393,
-            "currency_1": 1.5143061951735806,
+            "index": 279,
+            "price": 19323.92,
+            "amount_traded": 29408.727446326564,
+            "currency_1": 1.5203601918699852,
             "currency_2": 0
         },
         {
-            "index": 554,
-            "price": 19152.63,
-            "amount_traded": 28908.1973811095,
-            "currency_1": 1.5078497931473844,
+            "index": 290,
+            "price": 19439.64,
+            "amount_traded": 29535.35936681263,
+            "currency_1": 1.5178174085243257,
             "currency_2": 0
         },
         {
-            "index": 565,
-            "price": 19144.2,
-            "amount_traded": 28842.712487214125,
-            "currency_1": 1.5050965710098574,
+            "index": 325,
+            "price": 19354.0,
+            "amount_traded": 29240.230337101646,
+            "currency_1": 1.5092998918448148,
             "currency_2": 0
         },
         {
-            "index": 578,
-            "price": 19351.19,
-            "amount_traded": 28757.013923953902,
-            "currency_1": 1.484573140464744,
+            "index": 333,
+            "price": 19104.54,
+            "amount_traded": 29280.20768650047,
+            "currency_1": 1.5310982352264944,
             "currency_2": 0
         },
         {
-            "index": 597,
-            "price": 19248.9,
-            "amount_traded": 28635.340579926124,
-            "currency_1": 1.486147532552312,
+            "index": 357,
+            "price": 18886.34,
+            "amount_traded": 28976.211617190802,
+            "currency_1": 1.5327075232985117,
             "currency_2": 0
         },
         {
-            "index": 606,
-            "price": 19334.27,
-            "amount_traded": 28574.16418143655,
-            "currency_1": 1.4764245051535494,
+            "index": 374,
+            "price": 19009.96,
+            "amount_traded": 29044.57946897318,
+            "currency_1": 1.5263332952570239,
             "currency_2": 0
         },
         {
-            "index": 632,
-            "price": 19239.0,
-            "amount_traded": 28408.1785094052,
-            "currency_1": 1.4751167072558757,
+            "index": 409,
+            "price": 18844.79,
+            "amount_traded": 28741.223658643925,
+            "currency_1": 1.5236297371838732,
             "currency_2": 0
         },
         {
-            "index": 642,
-            "price": 19240.09,
-            "amount_traded": 28308.00655213915,
-            "currency_1": 1.4698319262325186,
+            "index": 418,
+            "price": 18938.38,
+            "amount_traded": 28837.45700621919,
+            "currency_1": 1.5211765499062206,
             "currency_2": 0
         },
         {
-            "index": 663,
-            "price": 19020.23,
-            "amount_traded": 28180.761263063414,
-            "currency_1": 1.4801388049356055,
+            "index": 429,
+            "price": 19082.33,
+            "amount_traded": 28787.348420315608,
+            "currency_1": 1.5070780702301707,
             "currency_2": 0
         },
         {
-            "index": 694,
-            "price": 19198.51,
-            "amount_traded": 28374.20294318135,
-            "currency_1": 1.4764598263218434,
+            "index": 443,
+            "price": 18960.01,
+            "amount_traded": 28589.016567346524,
+            "currency_1": 1.5063508695817764,
             "currency_2": 0
         },
         {
-            "index": 730,
-            "price": 18877.99,
-            "amount_traded": 28286.98025547881,
-            "currency_1": 1.496912185843055,
+            "index": 455,
+            "price": 19078.41,
+            "amount_traded": 28712.448465473863,
+            "currency_1": 1.5034657509199345,
             "currency_2": 0
         },
         {
-            "index": 784,
-            "price": 18281.26,
-            "amount_traded": 28164.815759740035,
-            "currency_1": 1.5390980131555647,
+            "index": 466,
+            "price": 19089.11,
+            "amount_traded": 28726.185214816986,
+            "currency_1": 1.5033419069617266,
             "currency_2": 0
         },
         {
-            "index": 812,
-            "price": 18040.98,
-            "amount_traded": 28014.692448034333,
-            "currency_1": 1.5512836750324153,
+            "index": 474,
+            "price": 19055.22,
+            "amount_traded": 28677.502271021185,
+            "currency_1": 1.5034633433122349,
             "currency_2": 0
         },
         {
-            "index": 828,
-            "price": 18483.24,
-            "amount_traded": 28224.06725252676,
-            "currency_1": 1.5254816355397771,
+            "index": 495,
+            "price": 19251.82,
+            "amount_traded": 28701.927620248123,
+            "currency_1": 1.4893774039352061,
             "currency_2": 0
         },
         {
-            "index": 841,
-            "price": 18404.15,
-            "amount_traded": 27963.833446065808,
-            "currency_1": 1.5179114282713269,
+            "index": 528,
+            "price": 19041.32,
+            "amount_traded": 28325.534395166684,
+            "currency_1": 1.4860949167794837,
             "currency_2": 0
         },
         {
-            "index": 854,
-            "price": 18267.67,
-            "amount_traded": 27593.782498122746,
-            "currency_1": 1.5090150367082737,
+            "index": 550,
+            "price": 19052.01,
+            "amount_traded": 28312.440382567762,
+            "currency_1": 1.4845744854314689,
+            "currency_2": 0
+        },
+        {
+            "index": 556,
+            "price": 19127.86,
+            "amount_traded": 28371.06506942441,
+            "currency_1": 1.481749343855245,
+            "currency_2": 0
+        },
+        {
+            "index": 575,
+            "price": 19122.89,
+            "amount_traded": 28338.538882844947,
+            "currency_1": 1.4804352450891107,
+            "currency_2": 0
+        },
+        {
+            "index": 584,
+            "price": 19318.56,
+            "amount_traded": 28648.552620074675,
+            "currency_1": 1.4814719144415838,
+            "currency_2": 0
+        },
+        {
+            "index": 603,
+            "price": 19269.15,
+            "amount_traded": 28488.18802916071,
+            "currency_1": 1.4769566815937158,
+            "currency_2": 0
+        },
+        {
+            "index": 613,
+            "price": 19315.04,
+            "amount_traded": 28441.804576120794,
+            "currency_1": 1.4710486114211867,
+            "currency_2": 0
+        },
+        {
+            "index": 626,
+            "price": 19195.11,
+            "amount_traded": 28252.790298549655,
+            "currency_1": 1.4704024883551647,
+            "currency_2": 0
+        },
+        {
+            "index": 637,
+            "price": 19118.32,
+            "amount_traded": 28185.721970403756,
+            "currency_1": 1.4728038995284811,
+            "currency_2": 0
+        },
+        {
+            "index": 645,
+            "price": 19199.85,
+            "amount_traded": 28256.604712023953,
+            "currency_1": 1.470237950156482,
+            "currency_2": 0
+        },
+        {
+            "index": 648,
+            "price": 19188.29,
+            "amount_traded": 28256.6232530932,
+            "currency_1": 1.471124661438831,
+            "currency_2": 0
+        },
+        {
+            "index": 682,
+            "price": 19196.38,
+            "amount_traded": 28179.519024089277,
+            "currency_1": 1.4664920940857178,
+            "currency_2": 0
+        },
+        {
+            "index": 702,
+            "price": 19155.03,
+            "amount_traded": 28100.963727177914,
+            "currency_1": 1.4655608873204968,
+            "currency_2": 0
+        },
+        {
+            "index": 724,
+            "price": 18762.95,
+            "amount_traded": 27527.305407559485,
+            "currency_1": 1.4656425616521884,
+            "currency_2": 0
+        },
+        {
+            "index": 737,
+            "price": 18823.49,
+            "amount_traded": 27649.941551412223,
+            "currency_1": 1.4674373142207324,
+            "currency_2": 0
+        },
+        {
+            "index": 743,
+            "price": 18863.92,
+            "amount_traded": 27685.10499995732,
+            "currency_1": 1.4661544310491863,
+            "currency_2": 0
+        },
+        {
+            "index": 752,
+            "price": 18831.0,
+            "amount_traded": 27667.361023123198,
+            "currency_1": 1.4677762021188505,
+            "currency_2": 0
+        },
+        {
+            "index": 766,
+            "price": 18716.86,
+            "amount_traded": 27534.9114821505,
+            "currency_1": 1.4696576546850457,
+            "currency_2": 0
+        },
+        {
+            "index": 802,
+            "price": 18122.86,
+            "amount_traded": 26741.693632950755,
+            "currency_1": 1.4741024286077253,
+            "currency_2": 0
+        },
+        {
+            "index": 824,
+            "price": 18234.74,
+            "amount_traded": 26662.686885919273,
+            "currency_1": 1.460729585342777,
+            "currency_2": 0
+        },
+        {
+            "index": 835,
+            "price": 18300.0,
+            "amount_traded": 26982.756704268413,
+            "currency_1": 1.4729931118887511,
             "currency_2": 0
         }
     ],
     "sell_trades": [
         {
             "index": 0,
-            "price": 1.0,
+            "price": 19500.0,
             "amount_traded": 0,
             "currency_1": 1.0,
             "currency_2": 10000.0
         },
         {
-            "index": 19,
-            "price": 19569.99,
+            "index": 14,
+            "price": 19634.89,
             "amount_traded": 1.0,
             "currency_1": 0,
-            "currency_2": 29550.42001
+            "currency_2": 29615.25511
         },
         {
-            "index": 51,
-            "price": 19500.5,
-            "amount_traded": 1.5165622309036686,
+            "index": 29,
+            "price": 19480.89,
+            "amount_traded": 1.512313954130621,
             "currency_1": 0,
-            "currency_2": 29544.148061953256
+            "currency_2": 29431.76056409779
         },
         {
-            "index": 141,
-            "price": 19034.91,
-            "amount_traded": 1.5767813842681588,
+            "index": 40,
+            "price": 19467.0,
+            "amount_traded": 1.520417161333667,
             "currency_1": 0,
-            "currency_2": 29983.877847480602
+            "currency_2": 29568.362918802814
         },
         {
-            "index": 150,
-            "price": 18947.49,
-            "amount_traded": 1.5660275265906771,
+            "index": 44,
+            "price": 19564.99,
+            "amount_traded": 1.5155203288045789,
             "currency_1": 0,
-            "currency_2": 29642.618608901794
+            "currency_2": 29621.488937780443
         },
         {
-            "index": 160,
-            "price": 18910.21,
-            "amount_traded": 1.5452728841669485,
+            "index": 61,
+            "price": 18938.79,
+            "amount_traded": 1.5309150014947424,
             "currency_1": 0,
-            "currency_2": 29192.213312155767
+            "currency_2": 28964.684043437457
         },
         {
-            "index": 187,
-            "price": 19076.45,
-            "amount_traded": 1.541978397557815,
+            "index": 90,
+            "price": 19161.33,
+            "amount_traded": 1.535218384991154,
             "currency_1": 0,
-            "currency_2": 29386.058328289688
+            "currency_2": 29387.40927078567
         },
         {
-            "index": 202,
-            "price": 19082.88,
-            "amount_traded": 1.5293302779706883,
+            "index": 105,
+            "price": 18735.77,
+            "amount_traded": 1.5496448594096006,
             "currency_1": 0,
-            "currency_2": 29154.84214870641
+            "currency_2": 29004.755877913038
         },
         {
-            "index": 246,
-            "price": 19313.56,
-            "amount_traded": 1.523797748367035,
+            "index": 121,
+            "price": 18629.0,
+            "amount_traded": 1.5431085213614537,
             "currency_1": 0,
-            "currency_2": 29400.52928171069
+            "currency_2": 28717.82207579808
         },
         {
-            "index": 266,
-            "price": 19278.43,
-            "amount_traded": 1.5162070341884053,
+            "index": 125,
+            "price": 18718.26,
+            "amount_traded": 1.5512042756894686,
             "currency_1": 0,
-            "currency_2": 29200.861082934673
+            "currency_2": 29006.809100521685
         },
         {
-            "index": 297,
-            "price": 19388.7,
-            "amount_traded": 1.505909220154379,
+            "index": 169,
+            "price": 18875.72,
+            "amount_traded": 1.5222400106019167,
             "currency_1": 0,
-            "currency_2": 29168.424474710402
+            "currency_2": 28704.642836705898
         },
         {
-            "index": 375,
-            "price": 18943.15,
-            "amount_traded": 1.5348495082317595,
+            "index": 173,
+            "price": 19019.29,
+            "amount_traded": 1.5187786502918923,
             "currency_1": 0,
-            "currency_2": 29045.8095773986
+            "currency_2": 28857.205504114376
         },
         {
-            "index": 419,
-            "price": 18947.08,
-            "amount_traded": 1.5458878774819782,
+            "index": 194,
+            "price": 19186.84,
+            "amount_traded": 1.5130227285834539,
             "currency_1": 0,
-            "currency_2": 29260.77122439556
+            "currency_2": 29001.094884684462
         },
         {
-            "index": 430,
-            "price": 19069.42,
-            "amount_traded": 1.5315047974631233,
+            "index": 212,
+            "price": 19087.01,
+            "amount_traded": 1.5200803894839117,
             "currency_1": 0,
-            "currency_2": 29175.70330662439
+            "currency_2": 28984.77580528843
         },
         {
-            "index": 444,
-            "price": 18982.57,
-            "amount_traded": 1.5329369629252114,
+            "index": 226,
+            "price": 19072.69,
+            "amount_traded": 1.5194984836644938,
             "currency_1": 0,
-            "currency_2": 29069.984121110916
+            "currency_2": 28951.94261086855
         },
         {
-            "index": 456,
-            "price": 19098.99,
-            "amount_traded": 1.5180648281614015,
+            "index": 238,
+            "price": 19396.28,
+            "amount_traded": 1.5004485144791115,
             "currency_1": 0,
-            "currency_2": 28964.511467433927
+            "currency_2": 29074.01639290848
         },
         {
-            "index": 467,
-            "price": 19090.38,
-            "amount_traded": 1.5144981317599717,
+            "index": 258,
+            "price": 19384.24,
+            "amount_traded": 1.5053607626130552,
             "currency_1": 0,
-            "currency_2": 28883.432499743343
+            "currency_2": 29151.094034765418
         },
         {
-            "index": 496,
-            "price": 19233.44,
-            "amount_traded": 1.5129772568642736,
+            "index": 262,
+            "price": 19370.01,
+            "amount_traded": 1.5097130979988642,
             "currency_1": 0,
-            "currency_2": 29070.657533972335
+            "currency_2": 29213.91464756361
         },
         {
-            "index": 536,
-            "price": 18982.87,
-            "amount_traded": 1.5252774065628703,
+            "index": 275,
+            "price": 19381.94,
+            "amount_traded": 1.518845152339678,
             "currency_1": 0,
-            "currency_2": 28925.188579997393
+            "currency_2": 29408.727446326564
         },
         {
-            "index": 551,
-            "price": 19109.17,
-            "amount_traded": 1.5143061951735806,
+            "index": 283,
+            "price": 19446.0,
+            "amount_traded": 1.5203601918699852,
             "currency_1": 0,
-            "currency_2": 28908.1973811095
+            "currency_2": 29535.35936681263
         },
         {
-            "index": 561,
-            "price": 19147.52,
-            "amount_traded": 1.5078497931473844,
+            "index": 324,
+            "price": 19283.94,
+            "amount_traded": 1.5178174085243257,
             "currency_1": 0,
-            "currency_2": 28842.712487214125
+            "currency_2": 29240.230337101646
         },
         {
-            "index": 576,
-            "price": 19125.55,
-            "amount_traded": 1.5050965710098574,
+            "index": 326,
+            "price": 19419.28,
+            "amount_traded": 1.5092998918448148,
             "currency_1": 0,
-            "currency_2": 28757.013923953902
+            "currency_2": 29280.20768650047
         },
         {
-            "index": 585,
-            "price": 19307.91,
-            "amount_traded": 1.484573140464744,
+            "index": 356,
+            "price": 18944.06,
+            "amount_traded": 1.5310982352264944,
             "currency_1": 0,
-            "currency_2": 28635.340579926124
+            "currency_2": 28976.211617190802
         },
         {
-            "index": 604,
-            "price": 19246.25,
-            "amount_traded": 1.486147532552312,
+            "index": 364,
+            "price": 18968.82,
+            "amount_traded": 1.5327075232985117,
             "currency_1": 0,
-            "currency_2": 28574.16418143655
+            "currency_2": 29044.57946897318
         },
         {
-            "index": 614,
-            "price": 19260.46,
-            "amount_traded": 1.4764245051535494,
+            "index": 402,
+            "price": 18849.09,
+            "amount_traded": 1.5263332952570239,
             "currency_1": 0,
-            "currency_2": 28408.1785094052
+            "currency_2": 28741.223658643925
         },
         {
-            "index": 638,
-            "price": 19209.56,
-            "amount_traded": 1.4751167072558757,
+            "index": 411,
+            "price": 18945.76,
+            "amount_traded": 1.5236297371838732,
             "currency_1": 0,
-            "currency_2": 28308.00655213915
+            "currency_2": 28837.45700621919
         },
         {
-            "index": 649,
-            "price": 19191.97,
-            "amount_traded": 1.4698319262325186,
+            "index": 421,
+            "price": 18943.34,
+            "amount_traded": 1.5211765499062206,
             "currency_1": 0,
-            "currency_2": 28180.761263063414
+            "currency_2": 28787.348420315608
         },
         {
-            "index": 687,
-            "price": 19189.15,
-            "amount_traded": 1.4801388049356055,
+            "index": 442,
+            "price": 18988.82,
+            "amount_traded": 1.5070780702301707,
             "currency_1": 0,
-            "currency_2": 28374.20294318135
+            "currency_2": 28589.016567346524
         },
         {
-            "index": 703,
-            "price": 19177.83,
-            "amount_traded": 1.4764598263218434,
+            "index": 448,
+            "price": 19080.01,
+            "amount_traded": 1.5063508695817764,
             "currency_1": 0,
-            "currency_2": 28286.98025547881
+            "currency_2": 28712.448465473863
         },
         {
-            "index": 738,
-            "price": 18834.11,
-            "amount_traded": 1.496912185843055,
+            "index": 460,
+            "price": 19125.77,
+            "amount_traded": 1.5034657509199345,
             "currency_1": 0,
-            "currency_2": 28164.815759740035
+            "currency_2": 28726.185214816986
         },
         {
-            "index": 790,
-            "price": 18220.24,
-            "amount_traded": 1.5390980131555647,
+            "index": 473,
+            "price": 19094.93,
+            "amount_traded": 1.5033419069617266,
             "currency_1": 0,
-            "currency_2": 28014.692448034333
+            "currency_2": 28677.502271021185
         },
         {
-            "index": 825,
-            "price": 18212.22,
-            "amount_traded": 1.5512836750324153,
+            "index": 483,
+            "price": 19109.65,
+            "amount_traded": 1.5034633433122349,
             "currency_1": 0,
-            "currency_2": 28224.06725252676
+            "currency_2": 28701.927620248123
         },
         {
-            "index": 836,
-            "price": 18349.5,
-            "amount_traded": 1.5254816355397771,
+            "index": 527,
+            "price": 19037.41,
+            "amount_traded": 1.4893774039352061,
             "currency_1": 0,
-            "currency_2": 27963.833446065808
+            "currency_2": 28325.534395166684
         },
         {
-            "index": 847,
-            "price": 18196.98,
-            "amount_traded": 1.5179114282713269,
+            "index": 542,
+            "price": 19070.64,
+            "amount_traded": 1.4860949167794837,
             "currency_1": 0,
-            "currency_2": 27593.782498122746
+            "currency_2": 28312.440382567762
+        },
+        {
+            "index": 553,
+            "price": 19129.7,
+            "amount_traded": 1.4845744854314689,
+            "currency_1": 0,
+            "currency_2": 28371.06506942441
+        },
+        {
+            "index": 565,
+            "price": 19144.2,
+            "amount_traded": 1.481749343855245,
+            "currency_1": 0,
+            "currency_2": 28338.538882844947
+        },
+        {
+            "index": 577,
+            "price": 19370.81,
+            "amount_traded": 1.4804352450891107,
+            "currency_1": 0,
+            "currency_2": 28648.552620074675
+        },
+        {
+            "index": 597,
+            "price": 19248.9,
+            "amount_traded": 1.4814719144415838,
+            "currency_1": 0,
+            "currency_2": 28488.18802916071
+        },
+        {
+            "index": 605,
+            "price": 19276.31,
+            "amount_traded": 1.4769566815937158,
+            "currency_1": 0,
+            "currency_2": 28441.804576120794
+        },
+        {
+            "index": 625,
+            "price": 19225.11,
+            "amount_traded": 1.4710486114211867,
+            "currency_1": 0,
+            "currency_2": 28252.790298549655
+        },
+        {
+            "index": 636,
+            "price": 19187.9,
+            "amount_traded": 1.4704024883551647,
+            "currency_1": 0,
+            "currency_2": 28185.721970403756
+        },
+        {
+            "index": 641,
+            "price": 19204.79,
+            "amount_traded": 1.4728038995284811,
+            "currency_1": 0,
+            "currency_2": 28256.604712023953
+        },
+        {
+            "index": 646,
+            "price": 19238.32,
+            "amount_traded": 1.470237950156482,
+            "currency_1": 0,
+            "currency_2": 28256.6232530932
+        },
+        {
+            "index": 674,
+            "price": 19174.26,
+            "amount_traded": 1.471124661438831,
+            "currency_1": 0,
+            "currency_2": 28179.519024089277
+        },
+        {
+            "index": 696,
+            "price": 19181.21,
+            "amount_traded": 1.4664920940857178,
+            "currency_1": 0,
+            "currency_2": 28100.963727177914
+        },
+        {
+            "index": 723,
+            "price": 18801.58,
+            "amount_traded": 1.4655608873204968,
+            "currency_1": 0,
+            "currency_2": 27527.305407559485
+        },
+        {
+            "index": 735,
+            "price": 18884.29,
+            "amount_traded": 1.4656425616521884,
+            "currency_1": 0,
+            "currency_2": 27649.941551412223
+        },
+        {
+            "index": 742,
+            "price": 18885.18,
+            "amount_traded": 1.4674373142207324,
+            "currency_1": 0,
+            "currency_2": 27685.10499995732
+        },
+        {
+            "index": 750,
+            "price": 18889.59,
+            "amount_traded": 1.4661544310491863,
+            "currency_1": 0,
+            "currency_2": 27667.361023123198
+        },
+        {
+            "index": 765,
+            "price": 18778.39,
+            "amount_traded": 1.4677762021188505,
+            "currency_1": 0,
+            "currency_2": 27534.9114821505
+        },
+        {
+            "index": 800,
+            "price": 18214.08,
+            "amount_traded": 1.4696576546850457,
+            "currency_1": 0,
+            "currency_2": 26741.693632950755
+        },
+        {
+            "index": 814,
+            "price": 18105.51,
+            "amount_traded": 1.4741024286077253,
+            "currency_1": 0,
+            "currency_2": 26662.686885919273
+        },
+        {
+            "index": 829,
+            "price": 18490.6,
+            "amount_traded": 1.460729585342777,
+            "currency_1": 0,
+            "currency_2": 26982.756704268413
+        },
+        {
+            "index": 854,
+            "price": 18267.67,
+            "amount_traded": 1.4729931118887511,
+            "currency_1": 0,
+            "currency_2": 26881.243928176522
         }
     ]
 }

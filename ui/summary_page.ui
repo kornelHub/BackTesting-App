@@ -301,7 +301,7 @@ border-radius: 10px;</string>
           </widget>
          </item>
          <item>
-          <widget class="QWidget" name="widget_8" native="true">
+          <widget class="QWebEngineView" name="summary_balance_graph" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -318,6 +318,14 @@ border-radius: 10px;</string>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebEngineView</class>
+   <extends>QWidget</extends>
+   <header>PySide2.QtWebEngineWidgets</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

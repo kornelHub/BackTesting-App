@@ -8,16 +8,16 @@ from stat import S_IREAD
 
 client = Client(api_key=keys.api_key, api_secret=keys.secret_key)
 
-def update_cryptocurrency_pair_dictionary():
-    orderbook_tickers_data = client.get_orderbook_tickers()
-    cryptocurrency_pair_dictionary = ['']
-
-    for row in orderbook_tickers_data:
-        cryptocurrency_pair_dictionary.append(row['symbol'])
-
-    cryptocurrency_pair_dictionary.remove('')
-    print(cryptocurrency_pair_dictionary)   # paste output to utilities.helpers.cryptocurrency_pair_dictionary
-    helpers.cryptocurrency_pair_dictionary = cryptocurrency_pair_dictionary
+# function probably to delete
+# def get_cryptocurrency_pair_dictionary():
+#     orderbook_tickers_data = client.get_orderbook_tickers()
+#     cryptocurrency_pair_dictionary = ['']
+#
+#     for row in orderbook_tickers_data:
+#         cryptocurrency_pair_dictionary.append(row['symbol'])
+#
+#     cryptocurrency_pair_dictionary.remove('')
+#     print(cryptocurrency_pair_dictionary)   # paste output to utilities.helpers.cryptocurrency_pair_dictionary
 
 
 def download_data_to_file(start_time, end_time, interval, currency_pair_symbol, path_to_file):

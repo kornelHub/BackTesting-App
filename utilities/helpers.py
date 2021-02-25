@@ -1,37 +1,48 @@
 import datetime as dt
 from engine import calculate_indicators
 
-colums_name_from_binance=['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume', 'NumberOfTrades', 'TakerBuyBaseAssetVolume', 'TakerBuyQuoteAssetVolume', 'Ingore']
+colums_name_from_binance = ['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume',
+                            'NumberOfTrades', 'TakerBuyBaseAssetVolume', 'TakerBuyQuoteAssetVolume', 'Ingore']
 colums_name_string = 'Opentime;Open;High;Low;Close;Volume;CloseTime'
 
 
 def convert_milliseconds_to_date(time_in_utc_miloseconds):
-    converted_date = dt.datetime.fromtimestamp(time_in_utc_miloseconds/1000.0, tz=None)
+    converted_date = dt.datetime.fromtimestamp(time_in_utc_miloseconds / 1000.0, tz=None)
     return converted_date
 
-# def divide_cryptocurrency_pair():
-#     # print(cryptocurrency_pair_dictionary)
-#     cryptocurrency_dictionary = ['BTC']
-#     for x in cryptocurrency_dictionary:
-#         for y in cryptocurrency_pair_dictionary:
-#             if x in y:
-#                 if x == y[:len(x)]:
-#                     if not y[len(x):] in cryptocurrency_dictionary:
-#                         print(y, ' >>>> ',y[:len(x)],' == ', y[len(x):])
-#                         cryptocurrency_dictionary.append(y[len(x):])
-#                     # cryptocurrency_pair_dictionary.remove(y)
-#                 elif x == y[len(x):]:
-#                     if not y[:len(x)] in cryptocurrency_dictionary:
-#                         print(y, ' >>> ', y[len(x):], ' == ', y[:len(x)])
-#                         cryptocurrency_dictionary.append(y[:len(x)])
-#                     # cryptocurrency_pair_dictionary.remove(y)
-#
-#     cryptocurrency_dictionary = list(set(cryptocurrency_dictionary))    # remove duplicates
-#     print('PAIRS: ', cryptocurrency_pair_dictionary)
-#     print(cryptocurrency_dictionary)
+
+def create_cryptocurrency_dictionary():
+    # get all_margin_dict from binance_api via Postman
+    # Binance spot API > Margin > Isolated > Get All Isolated Margin Pairs(MARKET_DATA)
+    # Response:
+    # [
+    #     {
+    #         "symbol": "1INCHBTC",
+    #         "base": "1INCH",
+    #         "quote": "BTC",
+    #         "isMarginTrade": true,
+    #         "isBuyAllowed": true,
+    #         "isSellAllowed": true
+    #     },
+    #     {
+    #         "symbol": "1INCHUSDT",
+    #         "base": "1INCH",
+    #         "quote": "USDT",
+    #         "isMarginTrade": true,
+    #         "isBuyAllowed": true,
+    #         "isSellAllowed": true
+    #     }
+    # ]
+    all_margin_dict = []
+    dictionary = {}
+    for x in all_margin_dict:
+        dictionary[x['symbol']] = {
+            "base": x['base'],
+            "quote": x['quote']
+        }
+    print(dictionary)  # paste output into cryptocurrency_pair_dict
 
 
-cryptocurrency_pair_dictionary = ['ETHBTC', 'LTCBTC', 'BNBBTC', 'NEOBTC', 'QTUMETH', 'EOSETH', 'SNTETH', 'BNTETH', 'BCCBTC', 'GASBTC', 'BNBETH', 'BTCUSDT', 'ETHUSDT', 'HSRBTC', 'OAXETH', 'DNTETH', 'MCOETH', 'ICNETH', 'MCOBTC', 'WTCBTC', 'WTCETH', 'LRCBTC', 'LRCETH', 'QTUMBTC', 'YOYOBTC', 'OMGBTC', 'OMGETH', 'ZRXBTC', 'ZRXETH', 'STRATBTC', 'STRATETH', 'SNGLSBTC', 'SNGLSETH', 'BQXBTC', 'BQXETH', 'KNCBTC', 'KNCETH', 'FUNBTC', 'FUNETH', 'SNMBTC', 'SNMETH', 'NEOETH', 'IOTABTC', 'IOTAETH', 'LINKBTC', 'LINKETH', 'XVGBTC', 'XVGETH', 'SALTBTC', 'SALTETH', 'MDABTC', 'MDAETH', 'MTLBTC', 'MTLETH', 'SUBBTC', 'SUBETH', 'EOSBTC', 'SNTBTC', 'ETCETH', 'ETCBTC', 'MTHBTC', 'MTHETH', 'ENGBTC', 'ENGETH', 'DNTBTC', 'ZECBTC', 'ZECETH', 'BNTBTC', 'ASTBTC', 'ASTETH', 'DASHBTC', 'DASHETH', 'OAXBTC', 'ICNBTC', 'BTGBTC', 'BTGETH', 'EVXBTC', 'EVXETH', 'REQBTC', 'REQETH', 'VIBBTC', 'VIBETH', 'HSRETH', 'TRXBTC', 'TRXETH', 'POWRBTC', 'POWRETH', 'ARKBTC', 'ARKETH', 'YOYOETH', 'XRPBTC', 'XRPETH', 'MODBTC', 'MODETH', 'ENJBTC', 'ENJETH', 'STORJBTC', 'STORJETH', 'BNBUSDT', 'VENBNB', 'YOYOBNB', 'POWRBNB', 'VENBTC', 'VENETH', 'KMDBTC', 'KMDETH', 'NULSBNB', 'RCNBTC', 'RCNETH', 'RCNBNB', 'NULSBTC', 'NULSETH', 'RDNBTC', 'RDNETH', 'RDNBNB', 'XMRBTC', 'XMRETH', 'DLTBNB', 'WTCBNB', 'DLTBTC', 'DLTETH', 'AMBBTC', 'AMBETH', 'AMBBNB', 'BCCETH', 'BCCUSDT', 'BCCBNB', 'BATBTC', 'BATETH', 'BATBNB', 'BCPTBTC', 'BCPTETH', 'BCPTBNB', 'ARNBTC', 'ARNETH', 'GVTBTC', 'GVTETH', 'CDTBTC', 'CDTETH', 'GXSBTC', 'GXSETH', 'NEOUSDT', 'NEOBNB', 'POEBTC', 'POEETH', 'QSPBTC', 'QSPETH', 'QSPBNB', 'BTSBTC', 'BTSETH', 'BTSBNB', 'XZCBTC', 'XZCETH', 'XZCBNB', 'LSKBTC', 'LSKETH', 'LSKBNB', 'TNTBTC', 'TNTETH', 'FUELBTC', 'FUELETH', 'MANABTC', 'MANAETH', 'BCDBTC', 'BCDETH', 'DGDBTC', 'DGDETH', 'IOTABNB', 'ADXBTC', 'ADXETH', 'ADXBNB', 'ADABTC', 'ADAETH', 'PPTBTC', 'PPTETH', 'CMTBTC', 'CMTETH', 'CMTBNB', 'XLMBTC', 'XLMETH', 'XLMBNB', 'CNDBTC', 'CNDETH', 'CNDBNB', 'LENDBTC', 'LENDETH', 'WABIBTC', 'WABIETH', 'WABIBNB', 'LTCETH', 'LTCUSDT', 'LTCBNB', 'TNBBTC', 'TNBETH', 'WAVESBTC', 'WAVESETH', 'WAVESBNB', 'GTOBTC', 'GTOETH', 'GTOBNB', 'ICXBTC', 'ICXETH', 'ICXBNB', 'OSTBTC', 'OSTETH', 'OSTBNB', 'ELFBTC', 'ELFETH', 'AIONBTC', 'AIONETH', 'AIONBNB', 'NEBLBTC', 'NEBLETH', 'NEBLBNB', 'BRDBTC', 'BRDETH', 'BRDBNB', 'MCOBNB', 'EDOBTC', 'EDOETH', 'WINGSBTC', 'WINGSETH', 'NAVBTC', 'NAVETH', 'NAVBNB', 'LUNBTC', 'LUNETH', 'TRIGBTC', 'TRIGETH', 'TRIGBNB', 'APPCBTC', 'APPCETH', 'APPCBNB', 'VIBEBTC', 'VIBEETH', 'RLCBTC', 'RLCETH', 'RLCBNB', 'INSBTC', 'INSETH', 'PIVXBTC', 'PIVXETH', 'PIVXBNB', 'IOSTBTC', 'IOSTETH', 'CHATBTC', 'CHATETH', 'STEEMBTC', 'STEEMETH', 'STEEMBNB', 'NANOBTC', 'NANOETH', 'NANOBNB', 'VIABTC', 'VIAETH', 'VIABNB', 'BLZBTC', 'BLZETH', 'BLZBNB', 'AEBTC', 'AEETH', 'AEBNB', 'RPXBTC', 'RPXETH', 'RPXBNB', 'NCASHBTC', 'NCASHETH', 'NCASHBNB', 'POABTC', 'POAETH', 'POABNB', 'ZILBTC', 'ZILETH', 'ZILBNB', 'ONTBTC', 'ONTETH', 'ONTBNB', 'STORMBTC', 'STORMETH', 'STORMBNB', 'QTUMBNB', 'QTUMUSDT', 'XEMBTC', 'XEMETH', 'XEMBNB', 'WANBTC', 'WANETH', 'WANBNB', 'WPRBTC', 'WPRETH', 'QLCBTC', 'QLCETH', 'SYSBTC', 'SYSETH', 'SYSBNB', 'QLCBNB', 'GRSBTC', 'GRSETH', 'ADAUSDT', 'ADABNB', 'CLOAKBTC', 'CLOAKETH', 'GNTBTC', 'GNTETH', 'GNTBNB', 'LOOMBTC', 'LOOMETH', 'LOOMBNB', 'XRPUSDT', 'BCNBTC', 'BCNETH', 'BCNBNB', 'REPBTC', 'REPETH', 'REPBNB', 'BTCTUSD', 'TUSDBTC', 'ETHTUSD', 'TUSDETH', 'TUSDBNB', 'ZENBTC', 'ZENETH', 'ZENBNB', 'SKYBTC', 'SKYETH', 'SKYBNB', 'EOSUSDT', 'EOSBNB', 'CVCBTC', 'CVCETH', 'CVCBNB', 'THETABTC', 'THETAETH', 'THETABNB', 'XRPBNB', 'TUSDUSDT', 'IOTAUSDT', 'XLMUSDT', 'IOTXBTC', 'IOTXETH', 'QKCBTC', 'QKCETH', 'AGIBTC', 'AGIETH', 'AGIBNB', 'NXSBTC', 'NXSETH', 'NXSBNB', 'ENJBNB', 'DATABTC', 'DATAETH', 'ONTUSDT', 'TRXBNB', 'TRXUSDT', 'ETCUSDT', 'ETCBNB', 'ICXUSDT', 'SCBTC', 'SCETH', 'SCBNB', 'NPXSBTC', 'NPXSETH', 'VENUSDT', 'KEYBTC', 'KEYETH', 'NASBTC', 'NASETH', 'NASBNB', 'MFTBTC', 'MFTETH', 'MFTBNB', 'DENTBTC', 'DENTETH', 'ARDRBTC', 'ARDRETH', 'ARDRBNB', 'NULSUSDT', 'HOTBTC', 'HOTETH', 'VETBTC', 'VETETH', 'VETUSDT', 'VETBNB', 'DOCKBTC', 'DOCKETH', 'POLYBTC', 'POLYBNB', 'PHXBTC', 'PHXETH', 'PHXBNB', 'HCBTC', 'HCETH', 'GOBTC', 'GOBNB', 'PAXBTC', 'PAXBNB', 'PAXUSDT', 'PAXETH', 'RVNBTC', 'RVNBNB', 'DCRBTC', 'DCRBNB', 'USDCBNB', 'MITHBTC', 'MITHBNB', 'BCHABCBTC', 'BCHSVBTC', 'BCHABCUSDT', 'BCHSVUSDT', 'BNBPAX', 'BTCPAX', 'ETHPAX', 'XRPPAX', 'EOSPAX', 'XLMPAX', 'RENBTC', 'RENBNB', 'BNBTUSD', 'XRPTUSD', 'EOSTUSD', 'XLMTUSD', 'BNBUSDC', 'BTCUSDC', 'ETHUSDC', 'XRPUSDC', 'EOSUSDC', 'XLMUSDC', 'USDCUSDT', 'ADATUSD', 'TRXTUSD', 'NEOTUSD', 'TRXXRP', 'XZCXRP', 'PAXTUSD', 'USDCTUSD', 'USDCPAX', 'LINKUSDT', 'LINKTUSD', 'LINKPAX', 'LINKUSDC', 'WAVESUSDT', 'WAVESTUSD', 'WAVESPAX', 'WAVESUSDC', 'BCHABCTUSD', 'BCHABCPAX', 'BCHABCUSDC', 'BCHSVTUSD', 'BCHSVPAX', 'BCHSVUSDC', 'LTCTUSD', 'LTCPAX', 'LTCUSDC', 'TRXPAX', 'TRXUSDC', 'BTTBTC', 'BTTBNB', 'BTTUSDT', 'BNBUSDS', 'BTCUSDS', 'USDSUSDT', 'USDSPAX', 'USDSTUSD', 'USDSUSDC', 'BTTPAX', 'BTTTUSD', 'BTTUSDC', 'ONGBNB', 'ONGBTC', 'ONGUSDT', 'HOTBNB', 'HOTUSDT', 'ZILUSDT', 'ZRXBNB', 'ZRXUSDT', 'FETBNB', 'FETBTC', 'FETUSDT', 'BATUSDT', 'XMRBNB', 'XMRUSDT', 'ZECBNB', 'ZECUSDT', 'ZECPAX', 'ZECTUSD', 'ZECUSDC', 'IOSTBNB', 'IOSTUSDT', 'CELRBNB', 'CELRBTC', 'CELRUSDT', 'ADAPAX', 'ADAUSDC', 'NEOPAX', 'NEOUSDC', 'DASHBNB', 'DASHUSDT', 'NANOUSDT', 'OMGBNB', 'OMGUSDT', 'THETAUSDT', 'ENJUSDT', 'MITHUSDT', 'MATICBNB', 'MATICBTC', 'MATICUSDT', 'ATOMBNB', 'ATOMBTC', 'ATOMUSDT', 'ATOMUSDC', 'ATOMPAX', 'ATOMTUSD', 'ETCUSDC', 'ETCPAX', 'ETCTUSD', 'BATUSDC', 'BATPAX', 'BATTUSD', 'PHBBNB', 'PHBBTC', 'PHBUSDC', 'PHBTUSD', 'PHBPAX', 'TFUELBNB', 'TFUELBTC', 'TFUELUSDT', 'TFUELUSDC', 'TFUELTUSD', 'TFUELPAX', 'ONEBNB', 'ONEBTC', 'ONEUSDT', 'ONETUSD', 'ONEPAX', 'ONEUSDC', 'FTMBNB', 'FTMBTC', 'FTMUSDT', 'FTMTUSD', 'FTMPAX', 'FTMUSDC', 'BTCBBTC', 'BCPTTUSD', 'BCPTPAX', 'BCPTUSDC', 'ALGOBNB', 'ALGOBTC', 'ALGOUSDT', 'ALGOTUSD', 'ALGOPAX', 'ALGOUSDC', 'USDSBUSDT', 'USDSBUSDS', 'GTOUSDT', 'GTOPAX', 'GTOTUSD', 'GTOUSDC', 'ERDBNB', 'ERDBTC', 'ERDUSDT', 'ERDPAX', 'ERDUSDC', 'DOGEBNB', 'DOGEBTC', 'DOGEUSDT', 'DOGEPAX', 'DOGEUSDC', 'DUSKBNB', 'DUSKBTC', 'DUSKUSDT', 'DUSKUSDC', 'DUSKPAX', 'BGBPUSDC', 'ANKRBNB', 'ANKRBTC', 'ANKRUSDT', 'ANKRTUSD', 'ANKRPAX', 'ANKRUSDC', 'ONTPAX', 'ONTUSDC', 'WINBNB', 'WINBTC', 'WINUSDT', 'WINUSDC', 'COSBNB', 'COSBTC', 'COSUSDT', 'TUSDBTUSD', 'NPXSUSDT', 'NPXSUSDC', 'COCOSBNB', 'COCOSBTC', 'COCOSUSDT', 'MTLUSDT', 'TOMOBNB', 'TOMOBTC', 'TOMOUSDT', 'TOMOUSDC', 'PERLBNB', 'PERLBTC', 'PERLUSDC', 'PERLUSDT', 'DENTUSDT', 'MFTUSDT', 'KEYUSDT', 'STORMUSDT', 'DOCKUSDT', 'WANUSDT', 'FUNUSDT', 'CVCUSDT', 'BTTTRX', 'WINTRX', 'CHZBNB', 'CHZBTC', 'CHZUSDT', 'BANDBNB', 'BANDBTC', 'BANDUSDT', 'BNBBUSD', 'BTCBUSD', 'BUSDUSDT', 'BEAMBNB', 'BEAMBTC', 'BEAMUSDT', 'XTZBNB', 'XTZBTC', 'XTZUSDT', 'RENUSDT', 'RVNUSDT', 'HCUSDT', 'HBARBNB', 'HBARBTC', 'HBARUSDT', 'NKNBNB', 'NKNBTC', 'NKNUSDT', 'XRPBUSD', 'ETHBUSD', 'BCHABCBUSD', 'LTCBUSD', 'LINKBUSD', 'ETCBUSD', 'STXBNB', 'STXBTC', 'STXUSDT', 'KAVABNB', 'KAVABTC', 'KAVAUSDT', 'BUSDNGN', 'BNBNGN', 'BTCNGN', 'ARPABNB', 'ARPABTC', 'ARPAUSDT', 'TRXBUSD', 'EOSBUSD', 'IOTXUSDT', 'RLCUSDT', 'MCOUSDT', 'XLMBUSD', 'ADABUSD', 'CTXCBNB', 'CTXCBTC', 'CTXCUSDT', 'BCHBNB', 'BCHBTC', 'BCHUSDT', 'BCHUSDC', 'BCHTUSD', 'BCHPAX', 'BCHBUSD', 'BTCRUB', 'ETHRUB', 'XRPRUB', 'BNBRUB', 'TROYBNB', 'TROYBTC', 'TROYUSDT', 'BUSDRUB', 'QTUMBUSD', 'VETBUSD', 'VITEBNB', 'VITEBTC', 'VITEUSDT', 'FTTBNB', 'FTTBTC', 'FTTUSDT', 'BTCTRY', 'BNBTRY', 'BUSDTRY', 'ETHTRY', 'XRPTRY', 'USDTTRY', 'USDTRUB', 'BTCEUR', 'ETHEUR', 'BNBEUR', 'XRPEUR', 'EURBUSD', 'EURUSDT', 'OGNBNB', 'OGNBTC', 'OGNUSDT', 'DREPBNB', 'DREPBTC', 'DREPUSDT', 'BULLUSDT', 'BULLBUSD', 'BEARUSDT', 'BEARBUSD', 'ETHBULLUSDT', 'ETHBULLBUSD', 'ETHBEARUSDT', 'ETHBEARBUSD', 'TCTBNB', 'TCTBTC', 'TCTUSDT', 'WRXBNB', 'WRXBTC', 'WRXUSDT', 'ICXBUSD', 'BTSUSDT', 'BTSBUSD', 'LSKUSDT', 'BNTUSDT', 'BNTBUSD', 'LTOBNB', 'LTOBTC', 'LTOUSDT', 'ATOMBUSD', 'DASHBUSD', 'NEOBUSD', 'WAVESBUSD', 'XTZBUSD', 'EOSBULLUSDT', 'EOSBULLBUSD', 'EOSBEARUSDT', 'EOSBEARBUSD', 'XRPBULLUSDT', 'XRPBULLBUSD', 'XRPBEARUSDT', 'XRPBEARBUSD', 'BATBUSD', 'ENJBUSD', 'NANOBUSD', 'ONTBUSD', 'RVNBUSD', 'STRATBUSD', 'STRATBNB', 'STRATUSDT', 'AIONBUSD', 'AIONUSDT', 'MBLBNB', 'MBLBTC', 'MBLUSDT', 'COTIBNB', 'COTIBTC', 'COTIUSDT', 'ALGOBUSD', 'BTTBUSD', 'TOMOBUSD', 'XMRBUSD', 'ZECBUSD', 'BNBBULLUSDT', 'BNBBULLBUSD', 'BNBBEARUSDT', 'BNBBEARBUSD', 'STPTBNB', 'STPTBTC', 'STPTUSDT', 'BTCZAR', 'ETHZAR', 'BNBZAR', 'USDTZAR', 'BUSDZAR', 'BTCBKRW', 'ETHBKRW', 'BNBBKRW', 'WTCUSDT', 'DATABUSD', 'DATAUSDT', 'XZCUSDT', 'SOLBNB', 'SOLBTC', 'SOLUSDT', 'SOLBUSD', 'BTCIDRT', 'BNBIDRT', 'USDTIDRT', 'BUSDIDRT', 'CTSIBTC', 'CTSIUSDT', 'CTSIBNB', 'CTSIBUSD', 'HIVEBNB', 'HIVEBTC', 'HIVEUSDT', 'CHRBNB', 'CHRBTC', 'CHRUSDT', 'BTCUPUSDT', 'BTCDOWNUSDT', 'GXSUSDT', 'ARDRUSDT', 'ERDBUSD', 'LENDUSDT', 'HBARBUSD', 'MATICBUSD', 'WRXBUSD', 'ZILBUSD', 'MDTBNB', 'MDTBTC', 'MDTUSDT', 'STMXBNB', 'STMXBTC', 'STMXETH', 'STMXUSDT', 'KNCBUSD', 'KNCUSDT', 'REPBUSD', 'REPUSDT', 'LRCBUSD', 'LRCUSDT', 'IQBNB', 'IQBUSD', 'PNTBTC', 'PNTUSDT', 'BTCGBP', 'ETHGBP', 'XRPGBP', 'BNBGBP', 'GBPBUSD', 'DGBBNB', 'DGBBTC', 'DGBBUSD', 'BTCUAH', 'USDTUAH', 'COMPBTC', 'COMPBNB', 'COMPBUSD', 'COMPUSDT', 'BTCBIDR', 'ETHBIDR', 'BNBBIDR', 'BUSDBIDR', 'USDTBIDR', 'BKRWUSDT', 'BKRWBUSD', 'SCUSDT', 'ZENUSDT', 'SXPBTC', 'SXPBNB', 'SXPBUSD', 'SNXBTC', 'SNXBNB', 'SNXBUSD', 'SNXUSDT', 'ETHUPUSDT', 'ETHDOWNUSDT', 'ADAUPUSDT', 'ADADOWNUSDT', 'LINKUPUSDT', 'LINKDOWNUSDT', 'VTHOBNB', 'VTHOBUSD', 'VTHOUSDT', 'DCRBUSD', 'DGBUSDT', 'GBPUSDT', 'STORJBUSD', 'SXPUSDT', 'IRISBNB', 'IRISBTC', 'IRISBUSD', 'MKRBNB', 'MKRBTC', 'MKRUSDT', 'MKRBUSD', 'DAIBNB', 'DAIBTC', 'DAIUSDT', 'DAIBUSD', 'RUNEBNB', 'RUNEBTC', 'RUNEBUSD', 'MANABUSD', 'DOGEBUSD', 'LENDBUSD', 'ZRXBUSD', 'DCRUSDT', 'STORJUSDT', 'XRPBKRW', 'ADABKRW', 'BTCAUD', 'ETHAUD', 'AUDBUSD', 'FIOBNB', 'FIOBTC', 'FIOBUSD', 'BNBUPUSDT', 'BNBDOWNUSDT', 'XTZUPUSDT', 'XTZDOWNUSDT', 'AVABNB', 'AVABTC', 'AVABUSD', 'USDTBKRW', 'BUSDBKRW', 'IOTABUSD', 'MANAUSDT', 'XRPAUD', 'BNBAUD', 'AUDUSDT', 'BALBNB', 'BALBTC', 'BALBUSD', 'YFIBNB', 'YFIBTC', 'YFIBUSD', 'YFIUSDT', 'BLZBUSD', 'KMDBUSD', 'BALUSDT', 'BLZUSDT', 'IRISUSDT', 'KMDUSDT', 'BTCDAI', 'ETHDAI', 'BNBDAI', 'USDTDAI', 'BUSDDAI', 'JSTBNB', 'JSTBTC', 'JSTBUSD', 'JSTUSDT', 'SRMBNB', 'SRMBTC', 'SRMBUSD', 'SRMUSDT', 'ANTBNB', 'ANTBTC', 'ANTBUSD', 'ANTUSDT', 'CRVBNB', 'CRVBTC', 'CRVBUSD', 'CRVUSDT', 'SANDBNB', 'SANDBTC', 'SANDUSDT', 'SANDBUSD', 'OCEANBNB', 'OCEANBTC', 'OCEANBUSD', 'OCEANUSDT', 'NMRBNB', 'NMRBTC', 'NMRBUSD', 'NMRUSDT', 'DOTBNB', 'DOTBTC', 'DOTBUSD', 'DOTUSDT', 'LUNABNB', 'LUNABTC', 'LUNABUSD', 'LUNAUSDT', 'IDEXBTC', 'IDEXBUSD', 'RSRBNB', 'RSRBTC', 'RSRBUSD', 'RSRUSDT', 'PAXGBNB', 'PAXGBTC', 'PAXGBUSD', 'PAXGUSDT', 'WNXMBNB', 'WNXMBTC', 'WNXMBUSD', 'WNXMUSDT', 'TRBBNB', 'TRBBTC', 'TRBBUSD', 'TRBUSDT', 'ETHNGN', 'DOTBIDR', 'LINKAUD', 'SXPAUD', 'BZRXBNB', 'BZRXBTC', 'BZRXBUSD', 'BZRXUSDT', 'WBTCBTC', 'WBTCETH', 'SUSHIBNB', 'SUSHIBTC', 'SUSHIBUSD', 'SUSHIUSDT', 'YFIIBNB', 'YFIIBTC', 'YFIIBUSD', 'YFIIUSDT', 'KSMBNB', 'KSMBTC', 'KSMBUSD', 'KSMUSDT', 'EGLDBNB', 'EGLDBTC', 'EGLDBUSD', 'EGLDUSDT', 'DIABNB', 'DIABTC', 'DIABUSD', 'DIAUSDT', 'RUNEUSDT', 'FIOUSDT', 'UMABTC', 'UMAUSDT', 'EOSUPUSDT', 'EOSDOWNUSDT', 'TRXUPUSDT', 'TRXDOWNUSDT', 'XRPUPUSDT', 'XRPDOWNUSDT', 'DOTUPUSDT', 'DOTDOWNUSDT', 'SRMBIDR', 'ONEBIDR', 'LINKTRY', 'USDTNGN', 'BELBNB', 'BELBTC', 'BELBUSD', 'BELUSDT', 'WINGBNB', 'WINGBTC', 'SWRVBNB', 'SWRVBUSD', 'WINGBUSD', 'WINGUSDT', 'LTCUPUSDT', 'LTCDOWNUSDT', 'LENDBKRW', 'SXPEUR', 'CREAMBNB', 'CREAMBUSD', 'UNIBNB', 'UNIBTC', 'UNIBUSD', 'UNIUSDT', 'NBSBTC', 'NBSUSDT', 'OXTBTC', 'OXTUSDT', 'SUNBTC', 'SUNUSDT', 'AVAXBNB', 'AVAXBTC', 'AVAXBUSD', 'AVAXUSDT', 'HNTBTC', 'HNTUSDT', 'BAKEBNB', 'BURGERBNB', 'SXPBIDR', 'LINKBKRW', 'FLMBNB', 'FLMBTC', 'FLMBUSD', 'FLMUSDT', 'SCRTBTC', 'SCRTETH', 'CAKEBNB', 'CAKEBUSD', 'SPARTABNB', 'UNIUPUSDT', 'UNIDOWNUSDT', 'ORNBTC', 'ORNUSDT', 'TRXNGN', 'SXPTRY', 'UTKBTC', 'UTKUSDT', 'XVSBNB', 'XVSBTC', 'XVSBUSD', 'XVSUSDT', 'ALPHABNB', 'ALPHABTC', 'ALPHABUSD', 'ALPHAUSDT', 'VIDTBTC', 'VIDTBUSD', 'AAVEBNB', 'BTCBRL', 'USDTBRL', 'AAVEBTC', 'AAVEETH', 'AAVEBUSD', 'AAVEUSDT', 'AAVEBKRW', 'NEARBNB', 'NEARBTC', 'NEARBUSD', 'NEARUSDT', 'SXPUPUSDT', 'SXPDOWNUSDT', 'DOTBKRW', 'SXPGBP', 'FILBNB', 'FILBTC', 'FILBUSD', 'FILUSDT', 'FILUPUSDT', 'FILDOWNUSDT', 'YFIUPUSDT', 'YFIDOWNUSDT', 'INJBNB', 'INJBTC', 'INJBUSD', 'INJUSDT', 'AERGOBTC', 'AERGOBUSD', 'LINKEUR', 'ONEBUSD', 'EASYETH', 'AUDIOBTC', 'AUDIOBUSD', 'AUDIOUSDT', 'CTKBNB', 'CTKBTC', 'CTKBUSD', 'CTKUSDT', 'BCHUPUSDT', 'BCHDOWNUSDT']
 add_strategy_button_style_sheet_normal = "QPushButton {\ncolor: rgb(255, 255, 255);\nbackground-color: rgb(70,70,70);\nborder: 0px sold;\nborder-radius: 10px;\n\n}\nQPushButton:hover {\n	 border: 2px solid rgb(85,85,85);\n}"
 add_strategy_button_style_sheet_clicked = "QPushButton {\ncolor: rgb(255, 255, 255);\nbackground-color: rgb(85, 170, 255);\nborder: 0px sold;\nborder-radius: 10px;\n\n}"
 
@@ -50,6 +61,249 @@ time_difference_dictionary = {
     '3D': 259200000,
     '1W': 604800000
 }
+
+cryptocurrency_pair_dict = {'1INCHBTC': {'base': '1INCH', 'quote': 'BTC'},
+                            '1INCHUSDT': {'base': '1INCH', 'quote': 'USDT'},
+                            'AAVEBTC': {'base': 'AAVE', 'quote': 'BTC'}, 'AAVEBUSD': {'base': 'AAVE', 'quote': 'BUSD'},
+                            'AAVEUSDT': {'base': 'AAVE', 'quote': 'USDT'}, 'ADABTC': {'base': 'ADA', 'quote': 'BTC'},
+                            'ADABUSD': {'base': 'ADA', 'quote': 'BUSD'}, 'ADAETH': {'base': 'ADA', 'quote': 'ETH'},
+                            'ADAEUR': {'base': 'ADA', 'quote': 'EUR'}, 'ADAUSDT': {'base': 'ADA', 'quote': 'USDT'},
+                            'AKROBTC': {'base': 'AKRO', 'quote': 'BTC'}, 'AKROUSDT': {'base': 'AKRO', 'quote': 'USDT'},
+                            'ALGOBTC': {'base': 'ALGO', 'quote': 'BTC'}, 'ALGOBUSD': {'base': 'ALGO', 'quote': 'BUSD'},
+                            'ALGOUSDT': {'base': 'ALGO', 'quote': 'USDT'},
+                            'ALPHABTC': {'base': 'ALPHA', 'quote': 'BTC'},
+                            'ALPHABUSD': {'base': 'ALPHA', 'quote': 'BUSD'},
+                            'ALPHAUSDT': {'base': 'ALPHA', 'quote': 'USDT'},
+                            'ANKRBTC': {'base': 'ANKR', 'quote': 'BTC'}, 'ANKRUSDT': {'base': 'ANKR', 'quote': 'USDT'},
+                            'ANTBTC': {'base': 'ANT', 'quote': 'BTC'}, 'ANTBUSD': {'base': 'ANT', 'quote': 'BUSD'},
+                            'ANTUSDT': {'base': 'ANT', 'quote': 'USDT'}, 'ARDRBTC': {'base': 'ARDR', 'quote': 'BTC'},
+                            'ARDRUSDT': {'base': 'ARDR', 'quote': 'USDT'}, 'ARPABTC': {'base': 'ARPA', 'quote': 'BTC'},
+                            'ARPAUSDT': {'base': 'ARPA', 'quote': 'USDT'}, 'ATOMBTC': {'base': 'ATOM', 'quote': 'BTC'},
+                            'ATOMBUSD': {'base': 'ATOM', 'quote': 'BUSD'},
+                            'ATOMUSDT': {'base': 'ATOM', 'quote': 'USDT'}, 'AUDUSDT': {'base': 'AUD', 'quote': 'USDT'},
+                            'AVABTC': {'base': 'AVA', 'quote': 'BTC'}, 'AVABUSD': {'base': 'AVA', 'quote': 'BUSD'},
+                            'AVAXBTC': {'base': 'AVAX', 'quote': 'BTC'}, 'AVAXBUSD': {'base': 'AVAX', 'quote': 'BUSD'},
+                            'AVAXUSDT': {'base': 'AVAX', 'quote': 'USDT'}, 'AXSBTC': {'base': 'AXS', 'quote': 'BTC'},
+                            'AXSBUSD': {'base': 'AXS', 'quote': 'BUSD'}, 'AXSUSDT': {'base': 'AXS', 'quote': 'USDT'},
+                            'BALBTC': {'base': 'BAL', 'quote': 'BTC'}, 'BALBUSD': {'base': 'BAL', 'quote': 'BUSD'},
+                            'BALUSDT': {'base': 'BAL', 'quote': 'USDT'}, 'BANDBTC': {'base': 'BAND', 'quote': 'BTC'},
+                            'BANDUSDT': {'base': 'BAND', 'quote': 'USDT'}, 'BATBTC': {'base': 'BAT', 'quote': 'BTC'},
+                            'BATBUSD': {'base': 'BAT', 'quote': 'BUSD'}, 'BATUSDT': {'base': 'BAT', 'quote': 'USDT'},
+                            'BCHBTC': {'base': 'BCH', 'quote': 'BTC'}, 'BCHBUSD': {'base': 'BCH', 'quote': 'BUSD'},
+                            'BCHEUR': {'base': 'BCH', 'quote': 'EUR'}, 'BCHUSDT': {'base': 'BCH', 'quote': 'USDT'},
+                            'BELBTC': {'base': 'BEL', 'quote': 'BTC'}, 'BELBUSD': {'base': 'BEL', 'quote': 'BUSD'},
+                            'BELUSDT': {'base': 'BEL', 'quote': 'USDT'}, 'BLZBTC': {'base': 'BLZ', 'quote': 'BTC'},
+                            'BLZBUSD': {'base': 'BLZ', 'quote': 'BUSD'}, 'BLZUSDT': {'base': 'BLZ', 'quote': 'USDT'},
+                            'BNBBTC': {'base': 'BNB', 'quote': 'BTC'}, 'BNBBUSD': {'base': 'BNB', 'quote': 'BUSD'},
+                            'BNBETH': {'base': 'BNB', 'quote': 'ETH'}, 'BNBEUR': {'base': 'BNB', 'quote': 'EUR'},
+                            'BNBGBP': {'base': 'BNB', 'quote': 'GBP'}, 'BNBUSDT': {'base': 'BNB', 'quote': 'USDT'},
+                            'BNTBTC': {'base': 'BNT', 'quote': 'BTC'}, 'BNTBUSD': {'base': 'BNT', 'quote': 'BUSD'},
+                            'BNTUSDT': {'base': 'BNT', 'quote': 'USDT'}, 'BTCAUD': {'base': 'BTC', 'quote': 'AUD'},
+                            'BTCBUSD': {'base': 'BTC', 'quote': 'BUSD'}, 'BTCEUR': {'base': 'BTC', 'quote': 'EUR'},
+                            'BTCGBP': {'base': 'BTC', 'quote': 'GBP'}, 'BTCSTBTC': {'base': 'BTCST', 'quote': 'BTC'},
+                            'BTCSTUSDT': {'base': 'BTCST', 'quote': 'USDT'},
+                            'BTCUSDT': {'base': 'BTC', 'quote': 'USDT'}, 'BTSBTC': {'base': 'BTS', 'quote': 'BTC'},
+                            'BTSUSDT': {'base': 'BTS', 'quote': 'USDT'}, 'BTTBUSD': {'base': 'BTT', 'quote': 'BUSD'},
+                            'BTTUSDT': {'base': 'BTT', 'quote': 'USDT'}, 'BUSDUSDT': {'base': 'BUSD', 'quote': 'USDT'},
+                            'BZRXBTC': {'base': 'BZRX', 'quote': 'BTC'}, 'BZRXBUSD': {'base': 'BZRX', 'quote': 'BUSD'},
+                            'BZRXUSDT': {'base': 'BZRX', 'quote': 'USDT'},
+                            'CAKEBUSD': {'base': 'CAKE', 'quote': 'BUSD'}, 'CELOBTC': {'base': 'CELO', 'quote': 'BTC'},
+                            'CELOUSDT': {'base': 'CELO', 'quote': 'USDT'}, 'CELRBTC': {'base': 'CELR', 'quote': 'BTC'},
+                            'CELRUSDT': {'base': 'CELR', 'quote': 'USDT'}, 'CHRBTC': {'base': 'CHR', 'quote': 'BTC'},
+                            'CHRUSDT': {'base': 'CHR', 'quote': 'USDT'}, 'CHZBTC': {'base': 'CHZ', 'quote': 'BTC'},
+                            'CHZUSDT': {'base': 'CHZ', 'quote': 'USDT'}, 'COMPBTC': {'base': 'COMP', 'quote': 'BTC'},
+                            'COMPBUSD': {'base': 'COMP', 'quote': 'BUSD'},
+                            'COMPUSDT': {'base': 'COMP', 'quote': 'USDT'}, 'COTIBTC': {'base': 'COTI', 'quote': 'BTC'},
+                            'COTIUSDT': {'base': 'COTI', 'quote': 'USDT'}, 'CRVBTC': {'base': 'CRV', 'quote': 'BTC'},
+                            'CRVBUSD': {'base': 'CRV', 'quote': 'BUSD'}, 'CRVUSDT': {'base': 'CRV', 'quote': 'USDT'},
+                            'CTKBTC': {'base': 'CTK', 'quote': 'BTC'}, 'CTKBUSD': {'base': 'CTK', 'quote': 'BUSD'},
+                            'CTKUSDT': {'base': 'CTK', 'quote': 'USDT'}, 'CTSIBTC': {'base': 'CTSI', 'quote': 'BTC'},
+                            'CTSIBUSD': {'base': 'CTSI', 'quote': 'BUSD'},
+                            'CTSIUSDT': {'base': 'CTSI', 'quote': 'USDT'}, 'CVCBTC': {'base': 'CVC', 'quote': 'BTC'},
+                            'CVCUSDT': {'base': 'CVC', 'quote': 'USDT'}, 'DASHBTC': {'base': 'DASH', 'quote': 'BTC'},
+                            'DASHBUSD': {'base': 'DASH', 'quote': 'BUSD'},
+                            'DASHUSDT': {'base': 'DASH', 'quote': 'USDT'}, 'DATABTC': {'base': 'DATA', 'quote': 'BTC'},
+                            'DATABUSD': {'base': 'DATA', 'quote': 'BUSD'},
+                            'DATAUSDT': {'base': 'DATA', 'quote': 'USDT'}, 'DCRBTC': {'base': 'DCR', 'quote': 'BTC'},
+                            'DCRUSDT': {'base': 'DCR', 'quote': 'USDT'}, 'DGBBTC': {'base': 'DGB', 'quote': 'BTC'},
+                            'DGBBUSD': {'base': 'DGB', 'quote': 'BUSD'}, 'DGBUSDT': {'base': 'DGB', 'quote': 'USDT'},
+                            'DIABTC': {'base': 'DIA', 'quote': 'BTC'}, 'DIABUSD': {'base': 'DIA', 'quote': 'BUSD'},
+                            'DIAUSDT': {'base': 'DIA', 'quote': 'USDT'}, 'DNTBTC': {'base': 'DNT', 'quote': 'BTC'},
+                            'DNTBUSD': {'base': 'DNT', 'quote': 'BUSD'}, 'DNTUSDT': {'base': 'DNT', 'quote': 'USDT'},
+                            'DOCKBTC': {'base': 'DOCK', 'quote': 'BTC'}, 'DOCKUSDT': {'base': 'DOCK', 'quote': 'USDT'},
+                            'DOGEBTC': {'base': 'DOGE', 'quote': 'BTC'}, 'DOGEBUSD': {'base': 'DOGE', 'quote': 'BUSD'},
+                            'DOGEUSDT': {'base': 'DOGE', 'quote': 'USDT'}, 'DOTBTC': {'base': 'DOT', 'quote': 'BTC'},
+                            'DOTBUSD': {'base': 'DOT', 'quote': 'BUSD'}, 'DOTEUR': {'base': 'DOT', 'quote': 'EUR'},
+                            'DOTUSDT': {'base': 'DOT', 'quote': 'USDT'}, 'DUSKBTC': {'base': 'DUSK', 'quote': 'BTC'},
+                            'DUSKUSDT': {'base': 'DUSK', 'quote': 'USDT'}, 'EGLDBTC': {'base': 'EGLD', 'quote': 'BTC'},
+                            'EGLDBUSD': {'base': 'EGLD', 'quote': 'BUSD'},
+                            'EGLDUSDT': {'base': 'EGLD', 'quote': 'USDT'}, 'ENJBTC': {'base': 'ENJ', 'quote': 'BTC'},
+                            'ENJBUSD': {'base': 'ENJ', 'quote': 'BUSD'}, 'ENJUSDT': {'base': 'ENJ', 'quote': 'USDT'},
+                            'EOSBTC': {'base': 'EOS', 'quote': 'BTC'}, 'EOSBUSD': {'base': 'EOS', 'quote': 'BUSD'},
+                            'EOSUSDT': {'base': 'EOS', 'quote': 'USDT'}, 'ETCBTC': {'base': 'ETC', 'quote': 'BTC'},
+                            'ETCBUSD': {'base': 'ETC', 'quote': 'BUSD'}, 'ETCUSDT': {'base': 'ETC', 'quote': 'USDT'},
+                            'ETHBTC': {'base': 'ETH', 'quote': 'BTC'}, 'ETHBUSD': {'base': 'ETH', 'quote': 'BUSD'},
+                            'ETHEUR': {'base': 'ETH', 'quote': 'EUR'}, 'ETHGBP': {'base': 'ETH', 'quote': 'GBP'},
+                            'ETHUSDT': {'base': 'ETH', 'quote': 'USDT'}, 'EURBUSD': {'base': 'EUR', 'quote': 'BUSD'},
+                            'EURUSDT': {'base': 'EUR', 'quote': 'USDT'}, 'FETBTC': {'base': 'FET', 'quote': 'BTC'},
+                            'FETUSDT': {'base': 'FET', 'quote': 'USDT'}, 'FILBTC': {'base': 'FIL', 'quote': 'BTC'},
+                            'FILBUSD': {'base': 'FIL', 'quote': 'BUSD'}, 'FILUSDT': {'base': 'FIL', 'quote': 'USDT'},
+                            'FLMBTC': {'base': 'FLM', 'quote': 'BTC'}, 'FLMBUSD': {'base': 'FLM', 'quote': 'BUSD'},
+                            'FLMUSDT': {'base': 'FLM', 'quote': 'USDT'},
+                            'FRONTBUSD': {'base': 'FRONT', 'quote': 'BUSD'}, 'FTMBTC': {'base': 'FTM', 'quote': 'BTC'},
+                            'FTMUSDT': {'base': 'FTM', 'quote': 'USDT'}, 'FTTBTC': {'base': 'FTT', 'quote': 'BTC'},
+                            'FTTUSDT': {'base': 'FTT', 'quote': 'USDT'}, 'FUNBTC': {'base': 'FUN', 'quote': 'BTC'},
+                            'FUNUSDT': {'base': 'FUN', 'quote': 'USDT'}, 'GBPBUSD': {'base': 'GBP', 'quote': 'BUSD'},
+                            'GBPUSDT': {'base': 'GBP', 'quote': 'USDT'}, 'GRTBTC': {'base': 'GRT', 'quote': 'BTC'},
+                            'GRTETH': {'base': 'GRT', 'quote': 'ETH'}, 'GRTUSDT': {'base': 'GRT', 'quote': 'USDT'},
+                            'GTOBTC': {'base': 'GTO', 'quote': 'BTC'}, 'GTOUSDT': {'base': 'GTO', 'quote': 'USDT'},
+                            'GXSBTC': {'base': 'GXS', 'quote': 'BTC'}, 'GXSUSDT': {'base': 'GXS', 'quote': 'USDT'},
+                            'HARDBTC': {'base': 'HARD', 'quote': 'BTC'}, 'HARDUSDT': {'base': 'HARD', 'quote': 'USDT'},
+                            'HBARBTC': {'base': 'HBAR', 'quote': 'BTC'}, 'HBARBUSD': {'base': 'HBAR', 'quote': 'BUSD'},
+                            'HBARUSDT': {'base': 'HBAR', 'quote': 'USDT'}, 'HIVEBTC': {'base': 'HIVE', 'quote': 'BTC'},
+                            'HIVEUSDT': {'base': 'HIVE', 'quote': 'USDT'}, 'ICXBTC': {'base': 'ICX', 'quote': 'BTC'},
+                            'ICXBUSD': {'base': 'ICX', 'quote': 'BUSD'}, 'ICXUSDT': {'base': 'ICX', 'quote': 'USDT'},
+                            'INJBTC': {'base': 'INJ', 'quote': 'BTC'}, 'INJBUSD': {'base': 'INJ', 'quote': 'BUSD'},
+                            'INJUSDT': {'base': 'INJ', 'quote': 'USDT'}, 'IOSTBTC': {'base': 'IOST', 'quote': 'BTC'},
+                            'IOSTUSDT': {'base': 'IOST', 'quote': 'USDT'}, 'IOTABTC': {'base': 'IOTA', 'quote': 'BTC'},
+                            'IOTABUSD': {'base': 'IOTA', 'quote': 'BUSD'},
+                            'IOTAUSDT': {'base': 'IOTA', 'quote': 'USDT'}, 'IOTXBTC': {'base': 'IOTX', 'quote': 'BTC'},
+                            'IOTXUSDT': {'base': 'IOTX', 'quote': 'USDT'}, 'IRISBTC': {'base': 'IRIS', 'quote': 'BTC'},
+                            'IRISBUSD': {'base': 'IRIS', 'quote': 'BUSD'},
+                            'IRISUSDT': {'base': 'IRIS', 'quote': 'USDT'}, 'JSTBTC': {'base': 'JST', 'quote': 'BTC'},
+                            'JSTBUSD': {'base': 'JST', 'quote': 'BUSD'}, 'JSTUSDT': {'base': 'JST', 'quote': 'USDT'},
+                            'KAVABTC': {'base': 'KAVA', 'quote': 'BTC'}, 'KAVAUSDT': {'base': 'KAVA', 'quote': 'USDT'},
+                            'KMDBTC': {'base': 'KMD', 'quote': 'BTC'}, 'KMDBUSD': {'base': 'KMD', 'quote': 'BUSD'},
+                            'KMDUSDT': {'base': 'KMD', 'quote': 'USDT'}, 'KNCBTC': {'base': 'KNC', 'quote': 'BTC'},
+                            'KNCBUSD': {'base': 'KNC', 'quote': 'BUSD'}, 'KNCUSDT': {'base': 'KNC', 'quote': 'USDT'},
+                            'KSMBTC': {'base': 'KSM', 'quote': 'BTC'}, 'KSMBUSD': {'base': 'KSM', 'quote': 'BUSD'},
+                            'KSMUSDT': {'base': 'KSM', 'quote': 'USDT'}, 'LENDBTC': {'base': 'LEND', 'quote': 'BTC'},
+                            'LENDUSDT': {'base': 'LEND', 'quote': 'USDT'}, 'LINKBTC': {'base': 'LINK', 'quote': 'BTC'},
+                            'LINKBUSD': {'base': 'LINK', 'quote': 'BUSD'}, 'LINKEUR': {'base': 'LINK', 'quote': 'EUR'},
+                            'LINKUSDT': {'base': 'LINK', 'quote': 'USDT'}, 'LITBTC': {'base': 'LIT', 'quote': 'BTC'},
+                            'LITUSDT': {'base': 'LIT', 'quote': 'USDT'}, 'LOOMBTC': {'base': 'LOOM', 'quote': 'BTC'},
+                            'LRCBTC': {'base': 'LRC', 'quote': 'BTC'}, 'LRCBUSD': {'base': 'LRC', 'quote': 'BUSD'},
+                            'LRCUSDT': {'base': 'LRC', 'quote': 'USDT'}, 'LSKBTC': {'base': 'LSK', 'quote': 'BTC'},
+                            'LSKUSDT': {'base': 'LSK', 'quote': 'USDT'}, 'LTCBTC': {'base': 'LTC', 'quote': 'BTC'},
+                            'LTCBUSD': {'base': 'LTC', 'quote': 'BUSD'}, 'LTCEUR': {'base': 'LTC', 'quote': 'EUR'},
+                            'LTCUSDT': {'base': 'LTC', 'quote': 'USDT'}, 'LTOBTC': {'base': 'LTO', 'quote': 'BTC'},
+                            'LTOUSDT': {'base': 'LTO', 'quote': 'USDT'}, 'LUNABTC': {'base': 'LUNA', 'quote': 'BTC'},
+                            'LUNABUSD': {'base': 'LUNA', 'quote': 'BUSD'},
+                            'LUNAUSDT': {'base': 'LUNA', 'quote': 'USDT'}, 'MANABTC': {'base': 'MANA', 'quote': 'BTC'},
+                            'MANABUSD': {'base': 'MANA', 'quote': 'BUSD'},
+                            'MANAUSDT': {'base': 'MANA', 'quote': 'USDT'},
+                            'MATICBTC': {'base': 'MATIC', 'quote': 'BTC'},
+                            'MATICBUSD': {'base': 'MATIC', 'quote': 'BUSD'},
+                            'MATICUSDT': {'base': 'MATIC', 'quote': 'USDT'}, 'MDTBTC': {'base': 'MDT', 'quote': 'BTC'},
+                            'MDTUSDT': {'base': 'MDT', 'quote': 'USDT'}, 'MITHBTC': {'base': 'MITH', 'quote': 'BTC'},
+                            'MITHUSDT': {'base': 'MITH', 'quote': 'USDT'}, 'MKRBTC': {'base': 'MKR', 'quote': 'BTC'},
+                            'MKRBUSD': {'base': 'MKR', 'quote': 'BUSD'}, 'MKRUSDT': {'base': 'MKR', 'quote': 'USDT'},
+                            'MTLBTC': {'base': 'MTL', 'quote': 'BTC'}, 'MTLUSDT': {'base': 'MTL', 'quote': 'USDT'},
+                            'NANOBTC': {'base': 'NANO', 'quote': 'BTC'}, 'NANOBUSD': {'base': 'NANO', 'quote': 'BUSD'},
+                            'NANOUSDT': {'base': 'NANO', 'quote': 'USDT'}, 'NBSBTC': {'base': 'NBS', 'quote': 'BTC'},
+                            'NBSUSDT': {'base': 'NBS', 'quote': 'USDT'}, 'NEARBTC': {'base': 'NEAR', 'quote': 'BTC'},
+                            'NEARUSDT': {'base': 'NEAR', 'quote': 'USDT'}, 'NEOBTC': {'base': 'NEO', 'quote': 'BTC'},
+                            'NEOBUSD': {'base': 'NEO', 'quote': 'BUSD'}, 'NEOUSDT': {'base': 'NEO', 'quote': 'USDT'},
+                            'NKNBTC': {'base': 'NKN', 'quote': 'BTC'}, 'NKNUSDT': {'base': 'NKN', 'quote': 'USDT'},
+                            'NMRBTC': {'base': 'NMR', 'quote': 'BTC'}, 'NMRBUSD': {'base': 'NMR', 'quote': 'BUSD'},
+                            'NMRUSDT': {'base': 'NMR', 'quote': 'USDT'}, 'NULSBTC': {'base': 'NULS', 'quote': 'BTC'},
+                            'NULSUSDT': {'base': 'NULS', 'quote': 'USDT'},
+                            'OCEANBTC': {'base': 'OCEAN', 'quote': 'BTC'},
+                            'OCEANBUSD': {'base': 'OCEAN', 'quote': 'BUSD'},
+                            'OCEANUSDT': {'base': 'OCEAN', 'quote': 'USDT'}, 'OGNBTC': {'base': 'OGN', 'quote': 'BTC'},
+                            'OGNUSDT': {'base': 'OGN', 'quote': 'USDT'}, 'OMGBTC': {'base': 'OMG', 'quote': 'BTC'},
+                            'OMGUSDT': {'base': 'OMG', 'quote': 'USDT'}, 'ONEBTC': {'base': 'ONE', 'quote': 'BTC'},
+                            'ONEUSDT': {'base': 'ONE', 'quote': 'USDT'}, 'ONGBTC': {'base': 'ONG', 'quote': 'BTC'},
+                            'ONGUSDT': {'base': 'ONG', 'quote': 'USDT'}, 'ONTBTC': {'base': 'ONT', 'quote': 'BTC'},
+                            'ONTBUSD': {'base': 'ONT', 'quote': 'BUSD'}, 'ONTUSDT': {'base': 'ONT', 'quote': 'USDT'},
+                            'ORNBTC': {'base': 'ORN', 'quote': 'BTC'}, 'ORNUSDT': {'base': 'ORN', 'quote': 'USDT'},
+                            'OXTBTC': {'base': 'OXT', 'quote': 'BTC'}, 'OXTUSDT': {'base': 'OXT', 'quote': 'USDT'},
+                            'PAXGBTC': {'base': 'PAXG', 'quote': 'BTC'}, 'PAXGUSDT': {'base': 'PAXG', 'quote': 'USDT'},
+                            'PNTBTC': {'base': 'PNT', 'quote': 'BTC'}, 'PNTUSDT': {'base': 'PNT', 'quote': 'USDT'},
+                            'POLYBTC': {'base': 'POLY', 'quote': 'BTC'}, 'QTUMBTC': {'base': 'QTUM', 'quote': 'BTC'},
+                            'QTUMBUSD': {'base': 'QTUM', 'quote': 'BUSD'},
+                            'QTUMUSDT': {'base': 'QTUM', 'quote': 'USDT'}, 'REEFBTC': {'base': 'REEF', 'quote': 'BTC'},
+                            'REEFUSDT': {'base': 'REEF', 'quote': 'USDT'}, 'RENBTC': {'base': 'REN', 'quote': 'BTC'},
+                            'RENUSDT': {'base': 'REN', 'quote': 'USDT'}, 'REPBTC': {'base': 'REP', 'quote': 'BTC'},
+                            'REPBUSD': {'base': 'REP', 'quote': 'BUSD'}, 'REPUSDT': {'base': 'REP', 'quote': 'USDT'},
+                            'RLCBTC': {'base': 'RLC', 'quote': 'BTC'}, 'RLCUSDT': {'base': 'RLC', 'quote': 'USDT'},
+                            'ROSEBTC': {'base': 'ROSE', 'quote': 'BTC'}, 'ROSEBUSD': {'base': 'ROSE', 'quote': 'BUSD'},
+                            'ROSEUSDT': {'base': 'ROSE', 'quote': 'USDT'}, 'RSRBTC': {'base': 'RSR', 'quote': 'BTC'},
+                            'RSRBUSD': {'base': 'RSR', 'quote': 'BUSD'}, 'RSRUSDT': {'base': 'RSR', 'quote': 'USDT'},
+                            'RUNEBTC': {'base': 'RUNE', 'quote': 'BTC'}, 'RUNEBUSD': {'base': 'RUNE', 'quote': 'BUSD'},
+                            'RUNEUSDT': {'base': 'RUNE', 'quote': 'USDT'}, 'RVNBTC': {'base': 'RVN', 'quote': 'BTC'},
+                            'RVNBUSD': {'base': 'RVN', 'quote': 'BUSD'}, 'RVNUSDT': {'base': 'RVN', 'quote': 'USDT'},
+                            'SANDBTC': {'base': 'SAND', 'quote': 'BTC'}, 'SANDBUSD': {'base': 'SAND', 'quote': 'BUSD'},
+                            'SANDUSDT': {'base': 'SAND', 'quote': 'USDT'}, 'SCBTC': {'base': 'SC', 'quote': 'BTC'},
+                            'SCUSDT': {'base': 'SC', 'quote': 'USDT'}, 'SFPBTC': {'base': 'SFP', 'quote': 'BTC'},
+                            'SFPBUSD': {'base': 'SFP', 'quote': 'BUSD'}, 'SFPUSDT': {'base': 'SFP', 'quote': 'USDT'},
+                            'SKLBTC': {'base': 'SKL', 'quote': 'BTC'}, 'SKLBUSD': {'base': 'SKL', 'quote': 'BUSD'},
+                            'SKLUSDT': {'base': 'SKL', 'quote': 'USDT'}, 'SNXBTC': {'base': 'SNX', 'quote': 'BTC'},
+                            'SNXBUSD': {'base': 'SNX', 'quote': 'BUSD'}, 'SNXUSDT': {'base': 'SNX', 'quote': 'USDT'},
+                            'SOLBTC': {'base': 'SOL', 'quote': 'BTC'}, 'SOLBUSD': {'base': 'SOL', 'quote': 'BUSD'},
+                            'SOLUSDT': {'base': 'SOL', 'quote': 'USDT'}, 'SRMBTC': {'base': 'SRM', 'quote': 'BTC'},
+                            'SRMBUSD': {'base': 'SRM', 'quote': 'BUSD'}, 'SRMUSDT': {'base': 'SRM', 'quote': 'USDT'},
+                            'STMXBTC': {'base': 'STMX', 'quote': 'BTC'}, 'STMXUSDT': {'base': 'STMX', 'quote': 'USDT'},
+                            'STORJBTC': {'base': 'STORJ', 'quote': 'BTC'},
+                            'STORJBUSD': {'base': 'STORJ', 'quote': 'BUSD'},
+                            'STORJUSDT': {'base': 'STORJ', 'quote': 'USDT'},
+                            'STPTBTC': {'base': 'STPT', 'quote': 'BTC'}, 'STPTUSDT': {'base': 'STPT', 'quote': 'USDT'},
+                            'STXBTC': {'base': 'STX', 'quote': 'BTC'}, 'STXUSDT': {'base': 'STX', 'quote': 'USDT'},
+                            'SUSHIBTC': {'base': 'SUSHI', 'quote': 'BTC'},
+                            'SUSHIBUSD': {'base': 'SUSHI', 'quote': 'BUSD'},
+                            'SUSHIUSDT': {'base': 'SUSHI', 'quote': 'USDT'}, 'SXPBTC': {'base': 'SXP', 'quote': 'BTC'},
+                            'SXPBUSD': {'base': 'SXP', 'quote': 'BUSD'}, 'SXPEUR': {'base': 'SXP', 'quote': 'EUR'},
+                            'SXPUSDT': {'base': 'SXP', 'quote': 'USDT'}, 'TCTBTC': {'base': 'TCT', 'quote': 'BTC'},
+                            'TCTUSDT': {'base': 'TCT', 'quote': 'USDT'}, 'TFUELBTC': {'base': 'TFUEL', 'quote': 'BTC'},
+                            'TFUELUSDT': {'base': 'TFUEL', 'quote': 'USDT'},
+                            'THETABTC': {'base': 'THETA', 'quote': 'BTC'},
+                            'THETAUSDT': {'base': 'THETA', 'quote': 'USDT'},
+                            'TOMOBTC': {'base': 'TOMO', 'quote': 'BTC'}, 'TOMOBUSD': {'base': 'TOMO', 'quote': 'BUSD'},
+                            'TOMOUSDT': {'base': 'TOMO', 'quote': 'USDT'}, 'TRBBTC': {'base': 'TRB', 'quote': 'BTC'},
+                            'TRBBUSD': {'base': 'TRB', 'quote': 'BUSD'}, 'TRBUSDT': {'base': 'TRB', 'quote': 'USDT'},
+                            'TROYBTC': {'base': 'TROY', 'quote': 'BTC'}, 'TROYUSDT': {'base': 'TROY', 'quote': 'USDT'},
+                            'TRXBTC': {'base': 'TRX', 'quote': 'BTC'}, 'TRXBUSD': {'base': 'TRX', 'quote': 'BUSD'},
+                            'TRXETH': {'base': 'TRX', 'quote': 'ETH'}, 'TRXUSDT': {'base': 'TRX', 'quote': 'USDT'},
+                            'UMABTC': {'base': 'UMA', 'quote': 'BTC'}, 'UMAUSDT': {'base': 'UMA', 'quote': 'USDT'},
+                            'UNFIBTC': {'base': 'UNFI', 'quote': 'BTC'}, 'UNFIBUSD': {'base': 'UNFI', 'quote': 'BUSD'},
+                            'UNFIUSDT': {'base': 'UNFI', 'quote': 'USDT'}, 'UNIBTC': {'base': 'UNI', 'quote': 'BTC'},
+                            'UNIBUSD': {'base': 'UNI', 'quote': 'BUSD'}, 'UNIUSDT': {'base': 'UNI', 'quote': 'USDT'},
+                            'UTKBTC': {'base': 'UTK', 'quote': 'BTC'}, 'UTKUSDT': {'base': 'UTK', 'quote': 'USDT'},
+                            'VETBTC': {'base': 'VET', 'quote': 'BTC'}, 'VETBUSD': {'base': 'VET', 'quote': 'BUSD'},
+                            'VETUSDT': {'base': 'VET', 'quote': 'USDT'}, 'VITEBTC': {'base': 'VITE', 'quote': 'BTC'},
+                            'VITEUSDT': {'base': 'VITE', 'quote': 'USDT'},
+                            'VTHOBUSD': {'base': 'VTHO', 'quote': 'BUSD'},
+                            'VTHOUSDT': {'base': 'VTHO', 'quote': 'USDT'}, 'WANBTC': {'base': 'WAN', 'quote': 'BTC'},
+                            'WANUSDT': {'base': 'WAN', 'quote': 'USDT'}, 'WAVESBTC': {'base': 'WAVES', 'quote': 'BTC'},
+                            'WAVESBUSD': {'base': 'WAVES', 'quote': 'BUSD'},
+                            'WAVESUSDT': {'base': 'WAVES', 'quote': 'USDT'},
+                            'WINGBTC': {'base': 'WING', 'quote': 'BTC'}, 'WINGBUSD': {'base': 'WING', 'quote': 'BUSD'},
+                            'WINGUSDT': {'base': 'WING', 'quote': 'USDT'}, 'WNXMBTC': {'base': 'WNXM', 'quote': 'BTC'},
+                            'WNXMBUSD': {'base': 'WNXM', 'quote': 'BUSD'},
+                            'WNXMUSDT': {'base': 'WNXM', 'quote': 'USDT'}, 'WRXBTC': {'base': 'WRX', 'quote': 'BTC'},
+                            'WRXBUSD': {'base': 'WRX', 'quote': 'BUSD'}, 'WRXUSDT': {'base': 'WRX', 'quote': 'USDT'},
+                            'WTCBTC': {'base': 'WTC', 'quote': 'BTC'}, 'WTCUSDT': {'base': 'WTC', 'quote': 'USDT'},
+                            'XEMBTC': {'base': 'XEM', 'quote': 'BTC'}, 'XEMUSDT': {'base': 'XEM', 'quote': 'USDT'},
+                            'XLMBTC': {'base': 'XLM', 'quote': 'BTC'}, 'XLMBUSD': {'base': 'XLM', 'quote': 'BUSD'},
+                            'XLMEUR': {'base': 'XLM', 'quote': 'EUR'}, 'XLMUSDT': {'base': 'XLM', 'quote': 'USDT'},
+                            'XMRBTC': {'base': 'XMR', 'quote': 'BTC'}, 'XMRBUSD': {'base': 'XMR', 'quote': 'BUSD'},
+                            'XMRUSDT': {'base': 'XMR', 'quote': 'USDT'}, 'XRPBTC': {'base': 'XRP', 'quote': 'BTC'},
+                            'XRPBUSD': {'base': 'XRP', 'quote': 'BUSD'}, 'XRPETH': {'base': 'XRP', 'quote': 'ETH'},
+                            'XRPEUR': {'base': 'XRP', 'quote': 'EUR'}, 'XRPGBP': {'base': 'XRP', 'quote': 'GBP'},
+                            'XRPUSDT': {'base': 'XRP', 'quote': 'USDT'}, 'XTZBTC': {'base': 'XTZ', 'quote': 'BTC'},
+                            'XTZBUSD': {'base': 'XTZ', 'quote': 'BUSD'}, 'XTZUSDT': {'base': 'XTZ', 'quote': 'USDT'},
+                            'XVGBTC': {'base': 'XVG', 'quote': 'BTC'}, 'XVSBTC': {'base': 'XVS', 'quote': 'BTC'},
+                            'XVSUSDT': {'base': 'XVS', 'quote': 'USDT'}, 'XZCBTC': {'base': 'XZC', 'quote': 'BTC'},
+                            'XZCUSDT': {'base': 'XZC', 'quote': 'USDT'}, 'YFIBTC': {'base': 'YFI', 'quote': 'BTC'},
+                            'YFIBUSD': {'base': 'YFI', 'quote': 'BUSD'}, 'YFIEUR': {'base': 'YFI', 'quote': 'EUR'},
+                            'YFIIBTC': {'base': 'YFII', 'quote': 'BTC'}, 'YFIIBUSD': {'base': 'YFII', 'quote': 'BUSD'},
+                            'YFIIUSDT': {'base': 'YFII', 'quote': 'USDT'}, 'YFIUSDT': {'base': 'YFI', 'quote': 'USDT'},
+                            'ZECBTC': {'base': 'ZEC', 'quote': 'BTC'}, 'ZECBUSD': {'base': 'ZEC', 'quote': 'BUSD'},
+                            'ZECUSDT': {'base': 'ZEC', 'quote': 'USDT'}, 'ZENBTC': {'base': 'ZEN', 'quote': 'BTC'},
+                            'ZENETH': {'base': 'ZEN', 'quote': 'ETH'}, 'ZENUSDT': {'base': 'ZEN', 'quote': 'USDT'},
+                            'ZILBTC': {'base': 'ZIL', 'quote': 'BTC'}, 'ZILBUSD': {'base': 'ZIL', 'quote': 'BUSD'},
+                            'ZILUSDT': {'base': 'ZIL', 'quote': 'USDT'}, 'ZRXBTC': {'base': 'ZRX', 'quote': 'BTC'},
+                            'ZRXBUSD': {'base': 'ZRX', 'quote': 'BUSD'}, 'ZRXUSDT': {'base': 'ZRX', 'quote': 'USDT'}}
 
 indicator_default_options = {
     'SMA (Simple Moving Average)': '(7, Open)',
