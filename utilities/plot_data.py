@@ -15,7 +15,6 @@ def plot_ohlcv_data(path_to_file):
     return html
 
 def plot_balance(list_of_profit, starting_balance, currency_2_symbol):
-    print(starting_balance)
     index_list = []
     balance_list = []
     for x in list_of_profit:
