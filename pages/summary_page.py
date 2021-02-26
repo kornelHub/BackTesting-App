@@ -27,10 +27,12 @@ class Summary_Page(Base, Form):
 
     def format_and_display_text(self, trades_dict):
         currency_pair = (open('data/data.csv').readline()).rstrip("\n") # temporary solution
-        currency_1 = cryptocurrency_pair_dict[currency_pair]['base']
-        currency_2 = cryptocurrency_pair_dict[currency_pair]['quote']
+        currency_1_symbol = cryptocurrency_pair_dict[currency_pair]['base']
+        currency_2_symbol = cryptocurrency_pair_dict[currency_pair]['quote']
         formatted_trades = ''
-        balance_list = []
+        balance_list = [[trades_dict['sell_trades'][0]['index'],
+                         trades_dict['sell_trades'][0]['currency_2']
+                         + trades_dict['sell_trades'][0]['price'] / trades_dict['sell_trades'][0]['currency_1']]]
 
 
         if trades_dict['buy_trades'][1]['index'] < trades_dict['sell_trades'][1]['index']: #first trans is buy
@@ -40,13 +42,13 @@ class Summary_Page(Base, Form):
                 formatted_trades += '{}) Bought {} {} for price {}\n' \
                     .format(trades_dict['buy_trades'][x]['index'],
                             trades_dict['buy_trades'][x]['amount_traded'],
-                            currency_2,
+                            currency_2_symbol,
                             trades_dict['buy_trades'][x]['price'])
 
                 formatted_trades += '{}) Sold {} {} for price {}\n' \
                     .format(trades_dict['sell_trades'][x]['index'],
                             trades_dict['sell_trades'][x]['amount_traded'],
-                            currency_1,
+                            currency_1_symbol,
                             trades_dict['sell_trades'][x]['price'])
 
                 formatted_trades += '#PROFIT: {}\n' \
@@ -55,8 +57,6 @@ class Summary_Page(Base, Form):
 
                 balance_list.append([trades_dict['sell_trades'][x]['index'],
                                     trades_dict['sell_trades'][x]['currency_2']
-                                    # - trades_dict['sell_trades'][x - 1]['currency_2']
-                                    # - trades_dict['sell_trades'][x - 1]['currency_1'] *trades_dict['sell_trades'][x - 1]['price']
                                     ])
         else: #first trans is sell
             formatted_trades += '----------------------------------------------------------------------------\n'
@@ -64,7 +64,7 @@ class Summary_Page(Base, Form):
             formatted_trades += '{}) Sold {} {} for price {}\n'\
                 .format(trades_dict['sell_trades'][1]['index'],
                         trades_dict['sell_trades'][1]['amount_traded'],
-                        currency_1,
+                        currency_1_symbol,
                         trades_dict['sell_trades'][1]['price'])
 
             formatted_trades += '#PROFIT: {}\n'\
@@ -73,8 +73,6 @@ class Summary_Page(Base, Form):
 
             balance_list.append([trades_dict['sell_trades'][1]['index'],
                                 trades_dict['sell_trades'][1]['currency_2']
-                                # - trades_dict['sell_trades'][0]['currency_2']
-                                # - trades_dict['sell_trades'][0]['currency_1'] * trades_dict['sell_trades'][0]['price']
                                 ])
 
             for x in range(1, len(trades_dict['sell_trades'])-1):
@@ -83,13 +81,13 @@ class Summary_Page(Base, Form):
                 formatted_trades += '{}) Bought {} {} for price {}\n'\
                     .format(trades_dict['buy_trades'][x]['index'],
                             trades_dict['buy_trades'][x]['amount_traded'],
-                            currency_2,
+                            currency_2_symbol,
                             trades_dict['buy_trades'][x]['price'])
 
                 formatted_trades += '{}) Sold {} {} for price {}\n'\
                     .format(trades_dict['sell_trades'][x+1]['index'],
                             trades_dict['sell_trades'][x+1]['amount_traded'],
-                            currency_1,
+                            currency_1_symbol,
                             trades_dict['sell_trades'][x+1]['price'])
 
 
@@ -99,13 +97,9 @@ class Summary_Page(Base, Form):
 
                 balance_list.append([trades_dict['sell_trades'][x+1]['index'],
                                     trades_dict['sell_trades'][x + 1]['currency_2']
-                                    # - trades_dict['sell_trades'][x]['currency_2']
-                                    # - trades_dict['sell_trades'][x]['currency_1'] * trades_dict['sell_trades'][x]['price']
                                     ])
         self.textBrowser.setText(formatted_trades)
-        self.summary_balance_graph.setHtml(plot_balance(balance_list, trades_dict['sell_trades'][0]['currency_2']
-                                + trades_dict['sell_trades'][0]['currency_1'] * trades_dict['sell_trades'][0]['price'],
-                                currency_2))
+        self.summary_balance_graph.setHtml(plot_balance(balance_list, currency_2_symbol))
 
 
 if __name__ == '__main__':
