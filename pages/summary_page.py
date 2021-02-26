@@ -32,7 +32,7 @@ class Summary_Page(Base, Form):
         formatted_trades = ''
         balance_list = [[trades_dict['sell_trades'][0]['index'],
                          trades_dict['sell_trades'][0]['currency_2']
-                         + trades_dict['sell_trades'][0]['price'] / trades_dict['sell_trades'][0]['currency_1']]]
+                         + trades_dict['sell_trades'][0]['price'] * trades_dict['sell_trades'][0]['currency_1']]]
 
 
         if trades_dict['buy_trades'][1]['index'] < trades_dict['sell_trades'][1]['index']: #first trans is buy

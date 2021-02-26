@@ -17,7 +17,6 @@ def plot_ohlcv_data(path_to_file):
 def plot_balance(list_of_profit, currency_2_symbol):
     index_list = []
     balance_list = []
-    print(list_of_profit)
     for x in list_of_profit:
         index_list.append(x[0])
         balance_list.append(x[1])
