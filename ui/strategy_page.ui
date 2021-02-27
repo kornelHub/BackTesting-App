@@ -332,7 +332,7 @@ font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
          <item>
           <widget class="QWidget" name="p2_leftBottom_widget" native="true">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -490,7 +490,7 @@ border-radius: 10px;</string>
                <item>
                 <widget class="QWidget" name="widget_8" native="true">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
@@ -502,19 +502,19 @@ border-radius: 10px;</string>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_8">
                   <property name="spacing">
-                   <number>0</number>
+                   <number>15</number>
                   </property>
                   <property name="leftMargin">
-                   <number>0</number>
+                   <number>9</number>
                   </property>
                   <property name="topMargin">
-                   <number>0</number>
+                   <number>9</number>
                   </property>
                   <property name="rightMargin">
-                   <number>0</number>
+                   <number>9</number>
                   </property>
                   <property name="bottomMargin">
-                   <number>0</number>
+                   <number>9</number>
                   </property>
                   <item>
                    <widget class="QWidget" name="widget_10" native="true">
@@ -715,10 +715,24 @@ QLineEdit:focus{
                    </widget>
                   </item>
                   <item>
-                   <widget class="QWidget" name="widget_13" native="true"/>
+                   <widget class="QWidget" name="widget_13" native="true">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>22</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                   <item>
-                   <widget class="QWidget" name="widget_17" native="true"/>
+                   <widget class="QWidget" name="widget_17" native="true">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>22</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
@@ -1002,7 +1016,7 @@ color: rgb(255, 255, 255);</string>
       <item>
        <widget class="QWidget" name="p2_rightBottom_widget" native="true">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -1163,6 +1177,9 @@ border-radius: 10px;</string>
                </sizepolicy>
               </property>
               <layout class="QVBoxLayout" name="verticalLayout_12">
+               <property name="spacing">
+                <number>15</number>
+               </property>
                <item>
                 <widget class="QWidget" name="widget_20" native="true">
                  <layout class="QHBoxLayout" name="horizontalLayout_10">
