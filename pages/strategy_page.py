@@ -2,6 +2,8 @@ import os
 from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtCore import Slot
+from PySide2.QtCore import QRegExp
+from PySide2.QtGui import QRegExpValidator
 from pages.add_strategy_rule_page import Add_Strategy_Rule_Widget
 from engine.simulation import get_buy_rules, get_sell_rules
 import json
@@ -21,6 +23,15 @@ class Strategy_Widget(Base, Form):
         self.stop_loss_checkbox.stateChanged.connect(lambda: self.check_if_disabled_needed_for_settings_fields(self.stop_loss_checkbox.isChecked(), self.sell_stop_loss_lineEdit_1, self.sell_stop_loss_comboBox_2))
         self.take_profit_checkbox.stateChanged.connect(lambda: self.check_if_disabled_needed_for_settings_fields(self.take_profit_checkbox.isChecked(), self.sell_take_profit_lineEdit_1, self.sell_take_profit_comboBox_2))
 
+        # req_exp allows only one '.' in number
+        number_regular_expression = QRegExp("^(([1-9][0-9]*)?[0-9](\.[0-9]*)?|\.[0-9]+)$")
+        self.buy_commission_lineEdit_1.setValidator(QRegExpValidator(number_regular_expression, self))
+        self.buy_balance_lineEdit2.setValidator(QRegExpValidator(number_regular_expression, self))
+        self.sell_commission_lineEdit_1.setValidator(QRegExpValidator(number_regular_expression, self))
+        self.sell_balance_lineEdit.setValidator(QRegExpValidator(number_regular_expression, self))
+        self.sell_stop_loss_lineEdit_1.setValidator(QRegExpValidator(number_regular_expression, self))
+        self.sell_take_profit_lineEdit_1.setValidator(QRegExpValidator(number_regular_expression, self))
+
         # dev helper
         self.buy_commission_lineEdit_1.setText('0.1')
         self.buy_balance_lineEdit2.setText('1')
@@ -31,59 +42,59 @@ class Strategy_Widget(Base, Form):
 
         # Buy
         self.p2_add_buy_rule.setIcon(QtGui.QIcon('icons/add.png'))
-        self.p2_add_buy_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_add_buy_rule.setIconSize(QtCore.QSize(28, 28))
         self.p2_add_buy_rule.setToolTip('Add new buy rule')
 
         self.p2_copy_buy_rule.setIcon(QtGui.QIcon('icons/copy.png'))
-        self.p2_copy_buy_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_copy_buy_rule.setIconSize(QtCore.QSize(28, 28))
         self.p2_copy_buy_rule.clicked.connect(lambda: self.copy_buy_rule())
         self.p2_copy_buy_rule.setToolTip('Copy selected rule')
 
         self.p2_edit_buy_rule.setIcon(QtGui.QIcon('icons/edit.png'))
-        self.p2_edit_buy_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_edit_buy_rule.setIconSize(QtCore.QSize(28, 28))
         self.p2_edit_buy_rule.setToolTip('Edit selected buy rule')
 
         self.p2_delete_buy_rule.setIcon(QtGui.QIcon('icons/trash.png'))
-        self.p2_delete_buy_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_delete_buy_rule.setIconSize(QtCore.QSize(28, 28))
         self.p2_delete_buy_rule.clicked.connect(lambda: self.delete_buy_rule())
         self.p2_delete_buy_rule.setToolTip('Remove selected buy rule')
 
         self.p2_save_strategy_1.setIcon(QtGui.QIcon('icons/save.png'))
-        self.p2_save_strategy_1.setIconSize(QtCore.QSize(32, 32))
+        self.p2_save_strategy_1.setIconSize(QtCore.QSize(28, 28))
         self.p2_save_strategy_1.clicked.connect(lambda: self.save_rules_to_json_file())
         self.p2_save_strategy_1.setToolTip('Save buy and sell rules to file')
 
         self.p2_load_strategy_1.setIcon(QtGui.QIcon('icons/load.png'))
-        self.p2_load_strategy_1.setIconSize(QtCore.QSize(32, 32))
+        self.p2_load_strategy_1.setIconSize(QtCore.QSize(28, 28))
         self.p2_load_strategy_1.clicked.connect(lambda: self.load_rules_from_json_file())
         self.p2_load_strategy_1.setToolTip('Load buy and sell rules from file')
 
         # Sell
         self.p2_add_sell_rule.setIcon(QtGui.QIcon('icons/add.png'))
-        self.p2_add_sell_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_add_sell_rule.setIconSize(QtCore.QSize(28, 28))
         self.p2_add_sell_rule.setToolTip('Add new sell rule')
 
         self.p2_copy_sell_rule.setIcon(QtGui.QIcon('icons/copy.png'))
-        self.p2_copy_sell_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_copy_sell_rule.setIconSize(QtCore.QSize(28, 28))
         self.p2_copy_sell_rule.clicked.connect(lambda: self.copy_sell_rule())
         self.p2_copy_sell_rule.setToolTip('Copy selected rule')
 
         self.p2_edit_sell_rule.setIcon(QtGui.QIcon('icons/edit.png'))
-        self.p2_edit_sell_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_edit_sell_rule.setIconSize(QtCore.QSize(28, 28))
         self.p2_edit_sell_rule.setToolTip('Edit selected sell rule')
 
         self.p2_delete_sell_rule.setIcon(QtGui.QIcon('icons/trash.png'))
-        self.p2_delete_sell_rule.setIconSize(QtCore.QSize(32, 32))
+        self.p2_delete_sell_rule.setIconSize(QtCore.QSize(28, 28))
         self.p2_delete_sell_rule.clicked.connect(lambda: self.delete_sell_rule())
         self.p2_delete_sell_rule.setToolTip('Remove selected sell rule')
 
         self.p2_save_strategy_2.setIcon(QtGui.QIcon('icons/save.png'))
-        self.p2_save_strategy_2.setIconSize(QtCore.QSize(32, 32))
+        self.p2_save_strategy_2.setIconSize(QtCore.QSize(28, 28))
         self.p2_save_strategy_2.clicked.connect(lambda: self.save_rules_to_json_file())
         self.p2_save_strategy_2.setToolTip('Save buy and sell rules to file')
 
         self.p2_load_strategy_2.setIcon(QtGui.QIcon('icons/load.png'))
-        self.p2_load_strategy_2.setIconSize(QtCore.QSize(32, 32))
+        self.p2_load_strategy_2.setIconSize(QtCore.QSize(28, 28))
         self.p2_load_strategy_2.clicked.connect(lambda: self.load_rules_from_json_file())
         self.p2_load_strategy_2.setToolTip('Load buy and sell rules from file')
 
