@@ -1,8 +1,12 @@
 import pandas as pd
 import numpy as np
+import utilities.helpers
 
-data_df = pd.read_csv("data/data.csv", skiprows=[0], sep=';')
+global data_df
 
+def read_ohlcv_from_file():
+    global data_df
+    data_df = pd.read_csv(utilities.helpers.path_to_csv_file, skiprows=[0], sep=';')
 
 def simple_moving_average(period, source):
     period = int(period)
@@ -315,3 +319,31 @@ def evm(period, divisor):
     answer_df = pd.DataFrame(answer_np[:,5], columns=['EVM_'+str(period)+'_'+str(divisor)])
     print(answer_df.to_string())
     return answer_df
+
+indicator_function_name = {
+    'SMA': simple_moving_average,
+    'EMA': exponential_moving_average,
+    'WMA': weighted_moving_average,
+    'BOLL - Upper Band': bollinger_band_upper,
+    'BOLL - Lower Band': bollinger_band_lower,
+    'VWAP': volume_weighted_average_price,
+    'TRIX': trix,
+    'SAR': sar,
+    'MACD - MACD Line': macd_line,
+    'MACD - Singal Line': macd_signal_line,
+    'RSI': rsi,
+    'KDJ': kdj,
+    'OBV': obv,
+    'CCI': cci,
+    'StochRSI': stoch_rsi,
+    'WR': wr,
+    'DMI': dmi,
+    'MTM': mtm,
+    'EVM': evm,
+    'Value': None,
+    'Open': None,
+    'High': None,
+    'Low': None,
+    'Close': None,
+    'Volume': None
+}

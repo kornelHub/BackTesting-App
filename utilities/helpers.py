@@ -1,9 +1,9 @@
 import datetime as dt
-from engine import calculate_indicators
 
+path_to_csv_file = ''
 colums_name_from_binance = ['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume',
                             'NumberOfTrades', 'TakerBuyBaseAssetVolume', 'TakerBuyQuoteAssetVolume', 'Ingore']
-colums_name_string = 'Opentime;Open;High;Low;Close;Volume;CloseTime'
+columns_name_string = 'Opentime;Open;High;Low;Close;Volume;CloseTime'
 
 
 def convert_milliseconds_to_date(time_in_utc_miloseconds):
@@ -331,32 +331,4 @@ indicator_default_options = {
     'Low (Low price of candle)': '(-)',
     'Close (Close price of candle)': '(-)',
     'Volume (Amount traded in amount of time)': '(-)'
-}
-
-indicator_function_name = {
-    'SMA': calculate_indicators.simple_moving_average,
-    'EMA': calculate_indicators.exponential_moving_average,
-    'WMA': calculate_indicators.weighted_moving_average,
-    'BOLL - Upper Band': calculate_indicators.bollinger_band_upper,
-    'BOLL - Lower Band': calculate_indicators.bollinger_band_lower,
-    'VWAP': calculate_indicators.volume_weighted_average_price,
-    'TRIX': calculate_indicators.trix,
-    'SAR': calculate_indicators.sar,
-    'MACD - MACD Line': calculate_indicators.macd_line,
-    'MACD - Singal Line': calculate_indicators.macd_signal_line,
-    'RSI': calculate_indicators.rsi,
-    'KDJ': calculate_indicators.kdj,
-    'OBV': calculate_indicators.obv,
-    'CCI': calculate_indicators.cci,
-    'StochRSI': calculate_indicators.stoch_rsi,
-    'WR': calculate_indicators.wr,
-    'DMI': calculate_indicators.dmi,
-    'MTM': calculate_indicators.mtm,
-    'EVM': calculate_indicators.evm,
-    'Value': None,
-    'Open': None,
-    'High': None,
-    'Low': None,
-    'Close': None,
-    'Volume': None
 }

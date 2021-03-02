@@ -1,7 +1,9 @@
 from PySide2 import QtCore
-import utilities.helpers as helpers
+from engine.calculate_indicators import indicator_function_name
+from engine.calculate_indicators import read_ohlcv_from_file
 import pandas as pd
 import json
+import utilities.helpers
 
 
 def get_buy_rules(strategy_page):
@@ -281,15 +283,16 @@ def get_pip_position_for_simulation():
     return largest_decimal_place
 
 
-def init_simulation(main_window_object, path_to_data):
+def init_simulation(main_window_object):
     buy_rules = get_buy_rules(main_window_object.strategy_page)
     sell_rules = get_sell_rules(main_window_object.strategy_page)
     buy_simulation_settings = get_buy_simulation_settings(main_window_object.strategy_page)
     sell_simulation_settings = get_sell_simulation_settings(main_window_object.strategy_page)
     global data_df
-    data_df = pd.read_csv("data/data.csv", skiprows=[0], sep=';')
+    data_df = pd.read_csv(utilities.helpers.path_to_csv_file, skiprows=[0], sep=';')
     global pip_position
     pip_position = get_pip_position_for_simulation()
+    read_ohlcv_from_file() #needed to load OHLCV data from csv file to start calculation
 
     # BUYS
     for x in range(len(buy_rules['buy_rules'])):
@@ -301,10 +304,10 @@ def init_simulation(main_window_object, path_to_data):
 
         # calculate needed indicators and assign them to data_df
         if build_column_name(globals()[f"buy_first_indicator_short_name{x}"], globals()[f"buy_first_indicator_options_list{x}"]) not in data_df.columns:
-            data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_first_indicator_short_name{x}"]](*globals()[f"buy_first_indicator_options_list{x}"]), how='inner')
+            data_df = data_df.join(indicator_function_name[globals()[f"buy_first_indicator_short_name{x}"]](*globals()[f"buy_first_indicator_options_list{x}"]), how='inner')
 
         if build_column_name(globals()[f"buy_second_indicator_short_name{x}"], globals()[f"buy_second_indicator_options_list{x}"]) not in data_df.columns:
-            data_df = data_df.join(helpers.indicator_function_name[globals()[f"buy_second_indicator_short_name{x}"]](*globals()[f"buy_second_indicator_options_list{x}"]), how='inner')
+            data_df = data_df.join(indicator_function_name[globals()[f"buy_second_indicator_short_name{x}"]](*globals()[f"buy_second_indicator_options_list{x}"]), how='inner')
 
         # build if statement
         buy_rules['buy_rules'][x]['if_statement'] = build_if_statement(globals()[f"buy_first_indicator_short_name{x}"],
@@ -325,10 +328,10 @@ def init_simulation(main_window_object, path_to_data):
 
         # calculate needed indicators and assign them to data_df
         if build_column_name(globals()[f"sell_first_indicator_short_name{x}"], globals()[f"sell_first_indicator_options_list{x}"]) not in data_df.columns:
-            data_df = data_df.join(helpers.indicator_function_name[globals()[f"sell_first_indicator_short_name{x}"]](*globals()[f"sell_first_indicator_options_list{x}"]), how='inner')
+            data_df = data_df.join(indicator_function_name[globals()[f"sell_first_indicator_short_name{x}"]](*globals()[f"sell_first_indicator_options_list{x}"]), how='inner')
 
         if build_column_name(globals()[f"sell_second_indicator_short_name{x}"], globals()[f"sell_second_indicator_options_list{x}"]) not in data_df.columns:
-            data_df = data_df.join(helpers.indicator_function_name[globals()[f"sell_second_indicator_short_name{x}"]](*globals()[f"sell_second_indicator_options_list{x}"]), how='inner')
+            data_df = data_df.join(indicator_function_name[globals()[f"sell_second_indicator_short_name{x}"]](*globals()[f"sell_second_indicator_options_list{x}"]), how='inner')
 
         # build if statement
         sell_rules['sell_rules'][x]['if_statement'] = build_if_statement(globals()[f"sell_first_indicator_short_name{x}"],

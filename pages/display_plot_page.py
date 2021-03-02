@@ -2,6 +2,7 @@ import os
 from PySide2 import QtGui, QtWidgets
 from PySide2.QtUiTools import loadUiType
 import utilities.plot_data as plot_data
+import utilities.helpers
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -18,7 +19,7 @@ class Display_Plot_Page(Base, Form):
 
 
     def display_candlestick_chart(self):
-        self.candle_chart_widget.setHtml(plot_data.plot_ohlcv_data('D:/!python_projects/praca_inz_qt/data/data.csv'))
+        self.candle_chart_widget.setHtml(plot_data.plot_ohlcv_data(utilities.helpers.path_to_csv_file))
 
 
     def close_window(self):

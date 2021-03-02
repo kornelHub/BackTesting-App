@@ -4,6 +4,7 @@ from PySide2.QtUiTools import loadUiType
 from pages.display_plot_page import Display_Plot_Page
 from utilities.helpers import cryptocurrency_pair_dict
 from utilities.plot_data import plot_balance
+import utilities.helpers
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -26,7 +27,7 @@ class Summary_Page(Base, Form):
 
 
     def format_and_display_text(self, trades_dict):
-        currency_pair = (open('data/data.csv').readline()).rstrip("\n") # temporary solution
+        currency_pair = (open(utilities.helpers.path_to_csv_file).readline()).rstrip("\n") # temporary solution
         currency_1_symbol = cryptocurrency_pair_dict[currency_pair]['base']
         currency_2_symbol = cryptocurrency_pair_dict[currency_pair]['quote']
         formatted_trades = ''

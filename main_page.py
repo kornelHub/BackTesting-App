@@ -3,7 +3,7 @@ from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtWidgets import QFileDialog
 from functools import partial
-from engine import simulation
+import utilities.helpers
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "ui/mainWindow.ui"))
@@ -18,6 +18,10 @@ class MainWidget(Base, Form):
         self.btn_toggle.setIconSize(QtCore.QSize(32, 32))
         self.data_path.setReadOnly(True)
         # self.showMaximized()
+
+        #dev helper
+        self.data_path.setText("D:/!python_projects/praca_inz_qt/data/data.csv")
+        utilities.helpers.path_to_csv_file = "D:/!python_projects/praca_inz_qt/data/data.csv"
 
         buttons = (self.btn_menu_page_1, self.btn_menu_page_2, self.btn_menu_page_3)
         for i, button in enumerate(buttons):
@@ -57,11 +61,13 @@ class MainWidget(Base, Form):
     def load_data_from_file(self):
         path_to_file = QFileDialog.getOpenFileName(self, 'Load CSV file with OHLCV data', current_dir + '\data', 'Text Files (*.csv)')
         self.data_path.setText(path_to_file[0])
+        utilities.helpers.path_to_csv_file = path_to_file[0]
 
     def display_next_page(self):
         ### start simulation
         if self.widget_pages.currentIndex() is 1:
-            simulation.init_simulation(main_widget_object, self.data_path.text())
+            from engine import simulation
+            simulation.init_simulation(main_widget_object)
         self.widget_pages.setCurrentIndex(self.widget_pages.currentIndex()+1)
 
 
