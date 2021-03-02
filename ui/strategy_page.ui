@@ -288,6 +288,23 @@ border: 0px sold;</string>
                     </property>
                    </widget>
                   </item>
+                  <item>
+                   <widget class="QPushButton" name="p2_plot_indicator_1">
+                    <property name="maximumSize">
+                     <size>
+                      <width>32</width>
+                      <height>32</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(35,35,35);
+border: 0px sold;</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
                  </layout>
                 </widget>
                </item>
@@ -957,6 +974,23 @@ border: 0px sold;</string>
                </item>
                <item>
                 <widget class="QPushButton" name="p2_load_strategy_2">
+                 <property name="maximumSize">
+                  <size>
+                   <width>32</width>
+                   <height>32</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background-color: rgb(35,35,35);
+border: 0px sold;</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="p2_plot_indicator_2">
                  <property name="maximumSize">
                   <size>
                    <width>32</width>
