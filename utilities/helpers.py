@@ -320,7 +320,7 @@ indicator_default_options = {
     'KDJ (Random Index)': '(9, 3, 3)',
     'OBV (On-balance volume)': '(-)',
     'CCI (Commodity Channel Index)': '(20)',
-    'StochRSI (Stoch Relative Strength Index)': '(7, Open)',
+    'StochRSI (Stoch Relative Strength Index)': '(14, 14, 3, 3)',
     'WR (Williams %)': '(14)',
     'DMI (Directional Movement Index)': '(14)',
     'MTM (Momentum)': '(7, Open)',
@@ -331,4 +331,32 @@ indicator_default_options = {
     'Low (Low price of candle)': '(-)',
     'Close (Close price of candle)': '(-)',
     'Volume (Amount traded in amount of time)': '(-)'
+}
+
+indicator_options_name = {
+'SMA (Simple Moving Average)': ['Length', 'Source'],
+    'EMA (Exponential Moving Average)': ['Length', 'Source'],
+    'WMA (Weighted Moving Average)': ['Length', 'Source'],
+    'BOLL - Upper Band (Bollinger Band)': ['Length', 'Multiplier'],
+    'BOLL - Lower Band (Bollinger Band)': ['Length', 'Multiplier'],
+    'VWAP (Volumen Weighted Average Price)': ['Length'],
+    'TRIX (Triple Exponential Average)': ['Length'],
+    'SAR (Stop and Reverse)': ['Start', 'Maximum'],
+    'MACD - MACD Line (Moving Average Eonvergence Divergence)': ['Fast Length', 'Slow Length', 'Signal Length', 'Source'],
+    'MACD - Singal Line (Moving Average Eonvergence Divergence)': ['Fast Length', 'Slow Length', 'Signal Length', 'Source'],
+    'RSI (Relative Strength Index)': ['Length'],
+    'KDJ (Random Index)': ['Length', 'K%', 'D%'],
+    'OBV (On-balance volume)': [],
+    'CCI (Commodity Channel Index)': ['Length'],
+    'StochRSI (Stoch Relative Strength Index)': ['LengthRSI', 'LengthStoch', 'SmoothK', 'SmoothD'],
+    'WR (Williams %)': ['Length'],
+    'DMI (Directional Movement Index)': ['Length'],
+    'MTM (Momentum)': ['Length', 'Source'],
+    'EVM (Ease of Movement)': ['Length', 'Divisor'],
+    'Value (Plain integer or double)': ['Plain value'],
+    'Open (Open price of candle)': [],
+    'High (High price of candle)': [],
+    'Low (Low price of candle)': [],
+    'Close (Close price of candle)': [],
+    'Volume (Amount traded in amount of time)': []
 }

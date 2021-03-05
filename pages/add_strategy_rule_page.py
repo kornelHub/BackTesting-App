@@ -1,9 +1,10 @@
 import os
 from PySide2 import QtGui, QtCore, QtWidgets
 from PySide2.QtUiTools import loadUiType
-from PySide2.QtCore import Signal
+from PySide2.QtCore import Signal, Slot
 from utilities.helpers import add_strategy_button_style_sheet_normal, add_strategy_button_style_sheet_clicked, \
     indicator_default_options
+from pages.change_indicator_form_page import Change_Indicator_Form_Page
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/add_strategy_rule_page.ui"))
@@ -17,9 +18,9 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.setWindowTitle('BackTesting Application')
         self.p3_cancel_button.clicked.connect(lambda: self.close())
         self.add_strategy_rule_treeWidget.setHeaderLabel("")
-        self.p3_firstIndicatorOptions_lineEdit_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
+        self.p3_firstIndicatorOptions_button_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
         self.p3_firstIndicatorOptions_comboBox_2.setCurrentIndex(0)
-        self.p3_secondIndicatorOptions_lineEdit_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
+        self.p3_secondIndicatorOptions_button_1.setText(indicator_default_options.get('SMA (Simple Moving Average)'))
         self.p3_secondIndicatorOptions_comboBox_2.setCurrentIndex(1)
         self.list_of_parent_text = []
         self.current_selected_math_char = ''
@@ -31,9 +32,11 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.selectMathChar_Button_4.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_4))
         self.selectMathChar_Button_5.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_5))
 
-        self.p3_firstIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_firstIndicator_comboBox, self.p3_firstIndicatorOptions_lineEdit_1, self.p3_firstIndicatorOptions_comboBox_2, self.label_4))
+        self.p3_firstIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_firstIndicator_comboBox, self.p3_firstIndicatorOptions_button_1, self.p3_firstIndicatorOptions_comboBox_2, self.label_4))
+        self.p3_sedondIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_sedondIndicator_comboBox, self.p3_secondIndicatorOptions_button_1, self.p3_secondIndicatorOptions_comboBox_2, self.label_7))
 
-        self.p3_sedondIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_sedondIndicator_comboBox, self.p3_secondIndicatorOptions_lineEdit_1, self.p3_secondIndicatorOptions_comboBox_2, self.label_7))
+        self.p3_firstIndicatorOptions_button_1.clicked.connect(lambda: self.open_form_with_indicator_options(self.p3_firstIndicator_comboBox.currentText(), self.p3_firstIndicatorOptions_button_1.text(), self.p3_firstIndicatorOptions_button_1))
+        self.p3_secondIndicatorOptions_button_1.clicked.connect(lambda: self.open_form_with_indicator_options(self.p3_sedondIndicator_comboBox.currentText(), self.p3_secondIndicatorOptions_button_1.text(), self.p3_secondIndicatorOptions_button_1))
 
     def autofill_indicator_option(self, combo_box, linked_option_edit, linked_period_edit, linked_label):
         if combo_box.currentText() == "Value (Plain integer or double)":
@@ -64,9 +67,9 @@ class Add_Strategy_Rule_Widget(Form, Base):
             item.setStyleSheet(add_strategy_button_style_sheet_normal)
 
     def get_and_combine_text_from_fields(self):
-        new_rule_to_add = self.p3_firstIndicator_comboBox.currentText()[:self.p3_firstIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_firstIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_firstIndicatorOptions_comboBox_2.currentText() \
+        new_rule_to_add = self.p3_firstIndicator_comboBox.currentText()[:self.p3_firstIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_firstIndicatorOptions_button_1.text() + ' ' + self.p3_firstIndicatorOptions_comboBox_2.currentText() \
                           + ' ' + self.current_selected_math_char \
-                          + ' ' + self.p3_sedondIndicator_comboBox.currentText()[:self.p3_sedondIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_secondIndicatorOptions_lineEdit_1.text() + ' ' + self.p3_secondIndicatorOptions_comboBox_2.currentText()
+                          + ' ' + self.p3_sedondIndicator_comboBox.currentText()[:self.p3_sedondIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_secondIndicatorOptions_button_1.text() + ' ' + self.p3_secondIndicatorOptions_comboBox_2.currentText()
         return new_rule_to_add
 
     ### function responsible for adding new strategy rule
@@ -125,7 +128,7 @@ class Add_Strategy_Rule_Widget(Form, Base):
         second_indicator_period = rule_to_modify
 
         self.p3_firstIndicator_comboBox.setCurrentIndex(self.p3_firstIndicator_comboBox.findText(first_indicator_short_name, QtCore.Qt.MatchContains))
-        self.p3_firstIndicatorOptions_lineEdit_1.setText(first_indicator_options)
+        self.p3_firstIndicatorOptions_button_1.setText(first_indicator_options)
         self.p3_firstIndicatorOptions_comboBox_2.setCurrentIndex(self.p3_firstIndicatorOptions_comboBox_2.findText(first_indicator_period, QtCore.Qt.MatchContains))
         buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2, self.selectMathChar_Button_3, self.selectMathChar_Button_4, self.selectMathChar_Button_5]
         for button in buttons:
@@ -133,7 +136,7 @@ class Add_Strategy_Rule_Widget(Form, Base):
                 self.current_selected_math_char = math_char
                 button.setStyleSheet(add_strategy_button_style_sheet_clicked)
         self.p3_sedondIndicator_comboBox.setCurrentIndex(self.p3_sedondIndicator_comboBox.findText(second_indicator_short_name, QtCore.Qt.MatchContains))
-        self.p3_secondIndicatorOptions_lineEdit_1.setText(second_indicator_options)
+        self.p3_secondIndicatorOptions_button_1.setText(second_indicator_options)
         self.p3_secondIndicatorOptions_comboBox_2.setCurrentIndex(self.p3_secondIndicatorOptions_comboBox_2.findText(second_indicator_period, QtCore.Qt.MatchContains))
 
     def save_modified_rule(self, current_selected_item, receiver_object):
@@ -142,6 +145,12 @@ class Add_Strategy_Rule_Widget(Form, Base):
         sender = Send_Strategy_Rule_To_Modify()
         sender.send_rule_to_modify(rule_to_modify, current_selected_item, receiver_object)
         self.close()
+
+    def open_form_with_indicator_options(self, indicator, typed_options, qlineedit_field):
+        recive_indicator_options_object = Recive_Indicator_Options()
+        change_indicator_form_page = Change_Indicator_Form_Page()
+        change_indicator_form_page.set_up_view(indicator, typed_options, qlineedit_field, recive_indicator_options_object)
+        change_indicator_form_page.show()
 
 class Send_Strategy_Rule_To_Add(QtCore.QObject):
     signal = Signal()
@@ -154,6 +163,11 @@ class Send_Strategy_Rule_To_Modify(QtCore.QObject):
     def send_rule_to_modify(self, rule_to_modify, current_selected_item, receiver_object):
         self.signal.connect(lambda: receiver_object.receive_and_modify_rule(rule_to_modify, current_selected_item))
         self.signal.emit()
+
+class Recive_Indicator_Options(QtCore.QObject):
+    @Slot(str)
+    def recive_indicator_options(self, indicator_option, qlineedit_field):
+        qlineedit_field.setText(indicator_option)
 
 if __name__ == '__add_strategy_rule_page__':
     import sys
