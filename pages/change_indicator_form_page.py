@@ -19,14 +19,20 @@ class Change_Indicator_Form_Page(Base, Form):
         self.setWindowTitle('BackTesting Application')
         self.cancel_button.clicked.connect(lambda: self.close_window())
 
-        number_regular_expression = QRegExp('^(0|[1-9][0-9]{0,9})$')
+
+    def set_up_view(self, indicator, typed_options, qlineedit_field, recive_indicator_options_object):
+        #set up validator for input fields
+        if indicator == 'SAR (Stop and Reverse)':
+            number_regular_expression = QRegExp('^[0][.][0-9]{0,5}$')
+        else:
+            number_regular_expression = QRegExp('^(0|[1-9][0-9]{0,9})$')
+
         number_regular_expression_validator = QRegExpValidator(number_regular_expression, self)
         self.lineEdit_1.setValidator(number_regular_expression_validator)
         self.lineEdit_2.setValidator(number_regular_expression_validator)
         self.lineEdit_3.setValidator(number_regular_expression_validator)
         self.lineEdit_4.setValidator(number_regular_expression_validator)
 
-    def set_up_view(self, indicator, typed_options, qlineedit_field, recive_indicator_options_object):
         typed_options = typed_options[1:-1]
         typed_options_list = []
         coma_count = typed_options.count(',')

@@ -313,7 +313,7 @@ indicator_default_options = {
     'BOLL - Lower Band (Bollinger Band)': '(21, 2)',
     'VWAP (Volumen Weighted Average Price)': '(14)',
     'TRIX (Triple Exponential Average)': '(9)',
-    'SAR (Stop and Reverse)': '(7, Open)',
+    'SAR (Stop and Reverse)': '(0.02, 0.2)',
     'MACD - MACD Line (Moving Average Eonvergence Divergence)': '(12, 26, 9, Open)',
     'MACD - Singal Line (Moving Average Eonvergence Divergence)': '(12, 26, 9, Open)',
     'RSI (Relative Strength Index)': '(6)',
