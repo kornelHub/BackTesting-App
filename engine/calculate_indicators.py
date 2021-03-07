@@ -118,7 +118,19 @@ def bollinger_band_lower(period, multiplier):
 
 # TODO: do zastanowienia czy potrzeba
 def volume_weighted_average_price(period):
-    return True
+    # https://www.investopedia.com/articles/trading/11/trading-with-vwap-mvwap.asp
+    answer_df = pd.DataFrame(data_df[['High', 'Low', 'Close', 'Volume']], columns=['High', 'Low', 'Close', 'Volume'])
+    answer_df[['typical_price', 'tp*v', 'cumulative_tp*v', 'cumulative_volume', 'vwap']] = 0
+    # 'High'[0], 'Low'[1], 'Close'[2], 'Volume'[3], typical_price'[4], tp*v[5], cumulative_tp*v[6], 'cumulative_volume'[7], 'vwap'[8]
+    period = int(period)
+    answer_np = answer_df.to_numpy()
+    for x in range(period - 1, len(answer_np)):
+        answer_np[x][4] = (answer_np[x][0] + answer_np[x][1] + answer_np[x][2]) / 3
+        answer_np[x][5] = answer_np[x][4] * answer_np[x][3]
+        answer_np[x][6] = sum(answer_np[x - period + 1:x + 1, 5])
+        answer_np[x][7] = sum(answer_np[x - period + 1:x + 1, 3])
+        answer_np[x][8] = answer_np[x][6] / answer_np[x][7]
+    return pd.DataFrame(answer_np[:, 8], columns=['VWAP_{}'.format(period)])
 
 
 def trix(period):
