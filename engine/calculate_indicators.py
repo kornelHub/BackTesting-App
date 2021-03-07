@@ -22,11 +22,9 @@ def simple_moving_average(period, source):
         answer_np[x][1] = np.mean(answer_np[x - period + 1:x + 1, 0])
 
     if source == 'typical_price':
-        answer_df = pd.DataFrame(answer_np, columns=[['typical_price', 'sma_of_typical_price']])
-        return answer_df
+        return pd.DataFrame(answer_np, columns=[['typical_price', 'sma_of_typical_price']])
     else:
-        answer_df = pd.DataFrame(answer_np[:, 1], columns=['SMA_' + str(period) + '_' + source])
-        return answer_df
+        return pd.DataFrame(answer_np[:, 1], columns=['SMA_{}_{}'.format(period, source)])
 
 
 def exponential_moving_average(period, source):
@@ -47,8 +45,7 @@ def exponential_moving_average(period, source):
     answer_np[period - 1 + y, 1] = np.mean(answer_np[0 + y:period + y, 0])
     for x in range(period + y, len(answer_np - 1)):
         answer_np[x][1] = (answer_np[x][0] * ema_multiplier) + answer_np[x - 1][1] * (1 - ema_multiplier)
-    answer_df = pd.DataFrame(answer_np[:, 1], columns=['EMA_' + str(period) + '_' + source])
-    return answer_df
+    return pd.DataFrame(answer_np[:, 1], columns=['EMA_{}_{}'.format(period, source)])
 
 
 def exponential_moving_average_helper(data_df, period, source):
@@ -82,8 +79,7 @@ def weighted_moving_average(period, source):
             weighted_sum += answer_np[x + 1 - y, 0] * (period + 1 - y)
             divider += y
         answer_np[x][1] = weighted_sum / divider
-    answer_df = pd.DataFrame(answer_np[:, 1], columns=['WMA_' + str(period) + '_' + source])
-    return answer_df
+    return pd.DataFrame(answer_np[:, 1], columns=['WMA_{}_{}'.format(period, source)])
 
 
 def bollinger_band_upper(period, multiplier):
@@ -100,9 +96,7 @@ def bollinger_band_upper(period, multiplier):
         # bollinger_band_upper assign
         answer_np[x, 2] = answer_np[x, 1] + (answer_np[x, 2] * multiplier)
 
-    answer_df = pd.DataFrame(answer_np[:, 2], columns=['BOLL_Upper_' + str(period) + '_' + str(multiplier)])
-    # print(answer_df.to_string())
-    return answer_df
+    return pd.DataFrame(answer_np[:, 2], columns=['BOLL_Upper_{}_{}'.format(period, multiplier)])
 
 
 def bollinger_band_lower(period, multiplier):
@@ -119,9 +113,7 @@ def bollinger_band_lower(period, multiplier):
         # bollinger_band_upper assign
         answer_np[x, 2] = answer_np[x, 1] - (answer_np[x, 2] * multiplier)
 
-    answer_df = pd.DataFrame(answer_np[:, 2], columns=['BOLL_Lower_' + str(period) + '_' + str(multiplier)])
-    # print(answer_df.to_string())
-    return answer_df
+    return pd.DataFrame(answer_np[:, 2], columns=['BOLL_Lower_{}_{}'.format(period, multiplier)])
 
 
 # TODO: do zastanowienia czy potrzeba
@@ -138,14 +130,77 @@ def trix(period):
     answer_np = answer_df[['3rd_ema', 'trix']].to_numpy()
     for x in range((period * 3) - 2, len(answer_np)):
         answer_np[x, 1] = (answer_np[x, 0] - answer_np[x - 1, 0]) / answer_np[x - 1, 0]
-    answer_df = pd.DataFrame(answer_np[:, 1], columns=['TRIX_' + str(period)])
-    return answer_df
+    return pd.DataFrame(answer_np[:, 1], columns=['TRIX_' + str(period)])
 
 
 # TODO: trudne do zrobienie, ogarne jak bede mial czas :)
-def sar(period, source):
-    return True
+def sar(start, maximum):
+    start = float(start)
+    maximum = float(maximum)
+    answer_df = pd.DataFrame(data_df[['Open', 'High', 'Low', 'Close']], columns=['High', 'Low'])
+    answer_df[['psar', 'ep', 'acc_factor', '(ep-sar) * acc_factor']] = 0
+    answer_df['is_trend_rising'] = ''
 
+    #init first values
+    answer_df.at[0, 'psar'] = answer_df.iloc[0]['Low']
+    answer_df.at[0, 'ep'] = answer_df.iloc[0]['High']
+    answer_df.at[0, 'acc_factor'] = start
+    answer_df.at[0, '(ep-sar) * acc_factor'] = (answer_df.iloc[0]['ep'] - answer_df.iloc[0]['psar']) * answer_df.iloc[0]['acc_factor']
+    answer_df.at[0, 'is_trend_rising'] = True
+
+    # High(0), Low(1), psar(2), ep(3), acc_factor(4), (ep-sar) * acc_factor(5), is_trend_rising(6)
+    answer_np = answer_df.to_numpy()
+    for x in range(1, len(answer_np)):
+        if answer_np[x - 1][6] is True:
+            if answer_np[x - 1][2] + answer_np[x - 1][5] > answer_np[x][1]:
+                answer_np[x][2] = answer_np[x - 1][3]
+            else:
+                answer_np[x][2] = answer_np[x - 1][2] + answer_np[x - 1][5]
+        else:
+            if answer_np[x - 1][2] + answer_np[x - 1][5] < answer_np[x][0]:
+                answer_np[x][2] = answer_np[x - 1][3]
+            else:
+                answer_np[x][2] = answer_np[x - 1][2] + answer_np[x - 1][5]
+
+        # calculate is_trend_rising
+        if answer_np[x][2] < answer_np[x][0]:
+            answer_np[x][6] = True
+        elif answer_np[x][2] > answer_np[x][1]:
+            answer_np[x][6] = False
+
+        # calculate acc_factor
+        if answer_np[x][6] == answer_np[x - 1][6]:
+            if answer_np[x - 1][4] == maximum:
+                answer_np[x][4] = maximum
+            else:
+                if answer_np[x][6] is True:
+                    if answer_np[x][3] > answer_np[x - 1][3]:
+                        answer_np[x][4] = answer_np[x - 1][4] + start
+                    else:
+                        answer_np[x][4] = answer_np[x - 1][4]
+                else:
+                    if answer_np[x][3] < answer_np[x - 1][3]:
+                        answer_np[x][4] = answer_np[x - 1][4] + start
+                    else:
+                        answer_np[x][4] = answer_np[x - 1][4]
+        else:
+            answer_np[x][4] = start
+
+        # calculate ep 
+        if answer_np[x][6] is True:
+            if answer_np[x][0] > answer_np[x - 1][3]:
+                answer_np[x][3] = answer_np[x][0]
+            else:
+                answer_np[x][3] = answer_np[x - 1][3]
+        else:
+            if answer_np[x][1] < answer_np[x - 1][3]:
+                answer_np[x][3] = answer_np[x][1]
+            else:
+                answer_np[x][3] = answer_np[x - 1][3]
+
+        answer_np[x][5] = (answer_np[x][3] - answer_np[x][2]) * answer_np[x][4]
+
+    return pd.DataFrame(answer_np[:,2], columns=['SAR_{}_{}'.format(start,maximum)])
 
 def macd_line(period_1, period_2, period_3, source):
     period_1 = int(period_1)
@@ -158,7 +213,7 @@ def macd_line(period_1, period_2, period_3, source):
     answer_df.loc[answer_df['second_period_ema'] != 0, 'MACD'] = answer_df['first_period_ema'] - answer_df[
         'second_period_ema']
     answer_df = answer_df.rename(
-        columns={'MACD': 'MACD_Line_' + str(period_1) + '_' + str(period_2) + '_' + str(period_3) + '_' + source})
+        columns={'MACD': 'MACD_Line_{}_{}_{}_{}'.format(period_1, period_2, period_3, source)})
     # print(answer_df.to_string())
     return answer_df.iloc[:, 3]
 
@@ -175,8 +230,7 @@ def macd_signal_line(period_1, period_2, period_3, source):
         'second_period_ema']
     answer_df['third_period_ema_of_MACD'] = exponential_moving_average_helper(answer_df, period_3, 'MACD')[:, 1]
     answer_df = answer_df.rename(
-        columns={'third_period_ema_of_MACD': 'MACD_Signal_Line_' + str(period_1) + '_' + str(period_2) + '_' + str(period_3) + '_' + source})
-    # print(answer_df.to_string())
+        columns={'third_period_ema_of_MACD': 'MACD_Signal_Line_{}_{}_{}_{}'.format(period_1, period_2, period_3, source)})
     return answer_df.iloc[:, 4]
 
 
@@ -251,9 +305,7 @@ def obv():
         elif answer_pd[x, 0] == answer_pd[x - 1, 0]:
             answer_pd[x, 2] = answer_pd[x - 1, 2]
 
-    answer_df = pd.DataFrame(answer_pd[:, 2], columns=['OBV'])
-    # print(answer_df.to_string())
-    return answer_df
+    return pd.DataFrame(answer_pd[:, 2], columns=['OBV'])
 
 
 def cci(period):
@@ -268,9 +320,7 @@ def cci(period):
         answer_np[x, 2] = np.sum(np.abs(answer_np[x - period + 1:x + 1, 0] - mean_deviation)) / period
         answer_np[x, 3] = (answer_np[x, 0] - answer_np[x, 1]) / (0.015 * answer_np[x, 2])
 
-    answer_df = pd.DataFrame(answer_np[:, 3], columns=['CCI_' + str(period)])
-    # print(answer_df.to_string())
-    return answer_df
+    return pd.DataFrame(answer_np[:, 3], columns=['CCI_' + str(period)])
 
 
 def stoch_rsi():
@@ -287,9 +337,7 @@ def wr(period):
         answer_np[x, 4] = min(answer_np[x - period + 1:x + 1, 1])
         answer_np[x, 5] = (answer_np[x, 3] - answer_np[x, 2]) - (answer_np[x, 3] - answer_np[x, 4])
 
-    answer_df = pd.DataFrame(answer_np[:, 4], columns=['WR_' + str(period)])
-    # print(answer_df.to_string())
-    return answer_df
+    return pd.DataFrame(answer_np[:, 4], columns=['WR_' + str(period)])
 
 
 def dmi(period):
@@ -316,9 +364,7 @@ def evm(period, divisor):
     for y in range(period, len(answer_np)):
         answer_np[y][5] = np.mean(answer_np[y - period + 1:y + 1, 4])
 
-    answer_df = pd.DataFrame(answer_np[:,5], columns=['EVM_'+str(period)+'_'+str(divisor)])
-    print(answer_df.to_string())
-    return answer_df
+    return pd.DataFrame(answer_np[:,5], columns=['EVM_{}_{}'.format(period, divisor)])
 
 indicator_function_name = {
     'SMA': simple_moving_average,
