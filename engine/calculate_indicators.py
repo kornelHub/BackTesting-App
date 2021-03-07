@@ -117,7 +117,7 @@ def bollinger_band_lower(period, multiplier):
 
 
 # TODO: do zastanowienia czy potrzeba
-def volume_weighted_average_price():
+def volume_weighted_average_price(period):
     return True
 
 
