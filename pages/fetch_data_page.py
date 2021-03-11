@@ -1,5 +1,5 @@
 import os
-from PySide2 import QtGui
+from PySide2 import QtGui, QtCore
 from PySide2.QtCore import QRegExp
 from PySide2.QtGui import QRegExpValidator
 from PySide2.QtUiTools import loadUiType
@@ -7,6 +7,8 @@ from PySide2.QtWidgets import QFileDialog
 from binance.helpers import date_to_milliseconds
 from binance_api import fetch_data
 from utilities.plot_data import plot_ohlcv_data
+import utilities.helpers as helpers
+import pandas as pd
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/fetch_data_page.ui"))
@@ -52,9 +54,37 @@ class Fetch_Data_Widget(Base, Form):
         interval = self.p1_interval_dropdown.currentText()
         path_to_file = QFileDialog.getSaveFileName(self, 'Save OHLCV data to CSV file', path_to_project + '\data', 'Text Files (*.csv)')
         fetch_data.create_csv_with_ohlcv_data(start_time=int(date_to_milliseconds(start_date)), end_time=int(date_to_milliseconds(end_date)), currency_pair_symbol=currency_symbol, interval=interval, path_to_file=path_to_file[0])
-        self.p1_ohlcvPlot_qWebEngineView.show()
-        self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_ohlcv_data(path_to_file[0]))
         main_widget_object.data_path.setText(path_to_file[0])
+        helpers.path_to_csv_file = path_to_file[0]
+        self.p1_ohlcvPlot_qWebEngineView.show()
+        self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_ohlcv_data(pd.read_csv(helpers.path_to_csv_file, sep=';', skiprows=[0])))
+
+
+    def plot_and_autofill_loaded_data(self):
+        new_data = pd.read_csv(helpers.path_to_csv_file, sep=';', skiprows=[0])
+        self.p1_ohlcvPlot_qWebEngineView.show()
+        self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_ohlcv_data(new_data))
+
+        currency_pair_symbol = (open(helpers.path_to_csv_file).readline()).rstrip("\n")
+        self.p1_cryptoSymbol_textField.setText(currency_pair_symbol)
+        start_time = str(helpers.convert_milliseconds_to_date(new_data.iloc[0]['Opentime']))
+        end_time = str(helpers.convert_milliseconds_to_date(new_data.iloc[-1]['Opentime']))
+
+        self.p1_interval_dropdown.setCurrentIndex(self.p1_interval_dropdown.findText(helpers.difference_period_dictionary.get(int(new_data.iloc[1]['Opentime'] - new_data.iloc[0]['Opentime'])), QtCore.Qt.MatchContains))
+
+        self.p1_startDate_textField_day.setText(start_time[8:10])
+        self.p1_startDate_comboBox_month.setCurrentIndex(self.p1_startDate_comboBox_month.findText(helpers.month_dictionary.get(start_time[5:7]), QtCore.Qt.MatchContains))
+        self.p1_startDate_textField_year.setText(start_time[0:4])
+        self.p1_startDate_textField_hour.setText(start_time[11:13])
+        self.p1_startDate_textField_minute.setText(start_time[14:16])
+        self.p1_startDate_textField_second.setText(start_time[17:19])
+
+        self.p1_endDate_textField_day.setText(end_time[8:10])
+        self.p1_endDate_comboBox_month.setCurrentIndex(self.p1_endDate_comboBox_month.findText(helpers.month_dictionary.get(end_time[5:7]), QtCore.Qt.MatchContains))
+        self.p1_endDate_textField_year.setText(end_time[0:4])
+        self.p1_endDate_textField_hour.setText(end_time[11:13])
+        self.p1_endDate_textField_minute.setText(end_time[14:16])
+        self.p1_endDate_textField_second.setText(end_time[17:19])
 
 
 if __name__ == '__fetch_data_page__':

@@ -1,4 +1,5 @@
 import datetime as dt
+import pytz
 
 path_to_csv_file = ''
 colums_name_from_binance = ['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume',
@@ -7,7 +8,7 @@ columns_name_string = 'Opentime;Open;High;Low;Close;Volume;CloseTime'
 
 
 def convert_milliseconds_to_date(time_in_utc_miloseconds):
-    converted_date = dt.datetime.fromtimestamp(time_in_utc_miloseconds / 1000.0, tz=None)
+    converted_date = dt.datetime.fromtimestamp(time_in_utc_miloseconds / 1000.0, tz=pytz.utc)
     return converted_date
 
 
@@ -359,4 +360,36 @@ indicator_options_name = {
     'Low (Low price of candle)': [],
     'Close (Close price of candle)': [],
     'Volume (Amount traded in amount of time)': []
+}
+
+month_dictionary = {
+    '01': 'January',
+    '02': 'February',
+    '03': 'March',
+    '04': 'April',
+    '05': 'May',
+    '06': 'June',
+    '07': 'July',
+    '08': 'August',
+    '09': 'September',
+    '10': 'October',
+    '11': 'November',
+    '12': 'December'
+}
+
+difference_period_dictionary = {
+    60000: '1m',
+    180000: '3m',
+    300000: '5m',
+    900000: '15m',
+    1800000: '30m',
+    3600000: '1h',
+    7200000: '2h',
+    14400000: '4h',
+    21600000: '6h',
+    28800000: '8h',
+    43200000: '12h',
+    86400000: '1d',
+    259200000: '3d',
+    604800000: '1w'
 }

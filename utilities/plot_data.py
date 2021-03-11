@@ -3,8 +3,8 @@ import plotly.graph_objects as go
 import plotly.offline as plt
 
 
-def plot_ohlcv_data(path_to_file):
-    ohlcv_data = pd.read_csv(path_to_file, skiprows=[0], sep=';')
+def plot_ohlcv_data(ohlcv_data):
+    # ohlcv_data = pd.read_csv(path_to_file, skiprows=[0], sep=';')
     fig = go.Figure()
     fig.add_trace(go.Candlestick(x=ohlcv_data['Opentime'], open=ohlcv_data['Open'], high=ohlcv_data['High'],
                                  low=ohlcv_data['Low'], close=ohlcv_data['Close']))

@@ -62,6 +62,9 @@ class MainWidget(Base, Form):
         path_to_file = QFileDialog.getOpenFileName(self, 'Load CSV file with OHLCV data', current_dir + '\data', 'Text Files (*.csv)')
         self.data_path.setText(path_to_file[0])
         utilities.helpers.path_to_csv_file = path_to_file[0]
+        self.widget_pages.setCurrentIndex(0)
+        self.fetch_data_page.plot_and_autofill_loaded_data()
+
 
     def display_next_page(self):
         ### start simulation
