@@ -14,7 +14,7 @@ class Settings_Widget(Base, Form):
         self.setupUi(self)
         self.setWindowIcon(QtGui.QIcon('icons/logo2.png'))
         self.setWindowTitle('BackTesting Application')
-        self.close_button.clicked.connect(lambda: self.close_window())
+        self.close_button.clicked.connect(lambda: self.go_back_to_previous_stacked_widget_page())
         self.save_settings_button.clicked.connect(lambda: self.save_settings())
 
         #load configuration values from file is exist
@@ -26,18 +26,24 @@ class Settings_Widget(Base, Form):
 
 
     def save_settings(self):
-        if not os.path.exists(current_dir[:-5]+'config.ini'):
-            cfgfile = open(current_dir[:-5]+'config.ini', 'w')
-            config = configparser.ConfigParser()
-            config.add_section('user_binance_api_key')
-            config.set('user_binance_api_key', 'public_key', self.public_key_plainTextEdit.toPlainText())
-            config.set('user_binance_api_key', 'secret_key', self.secret_key_plainTextEdit.toPlainText())
-            config.write(cfgfile)
-            cfgfile.close()
+        # if not os.path.exists(current_dir[:-5]+'config.ini'):
+        cfgfile = open(current_dir[:-5]+'config.ini', 'w')
+        config = configparser.ConfigParser()
+        config.add_section('user_binance_api_key')
+        config.set('user_binance_api_key', 'public_key', self.public_key_plainTextEdit.toPlainText())
+        config.set('user_binance_api_key', 'secret_key', self.secret_key_plainTextEdit.toPlainText())
+        config.write(cfgfile)
+        cfgfile.close()
+        self.go_back_to_previous_stacked_widget_page()
 
-    def close_window(self):
-        self.close()
+    def go_back_to_previous_stacked_widget_page(self):
+        main_window.widget_pages.setCurrentIndex(previous_stacked_widget_index_value)
 
+    def store_previous_stacked_widget_index(self, previous_stacked_widget_index, main_window_object):
+        global previous_stacked_widget_index_value
+        previous_stacked_widget_index_value = previous_stacked_widget_index
+        global main_window
+        main_window = main_window_object
 
 if __name__ == '__main__':
     import sys
