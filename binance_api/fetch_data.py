@@ -5,20 +5,26 @@ from utilities import helpers
 import pandas as pd
 import os
 from stat import S_IREAD
+import configparser
 
-client = Client(api_key=keys.api_key, api_secret=keys.secret_key)
 
-# function probably to delete
-# def get_cryptocurrency_pair_dictionary():
-#     orderbook_tickers_data = client.get_orderbook_tickers()
-#     cryptocurrency_pair_dictionary = ['']
-#
-#     for row in orderbook_tickers_data:
-#         cryptocurrency_pair_dictionary.append(row['symbol'])
-#
-#     cryptocurrency_pair_dictionary.remove('')
-#     print(cryptocurrency_pair_dictionary)   # paste output to utilities.helpers.cryptocurrency_pair_dictionary
 
+def create_client_object():
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    if os.path.exists(current_dir[:-11]+'config.ini'):
+        config = configparser.ConfigParser()
+        config.read(current_dir[:-11]+'config.ini')
+        if config['user_binance_api_key']['public_key'] and config['user_binance_api_key']['secret_key']:
+            api_key = config['user_binance_api_key']['public_key']
+            api_secret = config['user_binance_api_key']['secret_key']
+        else:
+            api_key = keys.api_key
+            api_secret = keys.secret_key
+    else:
+        api_key = keys.api_key
+        api_secret = keys.secret_key
+    global client
+    client = Client(api_key=api_key, api_secret=api_secret)
 
 def download_data_to_file(start_time, end_time, interval, currency_pair_symbol, path_to_file):
     candles = client.get_klines(symbol=currency_pair_symbol, interval=interval, startTime=start_time, endTime=end_time, limit=1000)
@@ -51,6 +57,7 @@ def create_data_from_binance(start_time, end_time, interval, currency_pair_symbo
 
 
 def create_csv_with_ohlcv_data(start_time, end_time, interval, currency_pair_symbol, path_to_file):
+    create_client_object()
     create_data_from_binance(start_time=start_time, end_time=end_time, interval=interval, currency_pair_symbol=currency_pair_symbol, path_to_file=path_to_file)
     os.chmod(path_to_file, S_IREAD) # add read_only attribute to created file
 
