@@ -19,6 +19,9 @@ class MainWidget(Base, Form):
         self.data_path.setReadOnly(True)
         # self.showMaximized()
 
+        self.settings_button.setIcon(QtGui.QIcon('icons/settings_icon.png'))
+        self.settings_button.setIconSize(QtCore.QSize(28, 28))
+
         #dev helper
         self.data_path.setText("D:/!python_projects/praca_inz_qt/data/data.csv")
         utilities.helpers.path_to_csv_file = "D:/!python_projects/praca_inz_qt/data/data.csv"
@@ -27,10 +30,12 @@ class MainWidget(Base, Form):
         for i, button in enumerate(buttons):
             button.clicked.connect(partial(self.widget_pages.setCurrentIndex, i))
 
+        self.settings_button.clicked.connect(lambda: self.display_settings_stacked_widget())
+
         # Top toolbar menu
         self.btn_toggle.clicked.connect(lambda: self.toggleMenu())
         self.load_data_button.clicked.connect(lambda: self.load_data_from_file())
-        self.next_btn.clicked.connect(lambda: self.display_next_page())
+        self.next_btn.clicked.connect(lambda: self.display_next_stacked_widget())
 
         # Strategy page
         self.strategy_page.p2_add_buy_rule.clicked.connect(lambda: self.strategy_page.display_add_strategy_rule_page_buy_context(main_widget_object.strategy_page))
@@ -66,12 +71,16 @@ class MainWidget(Base, Form):
         self.fetch_data_page.plot_and_autofill_loaded_data()
 
 
-    def display_next_page(self):
-        ### start simulation
-        if self.widget_pages.currentIndex() is 1:
-            from engine import simulation
-            simulation.init_simulation(main_widget_object)
-        self.widget_pages.setCurrentIndex(self.widget_pages.currentIndex()+1)
+    def display_next_stacked_widget(self):
+        if self.widget_pages.currentIndex() !=2: ### disable go to settings page via next button
+            if self.widget_pages.currentIndex() is 1:  ### start simulation
+                from engine import simulation
+                simulation.init_simulation(main_widget_object)
+            self.widget_pages.setCurrentIndex(self.widget_pages.currentIndex()+1)  ### go to next page
+
+
+    def display_settings_stacked_widget(self):
+        self.widget_pages.setCurrentIndex(3)
 
 
 if __name__ == '__main__':

@@ -313,8 +313,14 @@ border-radius: 15px;</string>
           <property name="bottomMargin">
            <number>0</number>
           </property>
-          <item alignment="Qt::AlignTop">
+          <item>
            <widget class="QFrame" name="frame_left_menu">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -409,6 +415,33 @@ QPushButton:hover {
             </layout>
            </widget>
           </item>
+          <item>
+           <widget class="QWidget" name="widget_2" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <widget class="QPushButton" name="settings_button">
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(35,35,35);
+border: 0px sold;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
          </layout>
         </widget>
        </item>
@@ -424,7 +457,7 @@ QPushButton:hover {
           <item>
            <widget class="QStackedWidget" name="widget_pages">
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="Fetch_Data_Widget" name="fetch_data_page">
              <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -465,6 +498,7 @@ QPushButton:hover {
              </layout>
             </widget>
             <widget class="Summary_Page" name="summary_page"/>
+            <widget class="Settings_Widget" name="settings_page"/>
            </widget>
           </item>
          </layout>
@@ -493,6 +527,12 @@ QPushButton:hover {
    <class>Summary_Page</class>
    <extends>QWidget</extends>
    <header>pages/summary_page</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>Settings_Widget</class>
+   <extends>QWidget</extends>
+   <header>pages/settings_page</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
