@@ -1,6 +1,8 @@
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.offline as plt
+import engine.calculate_indicators as calculate_indicators
+from engine.simulation import build_column_name
 
 
 def plot_ohlcv_data(ohlcv_data):
@@ -30,7 +32,24 @@ def plot_balance(list_of_profit, currency_2_symbol):
     html += '</body></html>'
     return html
 
-def plot_ohlcv_with_indicators(ohlcv_data):
+def plot_ohlcv_with_indicators(ohlcv_data, list_with_indicators):
+    calculate_indicators.read_ohlcv_from_file()
+    for x in range(len(list_with_indicators)):
+        # make short of indicators
+        list_with_indicators[x][0] = list_with_indicators[x][0][: list_with_indicators[x][0].find('(')-1]
+
+        # convert indicators options to list
+        if list_with_indicators[x][1] != '(-)':
+            list_with_indicators[x][1] = [list_with_indicators[x][1][1:-1].split(', ')][0]
+        else:
+            list_with_indicators[x][1] = []
+
+        if build_column_name(list_with_indicators[x][0], list_with_indicators[x][1]) not in ohlcv_data.columns:
+            print(list_with_indicators[x][1])
+            ohlcv_data = ohlcv_data.join(calculate_indicators.indicator_function_name[list_with_indicators[x][0]](*list_with_indicators[x][1]), how='inner')
+
+    print(ohlcv_data.to_string())
+
     fig = go.Figure()
     fig.add_trace(go.Candlestick(x=ohlcv_data['Opentime'], open=ohlcv_data['Open'], high=ohlcv_data['High'],
                                  low=ohlcv_data['Low'], close=ohlcv_data['Close']))

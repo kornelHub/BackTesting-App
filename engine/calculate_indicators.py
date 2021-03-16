@@ -51,6 +51,7 @@ def exponential_moving_average(period, source):
 
 
 def exponential_moving_average_helper(data_df, period, source):
+    period = int(period)
     ema_multiplier = 2 / (period + 1)
     answer_df = pd.DataFrame(data_df[source], columns=[source])
     answer_df['ema'] = 0
@@ -143,6 +144,7 @@ def volume_weighted_average_price(period):
 
 
 def trix(period):
+    period = int(period)
     answer_df = pd.DataFrame(exponential_moving_average_helper(data_df, period, 'Close'), columns=['Open', '1st_ema'])
     answer_df[['2nd_ema', '3rd_ema']] = 0
     answer_df['2nd_ema'] = exponential_moving_average_helper(answer_df, period, '1st_ema')[:, 1]

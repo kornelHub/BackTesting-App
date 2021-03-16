@@ -1,9 +1,14 @@
 import os
 from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
-from utilities.helpers import indicator_default_options
-from pages.change_indicator_form_page import Change_Indicator_Form_Page
 from PySide2.QtCore import Slot
+
+from utilities.plot_data import plot_ohlcv_with_indicators
+from utilities.helpers import indicator_default_options
+from utilities.helpers import load_ohlcv_data_from_csv_file
+
+from pages.change_indicator_form_page import Change_Indicator_Form_Page
+from pages.display_plot_page import Display_Plot_Page
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -17,7 +22,7 @@ class Define_Indicator_To_Plot_Page(Base, Form):
         self.setWindowIcon(QtGui.QIcon('icons/logo2.png'))
         self.setWindowTitle('BackTesting Application')
         self.cancel_button.clicked.connect(lambda: self.close())
-        # self.delete_button.clicked.connect(lambda: self.hide_last_indicator())
+        self.plot_button.clicked.connect(lambda: self.plot_indicators())
         self.add_button.clicked.connect(lambda: self.show_next_indicator())
 
         self.delete_button_1.setIcon(QtGui.QIcon('icons/trash_icon.png'))
@@ -86,6 +91,18 @@ class Define_Indicator_To_Plot_Page(Base, Form):
         self.firstIndicator_comboBox_6.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_6, self.indicatorOptions_button_6, self.indicator_options_label_6))
 
 
+    def plot_indicators(self):
+        list_of_indicators_with_options = []
+        for x in self.widget_list:
+            if x[0].isVisible():
+                list_of_indicators_with_options.append([x[1].currentText(), x[2].text()])
+
+        self.close()
+        display_plot_page = Display_Plot_Page()
+        display_plot_page.display_candlestick_chart_with_indicators(list_of_indicators_with_options)
+        display_plot_page.show()
+
+
     def hide_last_indicator(self, indicator_number_to_delete):
         visible_widgets = 0
         for x in self.widget_list:
@@ -114,7 +131,6 @@ class Define_Indicator_To_Plot_Page(Base, Form):
                 self.widget_list[x+1][1].setCurrentIndex(-1)
                 self.widget_list[x+1][2].setText('')
                 break
-
 
 
     def autofill_indicator_option(self, combo_box, linked_option_edit, linked_label):

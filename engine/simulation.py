@@ -44,33 +44,13 @@ def slice_rule(rule):
     rule = rule[rule.find('['):]
     second_indicator_period = rule
 
-    if first_indicator_options != '(-)':   # menage indicators with no parameters
-        first_indicator_options = first_indicator_options[1:-1]
-        first_indicator_options_list = []
-        buy_coma_count = first_indicator_options.count(',')
-        if buy_coma_count == 0:
-            first_indicator_options_list.append(first_indicator_options)
-        else:
-            for coma in range(buy_coma_count):
-                first_indicator_options_list.append(first_indicator_options[:first_indicator_options.find(',')])
-                first_indicator_options = first_indicator_options[first_indicator_options.find(',') + 2:]
-                if coma == buy_coma_count - 1:
-                    first_indicator_options_list.append(first_indicator_options)
+    if first_indicator_options != '(-)':
+        first_indicator_options_list = [first_indicator_options[1:-1].split(', ')][0]
     else:
         first_indicator_options_list = []
 
-    if second_indicator_options != '(-)':   # menage indicators with no parameters
-        second_indicator_options = second_indicator_options[1:-1]
-        second_indicator_options_list = []
-        sell_coma_count = second_indicator_options.count(',')
-        if sell_coma_count == 0:
-            second_indicator_options_list.append(second_indicator_options)
-        else:
-            for coma in range(sell_coma_count):
-                second_indicator_options_list.append(second_indicator_options[:second_indicator_options.find(',')])
-                second_indicator_options = second_indicator_options[second_indicator_options.find(',') + 2:]
-                if coma == sell_coma_count - 1:
-                    second_indicator_options_list.append(second_indicator_options)
+    if second_indicator_options != '(-)':
+        second_indicator_options_list = [second_indicator_options[1:-1].split(', ')][0]
     else:
         second_indicator_options_list = []
 
