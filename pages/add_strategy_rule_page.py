@@ -44,10 +44,14 @@ class Add_Strategy_Rule_Widget(Form, Base):
             linked_period_edit.setCurrentIndex(0)
             linked_label.setText('Value:')
             linked_option_edit.setText(indicator_default_options.get(combo_box.currentText()))
-        elif combo_box.currentText() == 'Open (Open price of candle)' or combo_box.currentText() == 'High (High price of candle)' \
-                or combo_box.currentText() == 'Low (Low price of candle)' or combo_box.currentText() == 'Close (Close price of candle)':
+        elif combo_box.currentText() == 'Open (Open price of candle)' \
+                or combo_box.currentText() == 'High (High price of candle)' \
+                or combo_box.currentText() == 'Low (Low price of candle)' \
+                or combo_box.currentText() == 'Close (Close price of candle)'\
+                or combo_box.currentText() == 'Volume (Amount traded in amount of time)':
             linked_option_edit.setText(indicator_default_options.get(combo_box.currentText()))
             linked_period_edit.setCurrentIndex(0)
+            linked_label.setText('Value:')
         else:
             linked_label.setText('Options:')
             linked_option_edit.setText(indicator_default_options.get(combo_box.currentText()))

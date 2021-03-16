@@ -7,6 +7,7 @@ from PySide2.QtGui import QRegExpValidator
 from pages.add_strategy_rule_page import Add_Strategy_Rule_Widget
 from engine.simulation import get_buy_rules, get_sell_rules
 import json
+from pages.define_indicator_to_plot_page import Define_Indicator_To_Plot_Page
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/strategy_page.ui"))
@@ -71,7 +72,7 @@ class Strategy_Widget(Base, Form):
 
         self.p2_plot_indicator_1.setIcon(QtGui.QIcon('icons/plot_icon.png'))
         self.p2_plot_indicator_1.setIconSize(QtCore.QSize(28, 28))
-        self.p2_plot_indicator_1.clicked.connect(lambda: print('Plot indicator'))
+        self.p2_plot_indicator_1.clicked.connect(lambda: self.display_form_to_plot_indicators())
         self.p2_plot_indicator_1.setToolTip('Plot indicator')
 
         # Sell
@@ -105,7 +106,7 @@ class Strategy_Widget(Base, Form):
 
         self.p2_plot_indicator_2.setIcon(QtGui.QIcon('icons/plot_icon.png'))
         self.p2_plot_indicator_2.setIconSize(QtCore.QSize(28, 28))
-        self.p2_plot_indicator_2.clicked.connect(lambda: print('Plot indicator'))
+        self.p2_plot_indicator_2.clicked.connect(lambda: self.display_form_to_plot_indicators())
         self.p2_plot_indicator_2.setToolTip('Plot indicator')
 
         # init sell treeView
@@ -177,6 +178,10 @@ class Strategy_Widget(Base, Form):
         combined_rules['sell_rules'].append(sell_rules['sell_rules'])
         with open(path_to_file[0], 'w') as file:
             json.dump(combined_rules, file, indent=4)
+
+    def display_form_to_plot_indicators(self):
+        define_indicator_to_plot_page = Define_Indicator_To_Plot_Page()
+        define_indicator_to_plot_page.show()
 
 ########################################################################################################################
 

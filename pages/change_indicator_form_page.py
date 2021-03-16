@@ -8,7 +8,7 @@ from utilities.helpers import indicator_options_name
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-Form, Base = loadUiType(os.path.join(current_dir, "../ui/change_indicator_form_widget.ui"))
+Form, Base = loadUiType(os.path.join(current_dir, "../ui/change_indicator_form_page.ui"))
 
 
 class Change_Indicator_Form_Page(Base, Form):
