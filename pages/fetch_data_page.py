@@ -8,7 +8,7 @@ from binance.helpers import date_to_milliseconds
 from binance_api import fetch_data
 from utilities.plot_data import plot_ohlcv_data
 import utilities.helpers as helpers
-import pandas as pd
+
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/fetch_data_page.ui"))
@@ -57,11 +57,11 @@ class Fetch_Data_Widget(Base, Form):
         main_widget_object.data_path.setText(path_to_file[0])
         helpers.path_to_csv_file = path_to_file[0]
         self.p1_ohlcvPlot_qWebEngineView.show()
-        self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_ohlcv_data(pd.read_csv(helpers.path_to_csv_file, sep=';', skiprows=[0])))
+        self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_ohlcv_data(helpers.load_ohlcv_data_from_csv_file()))
 
 
     def plot_and_autofill_loaded_data(self):
-        new_data = pd.read_csv(helpers.path_to_csv_file, sep=';', skiprows=[0])
+        new_data = helpers.load_ohlcv_data_from_csv_file()
         self.p1_ohlcvPlot_qWebEngineView.show()
         self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_ohlcv_data(new_data))
 

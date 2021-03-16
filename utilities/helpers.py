@@ -1,11 +1,14 @@
 import datetime as dt
 import pytz
+import pandas as pd
 
 path_to_csv_file = ''
 colums_name_from_binance = ['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume',
                             'NumberOfTrades', 'TakerBuyBaseAssetVolume', 'TakerBuyQuoteAssetVolume', 'Ingore']
 columns_name_string = 'Opentime;Open;High;Low;Close;Volume;CloseTime'
 
+def load_ohlcv_data_from_csv_file():
+    return pd.read_csv(path_to_csv_file, sep=';', skiprows=[0])
 
 def convert_milliseconds_to_date(time_in_utc_miloseconds):
     converted_date = dt.datetime.fromtimestamp(time_in_utc_miloseconds / 1000.0, tz=pytz.utc)

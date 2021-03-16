@@ -1,9 +1,8 @@
 from PySide2 import QtCore
 from engine.calculate_indicators import indicator_function_name
 from engine.calculate_indicators import read_ohlcv_from_file
-import pandas as pd
 import json
-import utilities.helpers
+from  utilities.helpers import load_ohlcv_data_from_csv_file
 
 
 def get_buy_rules(strategy_page):
@@ -289,7 +288,7 @@ def init_simulation(main_window_object):
     buy_simulation_settings = get_buy_simulation_settings(main_window_object.strategy_page)
     sell_simulation_settings = get_sell_simulation_settings(main_window_object.strategy_page)
     global data_df
-    data_df = pd.read_csv(utilities.helpers.path_to_csv_file, skiprows=[0], sep=';')
+    data_df = load_ohlcv_data_from_csv_file()
     global pip_position
     pip_position = get_pip_position_for_simulation()
     read_ohlcv_from_file() #needed to load OHLCV data from csv file to start calculation

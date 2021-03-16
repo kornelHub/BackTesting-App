@@ -2,8 +2,7 @@ import os
 from PySide2 import QtGui, QtWidgets
 from PySide2.QtUiTools import loadUiType
 import utilities.plot_data as plot_data
-import utilities.helpers as helpers
-import pandas as pd
+from utilities.helpers import load_ohlcv_data_from_csv_file
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -20,7 +19,7 @@ class Display_Plot_Page(Base, Form):
 
 
     def display_candlestick_chart(self):
-        self.candle_chart_widget.setHtml(plot_data.plot_ohlcv_data(pd.read_csv(helpers.path_to_csv_file, sep=';', skiprows=[0])))
+        self.candle_chart_widget.setHtml(plot_data.plot_ohlcv_data(load_ohlcv_data_from_csv_file()))
 
 
     def close_window(self):

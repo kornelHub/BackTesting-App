@@ -1,12 +1,12 @@
 import pandas as pd
 import numpy as np
-import utilities.helpers
+from utilities.helpers import load_ohlcv_data_from_csv_file
 
 global data_df
 
 def read_ohlcv_from_file():
     global data_df
-    data_df = pd.read_csv(utilities.helpers.path_to_csv_file, skiprows=[0], sep=';')
+    data_df = load_ohlcv_data_from_csv_file()
 
 def simple_moving_average(period, source):
     period = int(period)
