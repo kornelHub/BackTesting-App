@@ -8,7 +8,6 @@ from stat import S_IREAD
 import configparser
 
 
-
 def create_client_object():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     if os.path.exists(current_dir[:-11]+'config.ini'):
@@ -24,7 +23,7 @@ def create_client_object():
         api_key = keys.api_key
         api_secret = keys.secret_key
     global client
-    client = Client(api_key=api_key, api_secret=api_secret)
+    client = Client(api_key, api_secret)
 
 def download_data_to_file(start_time, end_time, interval, currency_pair_symbol, path_to_file):
     candles = client.get_klines(symbol=currency_pair_symbol, interval=interval, startTime=start_time, endTime=end_time, limit=1000)

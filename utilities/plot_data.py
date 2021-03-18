@@ -1,8 +1,9 @@
-import pandas as pd
 import plotly.graph_objects as go
 import plotly.offline as plt
+from plotly.subplots import make_subplots
 import engine.calculate_indicators as calculate_indicators
 from engine.simulation import build_column_name
+from utilities.helpers import return_index_of_first_non_zero_row
 
 
 def plot_ohlcv_data(ohlcv_data):
@@ -36,7 +37,7 @@ def plot_ohlcv_with_indicators(ohlcv_data, list_with_indicators):
     calculate_indicators.read_ohlcv_from_file()
     for x in range(len(list_with_indicators)):
         # make short of indicators
-        list_with_indicators[x][0] = list_with_indicators[x][0][: list_with_indicators[x][0].find('(')-1]
+        list_with_indicators[x].append(list_with_indicators[x][0][: list_with_indicators[x][0].find('(')-1])
 
         # convert indicators options to list
         if list_with_indicators[x][1] != '(-)':
@@ -44,17 +45,61 @@ def plot_ohlcv_with_indicators(ohlcv_data, list_with_indicators):
         else:
             list_with_indicators[x][1] = []
 
-        if build_column_name(list_with_indicators[x][0], list_with_indicators[x][1]) not in ohlcv_data.columns:
-            print(list_with_indicators[x][1])
-            ohlcv_data = ohlcv_data.join(calculate_indicators.indicator_function_name[list_with_indicators[x][0]](*list_with_indicators[x][1]), how='inner')
+        if build_column_name(list_with_indicators[x][2], list_with_indicators[x][1]) not in ohlcv_data.columns:
+            list_with_indicators[x].append(build_column_name(list_with_indicators[x][2], list_with_indicators[x][1]))
+            ohlcv_data = ohlcv_data.join(calculate_indicators.indicator_function_name[list_with_indicators[x][2]](*list_with_indicators[x][1]), how='inner')
 
-    print(ohlcv_data.to_string())
+    # calculate needed subplots
+    list_with_indicators, needed_subplots  = calculate_needed_subplots(list_with_indicators)
+    ohlcv_data = ohlcv_data[return_index_of_first_non_zero_row(ohlcv_data):]
+    print(needed_subplots)
+    plots_size = [0.5]
+    for x in range(needed_subplots-2):
+        plots_size.append((1 - plots_size[0]) / needed_subplots)
 
-    fig = go.Figure()
+    fig = make_subplots(rows=needed_subplots-1, cols= 1, shared_xaxes=True, row_heights=plots_size, vertical_spacing=0.01)
     fig.add_trace(go.Candlestick(x=ohlcv_data['Opentime'], open=ohlcv_data['Open'], high=ohlcv_data['High'],
-                                 low=ohlcv_data['Low'], close=ohlcv_data['Close']))
+                                 low=ohlcv_data['Low'], close=ohlcv_data['Close']), row=1, col=1)
+
+    for x in list_with_indicators:
+        if is_indicator_need_subplot(x[2]):
+            fig.add_trace(go.Scatter(mode='lines', x=ohlcv_data['Opentime'], y=ohlcv_data[x[3]], name=x[3]), row=x[4], col=1)
+        else:
+            if x[2] != 'SAR':
+                fig.add_trace(go.Scatter(mode='lines', x=ohlcv_data['Opentime'], y=ohlcv_data[x[3]], name=x[3]), row=1, col=1)
+            else:
+                fig.add_trace(go.Scatter(mode='markers', x=ohlcv_data['Opentime'], y=ohlcv_data[x[3]], name=x[3]), row=1,col=1)
+
+    ohlcv_data.to_csv('D:\!python_projects\praca_inz_qt\data\plik.csv', sep=';', index=False, mode='a', header=True)
+
     fig.update_layout(xaxis_rangeslider_visible=False)
     html = '<html><body>'
     html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
     html += '</body></html>'
     return html
+
+
+def calculate_needed_subplots(list_with_indicators):
+    counter = 2
+    for x in range(len(list_with_indicators)):
+        if is_indicator_need_subplot(list_with_indicators[x][2]):
+            if 'MACD' in list_with_indicators[x][2]:  # check if there are two MACD line and sinnal line with the same options
+                for y in range(0, x):
+                    if list_with_indicators[x][1] == list_with_indicators[y][1]:
+                        list_with_indicators[x].append(list_with_indicators[y][4])
+                    elif x - 1 == y:
+                        list_with_indicators[x].append(counter)
+                        counter += 1
+
+            else:
+                list_with_indicators[x].append(counter)
+                counter += 1
+        else:
+            list_with_indicators[x].append(1)
+    return list_with_indicators, counter
+
+
+def is_indicator_need_subplot(indicator):
+    subplots_indicator = ['MACD - MACD Line', 'MACD - Singal Line', 'RSI', 'KDJ', 'OBV', 'CCI', 'StochRSI', 'WR', 'DMI', 'MTM', 'EVM']
+    return indicator in subplots_indicator
+    
