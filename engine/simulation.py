@@ -2,7 +2,7 @@ from PySide2 import QtCore
 from engine.calculate_indicators import indicator_function_name
 from engine.calculate_indicators import read_ohlcv_from_file
 import json
-from  utilities.helpers import load_ohlcv_data_from_csv_file
+from  utilities.helpers import load_ohlcv_data_from_csv_file, return_index_of_first_non_zero_row
 
 
 def get_buy_rules(strategy_page):
@@ -183,8 +183,8 @@ def check_if_take_profit_price_is_achieved(x, sell_simulation_settings, trades_d
                 sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] + take_profit_value)
 
 
-def glue_all_code(buy_if_string, sell_if_string, sell_simulation_settings):
-    simulation_code = "for x in range(14, len(data_df)):\n"
+def glue_all_code(starting_index, buy_if_string, sell_if_string, sell_simulation_settings):
+    simulation_code = f"for x in range({starting_index}, len(data_df)):\n"
     if sell_simulation_settings['sell_settings'][0]['is_stop_loss_selected']:
         simulation_code += '\tcheck_if_stop_loss_price_is_achieved(x, sell_simulation_settings, trades_dict)\n'
     if sell_simulation_settings['sell_settings'][0]['is_take_profit_selected']:
@@ -336,10 +336,14 @@ def init_simulation(main_window_object):
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
         'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance'])
     })
-    code = glue_all_code(glue_if_statements(buy_rules['buy_rules'], 'buy'), glue_if_statements(sell_rules['sell_rules'], 'sell'), sell_simulation_settings)
-    # print(code)
+    starting_index = return_index_of_first_non_zero_row(data_df)
+    code = glue_all_code(starting_index, glue_if_statements(buy_rules['buy_rules'], 'buy'), glue_if_statements(sell_rules['sell_rules'], 'sell'), sell_simulation_settings)
+    print(code)
+    # print(data_df.to_string())
+    data_df = data_df[starting_index:]
+    # print(data_df.to_string())
     exec(code)
-    print(json.dumps(trades_dict, indent=4))
+    # print(json.dumps(trades_dict, indent=4))
 
     # pass and display data in summary_page
     # main_window_object.summary_page.plot_candle_chart()
