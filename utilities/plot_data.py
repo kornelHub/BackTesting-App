@@ -43,11 +43,11 @@ def plot_balance(trades_dict, list_of_profit, currency_2_symbol):
     return html
 
 def plot_ohlc_data_with_transactions(ohlcv_data, trades_dict):
-    sells_indexes = list(map(itemgetter('index'), trades_dict['buy_trades']))
-    sells_price = list(map(itemgetter('price'), trades_dict['buy_trades']))
+    sells_indexes = list(map(itemgetter('index'), trades_dict['sell_trades']))
+    sells_price = list(map(itemgetter('price'), trades_dict['sell_trades']))
 
-    buys_indexes = list(map(itemgetter('index'), trades_dict['sell_trades']))
-    buys_price = list(map(itemgetter('price'), trades_dict['sell_trades']))
+    buys_indexes = list(map(itemgetter('index'), trades_dict['buy_trades']))
+    buys_price = list(map(itemgetter('price'), trades_dict['buy_trades']))
 
     fig = go.Figure()
     fig.add_trace(go.Candlestick(x=ohlcv_data.index, open=ohlcv_data['Open'], high=ohlcv_data['High'],
