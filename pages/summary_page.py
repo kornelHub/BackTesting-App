@@ -20,9 +20,9 @@ class Summary_Page(Base, Form):
 
 
 
-    def plot_candle_chart(self):
+    def plot_candle_chart(self, trades_dict):
         display_plot_page = Display_Plot_Page()
-        display_plot_page.display_candlestick_chart()
+        display_plot_page.display_candlestick_chart(trades_dict)
         display_plot_page.show()
 
 

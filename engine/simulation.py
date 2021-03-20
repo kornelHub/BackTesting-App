@@ -339,11 +339,10 @@ def init_simulation(main_window_object):
     starting_index = return_index_of_first_non_zero_row(data_df)
     code = glue_all_code(starting_index, glue_if_statements(buy_rules['buy_rules'], 'buy'), glue_if_statements(sell_rules['sell_rules'], 'sell'), sell_simulation_settings)
     # print(code)
-    data_df = data_df[starting_index:]
     # print(data_df.to_string())
     exec(code)
     # print(json.dumps(trades_dict, indent=4))
 
     # pass and display data in summary_page
-    # main_window_object.summary_page.plot_candle_chart()
+    main_window_object.summary_page.plot_candle_chart(trades_dict)
     main_window_object.summary_page.format_and_display_text(trades_dict)

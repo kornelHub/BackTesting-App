@@ -44,6 +44,25 @@ def plot_balance(trades_dict, list_of_profit, currency_2_symbol):
     html += '</body></html>'
     return html
 
+def plot_ohlc_data_with_transactions(ohlcv_data, trades_dict):
+    sells_indexes = list(map(itemgetter('index'), trades_dict['buy_trades']))
+    sells_price = list(map(itemgetter('price'), trades_dict['buy_trades']))
+
+    buys_indexes = list(map(itemgetter('index'), trades_dict['sell_trades']))
+    buys_price = list(map(itemgetter('price'), trades_dict['sell_trades']))
+
+    fig = go.Figure()
+    fig.add_trace(go.Candlestick(x=ohlcv_data.index, open=ohlcv_data['Open'], high=ohlcv_data['High'],
+                                 low=ohlcv_data['Low'], close=ohlcv_data['Close']))
+    fig.add_trace(go.Scatter(mode='markers', x=sells_indexes, y=sells_price, marker=dict(color='red'),name='Sell transaction'))
+    fig.add_trace(go.Scatter(mode='markers', x=buys_indexes, y=buys_price, marker=dict(color='green'),name='Buy transaction'))
+    fig.update_layout(xaxis_rangeslider_visible=False)
+    html = '<html><body>'
+    html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
+    html += '</body></html>'
+    return html
+
+
 def plot_ohlcv_with_indicators(ohlcv_data, list_with_indicators):
     calculate_indicators.read_ohlcv_from_file()
     for x in range(len(list_with_indicators)):
