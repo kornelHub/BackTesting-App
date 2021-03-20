@@ -33,7 +33,7 @@ def plot_balance(trades_dict, list_of_profit, currency_2_symbol):
     sells_amount_in_currency_2 = list(map(itemgetter('currency_2'), trades_dict['sell_trades']))[1:]
 
     fig = go.Figure(layout_title_text="Total profit: {} {}".format(balance_list[-1] - balance_list[0], currency_2_symbol))
-    fig.add_trace(go.Scatter(mode='lines', x=index_list, y=balance_list, name='Account', marker=dict(color='LightSeaGreen')))smal
+    fig.add_trace(go.Scatter(mode='lines', x=index_list, y=balance_list, name='Account', marker=dict(color='LightSeaGreen')))
     fig.add_shape(type='line', x0=0, y0=balance_list[0], x1=index_list[-1], y1=balance_list[0], line=dict(color='black', dash='dot'))
     fig.add_trace(go.Scatter(mode='markers', x=sells_indexes, y=sells_amount_in_currency_2, marker=dict(color='brown', size=8), name='Sell transaction'))
     fig.add_trace(go.Scatter(mode='markers', x=buys_indexes, y=buys_amount_in_currency_2, marker=dict(color='royalblue', size = 8), name='Buy transaction'))
