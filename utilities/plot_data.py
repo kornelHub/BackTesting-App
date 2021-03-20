@@ -4,6 +4,8 @@ from plotly.subplots import make_subplots
 import engine.calculate_indicators as calculate_indicators
 from engine.simulation import build_column_name
 from utilities.helpers import return_index_of_first_non_zero_row
+from operator import itemgetter
+import numpy as np
 
 
 def plot_ohlcv_data(ohlcv_data):
@@ -16,18 +18,27 @@ def plot_ohlcv_data(ohlcv_data):
     html += '</body></html>'
     return html
 
-def plot_balance(list_of_profit, currency_2_symbol):
+def plot_balance(trades_dict, list_of_profit, currency_2_symbol):
     index_list = []
     balance_list = []
     for x in list_of_profit:
         index_list.append(x[0])
         balance_list.append(x[1])
 
+    buys_indexes = list(map(itemgetter('index'), trades_dict['buy_trades']))[1:]
+    buys_amount_in_currency_2 = np.multiply(list(map(itemgetter('currency_1'), trades_dict['buy_trades'])),
+                                            list(map(itemgetter('price'), trades_dict['buy_trades'])))[1:]
+
+    sells_indexes = list(map(itemgetter('index'), trades_dict['sell_trades']))[1:]
+    sells_amount_in_currency_2 = list(map(itemgetter('currency_2'), trades_dict['sell_trades']))[1:]
+
     fig = go.Figure(
-        data=[go.Scatter(y=balance_list, x=index_list)],
+        data=[go.Scatter(y=balance_list, x=index_list, name='Account balance')],
         layout_title_text="Total profit: {} {}".format(balance_list[-1] - balance_list[0], currency_2_symbol))
     fig.add_shape(type='line', x0=0, y0=balance_list[0], x1=index_list[-1], y1=balance_list[0],
                   line=dict(color='LightSeaGreen', dash='dot'))
+    fig.add_trace(go.Scatter(mode='markers', x=sells_indexes, y=sells_amount_in_currency_2, marker=dict(color='red'), name='Sell transaction'))
+    fig.add_trace(go.Scatter(mode='markers', x=buys_indexes, y=buys_amount_in_currency_2, marker=dict(color='green'), name='Buy transaction'))
     html = '<html><body>'
     html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
     html += '</body></html>'
@@ -102,4 +113,3 @@ def calculate_needed_subplots(list_with_indicators):
 def is_indicator_need_subplot(indicator):
     subplots_indicator = ['MACD - MACD Line', 'MACD - Singal Line', 'RSI', 'KDJ', 'OBV', 'CCI', 'StochRSI', 'WR', 'DMI', 'MTM', 'EVM']
     return indicator in subplots_indicator
-    

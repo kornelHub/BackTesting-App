@@ -56,6 +56,10 @@ class Summary_Page(Base, Form):
                     .format(trades_dict['sell_trades'][x]['currency_2'] - trades_dict['sell_trades'][x-1]['currency_2']
                                 - trades_dict['sell_trades'][x-1]['currency_1'] * trades_dict['sell_trades'][x-1]['price'])
 
+                balance_list.append([trades_dict['buy_trades'][x]['index'],
+                                     trades_dict['buy_trades'][x]['currency_1'] * trades_dict['buy_trades'][x]['price']
+                                     ])
+
                 balance_list.append([trades_dict['sell_trades'][x]['index'],
                                     trades_dict['sell_trades'][x]['currency_2']
                                     ])
@@ -96,11 +100,15 @@ class Summary_Page(Base, Form):
                     .format(trades_dict['sell_trades'][x+1]['currency_2'] - trades_dict['sell_trades'][x]['currency_2']
                                 - trades_dict['sell_trades'][x]['currency_1'] * trades_dict['sell_trades'][x]['price'])
 
-                balance_list.append([trades_dict['sell_trades'][x+1]['index'],
+                balance_list.append([trades_dict['buy_trades'][x]['index'],
+                                     trades_dict['buy_trades'][x]['currency_1'] * trades_dict['buy_trades'][x]['price']
+                                     ])
+
+                balance_list.append([trades_dict['sell_trades'][x + 1]['index'],
                                     trades_dict['sell_trades'][x + 1]['currency_2']
                                     ])
         self.textBrowser.setText(formatted_trades)
-        self.summary_balance_graph.setHtml(plot_balance(balance_list, currency_2_symbol))
+        self.summary_balance_graph.setHtml(plot_balance(trades_dict ,balance_list, currency_2_symbol))
 
 
 if __name__ == '__main__':
