@@ -1,7 +1,6 @@
 from PySide2 import QtCore
 from engine.calculate_indicators import indicator_function_name
 from engine.calculate_indicators import read_ohlcv_from_file
-import json
 from  utilities.helpers import load_ohlcv_data_from_csv_file, return_index_of_first_non_zero_row
 
 
@@ -254,9 +253,9 @@ def calculate_amount_without_fee(context, exchange_rate, currency_amount, fee_va
             return (currency_amount * exchange_rate) - fee_value
 
 
-def get_pip_position_for_simulation():
+def get_pip_position_for_simulation(ohlcv_data):
     largest_decimal_place = 0
-    for index, row in data_df[:int(len(data_df)/4)].iterrows():
+    for index, row in ohlcv_data[:int(len(ohlcv_data)/4)].iterrows():
         if len(str(row['Open'])) - int(str(row['Open']).find('.')) - 1 > largest_decimal_place:
             largest_decimal_place = len(str(row['Open'])) - int(str(row['Open']).find('.')) - 1
     return largest_decimal_place
@@ -270,7 +269,7 @@ def init_simulation(main_window_object):
     global data_df
     data_df = load_ohlcv_data_from_csv_file()
     global pip_position
-    pip_position = get_pip_position_for_simulation()
+    pip_position = get_pip_position_for_simulation(data_df)
     read_ohlcv_from_file() #needed to load OHLCV data from csv file to start calculation
 
     # BUYS

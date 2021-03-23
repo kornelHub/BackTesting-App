@@ -3,7 +3,9 @@ import plotly.offline as plt
 from plotly.subplots import make_subplots
 import engine.calculate_indicators as calculate_indicators
 from engine.simulation import build_column_name
+from engine.simulation import get_pip_position_for_simulation
 from utilities.helpers import return_index_of_first_non_zero_row
+from utilities.helpers import load_ohlcv_data_from_csv_file
 from operator import itemgetter
 import numpy as np
 
@@ -12,7 +14,7 @@ def plot_ohlcv_data(ohlcv_data):
     fig = go.Figure()
     fig.add_trace(go.Candlestick(x=ohlcv_data['Opentime'], open=ohlcv_data['Open'], high=ohlcv_data['High'],
                                  low=ohlcv_data['Low'], close=ohlcv_data['Close']))
-    fig.update_layout(xaxis_rangeslider_visible=False)
+    fig.update_layout(xaxis_rangeslider_visible=False, yaxis_tickformat = f".{get_pip_position_for_simulation(ohlcv_data)}f")
     html = '<html><body>'
     html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
     html += '</body></html>'
@@ -37,6 +39,7 @@ def plot_balance(trades_dict, list_of_profit, currency_2_symbol):
     fig.add_shape(type='line', x0=0, y0=balance_list[0], x1=index_list[-1], y1=balance_list[0], line=dict(color='black', dash='dot'))
     fig.add_trace(go.Scatter(mode='markers', x=sells_indexes, y=sells_amount_in_currency_2, marker=dict(color='brown', size=8), name='Sell transaction'))
     fig.add_trace(go.Scatter(mode='markers', x=buys_indexes, y=buys_amount_in_currency_2, marker=dict(color='royalblue', size = 8), name='Buy transaction'))
+    fig.update_layout(yaxis_tickformat = f".{get_pip_position_for_simulation(load_ohlcv_data_from_csv_file())}f")
     html = '<html><body>'
     html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
     html += '</body></html>'
@@ -54,7 +57,7 @@ def plot_ohlc_data_with_transactions(ohlcv_data, trades_dict):
                                  low=ohlcv_data['Low'], close=ohlcv_data['Close']))
     fig.add_trace(go.Scatter(mode='markers', x=sells_indexes, y=sells_price, marker=dict(color='brown', size=8),name='Sell transaction'))
     fig.add_trace(go.Scatter(mode='markers', x=buys_indexes, y=buys_price, marker=dict(color='royalblue', size = 8),name='Buy transaction'))
-    fig.update_layout(xaxis_rangeslider_visible=False)
+    fig.update_layout(xaxis_rangeslider_visible=False, yaxis_tickformat = f".{get_pip_position_for_simulation(ohlcv_data)}f")
     html = '<html><body>'
     html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
     html += '</body></html>'
@@ -98,9 +101,7 @@ def plot_ohlcv_with_indicators(ohlcv_data, list_with_indicators):
             else:
                 fig.add_trace(go.Scatter(mode='markers', x=ohlcv_data['Opentime'], y=ohlcv_data[x[3]], name=x[3]), row=1,col=1)
 
-    ohlcv_data.to_csv('D:\!python_projects\praca_inz_qt\data\plik.csv', sep=';', index=False, mode='a', header=True)
-
-    fig.update_layout(xaxis_rangeslider_visible=False)
+    fig.update_layout(xaxis_rangeslider_visible=False, hovermode="x unified", yaxis_tickformat = f".{get_pip_position_for_simulation(ohlcv_data)}f")
     html = '<html><body>'
     html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
     html += '</body></html>'
