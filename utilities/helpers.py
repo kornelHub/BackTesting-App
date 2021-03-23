@@ -1,7 +1,6 @@
 import datetime as dt
 import pytz
 import pandas as pd
-import numpy as np
 
 path_to_csv_file = ''
 colums_name_from_binance = ['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume',

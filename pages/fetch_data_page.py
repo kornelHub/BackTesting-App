@@ -1,5 +1,5 @@
 import os
-from PySide2 import QtGui, QtCore
+from PySide2 import QtGui, QtCore, QtWidgets
 from PySide2.QtCore import QRegExp
 from PySide2.QtGui import QRegExpValidator
 from PySide2.QtUiTools import loadUiType
@@ -18,6 +18,12 @@ class Fetch_Data_Widget(Base, Form):
         super(self.__class__, self).__init__(parent)
         self.setupUi(self)
         self.p1_ohlcvPlot_qWebEngineView.hide()
+
+        completer = QtWidgets.QCompleter(helpers.cryptocurrency_pair_dict.keys())
+        completer.setCaseSensitivity(QtCore.Qt.CaseInsensitive)
+        completer.setFilterMode(QtCore.Qt.MatchContains)
+        completer.popup().setStyleSheet("background-color: rgb(55, 55, 55); font: 10pt 'MS Shell Dlg 2';  color: rgb(255, 255, 255);")
+        self.p1_cryptoSymbol_textField.setCompleter(completer)
 
         # allow number in range 1-31 included, in format 5 or 05
         day_regular_expression = QRegExp("[1-9]|0[0-9]|[12][0-9]|3[01]")
