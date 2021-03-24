@@ -2,6 +2,7 @@ from PySide2 import QtCore
 from engine.calculate_indicators import indicator_function_name
 from engine.calculate_indicators import read_ohlcv_from_file
 from  utilities.helpers import load_ohlcv_data_from_csv_file, return_index_of_first_non_zero_row
+import json
 
 
 def get_buy_rules(strategy_page):
@@ -159,13 +160,13 @@ def check_if_stop_loss_price_is_achieved(x, sell_simulation_settings, trades_dic
     if trades_dict['buy_trades'][-1]['index'] > trades_dict['sell_trades'][-1]['index']:
         if stop_loss_unit == '%':
             if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value) / 100 <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value))
+                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value) / 100, f'.{pip_position}f'))
         elif stop_loss_unit == 'Pips':
             if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] - (stop_loss_value * pow(10, -pip_position)) <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] - (stop_loss_value * pow(10, -pip_position)))
+                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] - (stop_loss_value * pow(10, -pip_position)), f'.{pip_position}f'))
         elif stop_loss_unit == 'Flat':
             if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] - stop_loss_value <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] - stop_loss_value)
+                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] - stop_loss_value, f'.{pip_position}f'))
 
 
 def check_if_take_profit_price_is_achieved(x, sell_simulation_settings, trades_dict):
@@ -173,13 +174,13 @@ def check_if_take_profit_price_is_achieved(x, sell_simulation_settings, trades_d
     take_profit_unit = sell_simulation_settings['sell_settings'][0]['take_profit_unit']
     if trades_dict['buy_trades'][-1]['index'] > trades_dict['sell_trades'][-1]['index']:
         if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] * (100 + take_profit_value) / 100 <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] * (100 + take_profit_value) / 100)
+                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] * (100 + take_profit_value) / 100, f'.{pip_position}f'))
         elif take_profit_unit == 'Pips':
             if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] + (take_profit_value * pow(10, -pip_position)) <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] + (take_profit_value * pow(10, -pip_position)))
+                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] + (take_profit_value * pow(10, -pip_position)), f'.{pip_position}f'))
         elif take_profit_unit == 'Flat':
             if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] + take_profit_value <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, trades_dict['buy_trades'][-1]['price'] + take_profit_value)
+                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] + take_profit_value, f'.{pip_position}f'))
 
 
 def glue_all_code(starting_index, buy_if_string, sell_if_string, sell_simulation_settings):
