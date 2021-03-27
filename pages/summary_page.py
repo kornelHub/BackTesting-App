@@ -17,7 +17,15 @@ class Summary_Page(Base, Form):
         self.setupUi(self)
         self.setWindowIcon(QtGui.QIcon('icons/logo2.png'))
         self.setWindowTitle('BackTesting Application')
+        self.buy_rules_treeWidget.setHeaderLabel('')
+        self.sell_rules_treeWidget.setHeaderLabel('')
 
+
+    def display_buy_and_sell_rules(self, buy_rules, sell_rules, sell_simulation_settings):
+        print('xd')
+        # print(buy_rules)
+        # print(sell_rules)
+        # print(sell_simulation_settings)
 
 
     def plot_candle_chart(self, trades_dict):
@@ -107,7 +115,7 @@ class Summary_Page(Base, Form):
                 balance_list.append([trades_dict['sell_trades'][x + 1]['index'],
                                     trades_dict['sell_trades'][x + 1]['currency_2']
                                     ])
-        self.textBrowser.setText(formatted_trades)
+        self.transactions_textBrowser.setText(formatted_trades)
         self.summary_balance_graph.setHtml(plot_balance(trades_dict ,balance_list, currency_2_symbol))
 
 

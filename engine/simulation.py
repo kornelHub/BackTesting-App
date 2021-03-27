@@ -13,7 +13,9 @@ def get_buy_rules(strategy_page):
             'qTreeWidgetItem': buy_item,
             'rule_text': buy_item.text(0),
             'qTreeWidgetItem_Parent': buy_item.parent(),
-            'if_statement': ''})
+            'if_statement': '',
+            'id_rule': f'b_{list_of_items_in_buy_qtreewidget.index(buy_item)}'
+        })
     return list_of_items_in_buy_and_text
 
 
@@ -25,7 +27,9 @@ def get_sell_rules(strategy_page):
             'qTreeWidgetItem': sell_item,
             'rule_text': sell_item.text(0),
             'qTreeWidgetItem_Parent': sell_item.parent(),
-            'if_statement': ''})
+            'if_statement': '',
+            'id_rule': f's_{list_of_items_in_sell_qtreewidget.index(sell_item)}'
+        })
     return list_of_items_in_sell_and_text
 
 
@@ -109,11 +113,15 @@ def glue_if_statements(list_of_rules, context):
     for x in range(len(list_of_rules)):
         if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 1) + list_of_rules[x]['if_statement'] + "\n"
         if len(list_of_rules) > x + 1:
+            ### call buy or sell method when rule does not have child
             if check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) >= check_if_parent_exist(list_of_rules[x + 1]['qTreeWidgetItem'], 0):
-                if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + f"{context}(x, {context}_simulation_settings, trades_dict)\n"
+                if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2)\
+                                + f"{context}(x, {context}_simulation_settings, trades_dict, \'{list_of_rules[x]['id_rule']}\')\n"
                 if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + "continue\n"
+        ### call buy or sell method when rule does not have child
         else:
-            if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + f"{context}(x, {context}_simulation_settings, trades_dict)\n"
+            if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2)\
+                            + f"{context}(x, {context}_simulation_settings, trades_dict, \'{list_of_rules[x]['id_rule']}\')\n"
             if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + "continue\n"
 
     return if_statement
@@ -160,13 +168,13 @@ def check_if_stop_loss_price_is_achieved(x, sell_simulation_settings, trades_dic
     if trades_dict['buy_trades'][-1]['index'] > trades_dict['sell_trades'][-1]['index']:
         if stop_loss_unit == '%':
             if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value) / 100 <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value) / 100, f'.{pip_position}f'))
+                sell(x, sell_simulation_settings, trades_dict, 's_stop_loss', format(trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value) / 100, f'.{pip_position}f'))
         elif stop_loss_unit == 'Pips':
             if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] - (stop_loss_value * pow(10, -pip_position)) <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] - (stop_loss_value * pow(10, -pip_position)), f'.{pip_position}f'))
+                sell(x, sell_simulation_settings, trades_dict, 's_stop_loss', format(trades_dict['buy_trades'][-1]['price'] - (stop_loss_value * pow(10, -pip_position)), f'.{pip_position}f'))
         elif stop_loss_unit == 'Flat':
             if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] - stop_loss_value <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] - stop_loss_value, f'.{pip_position}f'))
+                sell(x, sell_simulation_settings, trades_dict, 's_stop_loss', format(trades_dict['buy_trades'][-1]['price'] - stop_loss_value, f'.{pip_position}f'))
 
 
 def check_if_take_profit_price_is_achieved(x, sell_simulation_settings, trades_dict):
@@ -174,13 +182,13 @@ def check_if_take_profit_price_is_achieved(x, sell_simulation_settings, trades_d
     take_profit_unit = sell_simulation_settings['sell_settings'][0]['take_profit_unit']
     if trades_dict['buy_trades'][-1]['index'] > trades_dict['sell_trades'][-1]['index']:
         if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] * (100 + take_profit_value) / 100 <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] * (100 + take_profit_value) / 100, f'.{pip_position}f'))
+                sell(x, sell_simulation_settings, trades_dict, 's_take_profit', format(trades_dict['buy_trades'][-1]['price'] * (100 + take_profit_value) / 100, f'.{pip_position}f'))
         elif take_profit_unit == 'Pips':
             if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] + (take_profit_value * pow(10, -pip_position)) <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] + (take_profit_value * pow(10, -pip_position)), f'.{pip_position}f'))
+                sell(x, sell_simulation_settings, trades_dict, 's_take_profit', format(trades_dict['buy_trades'][-1]['price'] + (take_profit_value * pow(10, -pip_position)), f'.{pip_position}f'))
         elif take_profit_unit == 'Flat':
             if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] + take_profit_value <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, format(trades_dict['buy_trades'][-1]['price'] + take_profit_value, f'.{pip_position}f'))
+                sell(x, sell_simulation_settings, trades_dict, 's_take_profit', format(trades_dict['buy_trades'][-1]['price'] + take_profit_value, f'.{pip_position}f'))
 
 
 def glue_all_code(starting_index, buy_if_string, sell_if_string, sell_simulation_settings):
@@ -193,7 +201,7 @@ def glue_all_code(starting_index, buy_if_string, sell_if_string, sell_simulation
     return simulation_code
 
 
-def buy(x, buy_simulation_settings, trades_dict):
+def buy(x, buy_simulation_settings, trades_dict, id_rule):
     if trades_dict['buy_trades'][-1]['index'] <= trades_dict['sell_trades'][-1]['index'] < x:
         if trades_dict['sell_trades'][-1]['currency_2'] > 0:
             current_price = float(data_df.iloc[x][buy_simulation_settings['buy_settings'][0]['price_source']])
@@ -206,13 +214,14 @@ def buy(x, buy_simulation_settings, trades_dict):
                                                            buy_simulation_settings['buy_settings'][0]['fee'],
                                                            buy_simulation_settings['buy_settings'][0]['fee_unit'])
                               + trades_dict['sell_trades'][-1]['currency_1'],
-                'currency_2': 0
+                'currency_2': 0,
+                'id_rule': id_rule
             })
         # print('-----------------------------------------------------------------------------------------')
         # print(x, ') BOUGHT ', trades_dict['buy_trades'][-1]['amount_traded'], ' FOR ',  trades_dict['buy_trades'][-1]['price'])
 
 
-def sell(x, sell_simulation_settings, trades_dict, price='options'):
+def sell(x, sell_simulation_settings, trades_dict, id_rule,  price='options'):
     if trades_dict['sell_trades'][-1]['index'] <= trades_dict['buy_trades'][-1]['index'] < x:
         if trades_dict['buy_trades'][-1]['currency_1'] > 0:
             if price == 'options':
@@ -228,7 +237,8 @@ def sell(x, sell_simulation_settings, trades_dict, price='options'):
                                                            current_price, trades_dict['buy_trades'][-1]['currency_1'],
                                                            sell_simulation_settings['sell_settings'][0]['fee'],
                                                            sell_simulation_settings['sell_settings'][0]['fee_unit'])
-                              + trades_dict['buy_trades'][-1]['currency_2']
+                              + trades_dict['buy_trades'][-1]['currency_2'],
+                'id_rule': id_rule
             })
         # if len(trades_dict['buy_trades']) > 1:
         #     print(x, ') SOLD ', trades_dict['sell_trades'][-1]['amount_traded'], ' FOR ', trades_dict['sell_trades'][-1]['price'])
@@ -327,14 +337,16 @@ def init_simulation(main_window_object):
         'price': data_df.iloc[0][buy_simulation_settings['buy_settings'][0]['price_source']],
         'amount_traded': 0,
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
-        'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance'])
+        'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance']),
+        'id_rule': '-'
     })
     trades_dict['sell_trades'].append({
         'index': 0,
         'price': data_df.iloc[0][sell_simulation_settings['sell_settings'][0]['price_source']],
         'amount_traded': 0,
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
-        'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance'])
+        'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance']),
+        'id_rule': '-'
     })
     starting_index = return_index_of_first_non_zero_row(data_df)
     code = glue_all_code(starting_index, glue_if_statements(buy_rules['buy_rules'], 'buy'), glue_if_statements(sell_rules['sell_rules'], 'sell'), sell_simulation_settings)
@@ -344,5 +356,6 @@ def init_simulation(main_window_object):
     # print(json.dumps(trades_dict, indent=4))
 
     # pass and display data in summary_page
-    main_window_object.summary_page.plot_candle_chart(trades_dict)
+    # main_window_object.summary_page.plot_candle_chart(trades_dict)
     main_window_object.summary_page.format_and_display_text(trades_dict)
+    main_window_object.summary_page.display_buy_and_sell_rules(buy_rules, sell_rules, sell_simulation_settings)
