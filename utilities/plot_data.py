@@ -30,15 +30,21 @@ def plot_balance(trades_dict, list_of_profit, currency_2_symbol):
     buys_indexes = list(map(itemgetter('index'), trades_dict['buy_trades']))[1:]
     buys_amount_in_currency_2 = np.multiply(list(map(itemgetter('currency_1'), trades_dict['buy_trades'])),
                                             list(map(itemgetter('price'), trades_dict['buy_trades'])))[1:]
+    buys_id_rule = list(map(itemgetter('id_rule'), trades_dict['buy_trades']))[1:]
 
     sells_indexes = list(map(itemgetter('index'), trades_dict['sell_trades']))[1:]
     sells_amount_in_currency_2 = list(map(itemgetter('currency_2'), trades_dict['sell_trades']))[1:]
+    sells_id_rule = list(map(itemgetter('id_rule'), trades_dict['sell_trades']))[1:]
 
     fig = go.Figure(layout_title_text="Total profit: {} {}".format(balance_list[-1] - balance_list[0], currency_2_symbol))
     fig.add_trace(go.Scatter(mode='lines', x=index_list, y=balance_list, name='Account', marker=dict(color='LightSeaGreen')))
     fig.add_shape(type='line', x0=0, y0=balance_list[0], x1=index_list[-1], y1=balance_list[0], line=dict(color='black', dash='dot'))
-    fig.add_trace(go.Scatter(mode='markers', x=sells_indexes, y=sells_amount_in_currency_2, marker=dict(color='brown', size=8), name='Sell transaction'))
-    fig.add_trace(go.Scatter(mode='markers', x=buys_indexes, y=buys_amount_in_currency_2, marker=dict(color='royalblue', size = 8), name='Buy transaction'))
+    fig.add_trace(go.Scatter(mode='markers', x=sells_indexes, y=sells_amount_in_currency_2, text=sells_id_rule,
+                             hovertemplate='<i>Transaction ID: </i>%{x}<br>'+'<i>Balance: </i>%{y}<br>'+'<i>Rule ID: </i>%{text}<br>',
+                             marker=dict(color='brown', size=8), name='Sell transaction'))
+    fig.add_trace(go.Scatter(mode='markers', x=buys_indexes, y=buys_amount_in_currency_2, text=buys_id_rule,
+                             hovertemplate='<i>Transaction ID: </i>%{x}<br>'+'<i>Balance: </i>%{y}<br>'+'<i>Rule ID: </i>%{text}<br>',
+                             marker=dict(color='royalblue', size = 8), name='Buy transaction'))
     fig.update_layout(yaxis_tickformat = f".{get_pip_position_for_simulation(load_ohlcv_data_from_csv_file())}f")
     html = '<html><body>'
     html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
@@ -46,17 +52,23 @@ def plot_balance(trades_dict, list_of_profit, currency_2_symbol):
     return html
 
 def plot_ohlc_data_with_transactions(ohlcv_data, trades_dict):
-    sells_indexes = list(map(itemgetter('index'), trades_dict['sell_trades']))
-    sells_price = list(map(itemgetter('price'), trades_dict['sell_trades']))
+    sells_indexes = list(map(itemgetter('index'), trades_dict['sell_trades']))[1:]
+    sells_price = list(map(itemgetter('price'), trades_dict['sell_trades']))[1:]
+    sells_id_rule = list(map(itemgetter('id_rule'), trades_dict['sell_trades']))[1:]
 
-    buys_indexes = list(map(itemgetter('index'), trades_dict['buy_trades']))
-    buys_price = list(map(itemgetter('price'), trades_dict['buy_trades']))
+    buys_indexes = list(map(itemgetter('index'), trades_dict['buy_trades']))[1:]
+    buys_price = list(map(itemgetter('price'), trades_dict['buy_trades']))[1:]
+    buys_id_rule = list(map(itemgetter('id_rule'), trades_dict['buy_trades']))[1:]
 
     fig = go.Figure()
     fig.add_trace(go.Candlestick(x=ohlcv_data.index, open=ohlcv_data['Open'], high=ohlcv_data['High'],
                                  low=ohlcv_data['Low'], close=ohlcv_data['Close']))
-    fig.add_trace(go.Scatter(mode='markers', x=sells_indexes, y=sells_price, marker=dict(color='brown', size=8),name='Sell transaction'))
-    fig.add_trace(go.Scatter(mode='markers', x=buys_indexes, y=buys_price, marker=dict(color='royalblue', size = 8),name='Buy transaction'))
+    fig.add_trace(go.Scatter(mode='markers', x=sells_indexes, y=sells_price, text=sells_id_rule,
+                             hovertemplate='<i>Transaction ID: </i>%{x}<br>' + '<i>Price: </i>%{y}<br>' + '<i>Rule ID: </i>%{text}<br>',
+                             marker=dict(color='brown', size=8),name='Sell transaction'))
+    fig.add_trace(go.Scatter(mode='markers', x=buys_indexes, y=buys_price, text=buys_id_rule,
+                             hovertemplate='<i>Transaction ID: </i>%{x}<br>' + '<i>Price: </i>%{y}<br>' + '<i>Rule ID: </i>%{text}<br>',
+                             marker=dict(color='royalblue', size = 8),name='Buy transaction'))
     fig.update_layout(xaxis_rangeslider_visible=False, yaxis_tickformat = f".{get_pip_position_for_simulation(ohlcv_data)}f")
     html = '<html><body>'
     html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
