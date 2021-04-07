@@ -17,6 +17,21 @@
    <string notr="true">background-color: rgb(45, 45, 45);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>15</number>
+   </property>
+   <property name="leftMargin">
+    <number>15</number>
+   </property>
+   <property name="topMargin">
+    <number>15</number>
+   </property>
+   <property name="rightMargin">
+    <number>15</number>
+   </property>
+   <property name="bottomMargin">
+    <number>15</number>
+   </property>
    <item>
     <widget class="QWebEngineView" name="candle_chart_widget" native="true">
      <property name="sizePolicy">
@@ -32,8 +47,15 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QPushButton" name="close_button">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);
+font: 20pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(85, 170, 255);
+border: 0px sold;
+border-radius: 10px;</string>
+        </property>
         <property name="text">
-         <string>PushButton</string>
+         <string>Close</string>
         </property>
        </widget>
       </item>
