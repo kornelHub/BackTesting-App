@@ -16,6 +16,8 @@ class Settings_Widget(Base, Form):
         self.setWindowTitle('BackTesting Application')
         self.close_button.clicked.connect(lambda: self.go_back_to_previous_stacked_widget_page())
         self.save_settings_button.clicked.connect(lambda: self.save_settings())
+        self.link_label.setOpenExternalLinks(True)
+        self.link_label.setText("<a href='https://www.binance.com/en-NG/support/faq/360002502072'>Tutorial</a>")
 
         #load configuration values from file is exist
         if os.path.exists(current_dir[:-5]+'config.ini'):
