@@ -72,7 +72,9 @@ class Summary_Page(Base, Form):
         display_plot_page.show()
 
 
-    def format_and_display_text(self, trades_dict):
+    def format_and_display_text(self, trades_dict, pip_position):
+        print(trades_dict)
+        print(pip_position)
         currency_pair = (open(utilities.helpers.path_to_csv_file).readline()).rstrip("\n") # temporary solution
         currency_1_symbol = cryptocurrency_pair_dict[currency_pair]['base']
         currency_2_symbol = cryptocurrency_pair_dict[currency_pair]['quote']
@@ -86,21 +88,25 @@ class Summary_Page(Base, Form):
             for x in range(1, len(trades_dict['sell_trades'])):
                 formatted_trades += '----------------------------------------------------------------------------\n'
 
-                formatted_trades += '{}) Bought {} {} for price {}\n' \
+                formatted_trades += '{}) Bought {} {} for price {} | Rule ID: {}\n' \
                     .format(trades_dict['buy_trades'][x]['index'],
-                            trades_dict['buy_trades'][x]['amount_traded'],
+                            format(trades_dict['buy_trades'][x]['amount_traded'], f".{pip_position}f"),
                             currency_2_symbol,
-                            trades_dict['buy_trades'][x]['price'])
+                            trades_dict['buy_trades'][x]['price'],
+                            trades_dict['buy_trades'][x]['id_rule'])
 
-                formatted_trades += '{}) Sold {} {} for price {}\n' \
+                formatted_trades += '{}) Sold {} {} for price {} | Rule ID: {}\n' \
                     .format(trades_dict['sell_trades'][x]['index'],
-                            trades_dict['sell_trades'][x]['amount_traded'],
+                            format(trades_dict['sell_trades'][x]['amount_traded'], f".{pip_position}f"),
                             currency_1_symbol,
-                            trades_dict['sell_trades'][x]['price'])
+                            trades_dict['sell_trades'][x]['price'],
+                            trades_dict['sell_trades'][x]['id_rule'])
 
-                formatted_trades += '#PROFIT: {}\n' \
-                    .format(trades_dict['sell_trades'][x]['currency_2'] - trades_dict['sell_trades'][x-1]['currency_2']
-                                - trades_dict['sell_trades'][x-1]['currency_1'] * trades_dict['sell_trades'][x-1]['price'])
+                formatted_trades += '#PROFIT: {} {}\n' \
+                    .format(format(trades_dict['sell_trades'][x]['currency_2']
+                                   - trades_dict['sell_trades'][x-1]['currency_2']
+                                   - trades_dict['sell_trades'][x-1]['currency_1']
+                                   * trades_dict['sell_trades'][x-1]['price'], f".{pip_position}f"), currency_2_symbol)
 
                 balance_list.append([trades_dict['buy_trades'][x]['index'],
                                      trades_dict['buy_trades'][x]['currency_1'] * trades_dict['buy_trades'][x]['price']
@@ -112,15 +118,18 @@ class Summary_Page(Base, Form):
         else: #first trans is sell
             formatted_trades += '----------------------------------------------------------------------------\n'
 
-            formatted_trades += '{}) Sold {} {} for price {}\n'\
+            formatted_trades += '{}) Sold {} {} for price {} | Rule ID: {}\n'\
                 .format(trades_dict['sell_trades'][1]['index'],
-                        trades_dict['sell_trades'][1]['amount_traded'],
+                        format(trades_dict['sell_trades'][1]['amount_traded'], f".{pip_position}f"),
                         currency_1_symbol,
-                        trades_dict['sell_trades'][1]['price'])
+                        trades_dict['sell_trades'][1]['price'],
+                        trades_dict['sell_trades'][1]['id_rule'])
 
-            formatted_trades += '#PROFIT: {}\n'\
-                    .format(trades_dict['sell_trades'][1]['currency_2'] - trades_dict['sell_trades'][0]['currency_2']
-                                - trades_dict['sell_trades'][0]['currency_1'] * trades_dict['sell_trades'][0]['price'])
+            formatted_trades += '#PROFIT: {} {}\n'\
+                    .format(format(trades_dict['sell_trades'][1]['currency_2']
+                                   - trades_dict['sell_trades'][0]['currency_2']
+                                   - trades_dict['sell_trades'][0]['currency_1']
+                                   * trades_dict['sell_trades'][0]['price'], f".{pip_position}f"), currency_2_symbol)
 
             balance_list.append([trades_dict['sell_trades'][1]['index'],
                                 trades_dict['sell_trades'][1]['currency_2']
@@ -129,22 +138,26 @@ class Summary_Page(Base, Form):
             for x in range(1, len(trades_dict['sell_trades'])-1):
                 formatted_trades += '----------------------------------------------------------------------------\n'
 
-                formatted_trades += '{}) Bought {} {} for price {}\n'\
+                formatted_trades += '{}) Bought {} {} for price {} | Rule ID: {}\n'\
                     .format(trades_dict['buy_trades'][x]['index'],
-                            trades_dict['buy_trades'][x]['amount_traded'],
+                            format(trades_dict['buy_trades'][x]['amount_traded'], f".{pip_position}f"),
                             currency_2_symbol,
-                            trades_dict['buy_trades'][x]['price'])
+                            trades_dict['buy_trades'][x]['price'],
+                            trades_dict['buy_trades'][x]['id_rule'])
 
-                formatted_trades += '{}) Sold {} {} for price {}\n'\
+                formatted_trades += '{}) Sold {} {} for price {} | Rule ID: {}\n'\
                     .format(trades_dict['sell_trades'][x+1]['index'],
-                            trades_dict['sell_trades'][x+1]['amount_traded'],
+                            format(trades_dict['sell_trades'][x+1]['amount_traded'], f".{pip_position}f"),
                             currency_1_symbol,
-                            trades_dict['sell_trades'][x+1]['price'])
+                            trades_dict['sell_trades'][x+1]['price'],
+                            trades_dict['sell_trades'][x+1]['id_rule'])
 
 
-                formatted_trades += '#PROFIT: {}\n'\
-                    .format(trades_dict['sell_trades'][x+1]['currency_2'] - trades_dict['sell_trades'][x]['currency_2']
-                                - trades_dict['sell_trades'][x]['currency_1'] * trades_dict['sell_trades'][x]['price'])
+                formatted_trades += '#PROFIT: {} {}\n'\
+                    .format(format(trades_dict['sell_trades'][x+1]['currency_2']
+                                   - trades_dict['sell_trades'][x]['currency_2']
+                                   - trades_dict['sell_trades'][x]['currency_1']
+                                   * trades_dict['sell_trades'][x]['price'], f".{pip_position}f"), currency_2_symbol)
 
                 balance_list.append([trades_dict['buy_trades'][x]['index'],
                                      trades_dict['buy_trades'][x]['currency_1'] * trades_dict['buy_trades'][x]['price']
