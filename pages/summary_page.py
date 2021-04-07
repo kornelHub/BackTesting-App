@@ -1,5 +1,5 @@
 import os
-from PySide2 import QtGui, QtWidgets
+from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
 from pages.display_plot_page import Display_Plot_Page
 from utilities.helpers import cryptocurrency_pair_dict
@@ -17,15 +17,53 @@ class Summary_Page(Base, Form):
         self.setupUi(self)
         self.setWindowIcon(QtGui.QIcon('icons/logo2.png'))
         self.setWindowTitle('BackTesting Application')
-        self.buy_rules_treeWidget.setHeaderLabel('')
-        self.sell_rules_treeWidget.setHeaderLabel('')
+        self.buy_rules_treeWidget.setHeaderItem(QtWidgets.QTreeWidgetItem(['Buy rules', 'Rule ID']))
+        self.sell_rules_treeWidget.setHeaderItem(QtWidgets.QTreeWidgetItem(['Sell rules', 'Rule ID']))
 
 
     def display_buy_and_sell_rules(self, buy_rules, sell_rules, sell_simulation_settings):
-        print('xd')
-        # print(buy_rules)
-        # print(sell_rules)
-        # print(sell_simulation_settings)
+        # set up buy_rules_treeWidget
+
+        self.buy_rules_treeWidget.clear()
+        buy_rules = buy_rules['buy_rules']
+        QtWidgets.QTreeWidgetItem(self.buy_rules_treeWidget, [buy_rules[0]['rule_text'], buy_rules[0]['id_rule']])
+        for x in range(len(buy_rules) - 1):
+            for y in range(len(buy_rules)):
+                if buy_rules[x + 1]['qTreeWidgetItem_Parent'] == buy_rules[y]['qTreeWidgetItem']:
+                    found_parent = buy_rules[y]['rule_text']
+            QtWidgets.QTreeWidgetItem(self.buy_rules_treeWidget.findItems(found_parent, QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive,0)[-1],
+                                      [buy_rules[x + 1]['rule_text'], buy_rules[x + 1]['id_rule']])
+        self.buy_rules_treeWidget.expandAll()
+
+
+        # set up sell_rules_treeWidget
+        self.sell_rules_treeWidget.clear()
+        sell_rules = sell_rules['sell_rules']
+        if sell_simulation_settings['sell_settings'][0]['is_stop_loss_selected']:
+            QtWidgets.QTreeWidgetItem(self.sell_rules_treeWidget,
+                                      [f"Stop loss - {sell_simulation_settings['sell_settings'][0]['stop_loss']} {sell_simulation_settings['sell_settings'][0]['stop_loss_unit']}", 's_stop_loss'])
+
+        if sell_simulation_settings['sell_settings'][0]['is_take_profit_selected']:
+            QtWidgets.QTreeWidgetItem(self.sell_rules_treeWidget,
+                                      [f"Take profit - {sell_simulation_settings['sell_settings'][0]['take_profit']} {sell_simulation_settings['sell_settings'][0]['take_profit_unit']}", 's_take_profit'])
+
+        QtWidgets.QTreeWidgetItem(self.sell_rules_treeWidget, [sell_rules[0]['rule_text'], sell_rules[0]['id_rule']])
+        for x in range(len(sell_rules) - 1):
+            for y in range(len(sell_rules)):
+                if sell_rules[x + 1]['qTreeWidgetItem_Parent'] == sell_rules[y]['qTreeWidgetItem']:
+                    found_parent = sell_rules[y]['rule_text']
+            QtWidgets.QTreeWidgetItem(self.sell_rules_treeWidget.findItems(found_parent, QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive,0)[-1],
+                                      [sell_rules[x + 1]['rule_text'], sell_rules[x + 1]['id_rule']])
+        self.sell_rules_treeWidget.expandAll()
+
+        self.buy_rules_treeWidget.resizeColumnToContents(0)
+        self.sell_rules_treeWidget.resizeColumnToContents(0)
+
+        if self.buy_rules_treeWidget.columnWidth(0) > self.sell_rules_treeWidget.columnWidth(0):
+            self.sell_rules_treeWidget.setColumnWidth(0, self.buy_rules_treeWidget.columnWidth(0))
+        else:
+            self.buy_rules_treeWidget.setColumnWidth(0, self.sell_rules_treeWidget.columnWidth(0))
+
 
 
     def plot_candle_chart(self, trades_dict):

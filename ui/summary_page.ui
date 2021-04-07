@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1239</width>
+    <width>1240</width>
     <height>619</height>
    </rect>
   </property>
@@ -167,6 +167,12 @@ background-color: rgb(55,55,55);
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>365</width>
+             <height>255</height>
+            </size>
+           </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(55,55,55);</string>
            </property>
@@ -206,14 +212,31 @@ background-color: rgb(55,55,55);
             </item>
             <item>
              <widget class="QTreeWidget" name="buy_rules_treeWidget">
+              <property name="minimumSize">
+               <size>
+                <width>365</width>
+                <height>255</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(55,55,55);
 font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
               </property>
+              <property name="columnCount">
+               <number>2</number>
+              </property>
+              <attribute name="headerDefaultSectionSize">
+               <number>100</number>
+              </attribute>
               <column>
                <property name="text">
                 <string notr="true">1</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string notr="true">2</string>
                </property>
               </column>
              </widget>
@@ -228,6 +251,12 @@ font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>365</width>
+             <height>255</height>
+            </size>
            </property>
            <property name="styleSheet">
             <string notr="true">background-color: rgb(55,55,55);</string>
@@ -268,14 +297,40 @@ font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
             </item>
             <item>
              <widget class="QTreeWidget" name="sell_rules_treeWidget">
+              <property name="minimumSize">
+               <size>
+                <width>365</width>
+                <height>255</height>
+               </size>
+              </property>
               <property name="styleSheet">
                <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(55,55,55);
 font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
               </property>
+              <property name="sizeAdjustPolicy">
+               <enum>QAbstractScrollArea::AdjustIgnored</enum>
+              </property>
+              <property name="columnCount">
+               <number>2</number>
+              </property>
+              <attribute name="headerCascadingSectionResizes">
+               <bool>false</bool>
+              </attribute>
+              <attribute name="headerDefaultSectionSize">
+               <number>100</number>
+              </attribute>
+              <attribute name="headerStretchLastSection">
+               <bool>true</bool>
+              </attribute>
               <column>
                <property name="text">
                 <string notr="true">1</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string notr="true">2</string>
                </property>
               </column>
              </widget>

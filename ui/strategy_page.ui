@@ -330,6 +330,9 @@ font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
                  <property name="columnCount">
                   <number>1</number>
                  </property>
+                 <attribute name="headerVisible">
+                  <bool>false</bool>
+                 </attribute>
                  <attribute name="headerDefaultSectionSize">
                   <number>100</number>
                  </attribute>
@@ -1034,6 +1037,9 @@ color: rgb(255, 255, 255);</string>
               <property name="selectionBehavior">
                <enum>QAbstractItemView::SelectRows</enum>
               </property>
+              <attribute name="headerVisible">
+               <bool>false</bool>
+              </attribute>
               <column>
                <property name="text">
                 <string notr="true">1</string>
