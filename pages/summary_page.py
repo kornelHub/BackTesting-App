@@ -73,8 +73,6 @@ class Summary_Page(Base, Form):
 
 
     def format_and_display_text(self, trades_dict, pip_position):
-        print(trades_dict)
-        print(pip_position)
         currency_pair = (open(utilities.helpers.path_to_csv_file).readline()).rstrip("\n") # temporary solution
         currency_1_symbol = cryptocurrency_pair_dict[currency_pair]['base']
         currency_2_symbol = cryptocurrency_pair_dict[currency_pair]['quote']
