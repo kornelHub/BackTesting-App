@@ -58,12 +58,18 @@ class Summary_Page(Base, Form):
 
         self.buy_rules_treeWidget.resizeColumnToContents(0)
         self.sell_rules_treeWidget.resizeColumnToContents(0)
-
         if self.buy_rules_treeWidget.columnWidth(0) > self.sell_rules_treeWidget.columnWidth(0):
             self.sell_rules_treeWidget.setColumnWidth(0, self.buy_rules_treeWidget.columnWidth(0))
         else:
             self.buy_rules_treeWidget.setColumnWidth(0, self.sell_rules_treeWidget.columnWidth(0))
 
+
+        self.buy_rules_treeWidget.resizeColumnToContents(1)
+        self.sell_rules_treeWidget.resizeColumnToContents(1)
+        if self.buy_rules_treeWidget.columnWidth(1) > self.sell_rules_treeWidget.columnWidth(1):
+            self.sell_rules_treeWidget.setColumnWidth(1, self.buy_rules_treeWidget.columnWidth(1))
+        else:
+            self.buy_rules_treeWidget.setColumnWidth(1, self.sell_rules_treeWidget.columnWidth(1))
 
 
     def plot_candle_chart(self, trades_dict):
