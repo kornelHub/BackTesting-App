@@ -47,8 +47,49 @@ class Fetch_Data_Widget(Base, Form):
         self.p1_startDate_textField_year.setValidator(QRegExpValidator(year_regular_expression, self))
         self.p1_endDate_textField_year.setValidator(QRegExpValidator(year_regular_expression, self))
 
+        self.list_of_fields = [self.p1_interval_dropdown, self.p1_cryptoSymbol_textField,
+                          self.p1_startDate_textField_day, self.p1_startDate_comboBox_month,
+                          self.p1_startDate_textField_year, self.p1_startDate_textField_hour,
+                          self.p1_startDate_textField_minute, self.p1_startDate_textField_second,
+                          self.p1_endDate_textField_day, self.p1_endDate_comboBox_month,
+                          self.p1_endDate_textField_year, self.p1_endDate_textField_hour,
+                          self.p1_endDate_textField_minute, self.p1_endDate_textField_second]
+
+
+    def check_if_all_fileds_have_values(self):
+        is_field_contain_text =[]
+        for field in self.list_of_fields:
+            if isinstance(field, QtWidgets.QLineEdit):
+                if field.text():
+                    field.setProperty("invalid", False)
+                    field.style().polish(field)
+                    is_field_contain_text.append(True)
+                else:
+                    field.setProperty("invalid", True)
+                    field.style().polish(field)
+                    is_field_contain_text.append(False)
+            elif isinstance(field, QtWidgets.QComboBox):
+                if field.currentText():
+                    field.setProperty("invalid", False)
+                    field.style().polish(field)
+                    is_field_contain_text.append(True)
+                else:
+                    field.setProperty("invalid", True)
+                    field.style().polish(field)
+                    is_field_contain_text.append(False)
+
+        if False in is_field_contain_text:
+            return False
+        else:
+            return True
+
 
     def fetch_data_btn_clicked(self, main_widget_object, path_to_project):
+        # returns False if one or more fields are empty
+        if not self.check_if_all_fileds_have_values():
+            # Throw ERROR
+            return False
+
         start_date = self.p1_startDate_textField_day.text() + ' ' + self.p1_startDate_comboBox_month.currentText() \
                      + ' ' + self.p1_startDate_textField_year.text() + ' ' + self.p1_startDate_textField_hour.text() \
                      + ':' + self.p1_startDate_textField_minute.text() + ':' + self.p1_startDate_textField_second.text()
@@ -56,10 +97,25 @@ class Fetch_Data_Widget(Base, Form):
                    + ' ' + self.p1_endDate_textField_year.text() + ' ' + self.p1_endDate_textField_hour.text() \
                    + ':' + self.p1_endDate_textField_minute.text() + ':' + self.p1_endDate_textField_second.text()
 
+        # return False if From date is bigger that To date
+        if int(date_to_milliseconds(start_date)) >= int(date_to_milliseconds(end_date)):
+            #Throw ERROR
+            return False
+
         currency_symbol = self.p1_cryptoSymbol_textField.text()
         interval = self.p1_interval_dropdown.currentText()
-        path_to_file = QFileDialog.getSaveFileName(self, 'Save OHLCV data to CSV file', path_to_project + '\data', 'Text Files (*.csv)')
-        fetch_data.create_csv_with_ohlcv_data(start_time=int(date_to_milliseconds(start_date)), end_time=int(date_to_milliseconds(end_date)), currency_pair_symbol=currency_symbol, interval=interval, path_to_file=path_to_file[0])
+        path_to_file = QFileDialog.getSaveFileName(self,
+                                                   'Save OHLCV data to CSV file',
+                                                   path_to_project + '\data', 'Text Files (*.csv)')
+
+        # if user click cancel on dialog window, return False and prevent program from crash
+        if not path_to_file[0]:
+            return False
+
+        fetch_data.create_csv_with_ohlcv_data(start_time=int(date_to_milliseconds(start_date)),
+                                              end_time=int(date_to_milliseconds(end_date)),
+                                              currency_pair_symbol=currency_symbol,
+                                              interval=interval, path_to_file=path_to_file[0])
         main_widget_object.data_path.setText(path_to_file[0])
         helpers.path_to_csv_file = path_to_file[0]
         self.p1_ohlcvPlot_qWebEngineView.show()
@@ -67,6 +123,11 @@ class Fetch_Data_Widget(Base, Form):
 
 
     def plot_and_autofill_loaded_data(self):
+        # if user enter invalid data and try to save, fields become red. Loading data should remove red borders.
+        for field in self.list_of_fields:
+            field.setProperty("invalid", False)
+            field.style().polish(field)
+
         new_data = helpers.load_ohlcv_data_from_csv_file()
         self.p1_ohlcvPlot_qWebEngineView.show()
         self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_ohlcv_data(new_data))
