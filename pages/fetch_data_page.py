@@ -55,6 +55,16 @@ class Fetch_Data_Widget(Base, Form):
                           self.p1_endDate_textField_year, self.p1_endDate_textField_hour,
                           self.p1_endDate_textField_minute, self.p1_endDate_textField_second]
 
+        self.hide_error_message()
+
+
+    def hide_error_message(self):
+        self.error_message_label.hide()
+
+    def show_error_message(self, message_text):
+        self.error_message_label.show()
+        self.error_message_label.setText(message_text)
+
 
     def check_if_all_fileds_have_values(self):
         is_field_contain_text =[]
@@ -87,7 +97,7 @@ class Fetch_Data_Widget(Base, Form):
     def fetch_data_btn_clicked(self, main_widget_object, path_to_project):
         # returns False if one or more fields are empty
         if not self.check_if_all_fileds_have_values():
-            # Throw ERROR
+            self.show_error_message("Fields cannot be empty.")
             return False
 
         start_date = self.p1_startDate_textField_day.text() + ' ' + self.p1_startDate_comboBox_month.currentText() \
@@ -99,7 +109,12 @@ class Fetch_Data_Widget(Base, Form):
 
         # return False if From date is bigger that To date
         if int(date_to_milliseconds(start_date)) >= int(date_to_milliseconds(end_date)):
-            #Throw ERROR
+            self.show_error_message("'From' data cannot be bigger that 'To' date")
+            print(self.list_of_fields[8:])
+            for field in self.list_of_fields[8:]:
+                field.setProperty("invalid", True)
+                field.style().polish(field)
+
             return False
 
         currency_symbol = self.p1_cryptoSymbol_textField.text()
@@ -120,6 +135,7 @@ class Fetch_Data_Widget(Base, Form):
         helpers.path_to_csv_file = path_to_file[0]
         self.p1_ohlcvPlot_qWebEngineView.show()
         self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_ohlcv_data(helpers.load_ohlcv_data_from_csv_file()))
+        self.hide_error_message()
 
 
     def plot_and_autofill_loaded_data(self):
@@ -152,6 +168,7 @@ class Fetch_Data_Widget(Base, Form):
         self.p1_endDate_textField_hour.setText(end_time[11:13])
         self.p1_endDate_textField_minute.setText(end_time[14:16])
         self.p1_endDate_textField_second.setText(end_time[17:19])
+        self.hide_error_message()
 
 
 if __name__ == '__fetch_data_page__':
