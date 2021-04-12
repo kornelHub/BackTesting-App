@@ -10,6 +10,15 @@ columns_name_string = 'Opentime;Open;High;Low;Close;Volume;CloseTime'
 def load_ohlcv_data_from_csv_file():
     return pd.read_csv(path_to_csv_file, sep=';', skiprows=[0])
 
+def hide_error_message(error_message_label):
+    error_message_label.hide()
+
+
+def show_error_message(error_message_label, message_text):
+    error_message_label.show()
+    error_message_label.setText(message_text)
+
+
 def return_index_of_first_non_zero_row(data_df):
     data_np = data_df.to_numpy()
     for x in range(len(data_np)):
@@ -54,8 +63,8 @@ def create_cryptocurrency_dictionary():
     print(dictionary)  # paste output into cryptocurrency_pair_dict
 
 
-add_strategy_button_style_sheet_normal = "QPushButton {\ncolor: rgb(255, 255, 255);\nbackground-color: rgb(70,70,70);\nborder: 0px sold;\nborder-radius: 10px;\n\n}\nQPushButton:hover {\n	 border: 2px solid rgb(85,85,85);\n}"
-add_strategy_button_style_sheet_clicked = "QPushButton {\ncolor: rgb(255, 255, 255);\nbackground-color: rgb(85, 170, 255);\nborder: 0px sold;\nborder-radius: 10px;\n\n}"
+# add_strategy_button_style_sheet_normal = "QPushButton {\ncolor: rgb(255, 255, 255);\nbackground-color: rgb(70,70,70);\nborder: 0px sold;\nborder-radius: 10px;\n\n}\nQPushButton:hover {\n	 border: 2px solid rgb(85,85,85);\n}"
+# add_strategy_button_style_sheet_clicked = "QPushButton {\ncolor: rgb(255, 255, 255);\nbackground-color: rgb(85, 170, 255);\nborder: 0px sold;\nborder-radius: 10px;\n\n}"
 
 time_difference_dictionary = {
     '1m': 60000,

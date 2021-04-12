@@ -24,7 +24,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
-    <number>0</number>
+    <number>15</number>
    </property>
    <property name="sizeConstraint">
     <enum>QLayout::SetDefaultConstraint</enum>
@@ -42,41 +42,27 @@
     <number>15</number>
    </property>
    <item>
-    <widget class="QLabel" name="label">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+    <widget class="QLabel" name="error_message_label">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>999999</width>
-       <height>70</height>
+       <width>16777215</width>
+       <height>50</height>
       </size>
      </property>
-     <property name="font">
-      <font>
-       <family>MS Shell Dlg 2</family>
-       <pointsize>20</pointsize>
-       <weight>50</weight>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
      <property name="styleSheet">
-      <string notr="true">QLabel {
-	background-color: rgb(70,70,70);
-	font: 20pt &quot;MS Shell Dlg 2&quot;;
-	color: rgb(255,255,255);
-	border-radius:10px;
-}</string>
+      <string notr="true">background-color: rgb(255, 115, 107);
+color: rgb(255, 255, 255);
+border-radius: 10px;
+border: 2px solid rgb(255, 115, 107);</string>
      </property>
      <property name="text">
-      <string>Define new rule</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <string/>
      </property>
     </widget>
    </item>
@@ -93,6 +79,60 @@
 border-radius: 10px;</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>999999</width>
+          <height>70</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Shell Dlg 2</family>
+          <pointsize>20</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+	background-color: rgb(70,70,70);
+	font: 20pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
+	border-radius:10px;
+}</string>
+        </property>
+        <property name="text">
+         <string>Define new rule</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QWidget" name="first_indicator_widget" native="true">
         <property name="sizePolicy">
@@ -111,34 +151,6 @@ border-radius: 10px;</string>
          <property name="verticalSpacing">
           <number>0</number>
          </property>
-         <item row="0" column="2">
-          <widget class="QLabel" name="label_5">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QLabel {
-	font: 10pt &quot;MS Shell Dlg 2&quot;;
-	color: rgb(255,255,255);
-}</string>
-           </property>
-           <property name="text">
-            <string>Period:</string>
-           </property>
-           <property name="margin">
-            <number>6</number>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="2">
           <widget class="QComboBox" name="p3_firstIndicatorOptions_comboBox_2">
            <property name="sizePolicy">
@@ -233,6 +245,48 @@ QComboBox QAbstractItemView {
            </item>
           </widget>
          </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="p3_firstIndicatorOptions_button_1">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+color: rgb(255, 255, 255);
+background-color: rgb(70,70,70);
+border: 0px sold;
+border-radius: 10px;
+
+}
+QPushButton:hover {
+	 border: 2px solid rgb(85,85,85);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label_3">
            <property name="styleSheet">
@@ -243,22 +297,6 @@ QComboBox QAbstractItemView {
            </property>
            <property name="text">
             <string>First indicator:</string>
-           </property>
-           <property name="margin">
-            <number>6</number>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_4">
-           <property name="styleSheet">
-            <string notr="true">QLabel {
-	font: 10pt &quot;MS Shell Dlg 2&quot;;
-	color: rgb(255,255,255);
-}</string>
-           </property>
-           <property name="text">
-            <string>Options: </string>
            </property>
            <property name="margin">
             <number>6</number>
@@ -434,45 +472,47 @@ QComboBox QAbstractItemView {
            </item>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QPushButton" name="p3_firstIndicatorOptions_button_1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
+         <item row="0" column="2">
+          <widget class="QLabel" name="label_5">
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>35</height>
+             <height>0</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>35</height>
+             <height>0</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
            <property name="styleSheet">
-            <string notr="true">QPushButton {
-color: rgb(255, 255, 255);
-background-color: rgb(70,70,70);
-border: 0px sold;
-border-radius: 10px;
-
-}
-QPushButton:hover {
-	 border: 2px solid rgb(85,85,85);
+            <string notr="true">QLabel {
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
 }</string>
            </property>
            <property name="text">
-            <string/>
+            <string>Period:</string>
+           </property>
+           <property name="margin">
+            <number>6</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_4">
+           <property name="styleSheet">
+            <string notr="true">QLabel {
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
+}</string>
+           </property>
+           <property name="text">
+            <string>Options: </string>
+           </property>
+           <property name="margin">
+            <number>6</number>
            </property>
           </widget>
          </item>
@@ -532,14 +572,19 @@ QPushButton:hover {
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-color: rgb(255, 255, 255);
-background-color: rgb(70,70,70);
-border: 0px sold;
-border-radius: 10px;
-
+	color: rgb(255, 255, 255);
+	background-color: rgb(70,70,70);
+	border: 0px sold;
+	border-radius: 10px;
 }
 QPushButton:hover {
-	 border: 2px solid rgb(85,85,85);
+	border: 2px solid rgb(85,85,85);
+}
+QPushButton[clicked='true'] {
+	background-color: rgb(85, 170, 255);
+}
+QPushButton[invalid='true'] {
+	border: 2px solid rgb(255, 115, 107);
 }</string>
            </property>
            <property name="text">
@@ -557,14 +602,19 @@ QPushButton:hover {
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-color: rgb(255, 255, 255);
-background-color: rgb(70,70,70);
-border: 0px sold;
-border-radius: 10px;
-
+	color: rgb(255, 255, 255);
+	background-color: rgb(70,70,70);
+	border: 0px sold;
+	border-radius: 10px;
 }
 QPushButton:hover {
-	 border: 2px solid rgb(85,85,85);
+	border: 2px solid rgb(85,85,85);
+}
+QPushButton[clicked='true'] {
+	background-color: rgb(85, 170, 255);
+}
+QPushButton[invalid='true'] {
+	border: 2px solid rgb(255, 115, 107);
 }</string>
            </property>
            <property name="text">
@@ -582,14 +632,19 @@ QPushButton:hover {
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-color: rgb(255, 255, 255);
-background-color: rgb(70,70,70);
-border: 0px sold;
-border-radius: 10px;
-
+	color: rgb(255, 255, 255);
+	background-color: rgb(70,70,70);
+	border: 0px sold;
+	border-radius: 10px;
 }
 QPushButton:hover {
-	 border: 2px solid rgb(85,85,85);
+	border: 2px solid rgb(85,85,85);
+}
+QPushButton[clicked='true'] {
+	background-color: rgb(85, 170, 255);
+}
+QPushButton[invalid='true'] {
+	border: 2px solid rgb(255, 115, 107);
 }</string>
            </property>
            <property name="text">
@@ -607,14 +662,19 @@ QPushButton:hover {
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-color: rgb(255, 255, 255);
-background-color: rgb(70,70,70);
-border: 0px sold;
-border-radius: 10px;
-
+	color: rgb(255, 255, 255);
+	background-color: rgb(70,70,70);
+	border: 0px sold;
+	border-radius: 10px;
 }
 QPushButton:hover {
-	 border: 2px solid rgb(85,85,85);
+	border: 2px solid rgb(85,85,85);
+}
+QPushButton[clicked='true'] {
+	background-color: rgb(85, 170, 255);
+}
+QPushButton[invalid='true'] {
+	border: 2px solid rgb(255, 115, 107);
 }</string>
            </property>
            <property name="text">
@@ -632,14 +692,19 @@ QPushButton:hover {
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
-color: rgb(255, 255, 255);
-background-color: rgb(70,70,70);
-border: 0px sold;
-border-radius: 10px;
-
+	color: rgb(255, 255, 255);
+	background-color: rgb(70,70,70);
+	border: 0px sold;
+	border-radius: 10px;
 }
 QPushButton:hover {
-	 border: 2px solid rgb(85,85,85);
+	border: 2px solid rgb(85,85,85);
+}
+QPushButton[clicked='true'] {
+	background-color: rgb(85, 170, 255);
+}
+QPushButton[invalid='true'] {
+	border: 2px solid rgb(255, 115, 107);
 }</string>
            </property>
            <property name="text">

@@ -2,8 +2,7 @@ import os
 from PySide2 import QtGui, QtCore, QtWidgets
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtCore import Signal, Slot
-from utilities.helpers import add_strategy_button_style_sheet_normal, add_strategy_button_style_sheet_clicked, \
-    indicator_default_options
+from utilities.helpers import indicator_default_options, hide_error_message, show_error_message
 from pages.change_indicator_form_page import Change_Indicator_Form_Page
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -25,6 +24,8 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.list_of_parent_text = []
         self.current_selected_math_char = ''
         self.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)
+
+        hide_error_message(self.error_message_label)
 
         self.selectMathChar_Button_1.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_1))
         self.selectMathChar_Button_2.clicked.connect(lambda: self.math_char_buttons_behavior(self.selectMathChar_Button_2))
@@ -63,12 +64,19 @@ class Add_Strategy_Rule_Widget(Form, Base):
             linked_option_edit.setEnabled(True)
 
     def math_char_buttons_behavior(self, clicked_button):
-        buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2, self.selectMathChar_Button_3, self.selectMathChar_Button_4, self.selectMathChar_Button_5]
-        clicked_button.setStyleSheet(add_strategy_button_style_sheet_clicked)
+        list_with_buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2,
+                             self.selectMathChar_Button_3, self.selectMathChar_Button_4,
+                             self.selectMathChar_Button_5]
+
+        clicked_button.setProperty('clicked', True)
+        clicked_button.setProperty('invalid', False)
+        clicked_button.style().polish(clicked_button)
         self.current_selected_math_char = clicked_button.text()
-        buttons.remove(clicked_button)
-        for item in buttons:
-            item.setStyleSheet(add_strategy_button_style_sheet_normal)
+        list_with_buttons.remove(clicked_button)
+        for item in list_with_buttons:
+            item.setProperty('clicked', False)
+            item.setProperty('invalid', False)
+            item.style().polish(item)
 
     def get_and_combine_text_from_fields(self):
         new_rule_to_add = self.p3_firstIndicator_comboBox.currentText()[:self.p3_firstIndicator_comboBox.currentText().find("(")-1] + ' ' + self.p3_firstIndicatorOptions_button_1.text() + ' ' + self.p3_firstIndicatorOptions_comboBox_2.currentText() \
@@ -98,7 +106,24 @@ class Add_Strategy_Rule_Widget(Form, Base):
             self.create_list_of_parents_text(qTreeWidgetItem.parent(), helper_list)
 
     def add_new_rule(self, receiver_object, strategy_page_object):
-        print(self)
+        hide_error_message(self.error_message_label)
+        list_with_buttons = [self.selectMathChar_Button_1, self.selectMathChar_Button_2,
+                             self.selectMathChar_Button_3, self.selectMathChar_Button_4,
+                             self.selectMathChar_Button_5]
+
+        list_with_buttons_status = []
+
+        for button in list_with_buttons:
+            list_with_buttons_status.append(button.property('clicked'))
+
+        if not True in list_with_buttons_status:
+            show_error_message(self.error_message_label, 'Please select one of highlighted math operators')
+            for button in list_with_buttons:
+                button.setProperty('invalid', True)
+                button.style().polish(button)
+            return False
+
+
         new_rule_to_add = self.get_and_combine_text_from_fields()
         # loops through  all items, if item is checked > get text of all parents
         for item in self.add_strategy_rule_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0):
@@ -138,7 +163,8 @@ class Add_Strategy_Rule_Widget(Form, Base):
         for button in buttons:
             if button.text() == math_char:
                 self.current_selected_math_char = math_char
-                button.setStyleSheet(add_strategy_button_style_sheet_clicked)
+                button.setProperty('clicked', True)
+                button.style().polish(button)
         self.p3_sedondIndicator_comboBox.setCurrentIndex(self.p3_sedondIndicator_comboBox.findText(second_indicator_short_name, QtCore.Qt.MatchContains))
         self.p3_secondIndicatorOptions_button_1.setText(second_indicator_options)
         self.p3_secondIndicatorOptions_comboBox_2.setCurrentIndex(self.p3_secondIndicatorOptions_comboBox_2.findText(second_indicator_period, QtCore.Qt.MatchContains))
