@@ -4,7 +4,7 @@ from PySide2.QtUiTools import loadUiType
 from PySide2.QtCore import Signal
 from PySide2.QtCore import QRegExp
 from PySide2.QtGui import QRegExpValidator
-from utilities.helpers import indicator_options_name
+from utilities.helpers import indicator_options_name, show_error_message, hide_error_message
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -18,6 +18,7 @@ class Change_Indicator_Form_Page(Base, Form):
         self.setWindowIcon(QtGui.QIcon('icons/logo2.png'))
         self.setWindowTitle('BackTesting Application')
         self.cancel_button.clicked.connect(lambda: self.close_window())
+        hide_error_message(self.error_message_label)
 
 
     def set_up_view(self, indicator, typed_options, qlineedit_field, recive_indicator_options_object):
@@ -68,15 +69,40 @@ class Change_Indicator_Form_Page(Base, Form):
 
     def save_indicator_options(self, qlineedit_field, recive_indicator_options_object):
         string_with_formatted_options = '('
-        fields = [self.lineEdit_1, self.lineEdit_2, self.lineEdit_3, self.lineEdit_4]
-        for x in fields:
-            if x.isVisible():
-                string_with_formatted_options += x.text().strip() + ', '
 
-        if self.comboBox.isVisible():
-            string_with_formatted_options += self.comboBox.currentText().strip()
-        else:
-            string_with_formatted_options = string_with_formatted_options[:-2]
+        list_of_fields = [self.lineEdit_1, self.lineEdit_2, self.lineEdit_3, self.lineEdit_4, self.comboBox]
+        list_of_fields_status = []
+
+        for x in list_of_fields:
+            if isinstance(x, QtWidgets.QLineEdit):
+                if x.isVisible():
+                    if x.text():
+                        x.setProperty('invalid', False)
+                        x.style().polish(x)
+                        list_of_fields_status.append(True)
+                        string_with_formatted_options += x.text().strip() + ', '
+                    else:
+                        x.setProperty('invalid', True)
+                        x.style().polish(x)
+                        list_of_fields_status.append(False)
+            elif isinstance(x, QtWidgets.QComboBox):
+                if x.isVisible():
+                    if x.currentText():
+                        x.setProperty('invalid', False)
+                        x.style().polish(x)
+                        list_of_fields_status.append(True)
+                        string_with_formatted_options += x.currentText().strip()
+                    else:
+                        x.setProperty('invalid', True)
+                        x.style().polish(x)
+                        list_of_fields_status.append(False)
+                else:
+                    string_with_formatted_options = string_with_formatted_options[:-2]
+
+        print(list_of_fields_status)
+        if False in list_of_fields_status:
+            show_error_message(self.error_message_label, 'Fields cannot be empty.')
+            return False
 
         string_with_formatted_options += ')'
         self.close_window()
