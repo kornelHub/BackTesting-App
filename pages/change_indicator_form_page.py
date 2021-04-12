@@ -99,7 +99,6 @@ class Change_Indicator_Form_Page(Base, Form):
                 else:
                     string_with_formatted_options = string_with_formatted_options[:-2]
 
-        print(list_of_fields_status)
         if False in list_of_fields_status:
             show_error_message(self.error_message_label, 'Fields cannot be empty.')
             return False
