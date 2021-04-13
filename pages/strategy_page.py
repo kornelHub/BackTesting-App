@@ -9,6 +9,7 @@ from engine.simulation import get_buy_rules, get_sell_rules
 from engine.simulation import get_buy_simulation_settings, get_sell_simulation_settings
 import json
 from pages.define_indicator_to_plot_page import Define_Indicator_To_Plot_Page
+from utilities.helpers import show_error_message, hide_error_message, check_if_all_fields_have_text
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/strategy_page.ui"))
@@ -24,6 +25,7 @@ class Strategy_Widget(Base, Form):
         QtWidgets.QToolTip.setFont(QtGui.QFont('MS Shell Dlg 2', 10))
         self.stop_loss_checkbox.stateChanged.connect(lambda: self.check_if_disabled_needed_for_settings_fields(self.stop_loss_checkbox.isChecked(), self.sell_stop_loss_lineEdit_1, self.sell_stop_loss_comboBox_2))
         self.take_profit_checkbox.stateChanged.connect(lambda: self.check_if_disabled_needed_for_settings_fields(self.take_profit_checkbox.isChecked(), self.sell_take_profit_lineEdit_1, self.sell_take_profit_comboBox_2))
+        hide_error_message(self.error_message_label)
 
         # req_exp allows only one '.' in number
         number_regular_expression = QRegExp("^(([1-9][0-9]*)?[0-9](\.[0-9]*)?|\.[0-9]+)$")
@@ -125,10 +127,6 @@ class Strategy_Widget(Base, Form):
         self.buy_level_2_3 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["Open (-) [0] >= Value (15555) [0]"])
         self.p2_buyCondition_treeWidget.expandAll()
 
-        # sell_level_1.setBackground(0, QtGui.QColor(170, 14, 9))
-        # sell_level_2.setBackground(0, QtGui.QColor(220, 9, 9))
-        # sell_level_3.setBackground(0, QtGui.QColor(246, 35, 35))
-        # sell_level_4.setBackground(0, QtGui.QColor(248, 84, 84))
 
 ########################################################################################################################
 
@@ -294,6 +292,38 @@ class Strategy_Widget(Base, Form):
         else:
             self.helper_on_adding_new_rules = True
             return True
+
+
+    def check_if_all_fileds_have_values(self):
+        list_of_fields = [self.buy_price_source_comboBox, self.buy_commission_lineEdit_1, self.buy_commission_comboBox_2,
+                          self.buy_balance_lineEdit2, self.sell_price_source_comboBox, self.sell_commission_lineEdit_1,
+                          self.sell_commission_comboBox_2, self.sell_balance_lineEdit]
+        
+        if self.stop_loss_checkbox.isChecked():
+            list_of_fields.append(self.sell_stop_loss_lineEdit_1)
+            list_of_fields.append(self.sell_stop_loss_comboBox_2)
+        else:
+            self.sell_stop_loss_lineEdit_1.setProperty('invalid', False)
+            self.sell_stop_loss_lineEdit_1.style().polish(self.sell_stop_loss_lineEdit_1)
+            self.sell_stop_loss_comboBox_2.setProperty('invalid', False)
+            self.sell_stop_loss_comboBox_2.style().polish(self.sell_stop_loss_comboBox_2)
+
+        if self.take_profit_checkbox.isChecked():
+            list_of_fields.append(self.sell_take_profit_lineEdit_1)
+            list_of_fields.append(self.sell_take_profit_comboBox_2)
+        else:
+            self.sell_take_profit_lineEdit_1.setProperty('invalid', False)
+            self.sell_take_profit_lineEdit_1.style().polish(self.sell_take_profit_lineEdit_1)
+            self.sell_take_profit_comboBox_2.setProperty('invalid', False)
+            self.sell_take_profit_comboBox_2.style().polish(self.sell_take_profit_comboBox_2)
+
+        if False in check_if_all_fields_have_text(list_of_fields):
+            show_error_message(self.error_message_label, 'Fields cannot be empty.')
+            return False
+        else:
+            hide_error_message(self.error_message_label)
+            return True
+
 
 ########################################################################################################################
     def check_if_disabled_needed_for_settings_fields(self, is_checked, value_line_edit, unit_dropdown):

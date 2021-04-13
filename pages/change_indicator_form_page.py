@@ -4,7 +4,8 @@ from PySide2.QtUiTools import loadUiType
 from PySide2.QtCore import Signal
 from PySide2.QtCore import QRegExp
 from PySide2.QtGui import QRegExpValidator
-from utilities.helpers import indicator_options_name, show_error_message, hide_error_message
+from utilities.helpers import indicator_options_name, show_error_message, hide_error_message, \
+    check_if_all_fields_have_text
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))

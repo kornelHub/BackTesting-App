@@ -1,14 +1,17 @@
 import datetime as dt
 import pytz
 import pandas as pd
+from PySide2.QtWidgets import QLineEdit, QComboBox
 
 path_to_csv_file = ''
 colums_name_from_binance = ['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume',
                             'NumberOfTrades', 'TakerBuyBaseAssetVolume', 'TakerBuyQuoteAssetVolume', 'Ingore']
 columns_name_string = 'Opentime;Open;High;Low;Close;Volume;CloseTime'
 
+
 def load_ohlcv_data_from_csv_file():
     return pd.read_csv(path_to_csv_file, sep=';', skiprows=[0])
+
 
 def hide_error_message(error_message_label):
     error_message_label.hide()
@@ -18,6 +21,29 @@ def show_error_message(error_message_label, message_text):
     error_message_label.show()
     error_message_label.setText(message_text)
 
+
+def check_if_all_fields_have_text(list_of_fields):
+    is_field_has_text = []
+    for field in list_of_fields:
+        if isinstance(field, QLineEdit):
+            if field.text():
+                is_field_has_text.append(True)
+                field.setProperty('invalid', False)
+                field.style().polish(field)
+            else:
+                is_field_has_text.append(False)
+                field.setProperty('invalid', True)
+                field.style().polish(field)
+        if isinstance(field, QComboBox):
+            if field.currentText():
+                is_field_has_text.append(True)
+                field.setProperty('invalid', False)
+                field.style().polish(field)
+            else:
+                is_field_has_text.append(False)
+                field.setProperty('invalid', True)
+                field.style().polish(field)
+    return is_field_has_text
 
 def return_index_of_first_non_zero_row(data_df):
     data_np = data_df.to_numpy()

@@ -58,37 +58,8 @@ class Fetch_Data_Widget(Base, Form):
         helpers.hide_error_message(self.error_message_label)
 
 
-    def check_if_all_fileds_have_values(self):
-        is_field_contain_text =[]
-        for field in self.list_of_fields:
-            if isinstance(field, QtWidgets.QLineEdit):
-                if field.text():
-                    field.setProperty("invalid", False)
-                    field.style().polish(field)
-                    is_field_contain_text.append(True)
-                else:
-                    field.setProperty("invalid", True)
-                    field.style().polish(field)
-                    is_field_contain_text.append(False)
-            elif isinstance(field, QtWidgets.QComboBox):
-                if field.currentText():
-                    field.setProperty("invalid", False)
-                    field.style().polish(field)
-                    is_field_contain_text.append(True)
-                else:
-                    field.setProperty("invalid", True)
-                    field.style().polish(field)
-                    is_field_contain_text.append(False)
-
-        if False in is_field_contain_text:
-            return False
-        else:
-            return True
-
-
     def fetch_data_btn_clicked(self, main_widget_object, path_to_project):
-        # returns False if one or more fields are empty
-        if not self.check_if_all_fileds_have_values():
+        if False in helpers.check_if_all_fields_have_text(self.list_of_fields):
             helpers.show_error_message(self.error_message_label, "Fields cannot be empty.")
             return False
 

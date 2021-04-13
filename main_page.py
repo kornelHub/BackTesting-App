@@ -75,7 +75,10 @@ class MainWidget(Base, Form):
         if self.widget_pages.currentIndex() !=2: ### disable go to settings page via next button
             if self.widget_pages.currentIndex() is 1:  ### start simulation
                 from engine import simulation
-                simulation.init_simulation(main_widget_object)
+                if main_widget_object.strategy_page.check_if_all_fileds_have_values():
+                    simulation.init_simulation(main_widget_object)
+                else:
+                    return False
             self.widget_pages.setCurrentIndex(self.widget_pages.currentIndex()+1)  ### go to next page
 
 
@@ -90,6 +93,6 @@ if __name__ == '__main__':
     app.setStyle("fusion")
     main_widget_object = MainWidget()
     main_widget_object.show()
-    main_widget_object.display_next_stacked_widget()
-    main_widget_object.display_next_stacked_widget()
+    # main_widget_object.display_next_stacked_widget()
+    # main_widget_object.display_next_stacked_widget()
     sys.exit(app.exec_())
