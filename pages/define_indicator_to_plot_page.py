@@ -2,10 +2,8 @@ import os
 from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtCore import Slot
-
-from utilities.plot_data import plot_ohlcv_with_indicators
-from utilities.helpers import indicator_default_options
-from utilities.helpers import load_ohlcv_data_from_csv_file
+from utilities.helpers import indicator_default_options, show_error_message, hide_error_message, \
+    check_if_all_fields_have_text
 
 from pages.change_indicator_form_page import Change_Indicator_Form_Page
 from pages.display_plot_page import Display_Plot_Page
@@ -24,6 +22,7 @@ class Define_Indicator_To_Plot_Page(Base, Form):
         self.cancel_button.clicked.connect(lambda: self.close())
         self.plot_button.clicked.connect(lambda: self.plot_indicators())
         self.add_button.clicked.connect(lambda: self.show_next_indicator())
+        hide_error_message(self.error_message_label)
 
         self.delete_button_1.setIcon(QtGui.QIcon('icons/trash_icon.png'))
         self.delete_button_1.setIconSize(QtCore.QSize(28, 28))
@@ -93,10 +92,17 @@ class Define_Indicator_To_Plot_Page(Base, Form):
 
     def plot_indicators(self):
         list_of_indicators_with_options = []
+        list_of_visible_fields = []
         for x in self.widget_list:
             if x[0].isVisible():
+                list_of_visible_fields.append(x[1])
+                list_of_visible_fields.append(x[2])
                 list_of_indicators_with_options.append([x[1].currentText(), x[2].text()])
 
+        if False in check_if_all_fields_have_text(list_of_visible_fields):
+            show_error_message(self.error_message_label, 'Fields cannot be empty.')
+            return False
+        
         self.close()
         display_plot_page = Display_Plot_Page()
         display_plot_page.display_candlestick_chart_with_indicators(list_of_indicators_with_options)

@@ -1,7 +1,7 @@
 import datetime as dt
 import pytz
 import pandas as pd
-from PySide2.QtWidgets import QLineEdit, QComboBox
+from PySide2.QtWidgets import QLineEdit, QComboBox, QPushButton
 
 path_to_csv_file = ''
 colums_name_from_binance = ['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume',
@@ -25,7 +25,7 @@ def show_error_message(error_message_label, message_text):
 def check_if_all_fields_have_text(list_of_fields):
     is_field_has_text = []
     for field in list_of_fields:
-        if isinstance(field, QLineEdit):
+        if isinstance(field, QLineEdit) or isinstance(field, QPushButton):
             if field.text():
                 is_field_has_text.append(True)
                 field.setProperty('invalid', False)
