@@ -23,6 +23,9 @@
    <string notr="true">background-color: rgb(45, 45, 45);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_13">
+   <property name="spacing">
+    <number>15</number>
+   </property>
    <item>
     <widget class="QLabel" name="error_message_label">
      <property name="minimumSize">
@@ -37,6 +40,16 @@
        <height>50</height>
       </size>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::WheelFocus</enum>
+     </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 115, 107);
 color: rgb(255, 255, 255);
@@ -45,6 +58,9 @@ border: 2px solid rgb(255, 115, 107);</string>
      </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
