@@ -1,6 +1,7 @@
 import os
 from PySide2 import QtGui, QtWidgets
 from PySide2.QtUiTools import loadUiType
+from utilities.helpers import hide_error_message, show_error_message, check_if_all_fields_have_text
 import configparser
 
 
@@ -18,6 +19,7 @@ class Settings_Widget(Base, Form):
         self.save_settings_button.clicked.connect(lambda: self.save_settings())
         self.link_label.setOpenExternalLinks(True)
         self.link_label.setText("<a style='color:#55aaff;' href='https://www.binance.com/en-NG/support/faq/360002502072'>Tutorial</a>")
+        hide_error_message(self.error_message_label)
 
         #load configuration values from file is exist
         if os.path.exists(current_dir[:-5]+'config.ini'):
@@ -28,6 +30,13 @@ class Settings_Widget(Base, Form):
 
 
     def save_settings(self):
+        hide_error_message(self.error_message_label)
+        list_with_fields = [self.public_key_plainTextEdit, self.secret_key_plainTextEdit]
+        
+        if False in check_if_all_fields_have_text(list_with_fields):
+            show_error_message(self.error_message_label, 'Fields cannot be empty.')
+            return False
+
         # if not os.path.exists(current_dir[:-5]+'config.ini'):
         cfgfile = open(current_dir[:-5]+'config.ini', 'w')
         config = configparser.ConfigParser()

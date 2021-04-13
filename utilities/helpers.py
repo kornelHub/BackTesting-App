@@ -1,7 +1,7 @@
 import datetime as dt
 import pytz
 import pandas as pd
-from PySide2.QtWidgets import QLineEdit, QComboBox, QPushButton
+from PySide2.QtWidgets import QLineEdit, QComboBox, QPushButton, QPlainTextEdit
 
 path_to_csv_file = ''
 colums_name_from_binance = ['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume',
@@ -34,7 +34,7 @@ def check_if_all_fields_have_text(list_of_fields):
                 is_field_has_text.append(False)
                 field.setProperty('invalid', True)
                 field.style().polish(field)
-        if isinstance(field, QComboBox):
+        elif isinstance(field, QComboBox):
             if field.currentText():
                 is_field_has_text.append(True)
                 field.setProperty('invalid', False)
@@ -43,6 +43,16 @@ def check_if_all_fields_have_text(list_of_fields):
                 is_field_has_text.append(False)
                 field.setProperty('invalid', True)
                 field.style().polish(field)
+        elif isinstance(field, QPlainTextEdit):
+            if field.toPlainText():
+                is_field_has_text.append(True)
+                field.setProperty('invalid', False)
+                field.style().polish(field)
+            else:
+                is_field_has_text.append(False)
+                field.setProperty('invalid', True)
+                field.style().polish(field)
+
     return is_field_has_text
 
 def return_index_of_first_non_zero_row(data_df):
