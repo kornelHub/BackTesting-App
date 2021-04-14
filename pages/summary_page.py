@@ -1,9 +1,8 @@
 import os
 from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
-from pages.display_plot_page import Display_Plot_Page
 from utilities.helpers import cryptocurrency_pair_dict
-from utilities.plot_data import plot_balance
+from utilities.plot_data import plot_balance, plot_ohlc_data_with_transactions
 import utilities.helpers
 
 
@@ -72,10 +71,9 @@ class Summary_Page(Base, Form):
             self.buy_rules_treeWidget.setColumnWidth(1, self.sell_rules_treeWidget.columnWidth(1))
 
 
-    def plot_candle_chart(self, trades_dict):
-        display_plot_page = Display_Plot_Page()
-        display_plot_page.display_candlestick_chart(trades_dict)
-        display_plot_page.show()
+    def plot_ohlcv_chart_with_transactions(self, trades_dict):
+        self.ohlcv_graph.setHtml(plot_ohlc_data_with_transactions(utilities.helpers.load_ohlcv_data_from_csv_file(),
+                                                                  trades_dict))
 
 
     def format_and_display_text(self, trades_dict, pip_position):
