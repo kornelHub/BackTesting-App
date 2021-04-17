@@ -116,7 +116,7 @@ class Add_Strategy_Rule_Widget(Form, Base):
         for button in list_with_buttons:
             list_with_buttons_status.append(button.property('clicked'))
 
-        if False in list_with_buttons_status:
+        if not True in list_with_buttons_status:
             show_error_message(self.error_message_label, 'Please select one of highlighted math operators')
             for button in list_with_buttons:
                 button.setProperty('invalid', True)
