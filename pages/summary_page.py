@@ -2,7 +2,7 @@ import os
 from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
 from utilities.helpers import cryptocurrency_pair_dict
-from utilities.plot_data import plot_balance, plot_ohlc_data_with_transactions
+from utilities.plot_data import plot_ohlc_and_balance_with_transactions
 import utilities.helpers
 
 
@@ -40,11 +40,15 @@ class Summary_Page(Base, Form):
         sell_rules = sell_rules['sell_rules']
         if sell_simulation_settings['sell_settings'][0]['is_stop_loss_selected']:
             QtWidgets.QTreeWidgetItem(self.sell_rules_treeWidget,
-                                      [f"Stop loss - {sell_simulation_settings['sell_settings'][0]['stop_loss']} {sell_simulation_settings['sell_settings'][0]['stop_loss_unit']}", 's_stop_loss'])
+                                      [f"Stop loss - {sell_simulation_settings['sell_settings'][0]['stop_loss']}"
+                                       f" {sell_simulation_settings['sell_settings'][0]['stop_loss_unit']}",
+                                       's_stop_loss'])
 
         if sell_simulation_settings['sell_settings'][0]['is_take_profit_selected']:
             QtWidgets.QTreeWidgetItem(self.sell_rules_treeWidget,
-                                      [f"Take profit - {sell_simulation_settings['sell_settings'][0]['take_profit']} {sell_simulation_settings['sell_settings'][0]['take_profit_unit']}", 's_take_profit'])
+                                      [f"Take profit - {sell_simulation_settings['sell_settings'][0]['take_profit']}"
+                                       f" {sell_simulation_settings['sell_settings'][0]['take_profit_unit']}",
+                                       's_take_profit'])
 
         QtWidgets.QTreeWidgetItem(self.sell_rules_treeWidget, [sell_rules[0]['rule_text'], sell_rules[0]['id_rule']])
         for x in range(len(sell_rules) - 1):
@@ -69,11 +73,6 @@ class Summary_Page(Base, Form):
             self.sell_rules_treeWidget.setColumnWidth(1, self.buy_rules_treeWidget.columnWidth(1))
         else:
             self.buy_rules_treeWidget.setColumnWidth(1, self.sell_rules_treeWidget.columnWidth(1))
-
-
-    def plot_ohlcv_chart_with_transactions(self, trades_dict):
-        self.ohlcv_graph.setHtml(plot_ohlc_data_with_transactions(utilities.helpers.load_ohlcv_data_from_csv_file(),
-                                                                  trades_dict))
 
 
     def format_and_display_text(self, trades_dict, pip_position):
@@ -169,7 +168,8 @@ class Summary_Page(Base, Form):
                                     trades_dict['sell_trades'][x + 1]['currency_2']
                                     ])
         self.transactions_textBrowser.setText(formatted_trades)
-        self.summary_balance_graph.setHtml(plot_balance(trades_dict ,balance_list, currency_2_symbol))
+        # PLOT OHLC data and balance with transactions
+        self.summary_balance_graph.setHtml(plot_ohlc_and_balance_with_transactions(utilities.helpers.load_ohlcv_data_from_csv_file(),trades_dict, balance_list, currency_2_symbol))
 
 
 if __name__ == '__main__':
