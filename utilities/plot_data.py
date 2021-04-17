@@ -4,14 +4,15 @@ from plotly.subplots import make_subplots
 import engine.calculate_indicators as calculate_indicators
 from engine.simulation import build_column_name
 from engine.simulation import get_pip_position_for_simulation
-from utilities.helpers import return_index_of_first_non_zero_row
+from utilities.helpers import return_index_of_first_non_zero_row, convert_milliseconds_to_date
 from operator import itemgetter
 import numpy as np
 
 
 def plot_ohlcv_data(ohlcv_data):
     fig = go.Figure()
-    fig.add_trace(go.Candlestick(x=ohlcv_data['Opentime'], open=ohlcv_data['Open'], high=ohlcv_data['High'],
+    fig.add_trace(go.Candlestick(x=ohlcv_data['Opentime'].apply(convert_milliseconds_to_date),
+                                 open=ohlcv_data['Open'], high=ohlcv_data['High'],
                                  low=ohlcv_data['Low'], close=ohlcv_data['Close']))
     fig.update_layout(xaxis_rangeslider_visible=False, yaxis_tickformat = f".{get_pip_position_for_simulation(ohlcv_data)}f")
     # fig.data[0].increasing.fillcolor = '#ffffff'
@@ -108,17 +109,21 @@ def plot_ohlcv_with_indicators(ohlcv_data, list_with_indicators):
         plots_size.append((1 - plots_size[0]) / needed_subplots)
 
     fig = make_subplots(rows=needed_subplots-1, cols= 1, shared_xaxes=True, row_heights=plots_size, vertical_spacing=0.01)
-    fig.add_trace(go.Candlestick(x=ohlcv_data['Opentime'], open=ohlcv_data['Open'], high=ohlcv_data['High'],
+    fig.add_trace(go.Candlestick(x=ohlcv_data['Opentime'].apply(convert_milliseconds_to_date),
+                                 open=ohlcv_data['Open'], high=ohlcv_data['High'],
                                  low=ohlcv_data['Low'], close=ohlcv_data['Close']), row=1, col=1)
 
     for x in list_with_indicators:
         if is_indicator_need_subplot(x[2]):
-            fig.add_trace(go.Scatter(mode='lines', x=ohlcv_data['Opentime'], y=ohlcv_data[x[3]], name=x[3]), row=x[4], col=1)
+            fig.add_trace(go.Scatter(mode='lines', x=ohlcv_data['Opentime'].apply(convert_milliseconds_to_date),
+                                     y=ohlcv_data[x[3]], name=x[3]), row=x[4], col=1)
         else:
             if x[2] != 'SAR':
-                fig.add_trace(go.Scatter(mode='lines', x=ohlcv_data['Opentime'], y=ohlcv_data[x[3]], name=x[3]), row=1, col=1)
+                fig.add_trace(go.Scatter(mode='lines', x=ohlcv_data['Opentime'].apply(convert_milliseconds_to_date),
+                                         y=ohlcv_data[x[3]], name=x[3]), row=1, col=1)
             else:
-                fig.add_trace(go.Scatter(mode='markers', x=ohlcv_data['Opentime'], y=ohlcv_data[x[3]], name=x[3]), row=1,col=1)
+                fig.add_trace(go.Scatter(mode='markers', x=ohlcv_data['Opentime'].apply(convert_milliseconds_to_date),
+                                         y=ohlcv_data[x[3]], name=x[3]), row=1,col=1)
 
     fig.update_layout(xaxis_rangeslider_visible=False, hovermode="x unified", yaxis_tickformat = f".{get_pip_position_for_simulation(ohlcv_data)}f")
     html = '<html><body>'
