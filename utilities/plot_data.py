@@ -14,6 +14,10 @@ def plot_ohlcv_data(ohlcv_data):
     fig.add_trace(go.Candlestick(x=ohlcv_data['Opentime'], open=ohlcv_data['Open'], high=ohlcv_data['High'],
                                  low=ohlcv_data['Low'], close=ohlcv_data['Close']))
     fig.update_layout(xaxis_rangeslider_visible=False, yaxis_tickformat = f".{get_pip_position_for_simulation(ohlcv_data)}f")
+    # fig.data[0].increasing.fillcolor = '#ffffff'
+    # fig.data[0].increasing.line.color = '#ffffff'
+    # fig.data[0].decreasing.fillcolor = '#000000'
+    # fig.data[0].decreasing.line.color = '#000000'
     html = '<html><body>'
     html += plt.plot(fig, output_type='div', include_plotlyjs='cdn')
     html += '</body></html>'
