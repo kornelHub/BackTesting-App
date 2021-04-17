@@ -25,69 +25,74 @@ def plot_ohlcv_data(ohlcv_data):
     html += '</body></html>'
     return html
 
-def plot_balance(fig, trades_dict, list_of_profit):
-    index_list = []
-    global balance_list
-    balance_list = []
-    for x in list_of_profit:
-        index_list.append(x[0])
-        balance_list.append(x[1])
 
-    buys_indexes = list(map(itemgetter('index'), trades_dict['buy_trades']))[1:]
-    buys_amount_in_currency_2 = np.multiply(list(map(itemgetter('currency_1'), trades_dict['buy_trades'])),
-                                            list(map(itemgetter('price'), trades_dict['buy_trades'])))[1:]
-    buys_id_rule = list(map(itemgetter('id_rule'), trades_dict['buy_trades']))[1:]
-
-    sells_indexes = list(map(itemgetter('index'), trades_dict['sell_trades']))[1:]
-    sells_amount_in_currency_2 = list(map(itemgetter('currency_2'), trades_dict['sell_trades']))[1:]
-    sells_id_rule = list(map(itemgetter('id_rule'), trades_dict['sell_trades']))[1:]
-
-    fig.add_trace(go.Scatter(mode='lines', x=index_list, y=balance_list, name='Account',
-                             marker=dict(color='LightSeaGreen')), row=1, col=1)
-    fig.add_shape(type='line', x0=0, y0=balance_list[0], x1=index_list[-1], y1=balance_list[0],
-                  line=dict(color='black', dash='dot'), row=1, col=1)
-    fig.add_trace(go.Scatter(mode='markers', x=sells_indexes, y=sells_amount_in_currency_2, text=sells_id_rule,
-                             hovertemplate='<i>Transaction ID: </i>%{x}<br>'
-                                           + '<i>Balance: </i>%{y}<br>'
-                                           + '<i>Rule ID: </i>%{text}<br>',
-                             marker=dict(color='brown', size=8), name='Sell transaction'), row=1, col=1)
-    fig.add_trace(go.Scatter(mode='markers', x=buys_indexes, y=buys_amount_in_currency_2, text=buys_id_rule,
-                             hovertemplate='<i>Transaction ID: </i>%{x}<br>'
-                                           + '<i>Balance: </i>%{y}<br>'
-                                           + '<i>Rule ID: </i>%{text}<br>',
-                             marker=dict(color='royalblue', size = 8), name='Buy transaction'), row=1, col=1)
-    return fig
-
-def plot_ohlc_data_with_transactions(fig, ohlcv_data, trades_dict):
+def plot_ohlc_and_balance_with_transactions(ohlcv_data, trades_dict, list_of_profit, currency_2_symbol):
     sells_indexes = list(map(itemgetter('index'), trades_dict['sell_trades']))[1:]
     sells_price = list(map(itemgetter('price'), trades_dict['sell_trades']))[1:]
     sells_id_rule = list(map(itemgetter('id_rule'), trades_dict['sell_trades']))[1:]
+    sells_time = []
+    sell_hovertemplate = []
+
+    for x in range(len(sells_indexes)):
+        sells_time.append(
+            convert_milliseconds_to_date(ohlcv_data['Opentime'].loc[ohlcv_data.index == sells_indexes[x]].values[0]))
+        sell_hovertemplate.append(f'<i>Date: </i>{sells_time[x]}<br>'
+                                  + f'<i>Transaction ID: </i>{sells_indexes[x]}<br>'
+                                  + f'<i>Price: </i>{sells_price[x]}<br>'
+                                  + f'<i>Rule ID: </i>{sells_id_rule[x]}<br>'
+                                  )
 
     buys_indexes = list(map(itemgetter('index'), trades_dict['buy_trades']))[1:]
     buys_price = list(map(itemgetter('price'), trades_dict['buy_trades']))[1:]
     buys_id_rule = list(map(itemgetter('id_rule'), trades_dict['buy_trades']))[1:]
+    buys_time = []
+    buys_hovertemplate = []
+    for x in range(len(buys_indexes)):
+        buys_time.append(
+            convert_milliseconds_to_date(ohlcv_data['Opentime'].loc[ohlcv_data.index == buys_indexes[x]].values[0]))
+        buys_hovertemplate.append(f'<i>Date: </i>{buys_time[x]}<br>'
+                                  + f'<i>Transaction ID: </i>{buys_indexes[x]}<br>'
+                                  + f'<i>Price: </i>{buys_price[x]}<br>'
+                                  + f'<i>Rule ID: </i>{buys_id_rule[x]}<br>'
+                                  )
 
-    fig.add_trace(go.Candlestick(x=ohlcv_data.index, open=ohlcv_data['Open'], high=ohlcv_data['High'],
+    balance_change_date_list = []
+    balance_list = []
+    for x in list_of_profit:
+        balance_change_date_list.append(convert_milliseconds_to_date(ohlcv_data['Opentime'].loc[ohlcv_data.index == x[0]].values[0]))
+        balance_list.append(x[1])
+
+    buys_amount_in_currency_2 = np.multiply(list(map(itemgetter('currency_1'), trades_dict['buy_trades'])),
+                                            list(map(itemgetter('price'), trades_dict['buy_trades'])))[1:]
+    sells_amount_in_currency_2 = list(map(itemgetter('currency_2'), trades_dict['sell_trades']))[1:]
+
+    fig = make_subplots(rows=2, cols=1, shared_xaxes=True, row_heights=[800, 800],
+                        subplot_titles=("title_1_to_change", "OHLC data"), vertical_spacing=0.05)
+    fig.add_trace(go.Candlestick(x=ohlcv_data['Opentime'].apply(convert_milliseconds_to_date),
+                                 open=ohlcv_data['Open'], high=ohlcv_data['High'],
                                  low=ohlcv_data['Low'], close=ohlcv_data['Close']), row=2, col=1)
-    fig.add_trace(go.Scatter(mode='markers', x=sells_indexes, y=sells_price, text=sells_id_rule,
-                             hovertemplate='<i>Transaction ID: </i>%{x}<br>'
-                                           + '<i>Price: </i>%{y}<br>'
-                                           + '<i>Rule ID: </i>%{text}<br>',
-                             marker=dict(color='brown', size=8),name='Sell transaction'), row=2, col=1)
-    fig.add_trace(go.Scatter(mode='markers', x=buys_indexes, y=buys_price, text=buys_id_rule,
-                             hovertemplate='<i>Transaction ID: </i>%{x}<br>'
-                                           + '<i>Price: </i>%{y}<br>'
-                                           + '<i>Rule ID: </i>%{text}<br>',
-                             marker=dict(color='royalblue', size = 8),name='Buy transaction'), row=2, col=1)
-    return fig
-
-def plot_ohlc_and_balance_with_transactions(ohlcv_data, trades_dict, list_of_profit, currency_2_symbol):
-    fig = make_subplots(rows=2, cols= 1, shared_xaxes=True, row_heights=[800, 800],
-                        subplot_titles=("title_1_to_change", "OHLC data"),vertical_spacing=0.05)
-    fig = plot_balance(fig, trades_dict, list_of_profit)
-    fig.update_layout(yaxis_tickformat=f".{get_pip_position_for_simulation(ohlcv_data)}f")
-    fig = plot_ohlc_data_with_transactions(fig, ohlcv_data, trades_dict)
+    fig.add_trace(go.Scatter(mode='markers', x=sells_time, y=sells_price, text=sell_hovertemplate,
+                             hovertemplate='%{text}', marker=dict(color='brown', size=8), name='Sell transaction'),
+                  row=2, col=1)
+    fig.add_trace(go.Scatter(mode='markers', x=buys_time, y=buys_price, text=buys_hovertemplate,
+                             hovertemplate='%{text}', marker=dict(color='royalblue', size=8), name='Buy transaction'),
+                  row=2, col=1)
     fig.update_yaxes(tickformat=f".{get_pip_position_for_simulation(ohlcv_data)}f")
+
+    # balance plot
+    fig.add_trace(go.Scatter(mode='lines', x=balance_change_date_list, y=balance_list, name='Account',
+                             marker=dict(color='LightSeaGreen')), row=1, col=1)
+    fig.add_shape(type='line', x0=balance_change_date_list[0], y0=balance_list[0], x1=balance_change_date_list[-1], y1=balance_list[0],
+                  line=dict(color='black', dash='dot'), row=1, col=1)
+    fig.add_trace(go.Scatter(mode='markers', x=sells_time, y=sells_amount_in_currency_2, text=sell_hovertemplate,
+                             hovertemplate='%{text}',
+                             marker=dict(color='brown', size=8), name='Sell transaction'), row=1, col=1)
+    fig.add_trace(go.Scatter(mode='markers', x=buys_time, y=buys_amount_in_currency_2, text=buys_hovertemplate,
+                             hovertemplate='%{text}',
+                             marker=dict(color='royalblue', size=8), name='Buy transaction'), row=1, col=1)
+
+
+    fig.update_layout(yaxis_tickformat=f".{get_pip_position_for_simulation(ohlcv_data)}f")
     fig.layout.annotations[0].update(text="Total profit: {} {}".format(balance_list[-1] - balance_list[0],
                                                                        currency_2_symbol))
     html = '<html><body>'
