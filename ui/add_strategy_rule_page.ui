@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>897</width>
-    <height>896</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -15,6 +15,12 @@
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>650</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -97,7 +103,7 @@ border-radius: 10px;</string>
       <item>
        <widget class="QLabel" name="label">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -105,7 +111,7 @@ border-radius: 10px;</string>
         <property name="maximumSize">
          <size>
           <width>999999</width>
-          <height>70</height>
+          <height>35</height>
          </size>
         </property>
         <property name="font">
