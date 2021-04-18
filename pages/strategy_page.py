@@ -140,9 +140,14 @@ class Strategy_Widget(Base, Form):
 
     def copy_buy_rule(self):
         if self.p2_buyCondition_treeWidget.selectedItems()[0].parent() is None:
-            QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget, [self.p2_buyCondition_treeWidget.selectedItems()[0].text(0)])
+            new_rule = QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget,
+                                                 [self.p2_buyCondition_treeWidget.selectedItems()[0].text(0)])
         else:
-            QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget.selectedItems()[0].parent(), [self.p2_buyCondition_treeWidget.selectedItems()[0].text(0)])
+            new_rule = QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget.selectedItems()[0].parent(),
+                                                 [self.p2_buyCondition_treeWidget.selectedItems()[0].text(0)])
+
+        self.copy_all_items_under(self.p2_buyCondition_treeWidget.selectedItems()[0], new_rule)
+        self.p2_buyCondition_treeWidget.expandAll()
 
     def display_add_strategy_rule_page_modify_buy_context(self):
         receive_strategy_rule_to_modify_object = Receive_Strategy_Rule_To_Modify()
@@ -201,9 +206,14 @@ class Strategy_Widget(Base, Form):
 
     def copy_sell_rule(self):
         if self.p2_sellCondition_treeWidget.selectedItems()[0].parent() is None:
-            QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, [self.p2_sellCondition_treeWidget.selectedItems()[0].text(0)])
+            new_rule = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget,
+                                                 [self.p2_sellCondition_treeWidget.selectedItems()[0].text(0)])
         else:
-            QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget.selectedItems()[0].parent(), [self.p2_sellCondition_treeWidget.selectedItems()[0].text(0)])
+            new_rule = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget.selectedItems()[0].parent(),
+                                                 [self.p2_sellCondition_treeWidget.selectedItems()[0].text(0)])
+
+        self.copy_all_items_under(self.p2_sellCondition_treeWidget.selectedItems()[0], new_rule)
+        self.p2_sellCondition_treeWidget.expandAll()
 
     def display_add_strategy_rule_page_modify_sell_context(self):
         receive_strategy_rule_to_modify_object = Receive_Strategy_Rule_To_Modify()
@@ -324,6 +334,11 @@ class Strategy_Widget(Base, Form):
             hide_error_message(self.error_message_label)
             return True
 
+    def copy_all_items_under(self, original_rule, new_added_rule):
+        if original_rule.child(0) is not None:
+            for x in range(original_rule.childCount()):
+                QtWidgets.QTreeWidgetItem(new_added_rule, [original_rule.child(x).text(0)])
+                self.copy_all_items_under(original_rule.child(x), new_added_rule.child(x))
 
 ########################################################################################################################
     def check_if_disabled_needed_for_settings_fields(self, is_checked, value_line_edit, unit_dropdown):
