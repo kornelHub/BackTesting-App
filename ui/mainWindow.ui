@@ -82,73 +82,25 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="QFrame" name="frame_toggle">
-         <property name="maximumSize">
+        <widget class="QFrame" name="frame_top_menu">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
           <size>
-           <width>70</width>
+           <width>0</width>
            <height>50</height>
           </size>
          </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(85, 170, 255);</string>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>50</height>
+          </size>
          </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QPushButton" name="btn_toggle">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>50</height>
-             </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
-border: 0px sold;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QFrame" name="frame_top_menu">
          <property name="layoutDirection">
           <enum>Qt::LeftToRight</enum>
          </property>
@@ -159,6 +111,42 @@ border: 0px sold;</string>
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <property name="spacing">
+           <number>15</number>
+          </property>
+          <property name="leftMargin">
+           <number>15</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>15</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="settings_button">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(35,35,35);
+border: 0px sold;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(45,45,45);</string>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QLabel" name="data_lael">
             <property name="sizePolicy">
@@ -167,9 +155,18 @@ border: 0px sold;</string>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>MS Shell Dlg 2</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="styleSheet">
              <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
+font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
             </property>
             <property name="text">
              <string>Data file: </string>
@@ -179,10 +176,16 @@ font: 8pt &quot;MS Shell Dlg 2&quot;;</string>
           <item>
            <widget class="QLineEdit" name="data_path">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
             </property>
             <property name="styleSheet">
              <string notr="true">QLineEdit {
@@ -207,14 +210,29 @@ QLineEdit:focus{
           <item>
            <widget class="QPushButton" name="load_data_button">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>MS Shell Dlg 2</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
             <property name="styleSheet">
              <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+font: 10pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(85, 170, 255);
 border: 0px sold;
 border-radius: 15px;</string>
@@ -225,7 +243,17 @@ border-radius: 15px;</string>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="next_btn">
+           <widget class="Line" name="line_2">
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(45,45,45);</string>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="previous_page_btn">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -240,7 +268,42 @@ border-radius: 15px;</string>
             </property>
             <property name="styleSheet">
              <string notr="true">color: rgb(255, 255, 255);
-font: 8pt &quot;MS Shell Dlg 2&quot;;
+font: 10pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(85, 170, 255);
+border: 0px sold;
+border-radius: 15px;</string>
+            </property>
+            <property name="text">
+             <string>Previous</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="next_page_btn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>70</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>MS Shell Dlg 2</family>
+              <pointsize>10</pointsize>
+              <weight>50</weight>
+              <italic>false</italic>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: rgb(255, 255, 255);
+font: 10pt &quot;MS Shell Dlg 2&quot;;
 background-color: rgb(85, 170, 255);
 border: 0px sold;
 border-radius: 15px;</string>
@@ -280,171 +343,6 @@ border-radius: 15px;</string>
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item>
-        <widget class="QFrame" name="frame_left_menu_container">
-         <property name="maximumSize">
-          <size>
-           <width>70</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: rgb(35, 35, 35);</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
-          <property name="spacing">
-           <number>0</number>
-          </property>
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <widget class="QFrame" name="frame_left_menu">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QPushButton" name="btn_menu_page_1">
-               <property name="minimumSize">
-                <size>
-                 <width>70</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
-	color: rgb(255, 255, 255);
-	background-color: rgb(35, 35, 35);
-	border: 0px sold;
-}
-QPushButton:hover {
-	background-color: rgb(85, 170, 255);
-}</string>
-               </property>
-               <property name="text">
-                <string>Fetch Data</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_menu_page_2">
-               <property name="minimumSize">
-                <size>
-                 <width>70</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
-	color: rgb(255, 255, 255);
-	background-color: rgb(35, 35, 35);
-	border: 0px sold;
-}
-QPushButton:hover {
-	background-color: rgb(85, 170, 255);
-}</string>
-               </property>
-               <property name="text">
-                <string>Strategy</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_menu_page_3">
-               <property name="minimumSize">
-                <size>
-                 <width>70</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
-	font: 8pt &quot;MS Shell Dlg 2&quot;;
-	color: rgb(255, 255, 255);
-	background-color: rgb(35, 35, 35);
-	border: 0px sold;
-}
-QPushButton:hover {
-	background-color: rgb(85, 170, 255);
-}</string>
-               </property>
-               <property name="text">
-                <string>Summary</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QWidget" name="widget_2" native="true">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QWidget" name="widget" native="true">
-            <layout class="QVBoxLayout" name="verticalLayout_6">
-             <item>
-              <widget class="QPushButton" name="settings_button">
-               <property name="styleSheet">
-                <string notr="true">background-color: rgb(35,35,35);
-border: 0px sold;</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item>
         <widget class="QFrame" name="frame_pages">
          <property name="frameShape">
