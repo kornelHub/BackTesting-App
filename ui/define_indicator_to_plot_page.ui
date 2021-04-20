@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1047</width>
+    <width>675</width>
     <height>727</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>675</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>675</width>
+    <height>16777215</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -196,51 +208,6 @@ border-radius: 10px;</string>
                <property name="spacing">
                 <number>0</number>
                </property>
-               <item row="1" column="1">
-                <widget class="QPushButton" name="indicatorOptions_button">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>10</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton {
-color: rgb(255, 255, 255);
-background-color: rgb(70,70,70);
-border: 0px sold;
-border-radius: 10px;
-
-}
-QPushButton:hover {
-	 border: 2px solid rgb(85,85,85);
-}
-QPushButton[invalid='true']{
-        border: 2px solid rgb(255, 115, 107);
-}</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
                <item row="1" column="0">
                 <widget class="QComboBox" name="firstIndicator_comboBox">
                  <property name="sizePolicy">
@@ -451,6 +418,55 @@ QComboBox[invalid='true']{
                  </property>
                 </widget>
                </item>
+               <item row="1" column="1">
+                <widget class="QToolButton" name="indicatorOptions_button">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QToolButton {
+color: rgb(255, 255, 255);
+background-color: rgb(70,70,70);
+border: 0px sold;
+border-radius: 10px;
+padding-left: 50px;
+padding-right: 10px;
+}
+QToolButton:hover {
+	 border: 2px solid rgb(85,85,85);
+}
+QToolButton[invalid='true']{
+        border: 2px solid rgb(255, 115, 107);
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
@@ -538,51 +554,6 @@ border-radius: 10px;</string>
                  </property>
                  <property name="margin">
                   <number>6</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QPushButton" name="indicatorOptions_button_2">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>10</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton {
-color: rgb(255, 255, 255);
-background-color: rgb(70,70,70);
-border: 0px sold;
-border-radius: 10px;
-
-}
-QPushButton:hover {
-	 border: 2px solid rgb(85,85,85);
-}
-QPushButton[invalid='true']{
-        border: 2px solid rgb(255, 115, 107);
-}</string>
-                 </property>
-                 <property name="text">
-                  <string/>
                  </property>
                 </widget>
                </item>
@@ -764,6 +735,55 @@ QComboBox[invalid='true']{
                  </property>
                 </widget>
                </item>
+               <item row="1" column="1">
+                <widget class="QToolButton" name="indicatorOptions_button_2">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QToolButton {
+color: rgb(255, 255, 255);
+background-color: rgb(70,70,70);
+border: 0px sold;
+border-radius: 10px;
+padding-left: 50px;
+padding-right: 10px;
+}
+QToolButton:hover {
+	 border: 2px solid rgb(85,85,85);
+}
+QToolButton[invalid='true']{
+        border: 2px solid rgb(255, 115, 107);
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
@@ -851,51 +871,6 @@ border-radius: 10px;</string>
                  </property>
                  <property name="margin">
                   <number>6</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QPushButton" name="indicatorOptions_button_3">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>10</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton {
-color: rgb(255, 255, 255);
-background-color: rgb(70,70,70);
-border: 0px sold;
-border-radius: 10px;
-
-}
-QPushButton:hover {
-	 border: 2px solid rgb(85,85,85);
-}
-QPushButton[invalid='true']{
-        border: 2px solid rgb(255, 115, 107);
-}</string>
-                 </property>
-                 <property name="text">
-                  <string/>
                  </property>
                 </widget>
                </item>
@@ -1074,6 +1049,55 @@ QComboBox[invalid='true']{
                 <widget class="QPushButton" name="delete_button_3">
                  <property name="text">
                   <string>PushButton</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QToolButton" name="indicatorOptions_button_3">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QToolButton {
+color: rgb(255, 255, 255);
+background-color: rgb(70,70,70);
+border: 0px sold;
+border-radius: 10px;
+padding-left: 50px;
+padding-right: 10px;
+}
+QToolButton:hover {
+	 border: 2px solid rgb(85,85,85);
+}
+QToolButton[invalid='true']{
+        border: 2px solid rgb(255, 115, 107);
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
                  </property>
                 </widget>
                </item>
@@ -1338,8 +1362,15 @@ QComboBox[invalid='true']{
                  </item>
                 </widget>
                </item>
+               <item row="1" column="2">
+                <widget class="QPushButton" name="delete_button_4">
+                 <property name="text">
+                  <string>PushButton</string>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="1">
-                <widget class="QPushButton" name="indicatorOptions_button_4">
+                <widget class="QToolButton" name="indicatorOptions_button_4">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                    <horstretch>0</horstretch>
@@ -1363,30 +1394,27 @@ QComboBox[invalid='true']{
                    <pointsize>10</pointsize>
                   </font>
                  </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
                  <property name="styleSheet">
-                  <string notr="true">QPushButton {
+                  <string notr="true">QToolButton {
 color: rgb(255, 255, 255);
 background-color: rgb(70,70,70);
 border: 0px sold;
 border-radius: 10px;
-
+padding-left: 50px;
+padding-right: 10px;
 }
-QPushButton:hover {
+QToolButton:hover {
 	 border: 2px solid rgb(85,85,85);
 }
-QPushButton[invalid='true']{
+QToolButton[invalid='true']{
         border: 2px solid rgb(255, 115, 107);
 }</string>
                  </property>
                  <property name="text">
                   <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="QPushButton" name="delete_button_4">
-                 <property name="text">
-                  <string>PushButton</string>
                  </property>
                 </widget>
                </item>
@@ -1461,51 +1489,6 @@ border-radius: 10px;</string>
                  </property>
                  <property name="margin">
                   <number>6</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QPushButton" name="indicatorOptions_button_5">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>0</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>10</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QPushButton {
-color: rgb(255, 255, 255);
-background-color: rgb(70,70,70);
-border: 0px sold;
-border-radius: 10px;
-
-}
-QPushButton:hover {
-	 border: 2px solid rgb(85,85,85);
-}
-QPushButton[invalid='true']{
-        border: 2px solid rgb(255, 115, 107);
-}</string>
-                 </property>
-                 <property name="text">
-                  <string/>
                  </property>
                 </widget>
                </item>
@@ -1700,6 +1683,55 @@ QComboBox[invalid='true']{
                 <widget class="QPushButton" name="delete_button_5">
                  <property name="text">
                   <string>PushButton</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QToolButton" name="indicatorOptions_button_5">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>0</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QToolButton {
+color: rgb(255, 255, 255);
+background-color: rgb(70,70,70);
+border: 0px sold;
+border-radius: 10px;
+padding-left: 50px;
+padding-right: 10px;
+}
+QToolButton:hover {
+	 border: 2px solid rgb(85,85,85);
+}
+QToolButton[invalid='true']{
+        border: 2px solid rgb(255, 115, 107);
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
                  </property>
                 </widget>
                </item>
@@ -1948,8 +1980,31 @@ QComboBox[invalid='true']{
                  </property>
                 </widget>
                </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="indicator_options_label_6">
+                 <property name="styleSheet">
+                  <string notr="true">QLabel {
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	color: rgb(255,255,255);
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Options: </string>
+                 </property>
+                 <property name="margin">
+                  <number>6</number>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QPushButton" name="delete_button_6">
+                 <property name="text">
+                  <string>PushButton</string>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="1">
-                <widget class="QPushButton" name="indicatorOptions_button_6">
+                <widget class="QToolButton" name="indicatorOptions_button_6">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                    <horstretch>0</horstretch>
@@ -1973,46 +2028,27 @@ QComboBox[invalid='true']{
                    <pointsize>10</pointsize>
                   </font>
                  </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::RightToLeft</enum>
+                 </property>
                  <property name="styleSheet">
-                  <string notr="true">QPushButton {
+                  <string notr="true">QToolButton {
 color: rgb(255, 255, 255);
 background-color: rgb(70,70,70);
 border: 0px sold;
 border-radius: 10px;
-
+padding-left: 50px;
+padding-right: 10px;
 }
-QPushButton:hover {
+QToolButton:hover {
 	 border: 2px solid rgb(85,85,85);
 }
-QPushButton[invalid='true']{
+QToolButton[invalid='true']{
         border: 2px solid rgb(255, 115, 107);
 }</string>
                  </property>
                  <property name="text">
                   <string/>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="indicator_options_label_6">
-                 <property name="styleSheet">
-                  <string notr="true">QLabel {
-	font: 10pt &quot;MS Shell Dlg 2&quot;;
-	color: rgb(255,255,255);
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Options: </string>
-                 </property>
-                 <property name="margin">
-                  <number>6</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="QPushButton" name="delete_button_6">
-                 <property name="text">
-                  <string>PushButton</string>
                  </property>
                 </widget>
                </item>

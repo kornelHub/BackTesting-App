@@ -82,6 +82,31 @@ class Define_Indicator_To_Plot_Page(Base, Form):
         self.indicatorOptions_button_6.clicked.connect(lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox_6.currentText(), self.indicatorOptions_button_6.text(), self.indicatorOptions_button_6))
 
 
+        self.indicatorOptions_button.setIcon(QtGui.QIcon('icons/settings_icon.png'))
+        self.indicatorOptions_button.setIconSize(QtCore.QSize(24, 24))
+        self.indicatorOptions_button.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+
+        self.indicatorOptions_button_2.setIcon(QtGui.QIcon('icons/settings_icon.png'))
+        self.indicatorOptions_button_2.setIconSize(QtCore.QSize(24, 24))
+        self.indicatorOptions_button_2.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+
+        self.indicatorOptions_button_3.setIcon(QtGui.QIcon('icons/settings_icon.png'))
+        self.indicatorOptions_button_3.setIconSize(QtCore.QSize(24, 24))
+        self.indicatorOptions_button_3.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+
+        self.indicatorOptions_button_4.setIcon(QtGui.QIcon('icons/settings_icon.png'))
+        self.indicatorOptions_button_4.setIconSize(QtCore.QSize(24, 24))
+        self.indicatorOptions_button_4.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+
+        self.indicatorOptions_button_5.setIcon(QtGui.QIcon('icons/settings_icon.png'))
+        self.indicatorOptions_button_5.setIconSize(QtCore.QSize(24, 24))
+        self.indicatorOptions_button_5.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+
+        self.indicatorOptions_button_6.setIcon(QtGui.QIcon('icons/settings_icon.png'))
+        self.indicatorOptions_button_6.setIconSize(QtCore.QSize(24, 24))
+        self.indicatorOptions_button_6.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+
+
         self.firstIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.firstIndicator_comboBox, self.indicatorOptions_button, self.indicator_options_label))
         self.firstIndicator_comboBox_2.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_2, self.indicatorOptions_button_2, self.indicator_options_label_2))
         self.firstIndicator_comboBox_3.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_3, self.indicatorOptions_button_3, self.indicator_options_label_3))
