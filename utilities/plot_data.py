@@ -120,7 +120,7 @@ def plot_ohlcv_with_indicators(ohlcv_data, list_with_indicators):
     # calculate needed subplots
     list_with_indicators, needed_subplots  = calculate_needed_subplots(list_with_indicators)
     ohlcv_data = ohlcv_data[return_index_of_first_non_zero_row(ohlcv_data):]
-    print(needed_subplots)
+    print('[needed_subplots]: ',needed_subplots)
     plots_size = [0.5]
     for x in range(needed_subplots-2):
         plots_size.append((1 - plots_size[0]) / needed_subplots)
@@ -153,21 +153,27 @@ def plot_ohlcv_with_indicators(ohlcv_data, list_with_indicators):
 
 def calculate_needed_subplots(list_with_indicators):
     counter = 2
+    print(list_with_indicators)
     for x in range(len(list_with_indicators)):
         if is_indicator_need_subplot(list_with_indicators[x][2]):
             if 'MACD' in list_with_indicators[x][2]:  # check if there are two MACD line and sinnal line with the same options
-                for y in range(0, x):
-                    if list_with_indicators[x][1] == list_with_indicators[y][1]:
-                        list_with_indicators[x].append(list_with_indicators[y][4])
-                    elif x - 1 == y:
-                        list_with_indicators[x].append(counter)
-                        counter += 1
+                if x is 0:
+                    list_with_indicators[x].append(2)
+                    counter += 1
+                else:
+                    for y in range(0, x):
+                        if list_with_indicators[x][1] == list_with_indicators[y][1]:
+                            list_with_indicators[x].append(list_with_indicators[y][4])
+                        elif x - 1 == y:
+                            list_with_indicators[x].append(counter)
+                            counter += 1
 
             else:
                 list_with_indicators[x].append(counter)
                 counter += 1
         else:
             list_with_indicators[x].append(1)
+    print(list_with_indicators)
     return list_with_indicators, counter
 
 
