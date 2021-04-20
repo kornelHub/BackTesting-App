@@ -67,8 +67,9 @@ class MainWidget(Base, Form):
 
 
     def display_settings_stacked_widget(self):
-        self.settings_page.store_previous_stacked_widget_index(self.widget_pages.currentIndex(), main_widget_object)
-        self.widget_pages.setCurrentIndex(3)
+        if not self.widget_pages.currentIndex() is 3:
+            self.settings_page.store_previous_stacked_widget_index(self.widget_pages.currentIndex(), main_widget_object)
+            self.widget_pages.setCurrentIndex(3)
 
 
 if __name__ == '__main__':
