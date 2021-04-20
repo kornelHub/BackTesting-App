@@ -36,8 +36,17 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.p3_firstIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_firstIndicator_comboBox, self.p3_firstIndicatorOptions_button_1, self.p3_firstIndicatorOptions_comboBox_2, self.label_4))
         self.p3_sedondIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.p3_sedondIndicator_comboBox, self.p3_secondIndicatorOptions_button_1, self.p3_secondIndicatorOptions_comboBox_2, self.label_7))
 
+
+        # add icon and connect indicator options button
         self.p3_firstIndicatorOptions_button_1.clicked.connect(lambda: self.open_form_with_indicator_options(self.p3_firstIndicator_comboBox.currentText(), self.p3_firstIndicatorOptions_button_1.text(), self.p3_firstIndicatorOptions_button_1))
+        self.p3_firstIndicatorOptions_button_1.setIcon(QtGui.QIcon('icons/settings_icon.png'))
+        self.p3_firstIndicatorOptions_button_1.setIconSize(QtCore.QSize(24, 24))
+        self.p3_firstIndicatorOptions_button_1.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+
         self.p3_secondIndicatorOptions_button_1.clicked.connect(lambda: self.open_form_with_indicator_options(self.p3_sedondIndicator_comboBox.currentText(), self.p3_secondIndicatorOptions_button_1.text(), self.p3_secondIndicatorOptions_button_1))
+        self.p3_secondIndicatorOptions_button_1.setIcon(QtGui.QIcon('icons/settings_icon.png'))
+        self.p3_secondIndicatorOptions_button_1.setIconSize(QtCore.QSize(24, 24))
+        self.p3_secondIndicatorOptions_button_1.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
 
     def autofill_indicator_option(self, combo_box, linked_option_edit, linked_period_edit, linked_label):
         if combo_box.currentText() == "Value (Plain integer or double)":

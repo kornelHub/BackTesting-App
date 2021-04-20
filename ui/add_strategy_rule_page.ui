@@ -251,48 +251,6 @@ QComboBox QAbstractItemView {
            </item>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QPushButton" name="p3_firstIndicatorOptions_button_1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>35</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton {
-color: rgb(255, 255, 255);
-background-color: rgb(70,70,70);
-border: 0px sold;
-border-radius: 10px;
-
-}
-QPushButton:hover {
-	 border: 2px solid rgb(85,85,85);
-}</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label_3">
            <property name="styleSheet">
@@ -519,6 +477,55 @@ QComboBox QAbstractItemView {
            </property>
            <property name="margin">
             <number>6</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QToolButton" name="p3_firstIndicatorOptions_button_1">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="layoutDirection">
+            <enum>Qt::RightToLeft</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QToolButton {
+color: rgb(255, 255, 255);
+background-color: rgb(70,70,70);
+border: 0px sold;
+border-radius: 10px;
+padding-left: 50px;
+padding-right: 10px;
+}
+QToolButton:hover {
+	 border: 2px solid rgb(85,85,85);
+}</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextBesideIcon</enum>
            </property>
           </widget>
          </item>
@@ -1051,7 +1058,7 @@ QComboBox QAbstractItemView {
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QPushButton" name="p3_secondIndicatorOptions_button_1">
+          <widget class="QToolButton" name="p3_secondIndicatorOptions_button_1">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -1075,15 +1082,19 @@ QComboBox QAbstractItemView {
              <pointsize>10</pointsize>
             </font>
            </property>
+           <property name="layoutDirection">
+            <enum>Qt::RightToLeft</enum>
+           </property>
            <property name="styleSheet">
-            <string notr="true">QPushButton {
+            <string notr="true">QToolButton {
 color: rgb(255, 255, 255);
 background-color: rgb(70,70,70);
 border: 0px sold;
 border-radius: 10px;
-
+padding-left: 50px;
+padding-right: 10px;
 }
-QPushButton:hover {
+QToolButton:hover {
 	 border: 2px solid rgb(85,85,85);
 }</string>
            </property>
