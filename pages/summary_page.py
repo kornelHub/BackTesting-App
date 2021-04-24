@@ -4,6 +4,7 @@ from PySide2.QtUiTools import loadUiType
 from utilities.helpers import cryptocurrency_pair_dict
 from utilities.plot_data import plot_ohlc_and_balance_with_transactions
 import utilities.helpers
+from utilities.generate_report import generate_html_report_to_file
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -169,7 +170,13 @@ class Summary_Page(Base, Form):
                                     ])
         self.transactions_textBrowser.setText(formatted_trades)
         # PLOT OHLC data and balance with transactions
-        self.summary_balance_graph.setHtml(plot_ohlc_and_balance_with_transactions(utilities.helpers.load_ohlcv_data_from_csv_file(),trades_dict, balance_list, currency_2_symbol))
+
+        html_of_graphs = plot_ohlc_and_balance_with_transactions(utilities.helpers.load_ohlcv_data_from_csv_file(),trades_dict, balance_list, currency_2_symbol)
+        self.summary_balance_graph.setHtml(html_of_graphs)
+        self.generate_html_report(html_of_graphs)
+
+    def generate_html_report(self, html_of_graphs):
+        generate_html_report_to_file(self, html_of_graphs)
 
 
 if __name__ == '__main__':
