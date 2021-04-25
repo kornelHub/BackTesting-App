@@ -90,14 +90,14 @@ class Summary_Page(Base, Form):
             for x in range(1, len(trades_dict['sell_trades'])):
                 formatted_trades += '----------------------------------------------------------------------------\n'
 
-                formatted_trades += '{}) Bought {} {} for price {} | Rule ID: {}\n' \
+                formatted_trades += '{}) Bought {} {} for price {}\n      > Rule ID: {}\n' \
                     .format(trades_dict['buy_trades'][x]['index'],
                             format(trades_dict['buy_trades'][x]['amount_traded'], f".{pip_position}f"),
                             currency_2_symbol,
                             trades_dict['buy_trades'][x]['price'],
                             trades_dict['buy_trades'][x]['id_rule'])
 
-                formatted_trades += '{}) Sold {} {} for price {} | Rule ID: {}\n' \
+                formatted_trades += '{}) Sold {} {} for price {}\n      > Rule ID: {}\n' \
                     .format(trades_dict['sell_trades'][x]['index'],
                             format(trades_dict['sell_trades'][x]['amount_traded'], f".{pip_position}f"),
                             currency_1_symbol,
@@ -120,7 +120,7 @@ class Summary_Page(Base, Form):
         else: #first trans is sell
             formatted_trades += '----------------------------------------------------------------------------\n'
 
-            formatted_trades += '{}) Sold {} {} for price {} | Rule ID: {}\n'\
+            formatted_trades += '{}) Sold {} {} for price {}\n      > Rule ID: {}\n'\
                 .format(trades_dict['sell_trades'][1]['index'],
                         format(trades_dict['sell_trades'][1]['amount_traded'], f".{pip_position}f"),
                         currency_1_symbol,
@@ -140,14 +140,14 @@ class Summary_Page(Base, Form):
             for x in range(1, len(trades_dict['sell_trades'])-1):
                 formatted_trades += '----------------------------------------------------------------------------\n'
 
-                formatted_trades += '{}) Bought {} {} for price {} | Rule ID: {}\n'\
+                formatted_trades += '{}) Bought {} {} for price {}\n      > Rule ID: {}\n'\
                     .format(trades_dict['buy_trades'][x]['index'],
                             format(trades_dict['buy_trades'][x]['amount_traded'], f".{pip_position}f"),
                             currency_2_symbol,
                             trades_dict['buy_trades'][x]['price'],
                             trades_dict['buy_trades'][x]['id_rule'])
 
-                formatted_trades += '{}) Sold {} {} for price {} | Rule ID: {}\n'\
+                formatted_trades += '{}) Sold {} {} for price {}\n      > Rule ID: {}\n'\
                     .format(trades_dict['sell_trades'][x+1]['index'],
                             format(trades_dict['sell_trades'][x+1]['amount_traded'], f".{pip_position}f"),
                             currency_1_symbol,
