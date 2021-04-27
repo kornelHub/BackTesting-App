@@ -356,5 +356,5 @@ def init_simulation(main_window_object):
     # print(json.dumps(trades_dict, indent=4))
 
     # pass and display data in summary_page
-    main_window_object.summary_page.format_and_display_text(trades_dict, pip_position)
     main_window_object.summary_page.display_buy_and_sell_rules(buy_rules, sell_rules, sell_simulation_settings)
+    main_window_object.summary_page.format_and_display_text(trades_dict, pip_position)
