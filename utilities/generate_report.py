@@ -11,7 +11,7 @@ report_template_part_1 = """<!DOCTYPE html>
 }
 
 .left_container {
-  height:auto;
+  height:1350px;
   width:auto;
   float:left;
   background-color: rgb(55,55,55);
@@ -20,6 +20,7 @@ report_template_part_1 = """<!DOCTYPE html>
   margin-bottom: 15px;
   margin-right: 15px;
   margin-left: 15px;
+  overflow-y:auto
 }
 
 .right_container {
