@@ -78,6 +78,4 @@ if __name__ == '__main__':
     app.setStyle("fusion")
     main_widget_object = MainWidget()
     main_widget_object.show()
-    # main_widget_object.display_next_stacked_widget()
-    # main_widget_object.display_next_stacked_widget()
     sys.exit(app.exec_())
