@@ -23,8 +23,18 @@ class Strategy_Widget(Base, Form):
         self.p2_sellCondition_treeWidget.setHeaderLabel("")
         self.helper_on_adding_new_rules = False
         QtWidgets.QToolTip.setFont(QtGui.QFont('MS Shell Dlg 2', 10))
-        self.stop_loss_checkbox.stateChanged.connect(lambda: self.check_if_disabled_needed_for_settings_fields(self.stop_loss_checkbox.isChecked(), self.sell_stop_loss_lineEdit_1, self.sell_stop_loss_comboBox_2))
-        self.take_profit_checkbox.stateChanged.connect(lambda: self.check_if_disabled_needed_for_settings_fields(self.take_profit_checkbox.isChecked(), self.sell_take_profit_lineEdit_1, self.sell_take_profit_comboBox_2))
+        self.stop_loss_checkbox.stateChanged.connect(lambda:
+                                                     self.check_if_disabled_needed_for_settings_fields(
+                                                         self.stop_loss_checkbox.isChecked(),
+                                                         self.sell_stop_loss_lineEdit_1,
+                                                         self.sell_stop_loss_comboBox_2,
+                                                         self.label_9))
+        self.take_profit_checkbox.stateChanged.connect(lambda:
+                                                       self.check_if_disabled_needed_for_settings_fields(
+                                                           self.take_profit_checkbox.isChecked(),
+                                                           self.sell_take_profit_lineEdit_1,
+                                                           self.sell_take_profit_comboBox_2,
+                                                           self.label_10))
         hide_error_message(self.error_message_label)
 
         # req_exp allows only one '.' in number
@@ -265,6 +275,17 @@ class Strategy_Widget(Base, Form):
         self.sell_commission_comboBox_2.setCurrentIndex(self.sell_commission_comboBox_2.findText(sell_settings['fee_unit'], QtCore.Qt.MatchContains))
         self.sell_balance_lineEdit.setText(sell_settings['starting_balance'])
 
+        self.check_if_disabled_needed_for_settings_fields(self.stop_loss_checkbox.isChecked(),
+                                                          self.sell_stop_loss_lineEdit_1,
+                                                          self.sell_stop_loss_comboBox_2,
+                                                          self.label_9)
+
+        self.check_if_disabled_needed_for_settings_fields(self.take_profit_checkbox.isChecked(),
+                                                          self.sell_take_profit_lineEdit_1,
+                                                          self.sell_take_profit_comboBox_2,
+                                                          self.label_10)
+
+
         if sell_settings['is_stop_loss_selected']:
             self.stop_loss_checkbox.setChecked(True)
             self.sell_stop_loss_lineEdit_1.setText(sell_settings['stop_loss'])
@@ -341,13 +362,22 @@ class Strategy_Widget(Base, Form):
                 self.copy_all_items_under(original_rule.child(x), new_added_rule.child(x))
 
 ########################################################################################################################
-    def check_if_disabled_needed_for_settings_fields(self, is_checked, value_line_edit, unit_dropdown):
+    def check_if_disabled_needed_for_settings_fields(self, is_checked, value_line_edit, unit_dropdown, label):
         if is_checked:
             value_line_edit.setReadOnly(False)
+            value_line_edit.setCursor(QtCore.Qt.IBeamCursor)
             unit_dropdown.setEnabled(True)
+            unit_dropdown.setCursor(QtCore.Qt.ArrowCursor)
+            label.setStyleSheet('color: rgb(255, 255, 255);')
         else:
             value_line_edit.setReadOnly(True)
+            value_line_edit.setCursor(QtCore.Qt.ForbiddenCursor)
+            value_line_edit.setText('')
             unit_dropdown.setEnabled(False)
+            unit_dropdown.setCursor(QtCore.Qt.ForbiddenCursor)
+            unit_dropdown.setCurrentIndex(-1)
+            label.setStyleSheet('color: rgb(80,80,80);')
+
 
 # Add new rule receivers
 class Receive_Buy_Strategy_Rule_To_Add(QtCore.QObject):
