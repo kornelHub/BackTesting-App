@@ -205,20 +205,21 @@ def buy(x, buy_simulation_settings, trades_dict, id_rule):
     if trades_dict['buy_trades'][-1]['index'] <= trades_dict['sell_trades'][-1]['index'] < x:
         if trades_dict['sell_trades'][-1]['currency_2'] > 0:
             current_price = float(data_df.iloc[x][buy_simulation_settings['buy_settings'][0]['price_source']])
+            amount_traded_no_fee = calculate_amount_without_fee('buy',
+                                                           current_price, trades_dict['sell_trades'][-1]['currency_2'],
+                                                           buy_simulation_settings['buy_settings'][0]['fee'],
+                                                           buy_simulation_settings['buy_settings'][0]['fee_unit'])
             trades_dict['buy_trades'].append({
                 'index': x,
                 'price': current_price,
                 'amount_traded': trades_dict['sell_trades'][-1]['currency_2'],
-                'currency_1': calculate_amount_without_fee('buy',
-                                                           current_price, trades_dict['sell_trades'][-1]['currency_2'],
-                                                           buy_simulation_settings['buy_settings'][0]['fee'],
-                                                           buy_simulation_settings['buy_settings'][0]['fee_unit'])
-                              + trades_dict['sell_trades'][-1]['currency_1'],
+                'currency_1': amount_traded_no_fee + trades_dict['sell_trades'][-1]['currency_1'],
                 'currency_2': 0,
-                'id_rule': id_rule
+                'id_rule': id_rule,
+                'fee': ((trades_dict['sell_trades'][-1]['currency_2'] / current_price) - amount_traded_no_fee)
+                       * current_price
             })
-        # print('-----------------------------------------------------------------------------------------')
-        # print(x, ') BOUGHT ', trades_dict['buy_trades'][-1]['amount_traded'], ' FOR ',  trades_dict['buy_trades'][-1]['price'])
+
 
 
 def sell(x, sell_simulation_settings, trades_dict, id_rule,  price='options'):
@@ -228,21 +229,21 @@ def sell(x, sell_simulation_settings, trades_dict, id_rule,  price='options'):
                 current_price = float(data_df.iloc[x][sell_simulation_settings['sell_settings'][0]['price_source']])
             else:
                 current_price = float(price)
+
+            amount_traded_no_fee = calculate_amount_without_fee('sell',
+                                                                current_price,
+                                                                trades_dict['buy_trades'][-1]['currency_1'],
+                                                                sell_simulation_settings['sell_settings'][0]['fee'],
+                                                                sell_simulation_settings['sell_settings'][0]['fee_unit'])
             trades_dict['sell_trades'].append({
                 'index': x,
                 'price': current_price,
                 'amount_traded': trades_dict['buy_trades'][-1]['currency_1'],
                 'currency_1': 0,
-                'currency_2': calculate_amount_without_fee('sell',
-                                                           current_price, trades_dict['buy_trades'][-1]['currency_1'],
-                                                           sell_simulation_settings['sell_settings'][0]['fee'],
-                                                           sell_simulation_settings['sell_settings'][0]['fee_unit'])
-                              + trades_dict['buy_trades'][-1]['currency_2'],
-                'id_rule': id_rule
+                'currency_2': amount_traded_no_fee + trades_dict['buy_trades'][-1]['currency_2'],
+                'id_rule': id_rule,
+                'fee': (trades_dict['buy_trades'][-1]['currency_1'] * current_price) - amount_traded_no_fee
             })
-        # if len(trades_dict['buy_trades']) > 1:
-        #     print(x, ') SOLD ', trades_dict['sell_trades'][-1]['amount_traded'], ' FOR ', trades_dict['sell_trades'][-1]['price'])
-        #     print('***PROFIT: ', trades_dict['buy_trades'][-1]['amount_traded'] - trades_dict['buy_trades'][-2]['amount_traded'])
 
 
 def calculate_amount_without_fee(context, exchange_rate, currency_amount, fee_value, fee_type):
@@ -338,7 +339,8 @@ def init_simulation(main_window_object):
         'amount_traded': 0,
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
         'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance']),
-        'id_rule': '-'
+        'id_rule': '-',
+        'fee': 0
     })
     trades_dict['sell_trades'].append({
         'index': 0,
@@ -346,7 +348,8 @@ def init_simulation(main_window_object):
         'amount_traded': 0,
         'currency_1': float(buy_simulation_settings['buy_settings'][0]['starting_balance']),
         'currency_2': float(sell_simulation_settings['sell_settings'][0]['starting_balance']),
-        'id_rule': '-'
+        'id_rule': '-',
+        'fee': 0
     })
     starting_index = return_index_of_first_non_zero_row(data_df)
     code = glue_all_code(starting_index, glue_if_statements(buy_rules['buy_rules'], 'buy'), glue_if_statements(sell_rules['sell_rules'], 'sell'), sell_simulation_settings)
