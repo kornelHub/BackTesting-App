@@ -103,7 +103,7 @@ border-radius: 10px;</string>
         <property name="maximumSize">
          <size>
           <width>999999</width>
-          <height>70</height>
+          <height>35</height>
          </size>
         </property>
         <property name="font">
