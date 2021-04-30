@@ -125,7 +125,6 @@ def bollinger_band_lower(period, multiplier):
     return pd.DataFrame(answer_np[:, 3], columns=['BOLL_Lower_{}_{}'.format(period, multiplier)])
 
 
-# TODO: do zastanowienia czy potrzeba
 def volume_weighted_average_price(period):
     # https://www.investopedia.com/articles/trading/11/trading-with-vwap-mvwap.asp
     answer_df = pd.DataFrame(data_df[['High', 'Low', 'Close', 'Volume']], columns=['High', 'Low', 'Close', 'Volume'])
@@ -158,7 +157,6 @@ def trix(period):
     return pd.DataFrame(answer_np[:, 1], columns=['TRIX_' + str(period)])
 
 
-# TODO: trudne do zrobienie, ogarne jak bede mial czas :)
 def sar(start, maximum):
     start = float(start)
     maximum = float(maximum)
@@ -292,6 +290,7 @@ def rsi(period):
     return answer_df
 
 
+# TODO see how to use k_smooth and d_smooth
 def kdj(period, k_smooth, d_smooth):
     period = int(period)
     k_smooth = int(k_smooth)
@@ -389,13 +388,22 @@ def wr(period):
     return pd.DataFrame(answer_np[:, 4], columns=['WR_' + str(period)])
 
 
+# TODO
 def dmi(period):
     period = int(period)
     return True
 
 
-def mtm():
-    return True
+def mtm(period, source):
+    period = int(period)
+    answer_df = pd.DataFrame(data_df[[source]], columns=[source])
+    answer_df[['mtm']] = 0
+
+    # source[0], mtm[1]
+    answer_np = answer_df.to_numpy()
+    for x in range(period, len(answer_np)):
+        answer_np[x][1] = answer_np[x][0] - answer_np[x - period][0]
+    return pd.DataFrame(answer_np[:,1], columns=[f'MTM_{period}_{source}'])
 
 
 def evm(period, divisor):

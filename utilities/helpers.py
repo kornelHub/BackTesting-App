@@ -379,7 +379,7 @@ indicator_default_options = {
     'StochRSI (Stoch Relative Strength Index)': '(14, 14, 3, 3)',
     'WR (Williams %)': '(14)',
     'DMI (Directional Movement Index)': '(14)',
-    'MTM (Momentum)': '(7, Open)',
+    'MTM (Momentum)': '(14, Close)',
     'EVM (Ease of Movement)': '(14, 10000)',
     'Value (Plain integer or double)': '(0)',
     'Open (Open price of candle)': '(-)',
