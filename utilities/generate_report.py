@@ -126,8 +126,6 @@ def generate_html_report_to_file(summary_page, html_of_graphs):
         sell_rules_id_text += '| '+x.text(1) + '\n'
 
     transaction_text = summary_page.transactions_textBrowser.toPlainText().replace('      ', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
-    # transaction_text = transaction_text.replace('-'*76, '-'*20)
-    print(transaction_text)
 
     report_template_part_2 = f"""
     <div class='container'>
