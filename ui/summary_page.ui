@@ -43,7 +43,7 @@
      <property name="styleSheet">
       <string notr="true">QScrollArea QScrollBar:vertical {
 	border: none;
-	background: rgb(75, 75, 75);
+	background: rgb(85, 85, 85);
 	width: 14px;
 	margin: 15px 0 15px 0;
 	border-radius: 0px;
@@ -176,7 +176,7 @@ border-radius: 10px;</string>
 }
 QTextBrowser QScrollBar:vertical {
 	border: none;
-	background: rgb(75, 75, 75);
+	background: rgb(85, 85, 85);
 	width: 14px;
 	margin: 15px 0 15px 0;
 	border-radius: 0px;
