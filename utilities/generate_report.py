@@ -102,7 +102,7 @@ report_template_part_1 = """<!DOCTYPE html>
 </script>
 """
 
-def generate_html_report_to_file(summary_page, html_of_graphs, max_spaces):
+def generate_html_report_to_file(summary_page, html_of_graphs, max_spaces, path_to_save):
     html_of_graphs = "<div style='height:1200px;'>" + html_of_graphs[17:-14]
 
     buy_rules = summary_page.buy_rules_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
@@ -126,7 +126,6 @@ def generate_html_report_to_file(summary_page, html_of_graphs, max_spaces):
         sell_rules_id_text += '| '+x.text(1) + '\n'
 
     transaction_text = summary_page.transactions_textBrowser.toPlainText()
-    print(transaction_text)
     while max_spaces>4:
         transaction_text = transaction_text.replace(max_spaces*' ', max_spaces*'&nbsp;')
         max_spaces -= 1
@@ -159,6 +158,6 @@ def generate_html_report_to_file(summary_page, html_of_graphs, max_spaces):
     </body>
     </html>"""
 
-    f = open("data/reports/demofile3.html", "w")
+    f = open(path_to_save, "w")
     f.write(report_template_part_1 + report_template_part_2)
     f.close()

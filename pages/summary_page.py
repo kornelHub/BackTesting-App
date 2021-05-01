@@ -1,6 +1,7 @@
 import os
 from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
+from PySide2.QtWidgets import QFileDialog
 from utilities.helpers import cryptocurrency_pair_dict
 from utilities.plot_data import plot_ohlc_and_balance_with_transactions
 import utilities.helpers
@@ -76,7 +77,7 @@ class Summary_Page(Base, Form):
             self.buy_rules_treeWidget.setColumnWidth(1, self.sell_rules_treeWidget.columnWidth(1))
 
 
-    def format_and_display_text(self, trades_dict, pip_position):
+    def format_and_display_text(self, trades_dict, pip_position, main_window_object):
         currency_pair = (open(utilities.helpers.path_to_csv_file).readline()).rstrip("\n") # temporary solution
         currency_1_symbol = cryptocurrency_pair_dict[currency_pair]['base']
         currency_2_symbol = cryptocurrency_pair_dict[currency_pair]['quote']
@@ -198,14 +199,24 @@ class Summary_Page(Base, Form):
 
         html_of_graphs = plot_ohlc_and_balance_with_transactions(utilities.helpers.load_ohlcv_data_from_csv_file(),trades_dict, balance_list, currency_2_symbol)
         self.summary_balance_graph.setHtml(html_of_graphs)
-        self.generate_html_report(html_of_graphs, trades_dict)
+        main_window_object.save_button.clicked.connect(lambda: self.generate_html_report(html_of_graphs, trades_dict))
+
 
     def generate_html_report(self, html_of_graphs, trades_dict):
+        path_to_file = QFileDialog.getSaveFileName(self,
+                                                   'Save simulation report',
+                                                   current_dir[:-5] + "\data\\reports",
+                                                   'Hyper Text Markup Language (*.html)')
+
+        # if user click cancel on dialog window, return False and prevent program from crash
+        if not path_to_file[0]:
+            return False
+
         if trades_dict['buy_trades'][-1]['index'] > trades_dict['sell_trades'][-1]['index']:
             max_spaces = len(str(trades_dict['buy_trades'][-1]['index'])) + 4
         else:
             max_spaces = len(str(trades_dict['sell_trades'][-1]['index'])) + 4
-        generate_html_report_to_file(self, html_of_graphs, max_spaces)
+        generate_html_report_to_file(self, html_of_graphs, max_spaces, path_to_file[0])
 
 
 if __name__ == '__main__':
