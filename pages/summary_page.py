@@ -198,10 +198,14 @@ class Summary_Page(Base, Form):
 
         html_of_graphs = plot_ohlc_and_balance_with_transactions(utilities.helpers.load_ohlcv_data_from_csv_file(),trades_dict, balance_list, currency_2_symbol)
         self.summary_balance_graph.setHtml(html_of_graphs)
-        self.generate_html_report(html_of_graphs)
+        self.generate_html_report(html_of_graphs, trades_dict)
 
-    def generate_html_report(self, html_of_graphs):
-        generate_html_report_to_file(self, html_of_graphs)
+    def generate_html_report(self, html_of_graphs, trades_dict):
+        if trades_dict['buy_trades'][-1]['index'] > trades_dict['sell_trades'][-1]['index']:
+            max_spaces = len(str(trades_dict['buy_trades'][-1]['index'])) + 4
+        else:
+            max_spaces = len(str(trades_dict['sell_trades'][-1]['index'])) + 4
+        generate_html_report_to_file(self, html_of_graphs, max_spaces)
 
 
 if __name__ == '__main__':
