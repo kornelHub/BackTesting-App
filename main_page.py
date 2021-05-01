@@ -51,6 +51,9 @@ class MainWidget(Base, Form):
         utilities.helpers.path_to_csv_file = path_to_file[0]
         self.widget_pages.setCurrentIndex(0)
         self.fetch_data_page.plot_and_autofill_loaded_data()
+        ####
+        self.save_button.hide()
+        self.line_3.hide()
 
 
     def display_next_stacked_widget(self):
