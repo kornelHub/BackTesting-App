@@ -128,7 +128,6 @@ def generate_html_report_to_file(summary_page, html_of_graphs, max_spaces):
     transaction_text = summary_page.transactions_textBrowser.toPlainText()
     print(transaction_text)
     while max_spaces>4:
-        print(max_spaces)
         transaction_text = transaction_text.replace(max_spaces*' ', max_spaces*'&nbsp;')
         max_spaces -= 1
 

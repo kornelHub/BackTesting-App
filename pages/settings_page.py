@@ -49,6 +49,9 @@ class Settings_Widget(Base, Form):
 
     def go_back_to_previous_stacked_widget_page(self):
         main_window.widget_pages.setCurrentIndex(previous_stacked_widget_index_value)
+        if previous_stacked_widget_index_value is 2:
+            main_window.save_button.show()
+            main_window.line_3.show()
 
     def store_previous_stacked_widget_index(self, previous_stacked_widget_index, main_window_object):
         global previous_stacked_widget_index_value
