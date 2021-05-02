@@ -351,7 +351,22 @@ def init_simulation(main_window_object):
         'id_rule': '-',
         'fee': 0
     })
-    starting_index = return_index_of_first_non_zero_row(data_df)
+
+    # value needed to add to starting index, if period is <0 then there is possible to compare it to 0
+    lowest_period = 0
+    for x in range(len(buy_rules['buy_rules'])):
+        if int(globals()[f"buy_first_indicator_period{x}"][1:-1]) < lowest_period:
+            lowest_period = int(globals()[f"buy_first_indicator_period{x}"][1:-1])
+        if int(globals()[f"buy_second_indicator_period{x}"][1:-1]) < lowest_period:
+            lowest_period = int(globals()[f"buy_second_indicator_period{x}"][1:-1])
+
+    for x in range(len(sell_rules['sell_rules'])):
+        if int(globals()[f"sell_first_indicator_period{x}"][1:-1]) < lowest_period:
+            lowest_period = int(globals()[f"sell_first_indicator_period{x}"][1:-1])
+        if int(globals()[f"sell_second_indicator_period{x}"][1:-1]) < lowest_period:
+            lowest_period = int(globals()[f"sell_second_indicator_period{x}"][1:-1])
+
+    starting_index = return_index_of_first_non_zero_row(data_df) + abs(lowest_period)
     code = glue_all_code(starting_index, glue_if_statements(buy_rules['buy_rules'], 'buy'), glue_if_statements(sell_rules['sell_rules'], 'sell'), sell_simulation_settings)
     # print(code)
     # print(data_df.to_string())
