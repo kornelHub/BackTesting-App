@@ -28,7 +28,7 @@ class MainWidget(Base, Form):
         self.data_path.setText("D:/!python_projects/praca_inz_qt/data/data.csv")
         utilities.helpers.path_to_csv_file = "D:/!python_projects/praca_inz_qt/data/data.csv"
 
-        self.settings_button.clicked.connect(lambda: self.display_settings_stacked_widget())
+        self.settings_button.clicked.connect(lambda: self.display_settings_page())
 
         # Top toolbar menu
         self.load_data_button.clicked.connect(lambda: self.load_data_from_file())
@@ -57,34 +57,72 @@ class MainWidget(Base, Form):
 
 
     def display_next_stacked_widget(self):
-        if self.widget_pages.currentIndex() !=2: ### disable go to settings page via next button
-            if self.widget_pages.currentIndex() is 1:  ### start simulation
-                from engine import simulation
-                if main_widget_object.strategy_page.check_if_all_fileds_have_values():
-                    simulation.init_simulation(main_widget_object)
-                    self.save_button.show()
-                    self.line_3.show()
-                else:
-                    return False
-            self.widget_pages.setCurrentIndex(self.widget_pages.currentIndex()+1)  ### go to next page
+        if self.widget_pages.currentIndex() is 0:
+            self.display_strategy_page()
+        elif self.widget_pages.currentIndex() is 1:
+            self.display_summary_page()
 
 
     def display_previous_stacked_widget(self):
-        if self.widget_pages.currentIndex() is 3: ### if settings_page go back to page from we came
+        if self.widget_pages.currentIndex() is 1:
+            self.display_fetch_data_page()
+        elif self.widget_pages.currentIndex() is 2:
+            self.display_strategy_page()
+        elif self.widget_pages.currentIndex() is 3:
             self.settings_page.go_back_to_previous_stacked_widget_page()
+
+
+    def display_fetch_data_page(self):
+        self.set_forbidden_cursor(self.previous_page_btn)
+        self.set_default_cursor(self.next_page_btn)
+        self.hide_save_icon()
+        self.widget_pages.setCurrentIndex(0)
+
+
+    def display_strategy_page(self):
+        self.set_default_cursor(self.previous_page_btn)
+        self.set_default_cursor(self.next_page_btn)
+        self.hide_save_icon()
+        self.widget_pages.setCurrentIndex(1)
+
+
+    def display_summary_page(self):
+        from engine import simulation
+        if main_widget_object.strategy_page.check_if_all_fileds_have_values():
+            simulation.init_simulation(main_widget_object)
+            self.show_save_icon()
+            self.set_default_cursor(self.previous_page_btn)
+            self.set_forbidden_cursor(self.next_page_btn)
+            self.widget_pages.setCurrentIndex(2)
         else:
-            if self.widget_pages.currentIndex() is 2:
-                self.save_button.hide()
-                self.line_3.hide()
-            self.widget_pages.setCurrentIndex(self.widget_pages.currentIndex()-1)  ### go to previous page
+            return False
 
 
-    def display_settings_stacked_widget(self):
+    def display_settings_page(self):
         if not self.widget_pages.currentIndex() is 3:
             self.settings_page.store_previous_stacked_widget_index(self.widget_pages.currentIndex(), main_widget_object)
+            self.hide_save_icon()
+            self.set_default_cursor(self.previous_page_btn)
+            self.set_forbidden_cursor(self.next_page_btn)
             self.widget_pages.setCurrentIndex(3)
-            self.save_button.hide()
-            self.line_3.hide()
+
+
+    def set_forbidden_cursor(self, element):
+        element.setCursor(QtCore.Qt.ForbiddenCursor)
+        
+
+    def set_default_cursor(self, element):
+        element.setCursor(QtCore.Qt.ArrowCursor)
+
+
+    def hide_save_icon(self):
+        self.save_button.hide()
+        self.line_3.hide()
+
+
+    def show_save_icon(self):
+        self.save_button.hide()
+        self.line_3.hide()
 
 
 if __name__ == '__main__':
