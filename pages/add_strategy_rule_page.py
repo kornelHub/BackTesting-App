@@ -4,6 +4,7 @@ from PySide2.QtUiTools import loadUiType
 from PySide2.QtCore import Signal, Slot
 from utilities.helpers import indicator_default_options, hide_error_message, show_error_message
 from pages.change_indicator_form_page import Change_Indicator_Form_Page
+from utilities.tooltip_messages import period_button_tooltip
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/add_strategy_rule_page.ui"))
@@ -47,6 +48,14 @@ class Add_Strategy_Rule_Widget(Form, Base):
         self.p3_secondIndicatorOptions_button_1.setIcon(QtGui.QIcon('icons/settings_icon.png'))
         self.p3_secondIndicatorOptions_button_1.setIconSize(QtCore.QSize(24, 24))
         self.p3_secondIndicatorOptions_button_1.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+
+        self.first_indicator_period_info.setIcon(QtGui.QIcon('icons/info_icon.png'))
+        self.first_indicator_period_info.setIconSize(QtCore.QSize(18,18))
+        self.first_indicator_period_info.setToolTip(period_button_tooltip)
+
+        self.second_indicator_period_info.setIcon(QtGui.QIcon('icons/info_icon.png'))
+        self.second_indicator_period_info.setIconSize(QtCore.QSize(18, 18))
+        self.second_indicator_period_info.setToolTip(period_button_tooltip)
 
     def autofill_indicator_option(self, combo_box, linked_option_edit, linked_period_edit, linked_label):
         if combo_box.currentText() == "Value (Plain integer or double)":
