@@ -45,15 +45,13 @@ class MainWidget(Base, Form):
         # Fetch data page
         self.fetch_data_page.p1_saveDataToFile_button.clicked.connect(lambda: self.fetch_data_page.fetch_data_btn_clicked(main_widget_object, current_dir))
 
+
     def load_data_from_file(self):
         path_to_file = QFileDialog.getOpenFileName(self, 'Load CSV file with OHLCV data', current_dir + '\data', 'Text Files (*.csv)')
         self.data_path.setText(path_to_file[0])
         utilities.helpers.path_to_csv_file = path_to_file[0]
-        self.widget_pages.setCurrentIndex(0)
         self.fetch_data_page.plot_and_autofill_loaded_data()
-        ####
-        self.save_button.hide()
-        self.line_3.hide()
+        self.display_fetch_data_page()
 
 
     def display_next_stacked_widget(self):
@@ -121,8 +119,8 @@ class MainWidget(Base, Form):
 
 
     def show_save_icon(self):
-        self.save_button.hide()
-        self.line_3.hide()
+        self.save_button.show()
+        self.line_3.show()
 
 
 if __name__ == '__main__':
