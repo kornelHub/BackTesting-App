@@ -309,11 +309,6 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>KDJ (Random Index)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
                    <string>OBV (On-balance volume)</string>
                   </property>
                  </item>
@@ -330,11 +325,6 @@ QComboBox[invalid='true']{
                  <item>
                   <property name="text">
                    <string>WR (Williams %)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>DMI (Directional Movement Index)</string>
                   </property>
                  </item>
                  <item>
@@ -658,11 +648,6 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>KDJ (Random Index)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
                    <string>OBV (On-balance volume)</string>
                   </property>
                  </item>
@@ -679,11 +664,6 @@ QComboBox[invalid='true']{
                  <item>
                   <property name="text">
                    <string>WR (Williams %)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>DMI (Directional Movement Index)</string>
                   </property>
                  </item>
                  <item>
@@ -975,11 +955,6 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>KDJ (Random Index)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
                    <string>OBV (On-balance volume)</string>
                   </property>
                  </item>
@@ -996,11 +971,6 @@ QComboBox[invalid='true']{
                  <item>
                   <property name="text">
                    <string>WR (Williams %)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>DMI (Directional Movement Index)</string>
                   </property>
                  </item>
                  <item>
@@ -1292,11 +1262,6 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>KDJ (Random Index)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
                    <string>OBV (On-balance volume)</string>
                   </property>
                  </item>
@@ -1313,11 +1278,6 @@ QComboBox[invalid='true']{
                  <item>
                   <property name="text">
                    <string>WR (Williams %)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>DMI (Directional Movement Index)</string>
                   </property>
                  </item>
                  <item>
@@ -1593,11 +1553,6 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>KDJ (Random Index)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
                    <string>OBV (On-balance volume)</string>
                   </property>
                  </item>
@@ -1614,11 +1569,6 @@ QComboBox[invalid='true']{
                  <item>
                   <property name="text">
                    <string>WR (Williams %)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>DMI (Directional Movement Index)</string>
                   </property>
                  </item>
                  <item>
@@ -1894,11 +1844,6 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>KDJ (Random Index)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
                    <string>OBV (On-balance volume)</string>
                   </property>
                  </item>
@@ -1915,11 +1860,6 @@ QComboBox[invalid='true']{
                  <item>
                   <property name="text">
                    <string>WR (Williams %)</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>DMI (Directional Movement Index)</string>
                   </property>
                  </item>
                  <item>

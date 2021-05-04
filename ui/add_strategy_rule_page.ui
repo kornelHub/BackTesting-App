@@ -366,11 +366,6 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>KDJ (Random Index)</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>OBV (On-balance volume)</string>
             </property>
            </item>
@@ -387,11 +382,6 @@ QComboBox QAbstractItemView {
            <item>
             <property name="text">
              <string>WR (Williams %)</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>DMI (Directional Movement Index)</string>
             </property>
            </item>
            <item>
@@ -939,11 +929,6 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>KDJ (Random Index)</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string>OBV (On-balance volume)</string>
             </property>
            </item>
@@ -960,11 +945,6 @@ QComboBox QAbstractItemView {
            <item>
             <property name="text">
              <string>WR (Williams %)</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>DMI (Directional Movement Index)</string>
             </property>
            </item>
            <item>
