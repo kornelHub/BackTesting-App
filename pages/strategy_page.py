@@ -328,9 +328,6 @@ class Strategy_Widget(Base, Form):
                           self.buy_balance_lineEdit2, self.sell_price_source_comboBox, self.sell_commission_lineEdit_1,
                           self.sell_commission_comboBox_2, self.sell_balance_lineEdit,
                           self.p2_buyCondition_treeWidget, self.p2_sellCondition_treeWidget]
-
-        print(type(self.p2_buyCondition_treeWidget))
-        print(self.p2_sellCondition_treeWidget.topLevelItem(0))
         
         if self.stop_loss_checkbox.isChecked():
             list_of_fields.append(self.sell_stop_loss_lineEdit_1)
