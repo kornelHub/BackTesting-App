@@ -14,7 +14,7 @@ class MainWidget(Base, Form):
         self.setWindowIcon(QtGui.QIcon('icons/logo2.png'))
         self.setWindowTitle('BackTesting Application')
         self.data_path.setReadOnly(True)
-        # self.showMaximized()
+        self.showMaximized()
         # self.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)
 
         self.settings_button.setIcon(QtGui.QIcon('icons/settings_icon.png'))
