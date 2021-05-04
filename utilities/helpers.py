@@ -1,7 +1,7 @@
 import datetime as dt
 import pytz
 import pandas as pd
-from PySide2.QtWidgets import QLineEdit, QComboBox, QPushButton, QPlainTextEdit
+from PySide2.QtWidgets import QLineEdit, QComboBox, QPushButton, QPlainTextEdit, QTreeWidget
 
 path_to_csv_file = ''
 colums_name_from_binance = ['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume',
@@ -45,6 +45,15 @@ def check_if_all_fields_have_text(list_of_fields):
                 field.style().polish(field)
         elif isinstance(field, QPlainTextEdit):
             if field.toPlainText():
+                is_field_has_text.append(True)
+                field.setProperty('invalid', False)
+                field.style().polish(field)
+            else:
+                is_field_has_text.append(False)
+                field.setProperty('invalid', True)
+                field.style().polish(field)
+        elif isinstance(field, QTreeWidget):
+            if field.topLevelItem(0):
                 is_field_has_text.append(True)
                 field.setProperty('invalid', False)
                 field.style().polish(field)

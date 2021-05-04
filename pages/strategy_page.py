@@ -326,7 +326,11 @@ class Strategy_Widget(Base, Form):
     def check_if_all_fileds_have_values(self):
         list_of_fields = [self.buy_price_source_comboBox, self.buy_commission_lineEdit_1, self.buy_commission_comboBox_2,
                           self.buy_balance_lineEdit2, self.sell_price_source_comboBox, self.sell_commission_lineEdit_1,
-                          self.sell_commission_comboBox_2, self.sell_balance_lineEdit]
+                          self.sell_commission_comboBox_2, self.sell_balance_lineEdit,
+                          self.p2_buyCondition_treeWidget, self.p2_sellCondition_treeWidget]
+
+        print(type(self.p2_buyCondition_treeWidget))
+        print(self.p2_sellCondition_treeWidget.topLevelItem(0))
         
         if self.stop_loss_checkbox.isChecked():
             list_of_fields.append(self.sell_stop_loss_lineEdit_1)
@@ -347,7 +351,7 @@ class Strategy_Widget(Base, Form):
             self.sell_take_profit_comboBox_2.style().polish(self.sell_take_profit_comboBox_2)
 
         if False in check_if_all_fields_have_text(list_of_fields):
-            show_error_message(self.error_message_label, 'Fields cannot be empty.')
+            show_error_message(self.error_message_label, 'Please provide input into highlighted fields.')
             return False
         else:
             hide_error_message(self.error_message_label)

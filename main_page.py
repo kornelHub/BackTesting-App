@@ -99,8 +99,8 @@ class MainWidget(Base, Form):
 
 
     def display_summary_page(self):
-        from engine import simulation
         if main_widget_object.strategy_page.check_if_all_fileds_have_values():
+            from engine import simulation
             simulation.init_simulation(main_widget_object)
             self.show_save_icon()
             self.set_default_cursor(self.previous_page_btn)

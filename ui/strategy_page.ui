@@ -343,9 +343,15 @@ border: 0px sold;</string>
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">color: rgb(255, 255, 255);
-background-color: rgb(55,55,55);
-font: 10pt &quot;MS Shell Dlg 2&quot;;</string>
+                  <string notr="true">QTreeWidget{
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	background-color: rgb(55,55,55);
+	color: rgb(255, 255, 255);
+	border: 0px;
+}
+QTreeWidget[invalid='true']{
+        border: 2px solid rgb(255, 115, 107);
+}</string>
                  </property>
                  <property name="dragDropMode">
                   <enum>QAbstractItemView::DragDrop</enum>
@@ -1054,9 +1060,15 @@ border: 0px sold;</string>
                   </sizepolicy>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;
-background-color: rgb(55,55,55);
-color: rgb(255, 255, 255);</string>
+                  <string notr="true">QTreeWidget{
+	font: 10pt &quot;MS Shell Dlg 2&quot;;
+	background-color: rgb(55,55,55);
+	color: rgb(255, 255, 255);
+	border: 0px;
+}
+QTreeWidget[invalid='true']{
+        border: 2px solid rgb(255, 115, 107);
+}</string>
                  </property>
                  <property name="dragDropMode">
                   <enum>QAbstractItemView::DragDrop</enum>
