@@ -29,13 +29,33 @@ class Strategy_Widget(Base, Form):
                                                          self.sell_stop_loss_lineEdit_1,
                                                          self.sell_stop_loss_comboBox_2,
                                                          self.label_9))
+
         self.take_profit_checkbox.stateChanged.connect(lambda:
                                                        self.check_if_disabled_needed_for_settings_fields(
                                                            self.take_profit_checkbox.isChecked(),
                                                            self.sell_take_profit_lineEdit_1,
                                                            self.sell_take_profit_comboBox_2,
                                                            self.label_10))
+
         hide_error_message(self.error_message_label)
+        self.buy_price_source_comboBox.setCurrentIndex(-1)
+        self.sell_price_source_comboBox.setCurrentIndex(-1)
+        self.buy_commission_comboBox_2.setCurrentIndex(-1)
+        self.sell_commission_comboBox_2.setCurrentIndex(-1)
+        self.sell_stop_loss_comboBox_2.setCurrentIndex(-1)
+        self.sell_take_profit_comboBox_2.setCurrentIndex(-1)
+
+        self.check_if_disabled_needed_for_settings_fields(
+            self.stop_loss_checkbox.isChecked(),
+            self.sell_stop_loss_lineEdit_1,
+            self.sell_stop_loss_comboBox_2,
+            self.label_9)
+
+        self.check_if_disabled_needed_for_settings_fields(
+            self.take_profit_checkbox.isChecked(),
+            self.sell_take_profit_lineEdit_1,
+            self.sell_take_profit_comboBox_2,
+            self.label_10)
 
         # req_exp allows only one '.' in number
         number_regular_expression = QRegExp("^(([1-9][0-9]*)?[0-9](\.[0-9]*)?|\.[0-9]+)$")
@@ -46,13 +66,6 @@ class Strategy_Widget(Base, Form):
         self.sell_stop_loss_lineEdit_1.setValidator(QRegExpValidator(number_regular_expression, self))
         self.sell_take_profit_lineEdit_1.setValidator(QRegExpValidator(number_regular_expression, self))
 
-        # dev helper
-        self.buy_commission_lineEdit_1.setText('0.1')
-        self.buy_balance_lineEdit2.setText('1')
-        self.sell_commission_lineEdit_1.setText('0.1')
-        self.sell_balance_lineEdit.setText('10000')
-        self.sell_stop_loss_lineEdit_1.setText('14')
-        self.sell_take_profit_lineEdit_1.setText('14')
 
         # Buy
         self.p2_add_buy_rule.setIcon(QtGui.QIcon('icons/add_icon.png'))
@@ -121,21 +134,6 @@ class Strategy_Widget(Base, Form):
         self.p2_plot_indicator_2.setIconSize(QtCore.QSize(28, 28))
         self.p2_plot_indicator_2.clicked.connect(lambda: self.display_form_to_plot_indicators())
         self.p2_plot_indicator_2.setToolTip('Plot indicator')
-
-        # init sell treeView
-        self.sell_level_1 = QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, ["SMA (7, Open) [0] >= SMA (7, Open) [-1]"])
-        self.sell_level_2 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["EMA (7, Open) [0] >= EMA (7, Open) [-1]"])
-        self.sell_level_3 = QtWidgets.QTreeWidgetItem(self.sell_level_2, ["WR (14) [0] > SMA (7, Open) [0]"])
-        self.sell_level_2_1 = QtWidgets.QTreeWidgetItem(self.sell_level_1, ["BOLL - Upper Band (21, 2) [0] >= BOLL - Lower Band (21, 2) [-1]"])
-        self.p2_sellCondition_treeWidget.expandAll()
-
-        # init buy treeView
-        self.buy_level_1 = QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget, ["SMA (7, Open) [0] <= SMA (7, Open) [-1]"])
-        self.buy_level_2 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["EMA (7, Open) [0] <= EMA (7, Open) [-1]"])
-        self.buy_level_3 = QtWidgets.QTreeWidgetItem(self.buy_level_2, ["WR (14) [0] < SMA (7, Open) [0]"])
-        self.buy_level_2_1 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["MACD - Singal Line (12, 26, 9, Open) [0] >= MACD - MACD Line (12, 26, 9, Open) [-1]"])
-        self.buy_level_2_3 = QtWidgets.QTreeWidgetItem(self.buy_level_1, ["Open (-) [0] >= Value (15555) [0]"])
-        self.p2_buyCondition_treeWidget.expandAll()
 
 
 ########################################################################################################################
@@ -373,9 +371,13 @@ class Strategy_Widget(Base, Form):
             value_line_edit.setReadOnly(True)
             value_line_edit.setCursor(QtCore.Qt.ForbiddenCursor)
             value_line_edit.setText('')
+            value_line_edit.setProperty('invalid', False)
+            value_line_edit.style().polish(value_line_edit)
             unit_dropdown.setEnabled(False)
             unit_dropdown.setCursor(QtCore.Qt.ForbiddenCursor)
             unit_dropdown.setCurrentIndex(-1)
+            unit_dropdown.setProperty('invalid', False)
+            unit_dropdown.style().polish(unit_dropdown)
             label.setStyleSheet('color: rgb(80,80,80);')
 
 
