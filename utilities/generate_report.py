@@ -1,5 +1,6 @@
 from PySide2 import QtCore
 from engine.simulation import check_if_parent_exist
+import webbrowser
 
 report_template_part_1 = """<!DOCTYPE html>
 <html>
@@ -161,3 +162,4 @@ def generate_html_report_to_file(summary_page, html_of_graphs, max_spaces, path_
     f = open(path_to_save, "w")
     f.write(report_template_part_1 + report_template_part_2)
     f.close()
+    webbrowser.open(path_to_save)
