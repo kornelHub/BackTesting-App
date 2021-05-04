@@ -224,6 +224,9 @@ QLineEdit:hover {
 QLineEdit:focus{
 	border: 2px solid rgb(85, 170, 255);
 }
+QLineEdit[invalid='true']{
+        border: 2px solid rgb(255, 115, 107);
+}
 </string>
             </property>
            </widget>

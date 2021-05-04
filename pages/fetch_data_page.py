@@ -134,6 +134,25 @@ class Fetch_Data_Widget(Base, Form):
         helpers.hide_error_message(self.error_message_label)
 
 
+    def check_if_ohlc_file_is_selected(self, main_widget_object):
+        if main_widget_object.data_path.text():
+            if '.csv' in main_widget_object.data_path.text():
+                main_widget_object.data_path.setProperty('invalid', False)
+                main_widget_object.data_path.style().polish(main_widget_object.data_path)
+                helpers.hide_error_message(self.error_message_label)
+                return True
+            else:
+                main_widget_object.data_path.setProperty('invalid', True)
+                main_widget_object.data_path.style().polish(main_widget_object.data_path)
+                helpers.show_error_message(self.error_message_label, "Pleas load CSV file with OHLC data to continue.")
+                return False
+        else:
+            main_widget_object.data_path.setProperty('invalid', True)
+            main_widget_object.data_path.style().polish(main_widget_object.data_path)
+            helpers.show_error_message(self.error_message_label, "Pleas load CSV file with OHLC data to continue.")
+            return False
+
+
 if __name__ == '__fetch_data_page__':
     import sys
     app = QtGui.QGuiApplication(sys.argv)

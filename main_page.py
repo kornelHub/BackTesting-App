@@ -15,6 +15,7 @@ class MainWidget(Base, Form):
         self.setWindowTitle('BackTesting Application')
         self.data_path.setReadOnly(True)
         # self.showMaximized()
+        # self.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)
 
         self.settings_button.setIcon(QtGui.QIcon('icons/settings_icon.png'))
         self.settings_button.setIconSize(QtCore.QSize(28, 28))
@@ -24,9 +25,6 @@ class MainWidget(Base, Form):
         self.save_button.hide()
         self.line_3.hide()
 
-        #dev helper
-        self.data_path.setText("D:/!python_projects/praca_inz_qt/data/data.csv")
-        utilities.helpers.path_to_csv_file = "D:/!python_projects/praca_inz_qt/data/data.csv"
 
         self.settings_button.clicked.connect(lambda: self.display_settings_page())
 
@@ -48,10 +46,25 @@ class MainWidget(Base, Form):
 
     def load_data_from_file(self):
         path_to_file = QFileDialog.getOpenFileName(self, 'Load CSV file with OHLCV data', current_dir + '\data', 'Text Files (*.csv)')
-        self.data_path.setText(path_to_file[0])
-        utilities.helpers.path_to_csv_file = path_to_file[0]
-        self.fetch_data_page.plot_and_autofill_loaded_data()
-        self.display_fetch_data_page()
+        if path_to_file[0]:
+            self.display_fetch_data_page()
+            if '.csv' in path_to_file[0]:
+                if utilities.helpers.columns_name_string in open(path_to_file[0]).readlines()[1]:
+                    self.data_path.setText(path_to_file[0])
+                    utilities.helpers.path_to_csv_file = path_to_file[0]
+                    self.fetch_data_page.plot_and_autofill_loaded_data()
+                    self.data_path.setProperty('invalid', False)
+                    self.data_path.style().polish(self.data_path)
+                else:
+                    utilities.helpers.show_error_message(self.fetch_data_page.error_message_label,
+                                                         'Pleas load valid CSV file with OHLC data to continue.')
+                    self.data_path.setProperty('invalid', True)
+                    self.data_path.style().polish(self.data_path)
+            else:
+                utilities.helpers.show_error_message(self.fetch_data_page.error_message_label,
+                                                     'Pleas load CSV file with OHLC data to continue.')
+                self.data_path.setProperty('invalid', True)
+                self.data_path.style().polish(self.data_path)
 
 
     def display_next_stacked_widget(self):
@@ -78,10 +91,11 @@ class MainWidget(Base, Form):
 
 
     def display_strategy_page(self):
-        self.set_default_cursor(self.previous_page_btn)
-        self.set_default_cursor(self.next_page_btn)
-        self.hide_save_icon()
-        self.widget_pages.setCurrentIndex(1)
+        if main_widget_object.fetch_data_page.check_if_ohlc_file_is_selected(main_widget_object):
+            self.set_default_cursor(self.previous_page_btn)
+            self.set_default_cursor(self.next_page_btn)
+            self.hide_save_icon()
+            self.widget_pages.setCurrentIndex(1)
 
 
     def display_summary_page(self):
