@@ -26,7 +26,11 @@ def create_client_object():
     client = Client(api_key, api_secret)
 
 def download_data_to_file(start_time, end_time, interval, currency_pair_symbol, path_to_file):
-    candles = client.get_klines(symbol=currency_pair_symbol, interval=interval, startTime=start_time, endTime=end_time, limit=1000)
+    candles = client.get_klines(symbol=currency_pair_symbol,
+                                interval=interval,
+                                startTime=start_time,
+                                endTime=end_time,
+                                limit=1000)
     candles_df = pd.DataFrame(candles, columns=helpers.colums_name_from_binance)
     candles_df = candles_df.round(decimals=5)
     if len(candles_df) > 1:
@@ -50,14 +54,26 @@ def download_data_to_file(start_time, end_time, interval, currency_pair_symbol, 
     return close_time
 
 def create_data_from_binance(start_time, end_time, interval, currency_pair_symbol, path_to_file):
-    close_time_of_last_value_in_file = download_data_to_file(start_time=start_time, end_time=end_time, interval=interval, currency_pair_symbol=currency_pair_symbol, path_to_file=path_to_file)
+    close_time_of_last_value_in_file = download_data_to_file(start_time=start_time,
+                                                             end_time=end_time,
+                                                             interval=interval,
+                                                             currency_pair_symbol=currency_pair_symbol,
+                                                             path_to_file=path_to_file)
     if close_time_of_last_value_in_file + 1 < end_time:
-        create_data_from_binance(start_time=close_time_of_last_value_in_file + 1, end_time=end_time, interval=interval, currency_pair_symbol=currency_pair_symbol, path_to_file=path_to_file)
+        create_data_from_binance(start_time=close_time_of_last_value_in_file + 1,
+                                 end_time=end_time,
+                                 interval=interval,
+                                 currency_pair_symbol=currency_pair_symbol,
+                                 path_to_file=path_to_file)
 
 
 def create_csv_with_ohlcv_data(start_time, end_time, interval, currency_pair_symbol, path_to_file):
     create_client_object()
-    create_data_from_binance(start_time=start_time, end_time=end_time, interval=interval, currency_pair_symbol=currency_pair_symbol, path_to_file=path_to_file)
+    create_data_from_binance(start_time=start_time,
+                             end_time=end_time,
+                             interval=interval,
+                             currency_pair_symbol=currency_pair_symbol,
+                             path_to_file=path_to_file)
     os.chmod(path_to_file, S_IREAD) # add read_only attribute to created file
 
 
