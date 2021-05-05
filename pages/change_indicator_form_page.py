@@ -47,7 +47,8 @@ class Change_Indicator_Form_Page(Base, Form):
                 if coma == coma_count - 1:
                     typed_options_list.append(typed_options)
 
-        fields = [[self.label_1, self.lineEdit_1], [self.label_2, self.lineEdit_2], [self.label_3, self.lineEdit_3], [self.label_4, self.lineEdit_4],[self.label_5, self.comboBox]]
+        fields = [[self.label_1, self.lineEdit_1], [self.label_2, self.lineEdit_2],
+                  [self.label_3, self.lineEdit_3], [self.label_4, self.lineEdit_4],[self.label_5, self.comboBox]]
         list_of_options_name = indicator_options_name.get(indicator)
         if list_of_options_name[-1] == 'Source':
             for x in range(len(list_of_options_name)-1):
@@ -65,7 +66,8 @@ class Change_Indicator_Form_Page(Base, Form):
                 x[0].hide()
                 x[1].hide()
 
-        self.addRule_button.clicked.connect(lambda: self.save_indicator_options(qlineedit_field, recive_indicator_options_object))
+        self.addRule_button.clicked.connect(
+            lambda: self.save_indicator_options(qlineedit_field, recive_indicator_options_object))
 
 
     def save_indicator_options(self, qlineedit_field, recive_indicator_options_object):
@@ -115,7 +117,8 @@ class Change_Indicator_Form_Page(Base, Form):
 class Send_Indicator_Option(QtCore.QObject):
     signal = Signal()
     def send_indicator_option(self, indicator_option, qlineedit_field, recive_indicator_options_object):
-        self.signal.connect(lambda: recive_indicator_options_object.recive_indicator_options(indicator_option,qlineedit_field))
+        self.signal.connect(
+            lambda: recive_indicator_options_object.recive_indicator_options(indicator_option,qlineedit_field))
         self.signal.emit()
 
 if __name__ == '__main__':
