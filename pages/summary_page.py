@@ -32,7 +32,9 @@ class Summary_Page(Base, Form):
             for y in range(len(buy_rules)):
                 if buy_rules[x + 1]['qTreeWidgetItem_Parent'] == buy_rules[y]['qTreeWidgetItem']:
                     found_parent = buy_rules[y]['rule_text']
-            QtWidgets.QTreeWidgetItem(self.buy_rules_treeWidget.findItems(found_parent, QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive,0)[-1],
+            QtWidgets.QTreeWidgetItem(self.buy_rules_treeWidget
+                                      .findItems(found_parent,
+                                                 QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive,0)[-1],
                                       [buy_rules[x + 1]['rule_text'], buy_rules[x + 1]['id_rule']])
         self.buy_rules_treeWidget.expandAll()
 
@@ -57,7 +59,9 @@ class Summary_Page(Base, Form):
             for y in range(len(sell_rules)):
                 if sell_rules[x + 1]['qTreeWidgetItem_Parent'] == sell_rules[y]['qTreeWidgetItem']:
                     found_parent = sell_rules[y]['rule_text']
-            QtWidgets.QTreeWidgetItem(self.sell_rules_treeWidget.findItems(found_parent, QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive,0)[-1],
+            QtWidgets.QTreeWidgetItem(self.sell_rules_treeWidget
+                                      .findItems(found_parent,
+                                                 QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive,0)[-1],
                                       [sell_rules[x + 1]['rule_text'], sell_rules[x + 1]['id_rule']])
         self.sell_rules_treeWidget.expandAll()
 
@@ -197,7 +201,10 @@ class Summary_Page(Base, Form):
         self.transactions_textBrowser.setText(formatted_trades)
         # PLOT OHLC data and balance with transactions
 
-        html_of_graphs = plot_ohlc_and_balance_with_transactions(utilities.helpers.load_ohlcv_data_from_csv_file(),trades_dict, balance_list, currency_2_symbol)
+        html_of_graphs = plot_ohlc_and_balance_with_transactions(utilities.helpers.load_ohlcv_data_from_csv_file(),
+                                                                 trades_dict,
+                                                                 balance_list,
+                                                                 currency_2_symbol)
         self.summary_balance_graph.setHtml(html_of_graphs)
         main_window_object.save_button.clicked.connect(lambda: self.generate_html_report(html_of_graphs, trades_dict))
 
