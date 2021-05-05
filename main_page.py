@@ -3,6 +3,7 @@ from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtWidgets import QFileDialog
 import utilities.helpers
+from PySide2 import QtXml
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "ui/mainWindow.ui"))
@@ -34,18 +35,25 @@ class MainWidget(Base, Form):
         self.previous_page_btn.clicked.connect(lambda: self.display_previous_stacked_widget())
 
         # Strategy page
-        self.strategy_page.p2_add_buy_rule.clicked.connect(lambda: self.strategy_page.display_add_strategy_rule_page_buy_context(main_widget_object.strategy_page))
-        self.strategy_page.p2_edit_buy_rule.clicked.connect(lambda: self.strategy_page.display_add_strategy_rule_page_modify_buy_context())
+        self.strategy_page.p2_add_buy_rule.clicked.connect(
+            lambda: self.strategy_page.display_add_strategy_rule_page_buy_context(main_widget_object.strategy_page))
+        self.strategy_page.p2_edit_buy_rule.clicked.connect(
+            lambda: self.strategy_page.display_add_strategy_rule_page_modify_buy_context())
 
-        self.strategy_page.p2_add_sell_rule.clicked.connect(lambda: self.strategy_page.display_add_strategy_rule_page_sell_context(main_widget_object.strategy_page))
-        self.strategy_page.p2_edit_sell_rule.clicked.connect(lambda: self.strategy_page.display_add_strategy_rule_page_modify_sell_context())
+        self.strategy_page.p2_add_sell_rule.clicked.connect(
+            lambda: self.strategy_page.display_add_strategy_rule_page_sell_context(main_widget_object.strategy_page))
+        self.strategy_page.p2_edit_sell_rule.clicked.connect(
+            lambda: self.strategy_page.display_add_strategy_rule_page_modify_sell_context())
 
         # Fetch data page
-        self.fetch_data_page.p1_saveDataToFile_button.clicked.connect(lambda: self.fetch_data_page.fetch_data_btn_clicked(main_widget_object, current_dir))
+        self.fetch_data_page.p1_saveDataToFile_button.clicked.connect(
+            lambda: self.fetch_data_page.fetch_data_btn_clicked(main_widget_object, current_dir))
 
 
     def load_data_from_file(self):
-        path_to_file = QFileDialog.getOpenFileName(self, 'Load CSV file with OHLCV data', current_dir + '\data', 'Text Files (*.csv)')
+        path_to_file = QFileDialog.getOpenFileName(self,
+                                                   'Load CSV file with OHLCV data',
+                                                   current_dir + '\data', 'Text Files (*.csv)')
         if path_to_file[0]:
             self.display_fetch_data_page()
             if '.csv' in path_to_file[0]:
