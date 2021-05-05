@@ -19,7 +19,8 @@ class Display_Plot_Page(Base, Form):
 
 
     def display_candlestick_chart_with_indicators(self, list_of_indicators_with_options):
-        self.candle_chart_widget.setHtml(plot_data.plot_ohlcv_with_indicators(load_ohlcv_data_from_csv_file(), list_of_indicators_with_options))
+        self.candle_chart_widget.setHtml(plot_data.plot_ohlcv_with_indicators(load_ohlcv_data_from_csv_file(),
+                                                                              list_of_indicators_with_options))
 
 
     def close_window(self):
