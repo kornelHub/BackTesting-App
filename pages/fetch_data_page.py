@@ -116,17 +116,25 @@ class Fetch_Data_Widget(Base, Form):
         start_time = str(helpers.convert_milliseconds_to_date(new_data.iloc[0]['Opentime']))
         end_time = str(helpers.convert_milliseconds_to_date(new_data.iloc[-1]['Opentime']))
 
-        self.p1_interval_dropdown.setCurrentIndex(self.p1_interval_dropdown.findText(helpers.difference_period_dictionary.get(int(new_data.iloc[1]['Opentime'] - new_data.iloc[0]['Opentime'])), QtCore.Qt.MatchContains))
+        self.p1_interval_dropdown\
+            .setCurrentIndex(self.p1_interval_dropdown
+                             .findText(helpers.difference_period_dictionary
+                                       .get(int(new_data.iloc[1]['Opentime'] - new_data.iloc[0]['Opentime'])),
+                                       QtCore.Qt.MatchContains))
 
         self.p1_startDate_textField_day.setText(start_time[8:10])
-        self.p1_startDate_comboBox_month.setCurrentIndex(self.p1_startDate_comboBox_month.findText(helpers.month_dictionary.get(start_time[5:7]), QtCore.Qt.MatchContains))
+        self.p1_startDate_comboBox_month\
+            .setCurrentIndex(self.p1_startDate_comboBox_month
+                             .findText(helpers.month_dictionary.get(start_time[5:7]), QtCore.Qt.MatchContains))
         self.p1_startDate_textField_year.setText(start_time[0:4])
         self.p1_startDate_textField_hour.setText(start_time[11:13])
         self.p1_startDate_textField_minute.setText(start_time[14:16])
         self.p1_startDate_textField_second.setText(start_time[17:19])
 
         self.p1_endDate_textField_day.setText(end_time[8:10])
-        self.p1_endDate_comboBox_month.setCurrentIndex(self.p1_endDate_comboBox_month.findText(helpers.month_dictionary.get(end_time[5:7]), QtCore.Qt.MatchContains))
+        self.p1_endDate_comboBox_month\
+            .setCurrentIndex(self.p1_endDate_comboBox_month
+                             .findText(helpers.month_dictionary.get(end_time[5:7]), QtCore.Qt.MatchContains))
         self.p1_endDate_textField_year.setText(end_time[0:4])
         self.p1_endDate_textField_hour.setText(end_time[11:13])
         self.p1_endDate_textField_minute.setText(end_time[14:16])
