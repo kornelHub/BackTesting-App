@@ -73,7 +73,6 @@ class Fetch_Data_Widget(Base, Form):
         # return False if From date is bigger that To date
         if int(date_to_milliseconds(start_date)) >= int(date_to_milliseconds(end_date)):
             helpers.show_error_message(self.error_message_label, "'From' data cannot be bigger that 'To' date.")
-            print(self.list_of_fields[8:])
             for field in self.list_of_fields[8:]:
                 field.setProperty("invalid", True)
                 field.style().polish(field)
@@ -90,15 +89,30 @@ class Fetch_Data_Widget(Base, Form):
         if not path_to_file[0]:
             return False
 
-        fetch_data.create_csv_with_ohlcv_data(start_time=int(date_to_milliseconds(start_date)),
-                                              end_time=int(date_to_milliseconds(end_date)),
-                                              currency_pair_symbol=currency_symbol,
-                                              interval=interval, path_to_file=path_to_file[0])
-        main_widget_object.data_path.setText(path_to_file[0])
-        helpers.path_to_csv_file = path_to_file[0]
-        self.p1_ohlcvPlot_qWebEngineView.show()
-        self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_ohlcv_data(helpers.load_ohlcv_data_from_csv_file()))
-        helpers.hide_error_message(self.error_message_label)
+        print('[start_date]: ',int(date_to_milliseconds(start_date)))
+        print('[end_date]: ', int(date_to_milliseconds(end_date)))
+        print('[max_date]: ', int(date_to_milliseconds(start_date)) + 1000 * 500 * helpers.time_difference_dictionary.get(interval))
+
+        if int(date_to_milliseconds(end_date)) \
+            <= int(date_to_milliseconds(start_date)) + 1000 * 500 * helpers.time_difference_dictionary.get(interval):
+            fetch_data.create_csv_with_ohlcv_data(start_time=int(date_to_milliseconds(start_date)),
+                                                  end_time=int(date_to_milliseconds(end_date)),
+                                                  currency_pair_symbol=currency_symbol,
+                                                  interval=interval, path_to_file=path_to_file[0])
+            main_widget_object.data_path.setText(path_to_file[0])
+            helpers.path_to_csv_file = path_to_file[0]
+            self.p1_ohlcvPlot_qWebEngineView.show()
+            self.p1_ohlcvPlot_qWebEngineView.setHtml(plot_ohlcv_data(helpers.load_ohlcv_data_from_csv_file()))
+            helpers.hide_error_message(self.error_message_label)
+        else:
+            helpers.show_error_message(self.error_message_label,
+                                       f"The range is too large. For this starting date limit is "
+                                       f"{helpers.convert_milliseconds_to_date(int(date_to_milliseconds(start_date)) + 1000 * 500 * helpers.time_difference_dictionary.get(interval))}")
+            for field in self.list_of_fields[8:]:
+                field.setProperty("invalid", True)
+                field.style().polish(field)
+
+            return False
 
 
     def plot_and_autofill_loaded_data(self):
