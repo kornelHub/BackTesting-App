@@ -7,7 +7,8 @@ import json
 
 def get_buy_rules(strategy_page):
     list_of_items_in_buy_and_text = {'buy_rules': []}
-    list_of_items_in_buy_qtreewidget = strategy_page.p2_buyCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
+    list_of_items_in_buy_qtreewidget = strategy_page.p2_buyCondition_treeWidget\
+        .findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
     for buy_item in list_of_items_in_buy_qtreewidget:
         list_of_items_in_buy_and_text['buy_rules'].append({
             'qTreeWidgetItem': buy_item,
@@ -21,7 +22,8 @@ def get_buy_rules(strategy_page):
 
 def get_sell_rules(strategy_page):
     list_of_items_in_sell_and_text = {'sell_rules': []}
-    list_of_items_in_sell_qtreewidget = strategy_page.p2_sellCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
+    list_of_items_in_sell_qtreewidget = strategy_page.p2_sellCondition_treeWidget\
+        .findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
     for sell_item in list_of_items_in_sell_qtreewidget:
         list_of_items_in_sell_and_text['sell_rules'].append({
             'qTreeWidgetItem': sell_item,
@@ -111,10 +113,12 @@ def build_if_statement(first_indicator_short_name, first_indicator_options_list,
 def glue_if_statements(list_of_rules, context):
     if_statement = ""
     for x in range(len(list_of_rules)):
-        if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 1) + list_of_rules[x]['if_statement'] + "\n"
+        if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 1) \
+                        + list_of_rules[x]['if_statement'] + "\n"
         if len(list_of_rules) > x + 1:
             ### call buy or sell method when rule does not have child
-            if check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) >= check_if_parent_exist(list_of_rules[x + 1]['qTreeWidgetItem'], 0):
+            if check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) >= \
+                    check_if_parent_exist(list_of_rules[x + 1]['qTreeWidgetItem'], 0):
                 if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2)\
                                 + f"{context}(x, {context}_simulation_settings, trades_dict, \'{list_of_rules[x]['id_rule']}\')\n"
                 if_statement += "\t" * (check_if_parent_exist(list_of_rules[x]['qTreeWidgetItem'], 0) + 2) + "continue\n"
@@ -167,28 +171,50 @@ def check_if_stop_loss_price_is_achieved(x, sell_simulation_settings, trades_dic
     stop_loss_unit = sell_simulation_settings['sell_settings'][0]['stop_loss_unit']
     if trades_dict['buy_trades'][-1]['index'] > trades_dict['sell_trades'][-1]['index']:
         if stop_loss_unit == '%':
-            if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value) / 100 <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, 's_stop_loss', format(trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value) / 100, f'.{pip_position}f'))
+            if data_df.iloc[x]['Low'] <= \
+                    trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value) / 100 <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, 's_stop_loss',
+                     format(trades_dict['buy_trades'][-1]['price'] * (100 - stop_loss_value) / 100, f'.{pip_position}f'))
         elif stop_loss_unit == 'Pips':
-            if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] - (stop_loss_value * pow(10, -pip_position)) <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, 's_stop_loss', format(trades_dict['buy_trades'][-1]['price'] - (stop_loss_value * pow(10, -pip_position)), f'.{pip_position}f'))
+            if data_df.iloc[x]['Low'] \
+                    <= trades_dict['buy_trades'][-1]['price'] - (stop_loss_value * pow(10, -pip_position)) \
+                    <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, 's_stop_loss',
+                     format(trades_dict['buy_trades'][-1]['price'] - (stop_loss_value *
+                                                                      pow(10, -pip_position)), f'.{pip_position}f'))
         elif stop_loss_unit == 'Flat':
-            if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] - stop_loss_value <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, 's_stop_loss', format(trades_dict['buy_trades'][-1]['price'] - stop_loss_value, f'.{pip_position}f'))
+            if data_df.iloc[x]['Low'] \
+                    <= trades_dict['buy_trades'][-1]['price'] - stop_loss_value \
+                    <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, 's_stop_loss',
+                     format(trades_dict['buy_trades'][-1]['price'] - stop_loss_value, f'.{pip_position}f'))
 
 
 def check_if_take_profit_price_is_achieved(x, sell_simulation_settings, trades_dict):
     take_profit_value = float(sell_simulation_settings['sell_settings'][0]['take_profit'])
     take_profit_unit = sell_simulation_settings['sell_settings'][0]['take_profit_unit']
     if trades_dict['buy_trades'][-1]['index'] > trades_dict['sell_trades'][-1]['index']:
-        if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] * (100 + take_profit_value) / 100 <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, 's_take_profit', format(trades_dict['buy_trades'][-1]['price'] * (100 + take_profit_value) / 100, f'.{pip_position}f'))
+        if data_df.iloc[x]['Low'] \
+                <= trades_dict['buy_trades'][-1]['price'] * (100 + take_profit_value) / 100 \
+                <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, 's_take_profit',
+                     format(trades_dict['buy_trades'][-1]['price'] *
+                            (100 + take_profit_value) / 100, f'.{pip_position}f'))
+
         elif take_profit_unit == 'Pips':
-            if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] + (take_profit_value * pow(10, -pip_position)) <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, 's_take_profit', format(trades_dict['buy_trades'][-1]['price'] + (take_profit_value * pow(10, -pip_position)), f'.{pip_position}f'))
+            if data_df.iloc[x]['Low'] \
+                    <= trades_dict['buy_trades'][-1]['price'] + (take_profit_value * pow(10, -pip_position)) \
+                    <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, 's_take_profit',
+                     format(trades_dict['buy_trades'][-1]['price'] + (take_profit_value *
+                                                                      pow(10, -pip_position)), f'.{pip_position}f'))
+
         elif take_profit_unit == 'Flat':
-            if data_df.iloc[x]['Low'] <= trades_dict['buy_trades'][-1]['price'] + take_profit_value <= data_df.iloc[x]['High']:
-                sell(x, sell_simulation_settings, trades_dict, 's_take_profit', format(trades_dict['buy_trades'][-1]['price'] + take_profit_value, f'.{pip_position}f'))
+            if data_df.iloc[x]['Low'] \
+                    <= trades_dict['buy_trades'][-1]['price'] + take_profit_value \
+                    <= data_df.iloc[x]['High']:
+                sell(x, sell_simulation_settings, trades_dict, 's_take_profit',
+                     format(trades_dict['buy_trades'][-1]['price'] + take_profit_value, f'.{pip_position}f'))
 
 
 def glue_all_code(starting_index, buy_if_string, sell_if_string, sell_simulation_settings):
@@ -293,11 +319,15 @@ def init_simulation(main_window_object):
         globals()[f"buy_second_indicator_period{x}"] = slice_rule(buy_rules['buy_rules'][x]['rule_text'])
 
         # calculate needed indicators and assign them to data_df
-        if build_column_name(globals()[f"buy_first_indicator_short_name{x}"], globals()[f"buy_first_indicator_options_list{x}"]) not in data_df.columns:
-            data_df = data_df.join(indicator_function_name[globals()[f"buy_first_indicator_short_name{x}"]](*globals()[f"buy_first_indicator_options_list{x}"]), how='inner')
+        if build_column_name(globals()[f"buy_first_indicator_short_name{x}"],
+                             globals()[f"buy_first_indicator_options_list{x}"]) not in data_df.columns:
+            data_df = data_df.join(indicator_function_name[globals()[f"buy_first_indicator_short_name{x}"]]
+                                   (*globals()[f"buy_first_indicator_options_list{x}"]), how='inner')
 
-        if build_column_name(globals()[f"buy_second_indicator_short_name{x}"], globals()[f"buy_second_indicator_options_list{x}"]) not in data_df.columns:
-            data_df = data_df.join(indicator_function_name[globals()[f"buy_second_indicator_short_name{x}"]](*globals()[f"buy_second_indicator_options_list{x}"]), how='inner')
+        if build_column_name(globals()[f"buy_second_indicator_short_name{x}"],
+                             globals()[f"buy_second_indicator_options_list{x}"]) not in data_df.columns:
+            data_df = data_df.join(indicator_function_name[globals()[f"buy_second_indicator_short_name{x}"]]
+                                   (*globals()[f"buy_second_indicator_options_list{x}"]), how='inner')
 
         # build if statement
         buy_rules['buy_rules'][x]['if_statement'] = build_if_statement(globals()[f"buy_first_indicator_short_name{x}"],
@@ -317,11 +347,15 @@ def init_simulation(main_window_object):
         globals()[f"sell_second_indicator_period{x}"] = slice_rule(sell_rules['sell_rules'][x]['rule_text'])
 
         # calculate needed indicators and assign them to data_df
-        if build_column_name(globals()[f"sell_first_indicator_short_name{x}"], globals()[f"sell_first_indicator_options_list{x}"]) not in data_df.columns:
-            data_df = data_df.join(indicator_function_name[globals()[f"sell_first_indicator_short_name{x}"]](*globals()[f"sell_first_indicator_options_list{x}"]), how='inner')
+        if build_column_name(globals()[f"sell_first_indicator_short_name{x}"],
+                             globals()[f"sell_first_indicator_options_list{x}"]) not in data_df.columns:
+            data_df = data_df.join(indicator_function_name[globals()[f"sell_first_indicator_short_name{x}"]]
+                                   (*globals()[f"sell_first_indicator_options_list{x}"]), how='inner')
 
-        if build_column_name(globals()[f"sell_second_indicator_short_name{x}"], globals()[f"sell_second_indicator_options_list{x}"]) not in data_df.columns:
-            data_df = data_df.join(indicator_function_name[globals()[f"sell_second_indicator_short_name{x}"]](*globals()[f"sell_second_indicator_options_list{x}"]), how='inner')
+        if build_column_name(globals()[f"sell_second_indicator_short_name{x}"],
+                             globals()[f"sell_second_indicator_options_list{x}"]) not in data_df.columns:
+            data_df = data_df.join(indicator_function_name[globals()[f"sell_second_indicator_short_name{x}"]]
+                                   (*globals()[f"sell_second_indicator_options_list{x}"]), how='inner')
 
         # build if statement
         sell_rules['sell_rules'][x]['if_statement'] = build_if_statement(globals()[f"sell_first_indicator_short_name{x}"],
@@ -367,7 +401,10 @@ def init_simulation(main_window_object):
             lowest_period = int(globals()[f"sell_second_indicator_period{x}"][1:-1])
 
     starting_index = return_index_of_first_non_zero_row(data_df) + abs(lowest_period)
-    code = glue_all_code(starting_index, glue_if_statements(buy_rules['buy_rules'], 'buy'), glue_if_statements(sell_rules['sell_rules'], 'sell'), sell_simulation_settings)
+    code = glue_all_code(starting_index,
+                         glue_if_statements(buy_rules['buy_rules'], 'buy'),
+                         glue_if_statements(sell_rules['sell_rules'], 'sell'),
+                         sell_simulation_settings)
     # print(code)
     # print(data_df.to_string())
     exec(code)
