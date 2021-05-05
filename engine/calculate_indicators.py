@@ -130,7 +130,8 @@ def volume_weighted_average_price(period):
     answer_df = pd.DataFrame(data_df[['High', 'Low', 'Close', 'Volume']], columns=['High', 'Low', 'Close', 'Volume'])
     answer_df[['typical_price', 'tp*v', 'cumulative_tp*v', 'cumulative_volume', 'vwap']] = 0
 
-    # 'High'[0], 'Low'[1], 'Close'[2], 'Volume'[3], typical_price'[4], tp*v[5], cumulative_tp*v[6], 'cumulative_volume'[7], 'vwap'[8]
+    # 'High'[0], 'Low'[1], 'Close'[2], 'Volume'[3], typical_price'[4], tp*v[5],
+    # cumulative_tp*v[6], 'cumulative_volume'[7], 'vwap'[8]
     period = int(period)
     answer_np = answer_df.to_numpy()
     for x in range(period - 1, len(answer_np)):
@@ -168,7 +169,8 @@ def sar(start, maximum):
     answer_df.at[0, 'psar'] = answer_df.iloc[0]['Low']
     answer_df.at[0, 'ep'] = answer_df.iloc[0]['High']
     answer_df.at[0, 'acc_factor'] = start
-    answer_df.at[0, '(ep-sar) * acc_factor'] = (answer_df.iloc[0]['ep'] - answer_df.iloc[0]['psar']) * answer_df.iloc[0]['acc_factor']
+    answer_df.at[0, '(ep-sar) * acc_factor'] = (answer_df.iloc[0]['ep'] - answer_df.iloc[0]['psar']) \
+                                               * answer_df.iloc[0]['acc_factor']
     answer_df.at[0, 'is_trend_rising'] = True
 
     # High[0], Low[1], psar[2], ep[3], acc_factor[4], [ep-sar] * acc_factor[5], is_trend_rising[6]
@@ -370,7 +372,8 @@ def stoch_rsi(length_rsi, length_stoch, smooth_k, smooth_d):
         answer_np[x][4] = (answer_np[x][1] - answer_np[x][3]) / (answer_np[x][2] - answer_np[x][3])
         answer_np[x][5] = np.mean(answer_np[x - smooth_d + 1:x + 1, 4])
 
-    return pd.DataFrame(answer_np[:,5], columns=['StochRSI_{}_{}_{}_{}'.format(length_rsi, length_stoch, smooth_k, smooth_d)])
+    return pd.DataFrame(answer_np[:,5], columns=['StochRSI_{}_{}_{}_{}'
+                        .format(length_rsi, length_stoch, smooth_k, smooth_d)])
 
 
 def wr(period):
