@@ -141,10 +141,13 @@ class Strategy_Widget(Base, Form):
     def display_add_strategy_rule_page_buy_context(self, strategy_page_object):
         self.receive_buy_strategy_rule_to_add_object = Receive_Buy_Strategy_Rule_To_Add()
         add_strategy_page_widget = Add_Strategy_Rule_Widget()
-        list_of_items_in_buy_qtreewidget = self.p2_buyCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
+        list_of_items_in_buy_qtreewidget = \
+            self.p2_buyCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
         add_strategy_page_widget.load_qtreewidget(list_of_items_in_buy_qtreewidget)
         add_strategy_page_widget.show()
-        add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.add_new_rule(self.receive_buy_strategy_rule_to_add_object, strategy_page_object))
+        add_strategy_page_widget.p3_addRule_button.clicked.connect(
+            lambda: add_strategy_page_widget.add_new_rule(self.receive_buy_strategy_rule_to_add_object,
+                                                          strategy_page_object))
 
     def copy_buy_rule(self):
         if self.p2_buyCondition_treeWidget.selectedItems()[0].parent() is None:
@@ -162,8 +165,9 @@ class Strategy_Widget(Base, Form):
         add_strategy_page_widget = Add_Strategy_Rule_Widget()
         add_strategy_page_widget.load_rule_details_to_modify(self.p2_buyCondition_treeWidget.currentItem().text(0))
         add_strategy_page_widget.show()
-        add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.save_modified_rule(
-            self.p2_buyCondition_treeWidget.currentItem(), receive_strategy_rule_to_modify_object))
+        add_strategy_page_widget.p3_addRule_button.clicked.connect(
+            lambda: add_strategy_page_widget.save_modified_rule(self.p2_buyCondition_treeWidget.currentItem(),
+                                                                receive_strategy_rule_to_modify_object))
 
     def delete_buy_rule(self):
         print('delete_buy_rule')
@@ -176,7 +180,8 @@ class Strategy_Widget(Base, Form):
         buy_rules = get_buy_rules(self)
         for x in range(len(buy_rules['buy_rules'])):
             buy_rules['buy_rules'][x]['qTreeWidgetItem'] = str(buy_rules['buy_rules'][x]['qTreeWidgetItem'])
-            buy_rules['buy_rules'][x]['qTreeWidgetItem_Parent'] = str(buy_rules['buy_rules'][x]['qTreeWidgetItem_Parent'])
+            buy_rules['buy_rules'][x]['qTreeWidgetItem_Parent'] = \
+                str(buy_rules['buy_rules'][x]['qTreeWidgetItem_Parent'])
 
         buy_settings = get_buy_simulation_settings(self)
         print(buy_settings)
@@ -185,12 +190,16 @@ class Strategy_Widget(Base, Form):
         sell_rules = get_sell_rules(self)
         for x in range(len(sell_rules['sell_rules'])):
             sell_rules['sell_rules'][x]['qTreeWidgetItem'] = str(sell_rules['sell_rules'][x]['qTreeWidgetItem'])
-            sell_rules['sell_rules'][x]['qTreeWidgetItem_Parent'] = str(sell_rules['sell_rules'][x]['qTreeWidgetItem_Parent'])
+            sell_rules['sell_rules'][x]['qTreeWidgetItem_Parent'] = \
+                str(sell_rules['sell_rules'][x]['qTreeWidgetItem_Parent'])
 
         sell_settings = get_sell_simulation_settings(self)
         print(sell_settings)
 
-        path_to_file = QtWidgets.QFileDialog.getSaveFileName(self, 'Save strategy to JSON file', current_dir[:-6] + '\data\strategy', 'JSON Files (*.json)')
+        path_to_file = QtWidgets.QFileDialog.getSaveFileName(self,
+                                                             'Save strategy to JSON file',
+                                                             current_dir[:-6] + '\data\strategy', 'JSON Files (*.json)')
+
         combined_rules = {'buy_rules': buy_rules['buy_rules'],
                           'buy_settings': buy_settings['buy_settings'],
                           'sell_rules': sell_rules['sell_rules'],
@@ -207,10 +216,14 @@ class Strategy_Widget(Base, Form):
     def display_add_strategy_rule_page_sell_context(self, strategy_page_object):
         self.receive_sell_strategy_rule_to_add_object = Receive_Sell_Strategy_Rule_To_Add()
         add_strategy_page_widget = Add_Strategy_Rule_Widget()
-        list_of_items_in_sell_qtreewidget = self.p2_sellCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
+        list_of_items_in_sell_qtreewidget = \
+            self.p2_sellCondition_treeWidget.findItems('', QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)
+
         add_strategy_page_widget.load_qtreewidget(list_of_items_in_sell_qtreewidget)
         add_strategy_page_widget.show()
-        add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.add_new_rule(self.receive_sell_strategy_rule_to_add_object, strategy_page_object))
+        add_strategy_page_widget.p3_addRule_button.clicked.connect(
+            lambda: add_strategy_page_widget.add_new_rule(self.receive_sell_strategy_rule_to_add_object,
+                                                          strategy_page_object))
 
     def copy_sell_rule(self):
         if self.p2_sellCondition_treeWidget.selectedItems()[0].parent() is None:
@@ -228,8 +241,9 @@ class Strategy_Widget(Base, Form):
         add_strategy_page_widget = Add_Strategy_Rule_Widget()
         add_strategy_page_widget.load_rule_details_to_modify(self.p2_sellCondition_treeWidget.currentItem().text(0))
         add_strategy_page_widget.show()
-        add_strategy_page_widget.p3_addRule_button.clicked.connect(lambda: add_strategy_page_widget.save_modified_rule(
-            self.p2_sellCondition_treeWidget.currentItem(), receive_strategy_rule_to_modify_object))
+        add_strategy_page_widget.p3_addRule_button.clicked.connect(
+            lambda: add_strategy_page_widget.save_modified_rule(self.p2_sellCondition_treeWidget.currentItem(),
+                                                                receive_strategy_rule_to_modify_object))
 
     def delete_sell_rule(self):
         print('delete_sell_rule')
@@ -238,7 +252,10 @@ class Strategy_Widget(Base, Form):
             (item.parent() or root).removeChild(item)
 
     def load_rules_from_json_file(self):
-        path_to_json_file = QtWidgets.QFileDialog.getOpenFileName(self, 'Load strategy from JSON file', current_dir[:-6] + '\data\strategy', 'JSON Files (*.json)')
+        path_to_json_file = QtWidgets.QFileDialog.getOpenFileName(self,
+                                                                  'Load strategy from JSON file',
+                                                                  current_dir[:-6] + '\data\strategy',
+                                                                  'JSON Files (*.json)')
         with open(path_to_json_file[0]) as json_file:
             loaded_rules = json.load(json_file)
 
@@ -254,11 +271,16 @@ class Strategy_Widget(Base, Form):
             for y in range(len(buy_rules)):
                 if buy_rules[x+1]['qTreeWidgetItem_Parent'] == buy_rules[y]['qTreeWidgetItem']:
                     found_parent = buy_rules[y]['rule_text']
-            QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget.findItems(found_parent, QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)[-1], [buy_rules[x+1]['rule_text']])
+            QtWidgets.QTreeWidgetItem(self.p2_buyCondition_treeWidget
+                                      .findItems(found_parent,
+                                                QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)[-1],
+                                                [buy_rules[x+1]['rule_text']])
 
-        self.buy_price_source_comboBox.setCurrentIndex(self.buy_price_source_comboBox.findText(buy_settings['price_source'], QtCore.Qt.MatchContains))
+        self.buy_price_source_comboBox.setCurrentIndex(self.buy_price_source_comboBox.
+                                                       findText(buy_settings['price_source'], QtCore.Qt.MatchContains))
         self.buy_commission_lineEdit_1.setText(buy_settings['fee'])
-        self.buy_commission_comboBox_2.setCurrentIndex(self.buy_commission_comboBox_2.findText(buy_settings['fee_unit'], QtCore.Qt.MatchContains))
+        self.buy_commission_comboBox_2.setCurrentIndex(self.buy_commission_comboBox_2.
+                                                       findText(buy_settings['fee_unit'], QtCore.Qt.MatchContains))
         self.buy_balance_lineEdit2.setText(buy_settings['starting_balance'])
 
         QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget, [sell_rules[0]['rule_text']])
@@ -266,11 +288,18 @@ class Strategy_Widget(Base, Form):
             for y in range(len(sell_rules)):
                 if sell_rules[x+1]['qTreeWidgetItem_Parent'] == sell_rules[y]['qTreeWidgetItem']:
                     found_parent = sell_rules[y]['rule_text']
-            QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget.findItems(found_parent, QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)[-1], [sell_rules[x+1]['rule_text']])
+            QtWidgets.QTreeWidgetItem(self.p2_sellCondition_treeWidget
+                                      .findItems(found_parent,
+                                                 QtCore.Qt.MatchContains | QtCore.Qt.MatchRecursive, 0)[-1],
+                                                 [sell_rules[x+1]['rule_text']])
 
-        self.sell_price_source_comboBox.setCurrentIndex(self.sell_price_source_comboBox.findText(sell_settings['price_source'], QtCore.Qt.MatchContains))
+        self.sell_price_source_comboBox.setCurrentIndex(self.sell_price_source_comboBox
+                                                        .findText(sell_settings['price_source'],
+                                                                  QtCore.Qt.MatchContains))
         self.sell_commission_lineEdit_1.setText(sell_settings['fee'])
-        self.sell_commission_comboBox_2.setCurrentIndex(self.sell_commission_comboBox_2.findText(sell_settings['fee_unit'], QtCore.Qt.MatchContains))
+        self.sell_commission_comboBox_2.setCurrentIndex(self.sell_commission_comboBox_2
+                                                        .findText(sell_settings['fee_unit'],
+                                                                  QtCore.Qt.MatchContains))
         self.sell_balance_lineEdit.setText(sell_settings['starting_balance'])
 
         self.check_if_disabled_needed_for_settings_fields(self.stop_loss_checkbox.isChecked(),
@@ -287,7 +316,9 @@ class Strategy_Widget(Base, Form):
         if sell_settings['is_stop_loss_selected']:
             self.stop_loss_checkbox.setChecked(True)
             self.sell_stop_loss_lineEdit_1.setText(sell_settings['stop_loss'])
-            self.sell_stop_loss_comboBox_2.setCurrentIndex(self.sell_stop_loss_comboBox_2.findText(sell_settings['stop_loss_unit'], QtCore.Qt.MatchContains))
+            self.sell_stop_loss_comboBox_2.setCurrentIndex(self.sell_stop_loss_comboBox_2
+                                                           .findText(sell_settings['stop_loss_unit'],
+                                                                     QtCore.Qt.MatchContains))
         else:
             self.stop_loss_checkbox.setChecked(False)
             self.sell_stop_loss_lineEdit_1.setText('')
@@ -296,7 +327,9 @@ class Strategy_Widget(Base, Form):
         if sell_settings['is_take_profit_selected']:
             self.take_profit_checkbox.setChecked(True)
             self.sell_take_profit_lineEdit_1.setText(sell_settings['take_profit'])
-            self.sell_take_profit_comboBox_2.setCurrentIndex(self.sell_take_profit_comboBox_2.findText(sell_settings['take_profit_unit'], QtCore.Qt.MatchContains))
+            self.sell_take_profit_comboBox_2.setCurrentIndex(self.sell_take_profit_comboBox_2
+                                                             .findText(sell_settings['take_profit_unit'],
+                                                                       QtCore.Qt.MatchContains))
         else:
             self.take_profit_checkbox.setChecked(False)
             self.sell_take_profit_lineEdit_1.setText('')
