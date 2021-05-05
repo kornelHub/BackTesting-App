@@ -54,12 +54,24 @@ class Define_Indicator_To_Plot_Page(Base, Form):
         self.delete_button_6.clicked.connect(lambda: self.hide_last_indicator(6))
         self.delete_button_6.setText('')
 
-        self.widget_list = [[self.indicator_widget_nested, self.firstIndicator_comboBox, self.indicatorOptions_button],
-                            [self.indicator_widget_nested_2, self.firstIndicator_comboBox_2, self.indicatorOptions_button_2],
-                            [self.indicator_widget_nested_3, self.firstIndicator_comboBox_3, self.indicatorOptions_button_3],
-                            [self.indicator_widget_nested_4, self.firstIndicator_comboBox_4, self.indicatorOptions_button_4],
-                            [self.indicator_widget_nested_5, self.firstIndicator_comboBox_5, self.indicatorOptions_button_5],
-                            [self.indicator_widget_nested_6, self.firstIndicator_comboBox_6, self.indicatorOptions_button_6]]
+        self.widget_list = [[self.indicator_widget_nested,
+                             self.firstIndicator_comboBox,
+                             self.indicatorOptions_button],
+                            [self.indicator_widget_nested_2,
+                             self.firstIndicator_comboBox_2,
+                             self.indicatorOptions_button_2],
+                            [self.indicator_widget_nested_3,
+                             self.firstIndicator_comboBox_3,
+                             self.indicatorOptions_button_3],
+                            [self.indicator_widget_nested_4,
+                             self.firstIndicator_comboBox_4,
+                             self.indicatorOptions_button_4],
+                            [self.indicator_widget_nested_5,
+                             self.firstIndicator_comboBox_5,
+                             self.indicatorOptions_button_5],
+                            [self.indicator_widget_nested_6,
+                             self.firstIndicator_comboBox_6,
+                             self.indicatorOptions_button_6]]
 
         self.firstIndicator_comboBox.setCurrentIndex(-1)
         self.firstIndicator_comboBox_2.setCurrentIndex(-1)
@@ -74,12 +86,30 @@ class Define_Indicator_To_Plot_Page(Base, Form):
         self.indicator_widget_nested_5.hide()
         self.indicator_widget_nested_6.hide()
 
-        self.indicatorOptions_button.clicked.connect(lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox.currentText(), self.indicatorOptions_button.text(), self.indicatorOptions_button))
-        self.indicatorOptions_button_2.clicked.connect(lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox_2.currentText(), self.indicatorOptions_button_2.text(), self.indicatorOptions_button_2))
-        self.indicatorOptions_button_3.clicked.connect(lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox_3.currentText(), self.indicatorOptions_button_3.text(), self.indicatorOptions_button_3))
-        self.indicatorOptions_button_4.clicked.connect(lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox_4.currentText(), self.indicatorOptions_button_4.text(), self.indicatorOptions_button_4))
-        self.indicatorOptions_button_5.clicked.connect(lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox_5.currentText(), self.indicatorOptions_button_5.text(), self.indicatorOptions_button_5))
-        self.indicatorOptions_button_6.clicked.connect(lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox_6.currentText(), self.indicatorOptions_button_6.text(), self.indicatorOptions_button_6))
+        self.indicatorOptions_button.clicked.connect(
+            lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox.currentText(),
+                                                          self.indicatorOptions_button.text(),
+                                                          self.indicatorOptions_button))
+        self.indicatorOptions_button_2.clicked.connect(
+            lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox_2.currentText(),
+                                                          self.indicatorOptions_button_2.text(),
+                                                          self.indicatorOptions_button_2))
+        self.indicatorOptions_button_3.clicked.connect(
+            lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox_3.currentText(),
+                                                          self.indicatorOptions_button_3.text(),
+                                                          self.indicatorOptions_button_3))
+        self.indicatorOptions_button_4.clicked.connect(
+            lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox_4.currentText(),
+                                                          self.indicatorOptions_button_4.text(),
+                                                          self.indicatorOptions_button_4))
+        self.indicatorOptions_button_5.clicked.connect(
+            lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox_5.currentText(),
+                                                          self.indicatorOptions_button_5.text(),
+                                                          self.indicatorOptions_button_5))
+        self.indicatorOptions_button_6.clicked.connect(
+            lambda: self.open_form_with_indicator_options(self.firstIndicator_comboBox_6.currentText(),
+                                                          self.indicatorOptions_button_6.text(),
+                                                          self.indicatorOptions_button_6))
 
 
         self.indicatorOptions_button.setIcon(QtGui.QIcon('icons/settings_icon.png'))
@@ -107,12 +137,30 @@ class Define_Indicator_To_Plot_Page(Base, Form):
         self.indicatorOptions_button_6.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
 
 
-        self.firstIndicator_comboBox.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.firstIndicator_comboBox, self.indicatorOptions_button, self.indicator_options_label))
-        self.firstIndicator_comboBox_2.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_2, self.indicatorOptions_button_2, self.indicator_options_label_2))
-        self.firstIndicator_comboBox_3.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_3, self.indicatorOptions_button_3, self.indicator_options_label_3))
-        self.firstIndicator_comboBox_4.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_4, self.indicatorOptions_button_4, self.indicator_options_label_4))
-        self.firstIndicator_comboBox_5.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_5, self.indicatorOptions_button_5, self.indicator_options_label_5))
-        self.firstIndicator_comboBox_6.currentIndexChanged.connect(lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_6, self.indicatorOptions_button_6, self.indicator_options_label_6))
+        self.firstIndicator_comboBox.currentIndexChanged.connect(
+            lambda: self.autofill_indicator_option(self.firstIndicator_comboBox,
+                                                   self.indicatorOptions_button,
+                                                   self.indicator_options_label))
+        self.firstIndicator_comboBox_2.currentIndexChanged.connect(
+            lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_2,
+                                                   self.indicatorOptions_button_2,
+                                                   self.indicator_options_label_2))
+        self.firstIndicator_comboBox_3.currentIndexChanged.connect(
+            lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_3,
+                                                   self.indicatorOptions_button_3,
+                                                   self.indicator_options_label_3))
+        self.firstIndicator_comboBox_4.currentIndexChanged.connect(
+            lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_4,
+                                                   self.indicatorOptions_button_4,
+                                                   self.indicator_options_label_4))
+        self.firstIndicator_comboBox_5.currentIndexChanged.connect(
+            lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_5,
+                                                   self.indicatorOptions_button_5,
+                                                   self.indicator_options_label_5))
+        self.firstIndicator_comboBox_6.currentIndexChanged.connect(
+            lambda: self.autofill_indicator_option(self.firstIndicator_comboBox_6,
+                                                   self.indicatorOptions_button_6,
+                                                   self.indicator_options_label_6))
 
 
     def plot_indicators(self):
@@ -141,7 +189,9 @@ class Define_Indicator_To_Plot_Page(Base, Form):
                 visible_widgets += 1
 
         for x in range(indicator_number_to_delete-1, visible_widgets-1):
-            self.widget_list[x][1].setCurrentIndex(self.widget_list[x][1].findText(self.widget_list[x+1][1].currentText(), QtCore.Qt.MatchFixedString))
+            self.widget_list[x][1].setCurrentIndex(self.widget_list[x][1]
+                                                   .findText(self.widget_list[x+1][1].currentText(),
+                                                             QtCore.Qt.MatchFixedString))
             self.widget_list[x][2].setText(self.widget_list[x+1][2].text())
 
 
@@ -186,7 +236,8 @@ class Define_Indicator_To_Plot_Page(Base, Form):
     def open_form_with_indicator_options(self, indicator, typed_options, qlineedit_field):
         recive_indicator_options_object = Recive_Indicator_Options()
         change_indicator_form_page = Change_Indicator_Form_Page()
-        change_indicator_form_page.set_up_view(indicator, typed_options, qlineedit_field, recive_indicator_options_object)
+        change_indicator_form_page.set_up_view(indicator, typed_options, qlineedit_field,
+                                               recive_indicator_options_object)
         change_indicator_form_page.show()
 
 
