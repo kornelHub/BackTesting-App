@@ -115,7 +115,7 @@ class Summary_Page(Base, Form):
                             space_needed,
                             trades_dict['sell_trades'][x]['price'],
                             space_needed,
-                            trades_dict['sell_trades'][x]['price'],
+                            trades_dict['sell_trades'][x]['fee'],
                             space_needed,
                             trades_dict['sell_trades'][x]['id_rule'])
 

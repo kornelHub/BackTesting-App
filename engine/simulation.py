@@ -242,8 +242,8 @@ def buy(x, buy_simulation_settings, trades_dict, id_rule):
                 'currency_1': amount_traded_no_fee + trades_dict['sell_trades'][-1]['currency_1'],
                 'currency_2': 0,
                 'id_rule': id_rule,
-                'fee': ((trades_dict['sell_trades'][-1]['currency_2'] / current_price) - amount_traded_no_fee)
-                       * current_price
+                'fee': format(((trades_dict['sell_trades'][-1]['currency_2'] / current_price) - amount_traded_no_fee)
+                       * current_price, f".{pip_position}f")
             })
 
 
@@ -268,7 +268,8 @@ def sell(x, sell_simulation_settings, trades_dict, id_rule,  price='options'):
                 'currency_1': 0,
                 'currency_2': amount_traded_no_fee + trades_dict['buy_trades'][-1]['currency_2'],
                 'id_rule': id_rule,
-                'fee': (trades_dict['buy_trades'][-1]['currency_1'] * current_price) - amount_traded_no_fee
+                'fee': format(trades_dict['buy_trades'][-1]['currency_1'] * current_price - amount_traded_no_fee,
+                              f".{pip_position}f")
             })
 
 
