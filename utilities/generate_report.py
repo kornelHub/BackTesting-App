@@ -76,24 +76,24 @@ report_template_part_1 = """<!DOCTYPE html>
     <body style='background-color:rgb(45,45,45);' onload='adjust_rule_size();'>
     <script>
     function adjust_rule_size() {
-      var buy_rule_width = document.getElementById('buy_rule').clientWidth
-      var sell_rule_width = document.getElementById('sell_rule').clientWidth
+      var buy_rule_width = document.getElementById('buy_rule').getBoundingClientRect().width
+      var sell_rule_width = document.getElementById('sell_rule').getBoundingClientRect().width
       if (buy_rule_width > sell_rule_width) {
         document.getElementById('sell_rule').style.width=buy_rule_width.toString().concat('px')
       } else {
         document.getElementById('buy_rule').style.width=sell_rule_width.toString().concat('px')
       }
 
-      var buy_rule_id_width = document.getElementById('buy_rule_id').clientWidth
-      var sell_rule_id_width = document.getElementById('sell_rule_id').clientWidth
+      var buy_rule_id_width = document.getElementById('buy_rule_id').getBoundingClientRect().width
+      var sell_rule_id_width = document.getElementById('sell_rule_id').getBoundingClientRect().width
       if (buy_rule_id_width > sell_rule_id_width) {
         document.getElementById('sell_rule_id').style.width=buy_rule_id_width.toString().concat('px')
       } else {
         document.getElementById('buy_rule_id').style.width=sell_rule_id_width.toString().concat('px')
       }
       
-      var buy_rule_id_height = document.getElementById('buy_rule_id').clientHeight
-      var sell_rule_id_height = document.getElementById('sell_rule_id').clientHeight
+      var buy_rule_id_height = document.getElementById('buy_rule_id').getBoundingClientRect().height
+      var sell_rule_id_height = document.getElementById('sell_rule_id').getBoundingClientRect().height
       if (buy_rule_id_height > sell_rule_id_height) {
         document.getElementById('sell_rule_id').style.height=buy_rule_id_height.toString().concat('px')
       } else {
