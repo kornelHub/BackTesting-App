@@ -80,6 +80,14 @@ class Fetch_Data_Widget(Base, Form):
             return False
 
         currency_symbol = self.p1_cryptoSymbol_textField.text()
+
+        # check is cryptocurrency symbol pair is correct
+        if currency_symbol not in helpers.cryptocurrency_pair_dict:
+            helpers.show_error_message(self.error_message_label, "Please check if cryptocurrency pair symbol is correct.")
+            self.p1_cryptoSymbol_textField.setProperty('invalid', True)
+            self.p1_cryptoSymbol_textField.style().polish(self.p1_cryptoSymbol_textField)
+            return False
+
         interval = self.p1_interval_dropdown.currentText()
         path_to_file = QFileDialog.getSaveFileName(self,
                                                    'Save OHLCV data to CSV file',
@@ -89,9 +97,6 @@ class Fetch_Data_Widget(Base, Form):
         if not path_to_file[0]:
             return False
 
-        print('[start_date]: ',int(date_to_milliseconds(start_date)))
-        print('[end_date]: ', int(date_to_milliseconds(end_date)))
-        print('[max_date]: ', int(date_to_milliseconds(start_date)) + 1000 * 500 * helpers.time_difference_dictionary.get(interval))
 
         if int(date_to_milliseconds(end_date)) \
             <= int(date_to_milliseconds(start_date)) + 1000 * 500 * helpers.time_difference_dictionary.get(interval):
