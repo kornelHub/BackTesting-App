@@ -4,7 +4,7 @@ from PySide2.QtCore import QRegExp
 from PySide2.QtGui import QRegExpValidator
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtWidgets import QFileDialog
-from binance.helpers import date_to_milliseconds
+from utilities.helpers import date_to_milliseconds
 from binance_api import fetch_data
 from utilities.plot_data import plot_ohlcv_data
 import utilities.helpers as helpers

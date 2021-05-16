@@ -1,37 +1,22 @@
-from binance.client import Client
-from binance.helpers import date_to_milliseconds
-from binance_api import keys
+from utilities.helpers import date_to_milliseconds
 from utilities import helpers
 import pandas as pd
 import os
 from stat import S_IREAD
-import configparser
+import requests
 
-
-def create_client_object():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    if os.path.exists(current_dir[:-11]+'config.ini'):
-        config = configparser.ConfigParser()
-        config.read(current_dir[:-11]+'config.ini')
-        if config['user_binance_api_key']['public_key'] and config['user_binance_api_key']['secret_key']:
-            api_key = config['user_binance_api_key']['public_key']
-            api_secret = config['user_binance_api_key']['secret_key']
-        else:
-            api_key = keys.api_key
-            api_secret = keys.secret_key
-    else:
-        api_key = keys.api_key
-        api_secret = keys.secret_key
-    global client
-    client = Client(api_key, api_secret)
 
 def download_data_to_file(start_time, end_time, interval, currency_pair_symbol, path_to_file):
-    candles = client.get_klines(symbol=currency_pair_symbol,
-                                interval=interval,
-                                startTime=start_time,
-                                endTime=end_time,
-                                limit=1000)
-    candles_df = pd.DataFrame(candles, columns=helpers.colums_name_from_binance)
+    url = 'https://api.binance.com/api/v3/klines'
+    params = {
+        'symbol': currency_pair_symbol,
+        'interval': interval,
+        'startTime': start_time,
+        'endTime': end_time,
+        'limit': 1000
+    }
+    candles = requests.get(url, params=params)
+    candles_df = pd.DataFrame(candles.json(), columns=helpers.colums_name_from_binance)
     candles_df = candles_df.round(decimals=5)
     if len(candles_df) > 1:
         close_time = candles_df['CloseTime'].iloc[-1]
@@ -68,7 +53,6 @@ def create_data_from_binance(start_time, end_time, interval, currency_pair_symbo
 
 
 def create_csv_with_ohlcv_data(start_time, end_time, interval, currency_pair_symbol, path_to_file):
-    create_client_object()
     create_data_from_binance(start_time=start_time,
                              end_time=end_time,
                              interval=interval,

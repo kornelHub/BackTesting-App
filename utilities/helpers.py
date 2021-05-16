@@ -2,6 +2,9 @@ import datetime as dt
 import pytz
 import pandas as pd
 from PySide2.QtWidgets import QLineEdit, QComboBox, QPushButton, QPlainTextEdit, QTreeWidget
+from datetime import datetime
+from typing import Union, Optional, Dict
+import dateparser
 
 path_to_csv_file = ''
 colums_name_from_binance = ['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume',
@@ -74,6 +77,26 @@ def return_index_of_first_non_zero_row(data_df):
 def convert_milliseconds_to_date(time_in_utc_miloseconds):
     converted_date = dt.datetime.fromtimestamp(time_in_utc_miloseconds / 1000.0, tz=pytz.utc)
     return converted_date
+
+def date_to_milliseconds(date_str: str) -> int:
+    """Convert UTC date to milliseconds
+
+    If using offset strings add "UTC" to date string e.g. "now UTC", "11 hours ago UTC"
+
+    See dateparse docs for formats http://dateparser.readthedocs.io/en/latest/
+
+    :param date_str: date in readable format, i.e. "January 01, 2018", "11 hours ago UTC", "now UTC"
+    """
+    # get epoch value in UTC
+    epoch: datetime = datetime.utcfromtimestamp(0).replace(tzinfo=pytz.utc)
+    # parse our date string
+    d: Optional[datetime] = dateparser.parse(date_str)
+    # if the date is not timezone aware apply UTC timezone
+    if d.tzinfo is None or d.tzinfo.utcoffset(d) is None:
+        d = d.replace(tzinfo=pytz.utc)
+
+    # return the difference in time
+    return int((d - epoch).total_seconds() * 1000.0)
 
 
 def create_cryptocurrency_dictionary():
