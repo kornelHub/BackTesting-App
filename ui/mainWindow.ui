@@ -127,27 +127,6 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="QPushButton" name="settings_button">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(35,35,35);
-border: 0px sold;</string>
-            </property>
-            <property name="text">
-             <string/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="Line" name="line">
-            <property name="styleSheet">
-             <string notr="true">background-color: rgb(45,45,45);</string>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
            <widget class="QPushButton" name="save_button">
             <property name="styleSheet">
              <string notr="true">background-color: rgb(35,35,35);
@@ -420,7 +399,6 @@ border-radius: 15px;</string>
              </layout>
             </widget>
             <widget class="Summary_Page" name="summary_page"/>
-            <widget class="Settings_Widget" name="settings_page"/>
            </widget>
           </item>
          </layout>
@@ -449,12 +427,6 @@ border-radius: 15px;</string>
    <class>Summary_Page</class>
    <extends>QWidget</extends>
    <header>pages/summary_page</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Settings_Widget</class>
-   <extends>QWidget</extends>
-   <header>pages/settings_page</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

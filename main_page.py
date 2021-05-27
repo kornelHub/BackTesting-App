@@ -18,16 +18,10 @@ class MainWidget(Base, Form):
         self.showMaximized()
         # self.setWindowFlag(QtCore.Qt.WindowMinMaxButtonsHint, False)
 
-        self.settings_button.setIcon(QtGui.QIcon('icons/settings_icon.png'))
-        self.settings_button.setIconSize(QtCore.QSize(28, 28))
-
         self.save_button.setIcon(QtGui.QIcon('icons/save_icon.png'))
         self.save_button.setIconSize(QtCore.QSize(28, 28))
         self.save_button.hide()
         self.line_3.hide()
-
-
-        self.settings_button.clicked.connect(lambda: self.display_settings_page())
 
         # Top toolbar menu
         self.load_data_button.clicked.connect(lambda: self.load_data_from_file())
@@ -87,9 +81,6 @@ class MainWidget(Base, Form):
             self.display_fetch_data_page()
         elif self.widget_pages.currentIndex() is 2:
             self.display_strategy_page()
-        elif self.widget_pages.currentIndex() is 3:
-            self.settings_page.go_back_to_previous_stacked_widget_page()
-
 
     def display_fetch_data_page(self):
         self.set_forbidden_cursor(self.previous_page_btn)
@@ -116,15 +107,6 @@ class MainWidget(Base, Form):
             self.widget_pages.setCurrentIndex(2)
         else:
             return False
-
-
-    def display_settings_page(self):
-        if not self.widget_pages.currentIndex() is 3:
-            self.settings_page.store_previous_stacked_widget_index(self.widget_pages.currentIndex(), main_widget_object)
-            self.hide_save_icon()
-            self.set_default_cursor(self.previous_page_btn)
-            self.set_forbidden_cursor(self.next_page_btn)
-            self.widget_pages.setCurrentIndex(3)
 
 
     def set_forbidden_cursor(self, element):
