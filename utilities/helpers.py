@@ -5,6 +5,8 @@ from PySide2.QtWidgets import QLineEdit, QComboBox, QPushButton, QPlainTextEdit,
 from datetime import datetime
 from typing import Union, Optional, Dict
 import dateparser
+import os
+from stat import S_IREAD
 
 path_to_csv_file = ''
 colums_name_from_binance = ['Opentime', 'Open', 'High', 'Low', 'Close', 'Volume', 'CloseTime', 'QuoteAssetVolume',
@@ -66,6 +68,11 @@ def check_if_all_fields_have_text(list_of_fields):
                 field.style().polish(field)
 
     return is_field_has_text
+
+
+def apply_read_only_attribute_to_file(path_to_file):
+    os.chmod(path_to_file, S_IREAD)
+
 
 def return_index_of_first_non_zero_row(data_df):
     data_np = data_df.to_numpy()

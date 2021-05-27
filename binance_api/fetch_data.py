@@ -2,7 +2,6 @@ from utilities.helpers import date_to_milliseconds
 from utilities import helpers
 import pandas as pd
 import os
-from stat import S_IREAD
 import requests
 
 
@@ -58,7 +57,7 @@ def create_csv_with_ohlcv_data(start_time, end_time, interval, currency_pair_sym
                              interval=interval,
                              currency_pair_symbol=currency_pair_symbol,
                              path_to_file=path_to_file)
-    os.chmod(path_to_file, S_IREAD) # add read_only attribute to created file
+    helpers.apply_read_only_attribute_to_file(path_to_file) # add read_only attribute to created file
 
 
 def delete_data(file_name):

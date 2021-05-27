@@ -9,7 +9,8 @@ from engine.simulation import get_buy_rules, get_sell_rules
 from engine.simulation import get_buy_simulation_settings, get_sell_simulation_settings
 import json
 from pages.define_indicator_to_plot_page import Define_Indicator_To_Plot_Page
-from utilities.helpers import show_error_message, hide_error_message, check_if_all_fields_have_text
+from utilities.helpers import show_error_message, hide_error_message, check_if_all_fields_have_text, \
+    apply_read_only_attribute_to_file
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "../ui/strategy_page.ui"))
@@ -206,6 +207,9 @@ class Strategy_Widget(Base, Form):
                           'sell_settings': sell_settings['sell_settings']}
         with open(path_to_file[0], 'w') as file:
             json.dump(combined_rules, file, indent=4)
+
+        apply_read_only_attribute_to_file(path_to_file[0])
+
 
     def display_form_to_plot_indicators(self):
         define_indicator_to_plot_page = Define_Indicator_To_Plot_Page()
