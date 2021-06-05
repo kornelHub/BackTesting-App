@@ -401,7 +401,7 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>EVM (Ease of Movement)</string>
+             <string>EMV (Ease of Movement)</string>
             </property>
            </item>
            <item>
@@ -964,7 +964,7 @@ QComboBox QAbstractItemView {
            </item>
            <item>
             <property name="text">
-             <string>EVM (Ease of Movement)</string>
+             <string>EMV (Ease of Movement)</string>
             </property>
            </item>
            <item>

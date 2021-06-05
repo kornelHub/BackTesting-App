@@ -334,7 +334,7 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>EVM (Ease of Movement)</string>
+                   <string>EMV (Ease of Movement)</string>
                   </property>
                  </item>
                  <item>
@@ -673,7 +673,7 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>EVM (Ease of Movement)</string>
+                   <string>EMV (Ease of Movement)</string>
                   </property>
                  </item>
                  <item>
@@ -980,7 +980,7 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>EVM (Ease of Movement)</string>
+                   <string>EMV (Ease of Movement)</string>
                   </property>
                  </item>
                  <item>
@@ -1287,7 +1287,7 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>EVM (Ease of Movement)</string>
+                   <string>EMV (Ease of Movement)</string>
                   </property>
                  </item>
                  <item>
@@ -1578,7 +1578,7 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>EVM (Ease of Movement)</string>
+                   <string>EMV (Ease of Movement)</string>
                   </property>
                  </item>
                  <item>
@@ -1869,7 +1869,7 @@ QComboBox[invalid='true']{
                  </item>
                  <item>
                   <property name="text">
-                   <string>EVM (Ease of Movement)</string>
+                   <string>EMV (Ease of Movement)</string>
                   </property>
                  </item>
                  <item>

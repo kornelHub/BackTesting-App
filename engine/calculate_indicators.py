@@ -426,7 +426,7 @@ def evm(period, divisor):
     for y in range(period, len(answer_np)):
         answer_np[y][5] = np.mean(answer_np[y - period + 1:y + 1, 4])
 
-    return pd.DataFrame(answer_np[:,5], columns=['EVM_{}_{}'.format(period, divisor)])
+    return pd.DataFrame(answer_np[:,5], columns=['EMV_{}_{}'.format(period, divisor)])
 
 indicator_function_name = {
     'SMA': simple_moving_average,
@@ -447,7 +447,7 @@ indicator_function_name = {
     'WR': wr,
     'DMI': dmi,
     'MTM': mtm,
-    'EVM': evm,
+    'EMV': evm,
     'Value': None,
     'Open': None,
     'High': None,
