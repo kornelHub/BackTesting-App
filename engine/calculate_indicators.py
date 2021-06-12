@@ -264,7 +264,7 @@ def rsi(period):
     answer_df = pd.DataFrame(data_df['Close'], columns=['Close'])
     answer_df[['close_price_change', 'average_gain', 'average_loss', 'rsi']] = 0
 
-    # Close[0], close_price_change[1], average_gain[2], average_loss[3], rsi[4]
+    # Close[0], close_price_change[1], average_gain[2], average_loss[3], rsi_smoothed[4]
     answer_np = answer_df.to_numpy()
     for x in range(1, len(data_df)):
         answer_np[x, 1] = answer_np[x, 0] / answer_np[x - 1, 0]
@@ -287,7 +287,11 @@ def rsi(period):
             answer_np[x, 3] = 0
         else:
             answer_np[x, 3] = average_loss / period
-        answer_np[x, 4] = 100 - (100 / (1 + (answer_np[x, 2] / answer_np[x, 3])))
+
+        gain_smoothed = ((answer_np[x - 1, 2] * period - 1) + answer_np[x, 2])
+        loss_smoothed = ((answer_np[x - 1, 3] * period - 1) + answer_np[x, 3])
+        answer_np[x, 4] = 100 - (100 / (1 + (gain_smoothed / loss_smoothed)))
+
     answer_df = pd.DataFrame(answer_np[:, 4], columns=['RSI_' + str(period)])
     return answer_df
 
