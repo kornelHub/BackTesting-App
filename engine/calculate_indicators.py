@@ -358,26 +358,23 @@ def cci(period):
     return pd.DataFrame(answer_np[:, 3], columns=['CCI_' + str(period)])
 
 
-def stoch_rsi(length_rsi, length_stoch, smooth_k, smooth_d):
+def stoch_rsi(length_rsi, length_stoch,):
     length_rsi = int(length_rsi)
     length_stoch = int(length_stoch)
-    smooth_k = int(smooth_k)
-    smooth_d = int(smooth_d)
     answer_df = rsi(length_rsi)
-    answer_df[['max_rsi', 'smooth_rsi', 'min_rsi', 'stoch_rsi', 'smooth_stoch_rsi']] = 0
+    answer_df[['max_rsi', 'min_rsi', 'stoch_rsi']] = 0
 
-    # rsi[0], smooth_rsi[1] max_rsi[2], min_rsi[3], stoch_rsi[4], smooth_stoch_rsi[5]
+    # rsi[0], max_rsi[1], min_rsi[2], stoch_rsi[3]
     answer_np = answer_df.to_numpy()
 
     for x in range(length_rsi + length_stoch - 1, len(answer_np)):
-        answer_np[x][1] = np.mean(answer_np[x - smooth_k + 1:x + 1, 0])
-        answer_np[x][2] = max(answer_np[x - length_stoch + 1: x + 1, 1])
-        answer_np[x][3] = min(answer_np[x - length_stoch + 1: x + 1, 1])
-        answer_np[x][4] = (answer_np[x][1] - answer_np[x][3]) / (answer_np[x][2] - answer_np[x][3])
-        answer_np[x][5] = np.mean(answer_np[x - smooth_d + 1:x + 1, 4])
+        # answer_np[x][1] = np.mean(answer_np[x - smooth_k + 1:x + 1, 0])
+        answer_np[x][1] = max(answer_np[x - length_stoch + 1: x + 1, 0])
+        answer_np[x][2] = min(answer_np[x - length_stoch + 1: x + 1, 0])
+        answer_np[x][3] = (answer_np[x][0] - answer_np[x][2]) / (answer_np[x][1] - answer_np[x][2])
 
-    return pd.DataFrame(answer_np[:,5], columns=['StochRSI_{}_{}_{}_{}'
-                        .format(length_rsi, length_stoch, smooth_k, smooth_d)])
+    return pd.DataFrame(answer_np[:,3], columns=['StochRSI_{}_{}'
+                        .format(length_rsi, length_stoch)])
 
 
 def wr(period):
