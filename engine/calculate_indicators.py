@@ -351,8 +351,8 @@ def cci(period):
     # typical_price[0], sma_of_typical_price[1], mean_deviation[2], cci[3]
     answer_np = answer_df.to_numpy()
     for x in range(period + period - 2, len(answer_np)):
-        mean_deviation = np.full((period), answer_np[x, 1])
-        answer_np[x, 2] = np.sum(np.abs(answer_np[x - period + 1:x + 1, 0] - mean_deviation)) / period
+        sma_for_current_x = np.full((period), answer_np[x, 1])
+        answer_np[x, 2] = np.sum(np.abs(answer_np[x - period + 1:x + 1, 0] - sma_for_current_x)) / period
         answer_np[x, 3] = (answer_np[x, 0] - answer_np[x, 1]) / (0.015 * answer_np[x, 2])
 
     return pd.DataFrame(answer_np[:, 3], columns=['CCI_' + str(period)])
