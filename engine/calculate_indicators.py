@@ -288,8 +288,8 @@ def rsi(period):
         else:
             answer_np[x, 3] = average_loss / period
 
-        gain_smoothed = ((answer_np[x - 1, 2] * period - 1) + answer_np[x, 1])
-        loss_smoothed = ((answer_np[x - 1, 3] * period - 1) + answer_np[x, 1])
+        gain_smoothed = ((np.mean(answer_np[x-period: x-1, 2]) * period - 1) + answer_np[x, 1])
+        loss_smoothed = ((np.mean(answer_np[x-period: x-1, 3]) * period - 1) + answer_np[x, 1])
         answer_np[x, 4] = 100 - (100 / (1 + (gain_smoothed / loss_smoothed)))
 
     answer_df = pd.DataFrame(answer_np[:, 4], columns=['RSI_' + str(period)])
