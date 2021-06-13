@@ -418,7 +418,7 @@ def evm(period, divisor):
     answer_df['emv_1period'] = 0
     answer_df['sma_of_emv'] = 0
 
-    # High[0], Close[1], Volume[2], distance_moved[3], emv_1period[4], sma_of_emv[5]
+    # High[0], Low[1], Volume[2], distance_moved[3], emv_1period[4], sma_of_emv[5]
     answer_np = answer_df.to_numpy()
     for x in range(1, len(answer_np)):
         answer_np[x, 3] = ((answer_np[x, 0] + answer_np[x, 1]) / 2) - ((answer_np[x-1, 0] + answer_np[x-1, 1]) / 2)
