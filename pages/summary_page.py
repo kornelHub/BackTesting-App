@@ -20,6 +20,8 @@ class Summary_Page(Base, Form):
         self.setWindowTitle('BackTesting Application')
         self.buy_rules_treeWidget.setHeaderItem(QtWidgets.QTreeWidgetItem(['Buy rules', 'Rule ID']))
         self.sell_rules_treeWidget.setHeaderItem(QtWidgets.QTreeWidgetItem(['Sell rules', 'Rule ID']))
+        self.trades_dict = ''
+        self.html_of_graphs = ''
 
 
     def display_buy_and_sell_rules(self, buy_rules, sell_rules, sell_simulation_settings):
@@ -206,10 +208,11 @@ class Summary_Page(Base, Form):
                                                                  balance_list,
                                                                  currency_2_symbol)
         self.summary_balance_graph.setHtml(html_of_graphs)
-        main_window_object.save_button.clicked.connect(lambda: self.generate_html_report(html_of_graphs, trades_dict))
+        self.html_of_graphs = html_of_graphs
+        self.trades_dict = trades_dict
 
 
-    def generate_html_report(self, html_of_graphs, trades_dict):
+    def generate_html_report(self):
         path_to_file = QFileDialog.getSaveFileName(self,
                                                    'Save simulation report',
                                                    current_dir[:-5] + "\data\\reports",
@@ -219,11 +222,11 @@ class Summary_Page(Base, Form):
         if not path_to_file[0]:
             return False
 
-        if trades_dict['buy_trades'][-1]['index'] > trades_dict['sell_trades'][-1]['index']:
-            max_spaces = len(str(trades_dict['buy_trades'][-1]['index'])) + 4
+        if self.trades_dict['buy_trades'][-1]['index'] > self.trades_dict['sell_trades'][-1]['index']:
+            max_spaces = len(str(self.trades_dict['buy_trades'][-1]['index'])) + 4
         else:
-            max_spaces = len(str(trades_dict['sell_trades'][-1]['index'])) + 4
-        generate_html_report_to_file(self, html_of_graphs, max_spaces, path_to_file[0])
+            max_spaces = len(str(self.trades_dict['sell_trades'][-1]['index'])) + 4
+        generate_html_report_to_file(self, self.html_of_graphs, max_spaces, path_to_file[0])
 
 
 if __name__ == '__main__':

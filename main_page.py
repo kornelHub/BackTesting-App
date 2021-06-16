@@ -27,6 +27,7 @@ class MainWidget(Base, Form):
         self.load_data_button.clicked.connect(lambda: self.load_data_from_file())
         self.next_page_btn.clicked.connect(lambda: self.display_next_stacked_widget())
         self.previous_page_btn.clicked.connect(lambda: self.display_previous_stacked_widget())
+        self.save_button.clicked.connect(lambda: self.summary_page.generate_html_report())
 
         # Strategy page
         self.strategy_page.p2_add_buy_rule.clicked.connect(
