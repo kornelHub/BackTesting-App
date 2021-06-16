@@ -1,0 +1,56 @@
+{
+    "buy_rules": [
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000170D5BF7048>",
+            "rule_text": "SAR (0.02, 0.2) [0] <= Close (-) [0]",
+            "qTreeWidgetItem_Parent": "None",
+            "if_statement": "",
+            "id_rule": "b_0"
+        },
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000170D5BFCAC8>",
+            "rule_text": "SAR (0.02, 0.2) [-1] >= Open (-) [-1]",
+            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000170D5BF7048>",
+            "if_statement": "",
+            "id_rule": "b_1"
+        }
+    ],
+    "buy_settings": [
+        {
+            "price_source": "Open",
+            "fee": "0.1",
+            "fee_unit": "%",
+            "starting_balance": "0"
+        }
+    ],
+    "sell_rules": [
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000170D5BFC588>",
+            "rule_text": "SAR (0.02, 0.2) [0] >= Open (-) [0]",
+            "qTreeWidgetItem_Parent": "None",
+            "if_statement": "",
+            "id_rule": "s_0"
+        },
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000170D5A7C108>",
+            "rule_text": "SAR (0.02, 0.2) [-1] <= Close (-) [-1]",
+            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000170D5BFC588>",
+            "if_statement": "",
+            "id_rule": "s_1"
+        }
+    ],
+    "sell_settings": [
+        {
+            "price_source": "Open",
+            "fee": "0.1",
+            "fee_unit": "%",
+            "starting_balance": "1000",
+            "is_stop_loss_selected": false,
+            "stop_loss": "",
+            "stop_loss_unit": "",
+            "is_take_profit_selected": false,
+            "take_profit": "",
+            "take_profit_unit": ""
+        }
+    ]
+}

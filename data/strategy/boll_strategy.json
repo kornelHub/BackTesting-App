@@ -1,0 +1,42 @@
+{
+    "buy_rules": [
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000293C59581C8>",
+            "rule_text": "BOLL - Lower Band (21, 2) [0] <= Low (-) [0]",
+            "qTreeWidgetItem_Parent": "None",
+            "if_statement": "",
+            "id_rule": "b_0"
+        }
+    ],
+    "buy_settings": [
+        {
+            "price_source": "Open",
+            "fee": "0.1",
+            "fee_unit": "%",
+            "starting_balance": "0"
+        }
+    ],
+    "sell_rules": [
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000293C59580C8>",
+            "rule_text": "BOLL - Upper Band (21, 2) [0] >= High (-) [0]",
+            "qTreeWidgetItem_Parent": "None",
+            "if_statement": "",
+            "id_rule": "s_0"
+        }
+    ],
+    "sell_settings": [
+        {
+            "price_source": "Open",
+            "fee": "0.1",
+            "fee_unit": "%",
+            "starting_balance": "1000",
+            "is_stop_loss_selected": false,
+            "stop_loss": "",
+            "stop_loss_unit": "",
+            "is_take_profit_selected": false,
+            "take_profit": "",
+            "take_profit_unit": ""
+        }
+    ]
+}
