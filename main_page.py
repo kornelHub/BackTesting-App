@@ -5,8 +5,14 @@ from PySide2.QtWidgets import QFileDialog
 import utilities.helpers
 from PySide2 import QtXml
 
+# current_dir = os.environ.get(
+#             "_MEIPASS2",
+#             os.path.abspath(".")
+#         )
+# print(current_dir)
+# print(os.path.join(current_dir, "ui\mainWindow.ui"))
 current_dir = os.path.dirname(os.path.abspath(__file__))
-Form, Base = loadUiType(os.path.join(current_dir, "ui/mainWindow.ui"))
+Form, Base = loadUiType(os.path.join(current_dir, "ui\mainWindow.ui"))
 
 class MainWidget(Base, Form):
     def __init__(self, parent=None):

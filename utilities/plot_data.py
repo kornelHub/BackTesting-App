@@ -58,6 +58,8 @@ def plot_ohlc_and_balance_with_transactions(ohlcv_data, trades_dict, list_of_pro
 
     balance_change_date_list = []
     balance_list = []
+    starting_balance = trades_dict['buy_trades'][0]['currency_1'] * trades_dict['buy_trades'][0]['price'] + \
+                       trades_dict['buy_trades'][0]['currency_2']
     for x in list_of_profit:
         balance_change_date_list.append(convert_milliseconds_to_date(ohlcv_data['Opentime'].loc[ohlcv_data.index == x[0]].values[0]))
         balance_list.append(x[1])
@@ -82,7 +84,7 @@ def plot_ohlc_and_balance_with_transactions(ohlcv_data, trades_dict, list_of_pro
     # balance plot
     fig.add_trace(go.Scatter(mode='lines', x=balance_change_date_list, y=balance_list, name='Account',
                              marker=dict(color='LightSeaGreen')), row=1, col=1)
-    fig.add_shape(type='line', x0=balance_change_date_list[0], y0=balance_list[0], x1=balance_change_date_list[-1], y1=balance_list[0],
+    fig.add_shape(type='line', x0=ohlcv_data['Opentime'][0], y0=starting_balance, x1=ohlcv_data['Opentime'][len(ohlcv_data)-1], y1=starting_balance,
                   line=dict(color='black', dash='dot'), row=1, col=1)
     fig.add_trace(go.Scatter(mode='markers', x=sells_time, y=sells_amount_in_currency_2, text=sell_hovertemplate,
                              hovertemplate='%{text}',
