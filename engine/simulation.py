@@ -106,6 +106,9 @@ def build_if_statement(first_indicator_short_name, first_indicator_options_list,
         second_indicator_period = second_indicator_period[1:-1]  # remove square bracket
         if_statement_second_part = f" data_df.iloc[x+{second_indicator_period}]['{second_indicator_collumn_name}']:"
 
+    if math_char == '=':
+        math_char += '='
+
     if_statement = if_statement_first_part + math_char + if_statement_second_part
     return if_statement
 
