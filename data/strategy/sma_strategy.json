@@ -1,0 +1,98 @@
+{
+    "buy_rules": [
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86D48>",
+            "rule_text": "SMA (7, Open) [0] >= SMA (7, Open) [-1]",
+            "qTreeWidgetItem_Parent": "None",
+            "if_statement": "",
+            "id_rule": "b_0"
+        },
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86D88>",
+            "rule_text": "SMA (7, Open) [-1] <= SMA (7, Open) [-2]",
+            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86D48>",
+            "if_statement": "",
+            "id_rule": "b_1"
+        },
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86C08>",
+            "rule_text": "SMA (7, Open) [-2] <= SMA (7, Open) [-3]",
+            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86D88>",
+            "if_statement": "",
+            "id_rule": "b_2"
+        },
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86E48>",
+            "rule_text": "SMA (7, Open) [-3] <= SMA (7, Open) [-4]",
+            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86C08>",
+            "if_statement": "",
+            "id_rule": "b_3"
+        },
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86EC8>",
+            "rule_text": "SMA (7, Open) [-4] <= SMA (7, Open) [-5]",
+            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86E48>",
+            "if_statement": "",
+            "id_rule": "b_4"
+        }
+    ],
+    "buy_settings": [
+        {
+            "price_source": "Open",
+            "fee": "0.1",
+            "fee_unit": "%",
+            "starting_balance": "0"
+        }
+    ],
+    "sell_rules": [
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86F08>",
+            "rule_text": "SMA (7, Open) [0] <= SMA (7, Open) [-1]",
+            "qTreeWidgetItem_Parent": "None",
+            "if_statement": "",
+            "id_rule": "s_0"
+        },
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86F48>",
+            "rule_text": "SMA (7, Open) [-1] >= SMA (7, Open) [-2]",
+            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86F08>",
+            "if_statement": "",
+            "id_rule": "s_1"
+        },
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86F88>",
+            "rule_text": "SMA (7, Open) [-2] >= SMA (7, Open) [-3]",
+            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86F48>",
+            "if_statement": "",
+            "id_rule": "s_2"
+        },
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86FC8>",
+            "rule_text": "SMA (7, Open) [-3] >= SMA (7, Open) [-4]",
+            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86F88>",
+            "if_statement": "",
+            "id_rule": "s_3"
+        },
+        {
+            "qTreeWidgetItem": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86E88>",
+            "rule_text": "SMA (7, Open) [-4] >= SMA (7, Open) [-5]",
+            "qTreeWidgetItem_Parent": "<PySide2.QtWidgets.QTreeWidgetItem object at 0x00000202DBD86FC8>",
+            "if_statement": "",
+            "id_rule": "s_4"
+        }
+    ],
+    "sell_settings": [
+        {
+            "price_source": "Open",
+            "fee": "0.1",
+            "fee_unit": "%",
+            "starting_balance": "1000",
+            "is_stop_loss_selected": false,
+            "stop_loss": "",
+            "stop_loss_unit": "",
+            "is_take_profit_selected": false,
+            "take_profit": "",
+            "take_profit_unit": ""
+        }
+    ]
+}
