@@ -3,13 +3,8 @@ from PySide2 import QtGui, QtWidgets, QtCore
 from PySide2.QtUiTools import loadUiType
 from PySide2.QtWidgets import QFileDialog
 import utilities.helpers
-from PySide2 import QtXml
-from PyQt5 import uic
 
-current_dir = os.environ.get(
-            "_MEIPASS2",
-            os.path.abspath(".")
-        )
+current_dir = os.path.dirname(os.path.abspath(__file__))
 Form, Base = loadUiType(os.path.join(current_dir, "ui", "mainWindow.ui"))
 
 class MainWidget(Base, Form):
