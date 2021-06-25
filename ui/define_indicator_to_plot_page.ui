@@ -2049,7 +2049,7 @@ border: 0px sold;
 border-radius: 10px;</string>
               </property>
               <property name="text">
-               <string>Add next indictor</string>
+               <string>Add next indicator</string>
               </property>
              </widget>
             </item>
