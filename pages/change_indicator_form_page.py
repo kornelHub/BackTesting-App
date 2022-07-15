@@ -26,6 +26,8 @@ class Change_Indicator_Form_Page(Base, Form):
         #set up validator for input fields
         if indicator == 'SAR (Stop and Reverse)':
             number_regular_expression = QRegExp('^[0][.][0-9]{0,5}$')
+        elif indicator == 'Value (Plain integer or double)':
+            number_regular_expression = QRegExp('')
         else:
             number_regular_expression = QRegExp('^(0|[1-9][0-9]{0,9})$')
 

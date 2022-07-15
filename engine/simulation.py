@@ -409,7 +409,7 @@ def init_simulation(main_window_object):
                          glue_if_statements(buy_rules['buy_rules'], 'buy'),
                          glue_if_statements(sell_rules['sell_rules'], 'sell'),
                          sell_simulation_settings)
-    # print(code)
+    print(code)
     # print(data_df.to_string())
     exec(code)
     # print(json.dumps(trades_dict, indent=4))
