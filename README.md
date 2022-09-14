@@ -8,6 +8,11 @@ Purpose of this app is to check algorythmic strategy for cryptocurencies. App us
 ```bash
 Python 3.7.10
 ```
+## Run App:
+Navigate to folder when is project and then run:
+```bash
+python main_page.py
+```
 ## Needed libraries
 ```bash
 Package         Version
